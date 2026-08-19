@@ -1,0 +1,164 @@
+<title>Ball Assets</title>
+<style>
+  :root{
+    --bg:#0B0E12; --panel:#161B22; --border:#30363D; --ink:#E6EDF3; --dim:#8B949E;
+    --accent:#F7D02C; --line:#1A1A1A;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;padding:32px 20px 64px;background:var(--bg);color:var(--ink);
+    font:15px/1.6 ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  .wrap{max-width:1000px;margin:0 auto}
+  h1{font-size:22px;letter-spacing:.14em;text-transform:uppercase;margin:0 0 6px}
+  .sub{color:var(--dim);margin:0 0 28px;font-size:14px}
+  h2{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);
+    margin:36px 0 14px;padding-bottom:8px;border-bottom:2px solid var(--border)}
+  .grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .card{background:var(--panel);border:2px solid var(--border);border-radius:4px;
+    padding:14px;display:flex;gap:14px;align-items:flex-start}
+  .art{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:6px;width:76px}
+  .row{display:flex;align-items:center;gap:10px}
+  .name{font-weight:700;letter-spacing:.06em;font-size:13px;text-transform:uppercase;margin:0 0 2px}
+  .how{color:var(--accent);font-size:12px;font-weight:600;margin:0 0 6px}
+  .desc{color:var(--dim);font-size:13px;margin:0}
+  .tag{font-size:10px;color:var(--dim);letter-spacing:.1em;text-transform:uppercase}
+  img.og{image-rendering:pixelated;width:40px;height:40px}
+  .scale{display:flex;align-items:baseline;gap:16px;background:var(--panel);
+    border:2px solid var(--border);border-radius:4px;padding:16px;flex-wrap:wrap}
+  .note{background:var(--panel);border:2px solid var(--border);border-left:4px solid var(--accent);
+    border-radius:4px;padding:14px 16px;margin:14px 0;font-size:14px}
+  code{background:#0d1117;border:1px solid var(--border);border-radius:3px;padding:1px 5px;font-size:12px}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="ball" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="#F4F4F4" stroke="var(--line)" stroke-width="5"/>
+  <path d="M5,50 A45,45 0 0,1 95,50 Z" fill="var(--top)"/>
+  <path d="M5,50 h90" stroke="var(--line)" stroke-width="7" fill="none"/>
+  <circle cx="50" cy="50" r="14" fill="#F4F4F4" stroke="var(--line)" stroke-width="6"/>
+  <circle cx="50" cy="50" r="6" fill="var(--btn,#D8D8D8)"/>
+</symbol>
+</defs></svg>
+
+<div class="wrap">
+<h1>Ball assets</h1>
+<p class="sub">Same SVG, thirteen times. Only <code>--top</code> and <code>--btn</code> change.
+Each shown drawn (48px + 20px) next to the original PokéAPI sprite for comparison.</p>
+
+<h2>Scale test — the actual argument</h2>
+<div class="scale">
+  <span style="--top:#7BC24A"><svg width="96" height="96"><use href="#ball"/></svg></span>
+  <span style="--top:#7BC24A"><svg width="48" height="48"><use href="#ball"/></svg></span>
+  <span style="--top:#7BC24A"><svg width="24" height="24"><use href="#ball"/></svg></span>
+  <span style="--top:#7BC24A"><svg width="16" height="16"><use href="#ball"/></svg></span>
+  <span style="margin-left:8px">
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/nest-ball.png"
+         style="width:96px;height:96px" alt="Nest Ball, original sprite at 96px">
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/nest-ball.png"
+         alt="Nest Ball, original sprite at 40px">
+  </span>
+</div>
+<div class="note"><strong>This is the whole decision.</strong> The drawn ball is sharp at 96px, 48px, 24px
+and 16px. The original sprite is ~30px of pixel art — fine small, mushy when scaled up. You need
+a ball in the header <em>and</em> inline at 16px next to an employer name, so the SVG wins on
+practicality before any licensing argument.</div>
+
+<h2>How you got hired — 7 mapped</h2>
+<div class="grid">
+
+  <div class="card"><div class="art" style="--top:#7BC24A">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/nest-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Nest Ball</p><p class="how">On-campus placement</p>
+    <p class="desc">Works better the lower the target's level — and catches it in its own nest.
+    Campus recruiting, exactly. <strong>Yours.</strong></p></div></div>
+
+  <div class="card"><div class="art" style="--top:#2B2B2B;--btn:#F5C518">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/ultra-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Ultra Ball</p><p class="how">Off-campus application</p>
+    <p class="desc">The high-performance ball you reach for when the catch is genuinely harder.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#57C25A;--btn:#E24A4A">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/friend-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Friend Ball</p><p class="how">Referral</p>
+    <p class="desc">The ball that arrives via a friend. Needs no interpretation.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#E8A33D">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/repeat-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Repeat Ball</p><p class="how">Intern → full-time (PPO)</p>
+    <p class="desc">More effective on a species you have already caught. They already had you.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#D85C33">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/sport-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Sport Ball</p><p class="how">Hackathon or contest</p>
+    <p class="desc">Used exclusively in the Bug-Catching <em>Contest</em>.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#3E8FD4;--btn:#F5C518">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/quick-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Quick Ball</p><p class="how">Cold outreach — you went first</p>
+    <p class="desc">Strongest on the very first turn of the encounter.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#F0F0F0;--btn:#E24A4A">
+    <svg width="48" height="48"><use href="#ball"/></svg>
+    <img class="og" src="https://cdn.jsdelivr.net/gh/PokeAPI/sprites@master/sprites/items/timer-ball.png" alt="">
+    <span class="tag">drawn / og</span></div>
+    <div><p class="name">Timer Ball</p><p class="how">Months-long process</p>
+    <p class="desc">Gets stronger the longer the battle runs.</p></div></div>
+
+</div>
+
+<h2>Also available</h2>
+<div class="grid">
+  <div class="card"><div class="art" style="--top:#EE1515">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">poké</span></div>
+    <div><p class="name">Poké Ball</p><p class="how">Standard hire</p>
+    <p class="desc">Nothing unusual about how it happened.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#3B5CA8">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">great</span></div>
+    <div><p class="name">Great Ball</p><p class="how">Competitive process</p>
+    <p class="desc">A step up from standard.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#6E3D9E;--btn:#E86FA8">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">master</span></div>
+    <div><p class="name">Master Ball</p><p class="how">Dream company</p>
+    <p class="desc">Never fails. Use once.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#4FB6D9">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">dive</span></div>
+    <div><p class="name">Dive Ball</p><p class="how">Career switch</p>
+    <p class="desc">For catching somewhere entirely different.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#1A1A1A;--btn:#D4AF37">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">luxury</span></div>
+    <div><p class="name">Luxury Ball</p><p class="how">Great comp or culture</p>
+    <p class="desc">Raises friendship faster than any other.</p></div></div>
+
+  <div class="card"><div class="art" style="--top:#4A6B8A">
+    <svg width="48" height="48"><use href="#ball"/></svg><span class="tag">heavy</span></div>
+    <div><p class="name">Heavy Ball</p><p class="how">Enormous org, slow machine</p>
+    <p class="desc">Made for targets with serious weight behind them.</p></div></div>
+</div>
+
+<h2>Why every ball carries a description</h2>
+<div class="note">You're right that the icons are meaningless alone — almost nobody reads a Nest Ball
+and thinks "on-campus." So the ball <strong>never appears without its label.</strong> At rest it
+shows <code>NEST BALL · On-campus</code>; hovering or tapping opens the full canon reason. This is
+the §7.5 legibility rule: <strong>a tooltip explains, it never stores.</strong> The meaning is on
+screen before anyone interacts.</div>
+
+<h2>Cost</h2>
+<div class="note">One <code>&lt;symbol&gt;</code>, about 6 lines. Thirteen balls = thirteen
+two-property CSS rules. Total footprint under 1 KB, zero network requests, and it recolours with
+the version skins. The original sprites are 13 files at ~280 B each, fixed forever at ~30 px.</div>
+</div>
