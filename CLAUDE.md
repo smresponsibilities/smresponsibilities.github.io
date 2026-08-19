@@ -40,6 +40,55 @@ PR bodies, and every file in the repo. Also drop caveman for security warnings, 
 of irreversible actions, and ordered multi-step instructions where clipped fragments could be
 misread — then resume immediately. See `BUILD.md` §0.1.
 
+## Handoff — required at the end of every session
+
+Work happens one ticket per session, in a fresh context. Nothing carries over except what is
+written down, so **every session ends by writing its handoff.** A session that finished work
+but skipped this is not finished.
+
+Two writes, both small. Do not build a bureaucracy around them.
+
+**1. Append `## Handoff` to the ticket file** you worked on, before marking it resolved:
+
+```markdown
+## Handoff
+
+**Built:** what now works, in one or two lines.
+**Deviated:** anything built differently from `BUILD.md`, and why. "Nothing" is a fine answer.
+**Watch out:** anything the next ticket needs to know that is not already written down.
+```
+
+**2. Overwrite `.scratch/sm-dex/HANDOFF.md`** with the current state of the whole effort. This
+file is always the present tense — replace it, never append to it:
+
+```markdown
+# Handoff — <date>, after ticket <NN>
+
+## State
+Resolved: 01, 02
+Frontier: 03, 09, 11
+In flight: none
+
+## Last session
+One paragraph. What changed and why.
+
+## Not yet written down
+Decisions made this session that are not in `BUILD.md` or `DECISIONS.md` yet. Empty is good —
+if this section keeps filling up, the specs are drifting and should be updated instead.
+
+## Next
+The single most useful next action.
+```
+
+Do not restate anything already captured in a spec, a ticket, or a commit message. Reference it
+by path. The handoff is for what would otherwise be lost.
+
+A fresh session reads `CLAUDE.md`, then `HANDOFF.md`, then its ticket.
+
+**`/handoff` is a different thing.** That skill compacts a long conversation into a document in
+the OS temp directory, for when a single session runs out of room mid-task. It does not replace
+the two writes above, which live in the repo and survive.
+
 ## Agent skills
 
 ### Issue tracker

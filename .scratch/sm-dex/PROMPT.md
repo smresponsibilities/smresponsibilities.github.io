@@ -9,9 +9,10 @@ redo it. Your job is to build one ticket.
 
 **Read first, in this order:**
 
-1. `CLAUDE.md` — project overview, doc reading order, communication style
-2. `BUILD.md` — the implementation spec. It wins any conflict with anything else.
-3. `.scratch/sm-dex/issues/01-scaffold-and-deploy.md` — your ticket
+1. `CLAUDE.md` — project overview, doc reading order, communication style, handoff rules
+2. `.scratch/sm-dex/HANDOFF.md` — current state of the effort, written by the last session
+3. `BUILD.md` — the implementation spec. It wins any conflict with anything else.
+4. `.scratch/sm-dex/issues/01-scaffold-and-deploy.md` — your ticket
 
 Read `DECISIONS.md` only if you want to change something. Every alternative you are likely to
 suggest is already in there with the reason it lost. `PLAN.md` is background and you probably
@@ -19,8 +20,13 @@ do not need it.
 
 **Before you start:** set `Status: claimed` in the ticket file and save it.
 
-**Build exactly the ticket.** Not the next one, not a helpful extra. When every acceptance
-checkbox is genuinely true, tick them, set `Status: resolved`, and commit. Then stop and report.
+**Build exactly the ticket.** Not the next one, not a helpful extra.
+
+**Finish properly.** When every acceptance checkbox is genuinely true: tick them, append a
+`## Handoff` block to the ticket file, overwrite `.scratch/sm-dex/HANDOFF.md` with the new
+state, set `Status: resolved`, then commit. Both handoff writes are required — the format is in
+`CLAUDE.md`. The next session starts with an empty context and inherits only what you wrote
+down. Then stop and report.
 
 **Hard rules from `BUILD.md` §0 — these are decisions, not defaults.** No Tailwind. No React,
 Vue or Svelte. No tooltip library — the native Popover API covers it. No animation or charting
