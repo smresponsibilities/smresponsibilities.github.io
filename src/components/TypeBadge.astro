@@ -1,0 +1,25 @@
+---
+import type { PokemonType } from '../lib/types';
+
+interface Props {
+  type: PokemonType;
+}
+
+const { type } = Astro.props;
+---
+
+<span class="type-badge" style={`border-color: var(--t-${type})`}>{type.toUpperCase()}</span>
+
+<style>
+  .type-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    background: var(--panel);
+    color: var(--ink);
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+</style>

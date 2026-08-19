@@ -10,11 +10,11 @@ ugly at this stage.
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** claimed
 
-- [ ] Astro project builds with no type errors
-- [ ] Name, species and both types come from data, not markup
-- [ ] An invalid type value fails the build - verify by temporarily breaking one
-- [ ] Design tokens defined; no hard-coded colour outside the token files
+- [x] Astro project builds with no type errors
+- [x] Name, species and both types come from data, not markup
+- [x] An invalid type value fails the build - verify by temporarily breaking one
+- [x] Design tokens defined; no hard-coded colour outside the token files
 - [ ] Pushing to main deploys automatically and a public URL serves the page
-- [ ] Lighthouse accessibility >= 95
+- [x] Lighthouse accessibility >= 95

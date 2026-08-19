@@ -1,0 +1,29 @@
+:root {
+  /* structure — constant across skins */
+  --border-w: 2px;
+  --radius:   4px;
+  --gap:      12px;
+  --screen-pad: 16px;
+
+  /* palette — overridden per skin */
+  --bg:      #0B0E12;
+  --panel:   #161B22;
+  --border:  #30363D;
+  --ink:     #E6EDF3;
+  --dim:     #8B949E;
+  --accent:  #F7D02C;
+  --screen:  #0D1117;   /* the "LCD" area */
+  --stream:  #1F6FEB;   /* background animation colour */
+  --line:    #1A1A1A;   /* ball outlines */
+
+  /* typography */
+  --font-display: "Press Start 2P", monospace;
+  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  /* the 18 type colours — canon values, do not adjust */
+  --t-normal:#A8A77A; --t-fire:#EE8130; --t-water:#6390F0; --t-electric:#F7D02C;
+  --t-grass:#7AC74C;  --t-ice:#96D9D6;  --t-fighting:#C22E28; --t-poison:#A33EA1;
+  --t-ground:#E2BF65; --t-flying:#A98FF3; --t-psychic:#F95587; --t-bug:#A6B91A;
+  --t-rock:#B6A136;   --t-ghost:#735797; --t-dragon:#6F35FC; --t-dark:#705746;
+  --t-steel:#B7B7CE;  --t-fairy:#D685AD;
+}
