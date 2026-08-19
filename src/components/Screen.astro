@@ -1,0 +1,40 @@
+---
+// The device shell: two stacked screens. Single column on narrow viewports,
+// side by side once there's room (BUILD.md §2, ticket 02).
+---
+
+<div class="device">
+  <section class="screen screen--top" aria-label="Top screen">
+    <slot name="top" />
+  </section>
+  <section class="screen screen--bottom" aria-label="Bottom screen">
+    <slot name="bottom" />
+  </section>
+</div>
+
+<style>
+  .device {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--gap);
+    max-width: var(--device-max);
+    margin-inline: auto;
+    padding: var(--gap);
+  }
+
+  @media (min-width: 768px) {
+    .device {
+      grid-template-columns: 1fr 1fr;
+      align-items: start;
+    }
+  }
+
+  .screen {
+    min-width: 0;
+    background: var(--screen);
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--screen-pad);
+    overflow-wrap: anywhere;
+  }
+</style>

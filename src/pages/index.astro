@@ -1,23 +1,23 @@
 ---
 import Base from '../layouts/Base.astro';
+import Screen from '../components/Screen.astro';
 import TypeBadge from '../components/TypeBadge.astro';
 import { me } from '../lib/me';
 ---
 
 <Base title={`${me.name} | SM'S DEX`}>
-  <main>
-    <h1>{me.name}</h1>
-    <p>{me.species}</p>
-    <div class="types">
-      {me.types.map((type) => <TypeBadge type={type} />)}
-    </div>
-  </main>
+  <Screen>
+    <Fragment slot="top">
+      <h1>{me.name}</h1>
+      <p>{me.species}</p>
+      <div class="types">
+        {me.types.map((type) => <TypeBadge type={type} />)}
+      </div>
+    </Fragment>
+  </Screen>
 </Base>
 
 <style>
-  main {
-    padding: var(--screen-pad);
-  }
   .types {
     display: flex;
     gap: var(--gap);

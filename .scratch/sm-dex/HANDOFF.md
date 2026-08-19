@@ -1,31 +1,33 @@
-# Handoff — 2026-08-19, after ticket 01
+# Handoff — 2026-08-19, after ticket 02
 
 ## State
 
-Resolved: 01
-Frontier: 02
+Resolved: 01, 02
+Frontier: 03
 In flight: none
 
 ## Last session
 
-Scaffolded Astro 7 + TypeScript into the repo root, added `src/styles/tokens.css` (design
-tokens, no hard-coded colour elsewhere), and built the tracer bullet: `/` reads name, species
-and both types from `src/data/me.json` through a Zod-validated schema (`src/lib/me.ts`), so a
-bad type value fails the build. Created the public repo
-[`smresponsibilities.github.io`](https://github.com/smresponsibilities/smresponsibilities.github.io),
-wired `.github/workflows/deploy.yml` (withastro/action → actions/deploy-pages), set GitHub Pages
-source to Actions, and confirmed the site is live at https://smresponsibilities.github.io/ with
-Lighthouse accessibility 100. Full detail and deviations are in the ticket's `## Handoff`
-section: [`.scratch/sm-dex/issues/01-scaffold-and-deploy.md`](issues/01-scaffold-and-deploy.md).
+Built the two-screen device shell: `src/components/Screen.astro` (top/bottom named slots, CSS
+grid — single column under 768px, side-by-side at 768px+), wired `<ClientRouter />` into
+`Base.astro` for soft page transitions, and added a minimal site-wide header (`SM'S DEX`
+wordmark, linked home) since the shell needed at least one real interactive element to make
+"touch targets ≥ 44px" and "page navigation animates" checkable. `index.astro`'s ticket-01
+content now renders inside `Screen`'s `top` slot; `bottom` is empty, waiting for tickets 04+.
+Verified no horizontal scroll at 375/768/1280px and confirmed the transition is a real soft-swap
+(not a hard reload) via a temporary test page, deleted before commit. Full detail and deviations
+— especially why the header exists and why touch targets aren't a blanket CSS rule — are in
+[`.scratch/sm-dex/issues/02-device-shell.md`](issues/02-device-shell.md)'s `## Handoff` section.
 
 ## Not yet written down
 
-Nothing new. `content.config.ts` (BUILD.md §3) was deliberately deferred rather than decided
-differently — see ticket 01's Handoff for which future ticket owns it.
+Nothing new. Two tokens were added to `tokens.css` (`--tap`, `--device-max`) as an additive
+extension of the existing "structure" group, not a deviation from the locked colour palette —
+noted in the ticket, not worth a `DECISIONS.md` entry.
 
 ## Content still owed by the user
 
-Unchanged from before ticket 01, still doesn't block 02 or 03:
+Unchanged, still doesn't block 03:
 
 - Nature — 25 options listed in `SPEC.md` §7.5
 - Weaknesses / resistances / immunity
@@ -35,6 +37,7 @@ Unchanged from before ticket 01, still doesn't block 02 or 03:
 
 ## Next
 
-Take ticket 02 (`.scratch/sm-dex/issues/02-device-shell.md`): the dual-screen device shell,
-responsive at 375/768/1280 with no horizontal scroll, `<ClientRouter />` transitions, and a
-version selector that persists across reloads with no flash.
+Take ticket 03 (`.scratch/sm-dex/issues/03-identity-and-tooltips.md`): identity details and the
+`Term.astro` tooltip primitive (BUILD.md §6.4, native Popover API) — the first ticket that
+actually needs `--tap` sizing to *not* apply, since `Term` triggers are meant to be small inline
+text.

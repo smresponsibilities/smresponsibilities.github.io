@@ -4,6 +4,8 @@
   --radius:   4px;
   --gap:      12px;
   --screen-pad: 16px;
+  --tap:        44px;   /* minimum touch target */
+  --device-max: 900px;  /* device shell max width */
 
   /* palette — overridden per skin */
   --bg:      #0B0E12;
