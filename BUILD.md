@@ -357,6 +357,99 @@ earlier version of this document said to use it for headings. That was wrong, an
 why Departure Mono replaced it: being monospaced, it holds up at both label and display sizes,
 so one face covers the whole scale.
 
+### 4.2 The craft layer — measured on Linear and rauno.me
+
+Forty lines of CSS that account for most of the difference between "a developer built this" and
+"a designer built this". Measurements in `PLAN.md` §12. **Ship all of it.**
+
+```css
+:root {
+  /* motion — Linear's most-used value is 160ms. Fast, not slow. */
+  --dur-fast: 100ms;   /* colour, opacity, small state flips */
+  --dur-base: 160ms;   /* the default for everything else */
+  --dur-slow: 400ms;   /* entrances, page transitions */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);   /* easeOutQuad */
+
+  --focus: var(--accent);
+}
+
+/* global reset additions */
+*, ::before, ::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;   /* kills the grey flash on mobile tap */
+}
+
+/* focus — never remove it, always offset it */
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+:focus:not(:focus-visible) { outline: none; }
+
+/* a default blue selection on a themed site is a tell */
+::selection { background: var(--accent); color: var(--bg); }
+
+/* numbers that change must not jitter */
+.stat-value, .dex-no, .playtime, .level, .counter {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* modern typographic niceties, one line each */
+h1, h2, h3 { text-wrap: balance; }
+p          { text-wrap: pretty; }
+
+/* chrome is not selectable; content is */
+.label, .badge, .nav, .chrome, .term { user-select: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+```
+
+**Rules that go with it:**
+
+- **Never write `transition: all`.** Name the properties. `all` animates layout properties too,
+  forces reflow every frame, and is the usual cause of janky hover. Linear names every property;
+  this is the one place it is stricter than rauno.me and it is the one that matters.
+- **Transitions are 100–200ms.** Developers reach for 300–500ms and it reads as lag. If
+  something needs to feel slow, it is an entrance, and that is `--dur-slow`.
+- **One easing token.** Not a different curve per component.
+- **`tabular-nums` is load-bearing here**, not decoration: the playtime counter (ticket 17)
+  ticks every second, and proportional digits make the whole line shift on every tick. The stat
+  block has the same problem whenever a value changes.
+- **Everything is a custom property.** The reference sites carry 124 and 173 of them.
+
+### 5.1 State inventory — design these, not just the happy path
+
+The other half of the gap: developer portfolios design one state per screen. Every row below
+needs a deliberate design, and "it will not happen" is not one of them.
+
+| Screen | States that must be designed |
+|---|---|
+| **Every page** | first paint before fonts load (`font-display: swap` — never invisible text) · no-JS · reduced-motion · keyboard-only · 375px · print |
+| **`/`** | title screen (first visit) · title screen skipped (return visit, deep link) · loaded |
+| **Sprite** | loading · loaded · **404 avatar → `UNIDENTIFIED SPECIES` frame** · identicon · shiny hover |
+| **Move list** | **resting — nothing selected** (the bottom screen must not be an empty box) · one selected · expanded · keyboard focus ring · a move with no links, no TM, no level |
+| **Stat block** | all six present · a stat at zero · a stat above its benchmark (bar caps, number does not) |
+| **Encounters** | current role (no end date) · past role · a ball with no reason text (must be impossible — validate) |
+| **Evolution** | stages known · final stage silhouette · a chain with only one stage |
+| **`/dex`** | **empty roster** · one entry · many · an entry whose avatar 404s · shiny entry |
+| **`/dex/[user]`** | first entry (no BACK) · last entry (no NEXT) · shiny · a wrapped page |
+| **`/become`** | untouched · invalid username · stats over budget · randomised · ready to submit · after submit (what does the user see?) |
+| **`/resume`** | screen · **print** · no-JS |
+| **404** | in the dex voice — `NO DATA` / `SPECIES NOT REGISTERED`, not a default Astro error page |
+| **Version selector** | before hydration (no flash of the wrong skin) · each of the four skins at AA contrast |
+
+**The three most likely to be skipped, and the most damaging:**
+
+1. **Move list resting state.** It is on screen the moment anyone loads the site.
+2. **Empty roster.** `/dex` ships before anyone has joined. It must read as an invitation, not
+   as a bug.
+3. **404 in voice.** Cheap, and it is the single most-shared accidental page on any site.
+
 **Skins may only redefine custom properties.** If a skin needs different HTML, stop and flag
 it — that breaks the cost model. One exception is allowed: a single empty `<div class="bezel">`
 that skins may style or leave invisible.

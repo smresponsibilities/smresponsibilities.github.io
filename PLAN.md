@@ -1030,6 +1030,89 @@ generic furniture: pagination, empty states, error pages, the 404.
    face for headings. Departure Mono is monospaced and holds up at both, which is part of why
    it beats Press Start 2P here.
 
+## 12. The craft layer — measured on Linear and rauno.me
+
+§11 covered typography. This covers everything underneath it: the micro-decisions that separate
+a site that looks designed from one that looks assembled. Measured, not asserted.
+
+### 12.1 Linear.app
+
+```
+transition durations   0.1s ×52 · 0.16s ×69 · 0.4s ×25          three, all fast
+easing                 cubic-bezier(.25,.46,.45,.94) ×78        easeOutQuad
+                       ease-out ×25                             two total
+transition-property    fill · color · background · opacity,transform
+                       NEVER "all"
+will-change            transform, on 5 elements only
+
+-webkit-font-smoothing antialiased ×631
+text-rendering         optimizeLegibility ×578
+font-variant-numeric   lining-nums tabular-nums slashed-zero ×21
+font-feature-settings  "cv01","ss03" ×356
+text-wrap              balance ×8 · pretty ×8
+
+user-select: none      ×1980        chrome is not selectable
+tap-highlight          transparent ×3766
+::selection            styled
+:focus-visible         6 rules
+::-webkit-scrollbar    4 rules
+prefers-reduced-motion 4 rules
+custom properties      124
+```
+
+### 12.2 rauno.me
+
+```
+transition durations   0.15s ×20 · 0.2s            two
+easing                 ease-in-out only            one
+:focus-visible         outline: 2px solid var(--colors-focus); outline-offset: 2px
+font-smoothing         antialiased, applied globally in the reset
+::selection            2 rules
+user-select: none      ×89
+custom properties      173  — in only 155 total rules
+prefers-reduced-motion 0 rules
+```
+
+That last line is worth sitting with. A well-regarded interaction designer at Vercel ships
+**zero** reduced-motion rules. Our spec requires them everywhere, so this is one axis where the
+plan is already ahead of the reference.
+
+### 12.3 What both agree on
+
+1. **Transitions are fast.** 100–200ms, not the 300–500ms developers reach for. Linear's
+   most-used value is **160ms**. Anything slower feels like lag rather than polish.
+2. **One or two easings, tokenised.** Not a different curve per component.
+3. **`-webkit-font-smoothing: antialiased` applied globally** in the reset.
+4. **`:focus-visible` uses `outline` plus `outline-offset`** — never `outline: none`.
+5. **`::selection` is styled.** A default blue selection on a themed site is a tell.
+6. **`user-select: none` on chrome, never on content.** Labels, badges and nav are not
+   selectable; body text and contact details are.
+7. **Everything is a custom property.** 124 and 173 respectively.
+
+### 12.4 Where Linear is stricter, and it matters
+
+**Linear never writes `transition: all`.** Every transition names its properties. rauno uses
+`all` 105 times.
+
+Naming the property is not pedantry: `all` will happily animate layout properties, which forces
+reflow on every frame and is the usual cause of janky hover states. Our spec should follow
+Linear here.
+
+**Linear uses `font-variant-numeric: tabular-nums slashed-zero`.** This has a direct application
+here: ticket 17's playtime counter ticks every second. Without tabular numerals the digits have
+different widths and the whole line jitters on every tick. The stat block has the same problem
+whenever a number changes. Two words of CSS fix a bug that would otherwise be blamed on the
+animation.
+
+### 12.5 The gap this closes
+
+None of the above is visible individually. Collectively it is most of the difference between
+"a developer built this" and "a designer built this", and it is perhaps forty lines of CSS.
+
+Written up as hard rules in `BUILD.md` §4.2, with a full per-screen state inventory in §5.1 —
+because the other half of the gap is that developer portfolios design the happy path and
+nothing else.
+
 ## Sources
 
 - PokéAPI Fair Use Policy — https://pokeapi.co/docs/v2 (no rate limits since 2018; cache locally)
