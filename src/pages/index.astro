@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import Gen4Casing from '../components/casings/Gen4Casing.astro';
 import Screen from '../components/Screen.astro';
 import Sprite from '../components/Sprite.astro';
 import TypeBadge from '../components/TypeBadge.astro';
@@ -25,6 +26,7 @@ const STATUS_NOTES: Record<string, string> = {
 ---
 
 <Base title={`${me.name} | SM'S DEX`} accentTypes={me.types}>
+  <Gen4Casing>
   <Screen>
     <Fragment slot="top">
       <div class="identity">
@@ -72,6 +74,7 @@ const STATUS_NOTES: Record<string, string> = {
       </div>
     </Fragment>
   </Screen>
+  </Gen4Casing>
 </Base>
 
 <style>
