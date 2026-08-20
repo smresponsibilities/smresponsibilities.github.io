@@ -434,3 +434,78 @@ Their project badges carry **real technology names** (`NEXT.JS`, `TAILWIND CSS`,
 `ELECTRIC`. Our tooltips (§7.5) close the gap, and `/resume` closes it completely, but it is a
 real cost of the metaphor and worth watching once the site is live. If it bites, the fix is to
 show the stack list alongside the type badge in the move detail rather than only on expand.
+
+
+---
+
+## P. Pivot to Next? — assessed against the built code, not in theory
+
+Asked after three tickets: if the UI turns out bad, can we move to Next?
+
+**No, and the premise does not hold.** The UI is not being produced by Astro.
+
+### P1. Measurement
+
+| | |
+|---|---|
+| Source lines (`.astro` + `.ts` + `.css`) | **477** |
+| Lines containing anything Astro-specific | **14** (`Astro.props`, `Astro.slots`, `<slot>`, `class:list`, `astro:page-load`) |
+| Framework coupling | **~3%** |
+| Runtime dependencies | **1** (`astro` itself), zero shipped to the browser |
+
+`Screen.astro` is 12 lines of markup and 30 lines of CSS; the layout is one `display: grid` and
+one media query. `Term.astro` is the native `popover` attribute plus CSS. `tokens.css` is pure
+CSS. Swapping frameworks and keeping the same CSS produces a **pixel-identical** result.
+
+### P2. Why the UI currently looks plain — none of it is Astro
+
+Measured in a running dev server:
+
+1. **The display font never loads.** `document.fonts` is empty — no `@font-face` is registered
+   anywhere. `public/fonts/press-start-2p.woff2` is listed in the `BUILD.md` §2 file tree and
+   does not exist. `--font-display` is defined in `tokens.css` and referenced by nothing.
+   The `h1` renders in the body sans stack. **The site currently has zero pixel-font character,
+   and that is a missing file, not a framework.**
+2. Only 43 lines of CSS exist in total.
+3. The §8 vocabulary — scanlines, `oscillate`, bezel, glow — belongs to tickets 06, 08, 09 and
+   14, none of which have run.
+4. Six unrelated font sizes are in use (9, 12, 13, 16, 24, 32) with no type scale. 9px is below
+   any reasonable accessibility floor.
+
+Every item is CSS or an asset. Zero are framework-caused.
+
+### P3. What a pivot would actually cost
+
+Carries over untouched: all CSS, all JSON, `level.ts`, `types.ts`, the Zod schema (change
+`astro/zod` to `zod`), the ball SVG, the canvas code.
+
+Rewritten: seven `.astro` files to `.tsx` (~403 lines, mechanical), the config, the deploy
+workflow.
+
+Inherited problems: `output: 'export'` disables API routes, ISR, middleware and image
+optimization; the `unoptimized` + `basePath` bug (vercel/next.js#68498); a React runtime on
+every page including ones with no interactivity.
+
+Roughly 4–6 hours **today**, rising with every ticket. Gained, for UI purposes: nothing.
+
+### P4. The escape hatch already exists
+
+If one component genuinely needs React — the `/become` stat sliders are the only plausible
+candidate — then `npx astro add react` and `<StatSliders client:load />`. React ships for that
+component only, and every other page stays at 0 KB. That is strictly better than a pivot, and
+it was already the plan under A1.
+
+### P5. Verdict
+
+The framework is 3% of the code and 0% of the appearance. If the UI is bad, the fix is design
+work: load the display font, define a type scale, and run the design tickets. Pivoting would
+cost a day and produce the same screen.
+
+**Astro stands.** Revisit only if the reason is career signalling (A1's stated exception), never
+because of how it looks.
+
+### P6. Two corrections to `BUILD.md` found while assessing
+
+- It says Astro 6; the project is on **Astro 7.2.4**. Harmless, but the doc is stale.
+- The Press Start 2P font file is in the §2 file tree but no ticket ever required loading it.
+  That gap is why the site looks generic. Filed as ticket 18.

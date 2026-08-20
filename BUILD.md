@@ -64,11 +64,11 @@ Skill: `.claude/skills/caveman/SKILL.md`.
 
 ## 1. Stack
 
-Verified current as of 2026-08.
+Verified current as of 2026-08. The project is on Astro 7.2.4.
 
 | Layer | Choice |
 |---|---|
-| Framework | **Astro 6** (`npm create astro@latest`) |
+| Framework | **Astro 7** (`npm create astro@latest`) |
 | Language | TypeScript |
 | Styling | Plain CSS, custom properties, one global stylesheet + scoped component styles |
 | Content | Astro content collections, `file()` loader, Zod schemas |
