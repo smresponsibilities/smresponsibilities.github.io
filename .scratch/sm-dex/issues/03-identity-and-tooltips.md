@@ -10,7 +10,7 @@ tooltips in its acceptance criteria.
 
 **Blocked by:** 02
 
-**Status:** ready-for-agent
+**Status:** claimed
 
 - [ ] Sprite renders from the GitHub avatar, pixelated, with no image file in the repo
 - [ ] A missing or deleted avatar falls back to the UNIDENTIFIED SPECIES frame

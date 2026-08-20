@@ -1,26 +1,122 @@
 ---
 import Base from '../layouts/Base.astro';
 import Screen from '../components/Screen.astro';
+import Sprite from '../components/Sprite.astro';
 import TypeBadge from '../components/TypeBadge.astro';
+import Term from '../components/Term.astro';
 import { me } from '../lib/me';
+import { level } from '../lib/level';
+
+const lvl = level();
+const dexNo = `#${String(me.dexNo).padStart(3, '0')}`;
+
+const TYPE_NOTES: Record<string, string> = {
+  dragon:
+    'Primary type. Solidity smart contracts and on-chain governance from Chaincode — rare, high ceiling, slow to train, hits hard once it is.',
+  steel:
+    'Secondary type. 0% row-count tolerance, zero-warning builds, 425 test suites, mTLS, RBAC. Correctness as a personality.',
+};
+
+const STATUS_NOTES: Record<string, string> = {
+  CAUGHT: 'Currently at a company.',
+  RELEASED: 'Was at a company, now in the wild — available now.',
+  UNCAUGHT: 'Never been caught.',
+};
 ---
 
 <Base title={`${me.name} | SM'S DEX`}>
   <Screen>
     <Fragment slot="top">
-      <h1>{me.name}</h1>
-      <p>{me.species}</p>
-      <div class="types">
-        {me.types.map((type) => <TypeBadge type={type} />)}
+      <div class="identity">
+        <Sprite username={me.github} size={120} />
+
+        <div class="types">
+          {me.types.map((type) => (
+            <Term label={type.toUpperCase()} tip={TYPE_NOTES[type]}>
+              <TypeBadge type={type} />
+            </Term>
+          ))}
+        </div>
+
+        <h1>{me.name}</h1>
+        <p class="species">
+          <Term label="SPECIES" tip="The dex's classification for this entry — doubles as the job title." />
+          {me.species}
+        </p>
+
+        <dl class="vitals">
+          <dt>DEX NO.</dt>
+          <dd>{dexNo}</dd>
+
+          <dt>
+            <Term
+              label="Lv."
+              tip="1 month of professional experience = 1 level. Computed at build time, advances on its own."
+            />
+          </dt>
+          <dd>{lvl}</dd>
+
+          <dt>STATUS</dt>
+          <dd>
+            <Term label={me.status} tip={STATUS_NOTES[me.status]}>
+              <span class="status-badge">{me.status}</span>
+            </Term>
+          </dd>
+
+          <dt>HEIGHT</dt>
+          <dd>{me.height}</dd>
+
+          <dt>WEIGHT</dt>
+          <dd>{me.weight}</dd>
+        </dl>
       </div>
     </Fragment>
   </Screen>
 </Base>
 
 <style>
+  .identity {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+  }
+
   .types {
     display: flex;
     gap: var(--gap);
-    margin-top: var(--gap);
+  }
+
+  .species {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 0;
+  }
+
+  .vitals {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 4px var(--gap);
+    margin: 0;
+  }
+
+  .vitals dt {
+    color: var(--dim);
+    font-size: 12px;
+  }
+
+  .vitals dd {
+    margin: 0;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    background: var(--panel);
+    border: var(--border-w) solid var(--accent);
+    border-radius: var(--radius);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
   }
 </style>

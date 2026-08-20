@@ -1,0 +1,78 @@
+---
+// Every Pokédex term on the site goes through this. Native Popover API gives
+// tap-to-toggle, Escape-to-close and outside-click-dismiss for free. A few
+// lines of JS add the other two required openers: hover and keyboard focus
+// (the standard accessible-tooltip pattern — Tab alone must reveal it, not
+// just Enter/Space activation). A tooltip explains, it never stores: no
+// information may exist only inside one.
+interface Props {
+  label: string;
+  tip: string;
+}
+
+const { label, tip } = Astro.props;
+const id = `tip-${Math.random().toString(36).slice(2, 9)}`;
+const hasCustomTrigger = Astro.slots.has('default');
+---
+
+<button
+  class:list={['term', { 'term--plain': hasCustomTrigger }]}
+  popovertarget={id}
+  type="button"
+  aria-label={label}
+>
+  <slot>{label}</slot>
+</button>
+<span popover id={id} role="tooltip" class="tip">{tip}</span>
+
+<style>
+  .term {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: help;
+    text-decoration: underline dotted;
+    text-underline-offset: 3px;
+  }
+
+  .term--plain {
+    all: unset;
+    cursor: help;
+  }
+
+  .tip {
+    background: var(--panel);
+    color: var(--ink);
+    border: var(--border-w) solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 10px;
+    max-width: 34ch;
+    font-size: 13px;
+    font-family: var(--font-body);
+  }
+</style>
+
+<script>
+  function bindTerms() {
+    document.querySelectorAll<HTMLButtonElement>('.term:not([data-term-bound])').forEach((btn) => {
+      btn.dataset.termBound = 'true';
+      const targetId = btn.getAttribute('popovertarget');
+      const tip = targetId && document.getElementById(targetId);
+      if (!(tip instanceof HTMLElement)) return;
+      const open = () => {
+        if (!tip.matches(':popover-open')) tip.showPopover?.();
+      };
+      const close = () => {
+        if (tip.matches(':popover-open')) tip.hidePopover?.();
+      };
+      btn.addEventListener('mouseenter', open);
+      btn.addEventListener('mouseleave', close);
+      btn.addEventListener('focus', open);
+      btn.addEventListener('blur', close);
+    });
+  }
+
+  document.addEventListener('astro:page-load', bindTerms);
+</script>

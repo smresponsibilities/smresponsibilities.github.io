@@ -1,0 +1,94 @@
+---
+interface Props {
+  username: string;
+  size?: number;
+  shiny?: boolean;
+}
+
+const { username, size = 160, shiny = false } = Astro.props;
+const src = `https://avatars.githubusercontent.com/${username}?s=${size * 2}`;
+---
+
+<span class="sprite-frame" style={`width:${size}px; height:${size}px`}>
+  <img
+    src={src}
+    width={size}
+    height={size}
+    loading="lazy"
+    class:list={['sprite', { shiny }]}
+    alt={`${username}'s sprite`}
+  />
+  <span class="sprite-fallback" hidden>
+    <span class="fallback-mark" aria-hidden="true">?</span>
+    <span class="fallback-label">UNIDENTIFIED SPECIES</span>
+  </span>
+</span>
+
+<style>
+  .sprite-frame {
+    display: inline-flex;
+  }
+
+  .sprite {
+    image-rendering: pixelated;
+    border: var(--border-w) solid var(--border);
+  }
+
+  .sprite.shiny {
+    filter: hue-rotate(140deg) saturate(1.4);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sprite {
+      animation: oscillate 1.6s ease-in-out infinite alternate;
+    }
+  }
+
+  @keyframes oscillate {
+    from { transform: translateY(2px); }
+    to { transform: translateY(-2px); }
+  }
+
+  .sprite-fallback {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    background: var(--panel);
+    border: var(--border-w) dashed var(--border);
+    color: var(--dim);
+    text-align: center;
+  }
+
+  .sprite-fallback[hidden] {
+    display: none;
+  }
+
+  .fallback-mark {
+    font-family: var(--font-display);
+    font-size: 24px;
+  }
+
+  .fallback-label {
+    font-size: 9px;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<script>
+  function bindSpriteFallbacks() {
+    document.querySelectorAll<HTMLImageElement>('.sprite:not([data-fallback-bound])').forEach((img) => {
+      img.dataset.fallbackBound = 'true';
+      img.addEventListener('error', () => {
+        img.hidden = true;
+        const fallback = img.nextElementSibling;
+        if (fallback instanceof HTMLElement) fallback.hidden = false;
+      });
+    });
+  }
+
+  document.addEventListener('astro:page-load', bindSpriteFallbacks);
+</script>

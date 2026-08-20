@@ -1,5 +1,10 @@
 {
   "name": "Shivam Mahajan",
   "species": "Humanoid Pokémon",
-  "types": ["dragon", "steel"]
+  "types": ["dragon", "steel"],
+  "github": "smresponsibilities",
+  "dexNo": 1,
+  "status": "RELEASED",
+  "height": "6'00\"",
+  "weight": "169.8 lbs"
 }
