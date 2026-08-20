@@ -25,19 +25,22 @@ free to vary. See `DECISIONS.md` sections S and T.
 
 **Blocked by:** None (can start immediately)
 
-**Status:** resolved
+**Blocked by:** 21 (the stack migration to Next + three.js)
 
-- [x] Casing is drawn entirely in CSS and inline SVG - no image files
-- [x] Screens sit side by side at desktop with the seam running vertically between them
-- [x] Casing thins to a bezel or disappears at 375px; the screens are unaffected
-- [x] Gradients and shadows appear **only** on the casing, never inside the bezel
-- [x] Casing colours come from tokens; no new colour values introduced
-- [x] A labelled `+ ADD POKEMON` control sits at the top right and links to `/become`
-- [x] Any drawn control that looks interactive **is** interactive - a directional control pages
-      the selection, or it is not drawn at all
-- [x] Controls are real buttons: keyboard reachable, focus visible, correctly labelled
-- [x] No Nintendo assets - no Poke Ball logotype, no Pokemon logo, no stored background image
-- [x] Adding a second generation's casing later requires no change inside the bezel
+**Status:** claimed
+
+- [ ] The casing is a recognisable reproduction of the real device, built to the measured
+      proportions in `docs/research/gen4-casing-geometry.md` - not an abstract shell
+- [ ] Casing is drawn procedurally - no stored bitmap, no downloaded 3D model file
+- [ ] Screens sit side by side at desktop with the seam running vertically between them
+- [ ] Casing thins to a bezel or disappears at 375px; the screens are unaffected
+- [ ] Gradients, shadows and 3D shading appear **only** on the casing, never inside the bezel
+- [ ] Casing colours come from tokens; no new colour values introduced
+- [ ] A labelled `+ ADD POKEMON` control sits at the top right and links to `/become`
+- [ ] A directional control is drawn **and** works - it pages the selection
+- [ ] Controls are real buttons: keyboard reachable, focus visible, correctly labelled
+- [ ] Screen content stays real, accessible DOM - links, tooltips, selectable text
+- [ ] Adding a second generation's casing later requires no change inside the bezel
 
 ## Reference audit
 
@@ -49,7 +52,26 @@ and CSS. Production `Screen.astro` has been restored to its pre-ticket state.
 The primary-source trace, asset inventory, public-repository check, and reuse finding are in
 `docs/research/moizm-casing-source.md`.
 
-## Handoff
+## Rejected attempt — 2026-08-20
+
+The first build of this ticket was **rejected by the user** and reverted. It shipped a CSS
+casing that was a gradient rectangle with a hinge line, four speaker dots and an LED, and it
+omitted the D-pad entirely. The user's verdict: *"why cant you either get the pokedex asset or
+make 100% same pokedex without any mismatch, its just geometrical symbols."*
+
+Two lessons, both binding on the next attempt:
+
+1. **Build from measurement, not by eye.** The reference device's real proportions are now
+   recorded in `docs/research/gen4-casing-geometry.md`. Use them.
+2. **The "or it is not drawn at all" clause is not an escape hatch.** It exists to prevent dead
+   decorative controls, not to license dropping the single most recognisable part of the
+   device. Build the D-pad *and* give it real behaviour.
+
+The user then directed a stack change — **remove Astro, move to Next.js, build the casing in
+three.js** — which is filed as ticket 21 and now blocks this ticket. The rejected
+`src/components/casings/Gen4Casing.astro` is deleted rather than ported.
+
+## Superseded handoff — the rejected attempt
 
 **Built:** `src/components/casings/Gen4Casing.astro` — a DS-style clamshell casing wrapping
 `Screen.astro` (unmodified). Desktop (≥768px): gradient shell, vertical hinge seam centred on
