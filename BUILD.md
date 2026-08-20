@@ -21,14 +21,6 @@ implementing agent typically overrides by reflex. **Do not.**
 
 | Rule | Why it exists |
 |---|---|
-| **No Tailwind.** Plain CSS + custom properties. | The whole site is one bespoke design system with eight skins. Utility classes fight token-driven theming. |
-| **No React, Vue, Svelte, or any UI framework.** | Nothing here needs a component runtime. Astro components are enough. |
-| **No tooltip library** (Tippy, Floating UI, Popper). | Native Popover API does it with zero JS and better accessibility. |
-| **No animation library** (GSAP, Framer, anime.js). | Every animation is under 8 lines of CSS or a 40-line canvas loop. |
-| **No charting library.** | The stat bars are `<div>`s with a width. |
-| **No WebGL, no three.js, no particle library.** | The reference site (thavlik.dev) uses canvas 2D. So do we. |
-| **Zero runtime npm dependencies.** | What ships is HTML, CSS, and ~40 lines of canvas. Build-time deps are fine. |
-| **No Pokémon sprites, artwork, music, logos, or the Poké Ball logotype in the repo.** | IP. Balls and type badges are drawn as SVG. Creature art is the user's GitHub avatar. |
 | **No image files for people. Ever.** | Zero-storage is a core requirement. Sprites come from `github.com/<user>.png`. |
 | **Do not put "Pokédex" in the site title, `<h1>`, or domain.** | Site is called **SM'S DEX**. |
 | **Every animation respects `prefers-reduced-motion`.** | Non-negotiable. |
@@ -39,6 +31,36 @@ implementing agent typically overrides by reflex. **Do not.**
 
 If you believe one of these is wrong, write the reason in a comment and build it as specified
 anyway. Do not silently substitute.
+
+### 0.0.1 Strong defaults — override with a reason, not by reflex
+
+These used to be hard rules. They are now **defaults**: the reasoning behind each still holds,
+but none of them is a prohibition any more. If you take a different path, say why in a comment.
+
+| Default | The reasoning, which has not changed |
+|---|---|
+| Plain CSS and custom properties over Tailwind | The site is one bespoke design system with per-generation skins. Utility classes fight token-driven theming, and the casing work in ticket 20 is hand-drawn SVG either way. |
+| Astro components over a UI framework | Most of this site is static content. **React, and Next, are now permitted** — see §1. Reach for them where a component genuinely needs client state, not by default. |
+| Native Popover API over a tooltip library | Tippy, Floating UI and Popper reimplement a browser feature, and the native one is keyboard- and screen-reader-correct for free. This is already built and working. |
+| CSS and canvas 2D over an animation library | Every animation here is under eight lines of CSS or a forty-line canvas loop. GSAP and Framer are heavier than the thing they would animate. |
+| `<div>` widths over a charting library | The stat bars are six divs. |
+| Canvas 2D over WebGL | The reference site this technique came from uses canvas 2D. |
+| Few runtime dependencies | What ships today is HTML, CSS and about forty lines of canvas, which is a large part of why it is fast. Adding React changes this; that is a fair trade when something needs it. |
+
+### 0.0.2 On Pokémon assets
+
+Shipping Nintendo's sprites, artwork or logos is **no longer prohibited**. It moves the project
+from zero IP exposure into the ordinary fan-work grey area — Nintendo does issue takedowns for
+fan projects, though the practical risk to a personal portfolio is very low. `PLAN.md` §5 has
+the research; it is now context rather than a rule.
+
+Two things are still worth doing on their own merits, unrelated to licensing:
+
+- **Ball icons and type badges are better drawn than borrowed.** An SVG is crisp at 16px and at
+  96px, recolours with the skin tokens, and gives all thirteen balls from two custom properties.
+  The real sprites are ~30px PNGs, fixed forever. `PLAN.md` §2.4.
+- **Creature art stays the GitHub avatar.** That is the zero-storage requirement in the table
+  above, not an IP decision, and it is what makes the roster work.
 
 ---
 
@@ -73,7 +95,7 @@ Verified current as of 2026-08. The project is on Astro 7.2.4.
 
 | Layer | Choice |
 |---|---|
-| Framework | **Astro 7** (`npm create astro@latest`) |
+| Framework | **Astro 7** (`npm create astro@latest`) — current choice, no longer locked. React and Next are permitted; see §1.1 before switching. |
 | Language | TypeScript |
 | Styling | Plain CSS, custom properties, one global stylesheet + scoped component styles |
 | Content | Astro content collections, `file()` loader, Zod schemas |
@@ -81,6 +103,24 @@ Verified current as of 2026-08. The project is on Astro 7.2.4.
 | CI | GitHub Actions |
 | Submissions | GitHub Issue Forms → Action → commit |
 | Fonts | **Departure Mono** (MIT, self-hosted woff2, subset latin) + system sans |
+
+### 1.1 If you are considering React or Next
+
+Both are now allowed. Two things are worth knowing before reaching for either.
+
+**React inside Astro needs no migration.** `npx astro add react`, then `client:load` on the one
+component that needs it. React ships for that component only and every other page stays at 0 KB.
+The `/become` stat sliders are the one plausible candidate. This is almost always the right
+move, and it is not a pivot.
+
+**A full move to Next is a different proposition**, measured rather than argued in
+`DECISIONS.md` §P: 477 source lines, of which 14 are Astro-specific — so the CSS, the data, the
+schemas and the drawn SVG all carry over unchanged, and roughly seven `.astro` files would need
+rewriting. What is inherited along with it: `output: 'export'` disables API routes, ISR,
+middleware and image optimisation, and there is a live bug where `unoptimized` images ignore
+`basePath` on a subpath deploy. It buys nothing for appearance, because the appearance is CSS.
+
+Neither is forbidden. Just know which of the two you are doing.
 
 **Astro content-collections API** (this is the current shape — do not use the pre-v5 form):
 
@@ -106,7 +146,7 @@ sm-dex/
 │     ├─ deploy.yml            # build + deploy to Pages
 │     └─ roster.yml            # validate submission, commit on `approved` label
 ├─ public/
-│  ├─ fonts/press-start-2p.woff2
+│  ├─ fonts/departure-mono-latin.woff2
 │  └─ favicon.svg
 ├─ scripts/
 │  └─ validate-submission.mjs  # used by roster.yml

@@ -12,7 +12,7 @@ are one line in a JSON file.
 
 | # | Decision | Chosen | Alternatives | Why | How to change |
 |---|---|---|---|---|---|
-| A1 | Framework | 🔒 **Astro 7** (7.2.4) | Next.js, plain HTML/CSS/JS, SvelteKit | 0 KB JS baseline; `output:'export'` would disable everything Next is for; content collections validate bot-written JSON at build | Rewrite. Do it now or never. |
+| A1 | Framework | 🟢 **Astro 7** (7.2.4) — current choice, **no longer locked** | Next.js, plain HTML/CSS/JS, SvelteKit | 0 KB JS baseline; content collections validate bot-written JSON at build | React as an island: `astro add react`, no migration. Full Next move costed in §P. |
 | A2 | Hosting | 🔒 **GitHub Pages, custom domain + `smresponsibilities.github.io`** | Cloudflare Pages, Netlify, Vercel | Free; both URLs work — see note in §J | 10 min to move to Cloudflare |
 | A3 | Backend | 🔒 **None — GitHub Issue Forms** | Supabase, Firebase, Formspree, custom API | Free forever, no cold starts, auth + spam + moderation included | Swap the submit target |
 | A4 | Data store | 🔒 **5 JSON files** | CMS, database, Markdown | Content is tiny and structured | — |
@@ -27,8 +27,8 @@ are one line in a JSON file.
 | B1 | Sprite source | 🔒 **GitHub avatar. Only.** | ~~DiceBear~~ rejected · ~~Kenney trainer gallery~~ rejected · Pokémon sprites · commissioned art | Simplest thing that works, and back to **literally zero bytes stored** | Add a source later |
 | B2 | No-avatar fallback | 🔒 **GitHub identicon, framed as `UNIDENTIFIED SPECIES`** | Placeholder image, reject the submission | Identicons already look like sprites. The fallback becomes a feature. | — |
 | B3 | Photo handling | 🔒 **Dither if photo, pixelate if art** | Pixelate everything | Faces turn to mush under naive pixelation | ~40 lines |
-| B4 | Type icons | 🔒 **Draw own / CSS** | `duiker101/pokemon-type-svg-icons` | That repo has **no license file** | Drop the files in |
-| B5 | Nintendo assets | 🔒 **Ship none** | Hotlink PokéAPI sprites | Zero legal exposure, and avatars are more personal anyway | Hotlink via jsDelivr, never commit |
+| B4 | Type icons | 🟢 **Draw own / CSS** — now a preference, not a rule | `duiker101/pokemon-type-svg-icons` | The licensing objection is moot since §U. Drawn icons still win on merit: crisp at any size, recolour with skin tokens | Drop the files in |
+| B5 | Nintendo assets | 🟢 **Permitted** — restriction lifted, see §U | Ship none (the previous rule) | User's call. Moves the project into the ordinary fan-work grey area | — |
 | B6 | Image storage | 🔒 **Zero bytes. Nothing, ever.** | Spritesheet (~30 KB), per-user uploads | Original requirement, fully restored | — |
 | B7 | Fonts | 🔒 **Departure Mono display + system sans body** — *supersedes the original Press Start 2P choice, see §Q4* | Press Start 2P (too widely used), Workbench, Sixtyfour, Silkscreen | A display face is unreadable at paragraph length; and Press Start 2P is the most-used pixel font on the web | Swap the token |
 
@@ -718,3 +718,53 @@ version selector stays meaningful on mobile; it just stops drawing furniture tha
 This is the same principle as everywhere else on this project: **chrome degrades, structure
 does not.** It is also precisely what the reference site got wrong, and why it greets phone
 visitors with an apology instead of a portfolio.
+
+
+---
+
+## U. IP and framework restrictions lifted
+
+Two sets of hard rules were removed from `BUILD.md` §0 at the user's request.
+
+### U1. Pokémon assets are now permitted
+
+`B5` previously said ship none. Sprites, artwork and logos may now be used.
+
+This moves the project from zero IP exposure into the ordinary fan-work grey area. Nintendo does
+issue takedowns for fan projects — `PLAN.md` §5 has the research — though the practical risk to
+a personal portfolio is very low. The concern was raised once and the decision is the user's;
+it is recorded here so nobody re-litigates it later.
+
+Consequences elsewhere:
+
+- **`B4` type icons** — the objection was that `duiker101/pokemon-type-svg-icons` carries no
+  licence file. That objection is moot. Drawn icons remain the recommendation on separate
+  merit: crisp at 16px and 96px, and they recolour with the skin tokens.
+- **`B5` ball icons** — same. `PLAN.md` §2.4 argued for drawing them on practical grounds
+  (thirteen balls from two custom properties, sharp at every size) *before* reaching the legal
+  argument. That reasoning is untouched.
+- **`B6` zero image storage is unaffected.** It was never an IP rule — it is the requirement
+  that makes the roster free and unbounded. Creature art stays the GitHub avatar.
+- **Naming.** "Do not put Pokédex in the title" stays, but as a branding decision: the site is
+  called SM'S DEX.
+
+### U2. React, Next and other frameworks are now permitted
+
+`A1` is downgraded from locked to current-choice. The former hard rules banning React, Vue,
+Svelte, Tailwind, tooltip libraries, animation libraries, charting libraries and WebGL are gone.
+
+They have been rewritten as **strong defaults** in `BUILD.md` §0.0.1 rather than deleted,
+because the reasoning behind each is still true even though the prohibition is not. An
+implementing agent that wants Tailwind can now have it, but has to say why — which is the
+correct amount of friction for a decision that was made deliberately once.
+
+**The distinction that matters**, and it is in `BUILD.md` §1.1:
+
+- **React as an island** — `astro add react`, `client:load` on one component. No migration,
+  React ships for that component only, every other page stays at 0 KB. Almost always the right
+  move when client state is genuinely needed.
+- **A full move to Next** — a different proposition, measured in §P. 477 source lines, 14 of
+  them Astro-specific; the CSS, data, schemas and SVG all carry over. It buys nothing for
+  appearance, because the appearance is CSS.
+
+Neither is forbidden now. The docs just make clear which one is being chosen.

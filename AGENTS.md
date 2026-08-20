@@ -29,7 +29,7 @@ current framework, no longer locked.
 **Every chat reply on this project uses caveman mode at `ultra`.** This is persistent. It does
 not lapse after a few turns, it does not drift back to full sentences over a long session, and
 it stays on if you are unsure. It turns off only when the user says "stop caveman" or
-"normal mode". Skill: `.claude/skills/caveman/SKILL.md`.
+"normal mode". Skill: `.Codex/skills/caveman/SKILL.md`.
 
 Ultra means: drop articles and filler, fragments are fine, abbreviate (`DB`, `auth`, `config`,
 `req`, `res`, `fn`, `impl`), strip conjunctions, arrows for causality (`X → Y`), one word
@@ -99,7 +99,7 @@ The single most useful next action.
 Do not restate anything already captured in a spec, a ticket, or a commit message. Reference it
 by path. The handoff is for what would otherwise be lost.
 
-A fresh session reads `CLAUDE.md`, then `HANDOFF.md`, then its ticket.
+A fresh session reads `AGENTS.md`, then `HANDOFF.md`, then its ticket.
 
 **`/handoff` is a different thing.** That skill compacts a long conversation into a document in
 the OS temp directory, for when a single session runs out of room mid-task. It does not replace

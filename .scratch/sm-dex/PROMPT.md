@@ -35,14 +35,18 @@ state, set `Status: resolved`, then commit. Both handoff writes are required —
 `CLAUDE.md`. The next session starts with an empty context and inherits only what you wrote
 down. Then stop and report.
 
-**Hard rules from `BUILD.md` §0 — these are decisions, not defaults.** No Tailwind. No React,
-Vue or Svelte. No tooltip library — the native Popover API covers it. No animation or charting
-library. No WebGL. Zero runtime npm dependencies. No Pokémon sprites, artwork or logos in the
-repo. No image files for people — sprites come from the GitHub avatar CDN. Everything respects
-`prefers-reduced-motion`. Audio never autoplays.
+**Hard rules from `BUILD.md` §0 — few, and genuinely fixed.** No image files for people;
+sprites come from the GitHub avatar CDN. Every animation respects `prefers-reduced-motion`.
+Audio never autoplays. Flavour text is short and third-person. Motion is not to be cut under
+time pressure.
 
-If you think one of these is wrong, leave a comment saying why and build it as specified anyway.
-Do not silently substitute.
+**Strong defaults in §0.0.1 — override with a stated reason, not by reflex.** Plain CSS over
+Tailwind, Astro components over a UI framework, native Popover over a tooltip library, CSS and
+canvas over animation libraries. The reasoning behind each still holds; the prohibition does not.
+
+**Pokémon assets and React/Next are permitted** (`DECISIONS.md` §U). If you want React for one
+component, `astro add react` and `client:load` it — that is not a migration. A full move to Next
+is a different thing entirely and §P has the measurements.
 
 **Two things that will bite you**, both in `BUILD.md` §9:
 
