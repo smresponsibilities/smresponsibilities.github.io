@@ -48,5 +48,12 @@ Unchanged, blocks nothing on the frontier:
 
 ## Next
 
-**Ticket 19**, then the build order in `spec.md`: your entry (04–07), then the roster (11–13),
-then chrome. 19 is cheap, unblocked, and touches every page.
+**Ticket 19 first, then 04, 05, 06, 07 in any order** (they are parallel once 03 is done, and 03
+is resolved). After those, the roster: 11, 12, 13. Chrome last.
+
+19 goes first because it touches every page — anything built after it inherits the craft layer,
+anything built before it has to be retrofitted. Its `:focus-visible` item is an accessibility
+fix, not polish.
+
+`CANON.md` is new. Read it before inventing any convention; §5 lists deviations that are
+deliberate and must not be "corrected".

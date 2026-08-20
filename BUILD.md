@@ -6,9 +6,11 @@ this. You do not need to. Everything required is here.
 Companion documents, in order of authority:
 
 1. **`BUILD.md`** (this file) — how to build it. Wins on any conflict.
-2. `DECISIONS.md` — what was decided and what was rejected. Read §J–§M before proposing changes.
-3. `SPEC.md` — the content. Becomes the JSON files.
-4. `PLAN.md` — the research behind the decisions. Background reading.
+2. `CANON.md` — what the real games do, measured. **Read it before inventing any convention**,
+   and read §5 before "fixing" anything that looks non-canonical — several deviations are deliberate.
+3. `DECISIONS.md` — what was decided and what was rejected. Read §J–§M before proposing changes.
+4. `SPEC.md` — the content. Becomes the JSON files.
+5. `PLAN.md` — the research behind the decisions. Background reading.
 
 ---
 
@@ -217,7 +219,7 @@ const moves = defineCollection({
     power: z.number().int().min(0).max(255),
     accuracy: z.number().int().min(0).max(100),
     pp: z.object({ current: z.number().int(), max: z.number().int() }),
-    effect: z.string().max(150),           // ONE line. Level 2 disclosure. Matches dex-entry length.
+    effect: z.string().max(100),           // Real move text runs a median of 34 chars. CANON.md §4.
     detail: z.string().optional(),         // Level 3 disclosure.
     stack: z.array(z.string()).default([]),
     priority: z.number().int().default(0),

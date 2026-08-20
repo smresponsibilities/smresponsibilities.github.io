@@ -294,12 +294,16 @@ if we treat work projects as **TMs** (moves taught by an organisation, which is 
 > delivery speed.
 > `PP 0/10` — archived, Dec 2024.
 
-### TM01 · CIAM WAREHOUSE 🟡 `Water/Steel` · Status · **Power 100** · taught by Morgan Stanley
+### TM01 · CIAM WAREHOUSE 🟡 `Water/Steel` · **Special** · **Power 100** · taught by Morgan Stanley
 > PySpark, Kafka, Snowflake, Liquibase, Autosys, Spring Boot
 > Sole engineer with a data architect. 5M+ Kafka events through 4 PySpark workflows and 20+
 > jobs into Snowflake at **0% row-count tolerance**. Owned a 3-tier medallion architecture,
 > 135 automated role grants, 7+ schemas. Daily Python ETL at **3.9× throughput**, load-tested
 > to 1M simulated users. Secure connectivity for a Spring Boot API serving **500k+ users**.
+
+> Category changed from Status to Special. Canon status moves carry no power at all, and this
+> is the largest piece of work in the entry — Special is the category for something designed
+> and architected rather than hand-built. See `CANON.md` §6.
 
 ❓ Power numbers are on an impact scale. Argue with them — they're my read, not yours.
 ❓ Links: Productivity Caller demo video, Chaincode live site + demo, QuizDeck GitHub. Send URLs.

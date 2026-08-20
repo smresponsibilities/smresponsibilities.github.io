@@ -13,7 +13,8 @@ expanded at a time.
 
 - [ ] Four rows fit at 375 px without scrolling
 - [ ] Selecting a move fills the bottom screen while the list stays visible
-- [ ] Selected view is capped at one line of effect text
+- [ ] Selected view is capped at one line of effect text - real move descriptions run a median of 34 characters (`CANON.md` §4), so the layout must not assume a long one
+- [ ] Status-category moves render with no power value at all, not a zero
 - [ ] Expand reveals the remaining fields
 - [ ] Fields with no value are omitted entirely, not left blank
 - [ ] Only one move is expanded at a time

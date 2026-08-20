@@ -10,6 +10,7 @@ Not yet scaffolded. The repo currently holds planning artifacts only.
 | File | What it is |
 |---|---|
 | **`BUILD.md`** | The implementation spec. **Wins any conflict.** File tree, schemas, tokens, component reference implementations, CI YAML, per-phase acceptance criteria, gotchas. |
+| **`CANON.md`** | What the real games actually do, measured from 229 dex entries and the move data. Read before inventing a convention. §5 lists the deviations that are **deliberate** — do not "fix" them. |
 | `DECISIONS.md` | Every decision with its alternatives and why they lost. Read §J–§N before proposing a change — it was probably already considered and rejected. |
 | `SPEC.md` | The content. Becomes the JSON data files. |
 | `PLAN.md` | Research behind the decisions. Background only. |

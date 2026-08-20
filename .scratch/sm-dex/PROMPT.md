@@ -12,7 +12,14 @@ redo it. Your job is to build one ticket.
 1. `CLAUDE.md` — project overview, doc reading order, communication style, handoff rules
 2. `.scratch/sm-dex/HANDOFF.md` — current state of the effort, written by the last session
 3. `BUILD.md` — the implementation spec. It wins any conflict with anything else.
-4. `.scratch/sm-dex/issues/01-scaffold-and-deploy.md` — your ticket
+4. `CANON.md` — what the real games do, measured. Read §5 before "fixing" anything that looks
+   non-canonical; several deviations are deliberate.
+5. `.scratch/sm-dex/issues/<NN>-<name>.md` — your ticket
+
+**Reference the games directly.** Before inventing any convention — a length, a format, a
+label, a default — check what the real Pokédex does. `CANON.md` has the measured figures and
+the `curl` commands to check anything it does not cover. The games are usually terser than you
+expect, and matching them is free authenticity. This has already caught two defects.
 
 Read `DECISIONS.md` only if you want to change something. Every alternative you are likely to
 suggest is already in there with the reason it lost. `PLAN.md` is background and you probably
