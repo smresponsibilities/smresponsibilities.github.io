@@ -11,15 +11,24 @@ In flight: none
 Built ticket 18, visual identity: the site now has an actual display font. Departure Mono
 (SIL OFL, not MIT as the ticket text says — a documentation correction, not a blocker)
 downloaded, subset to the standard latin range with `fonttools`, and self-hosted at 6.3 KB.
-`tokens.css` gained a five-step type scale that every `font-size` in the codebase now references
-(the old 9px `Sprite.astro` caption was below the 12px floor — fixed), plus `--accent`/
-`--accent-2`, which `Base.astro` now derives per-entry from `me.types` via an inline style on
+`Base.astro` now derives `--accent`/`--accent-2` per-entry from `me.types` via an inline style on
 `<html>` rather than a fixed hex — proved this by temporarily switching the data to fire/water
 and watching the rendered colours change, then reverting. `Screen.astro`'s bottom slot renders a
 `STANDBY` resting state (blinking dot, respects `prefers-reduced-motion`) instead of an empty
 box when nothing has filled it — this disappears automatically once ticket 04+ renders real
-content there. Full detail, including where the chrome/body-copy line was drawn for the display
-font, is in
+content there.
+
+**Mid-session spec update, worth knowing about:** `BUILD.md` gained a new §4.1 ("Type discipline
+— measured, not asserted") while this ticket was in progress, from a concurrent session's
+research pass — a "not negotiable" five-token scale (`--fs-label` 12 / `--fs-body` 15 /
+`--fs-head` 24 / `--fs-name` 40 / `--fs-mega` 72px, plus line-height and label-tracking tokens),
+replacing an earlier five-step scale this session had already built and shipped in its first
+pass. Reworked everything to match §4.1 before finishing — the token names in the codebase now
+are `--fs-*`/`--lh-*`/`--track-label`, not anything with `--text-` in it. If you see `--text-`
+referenced anywhere (a stale note, a half-applied patch), that's leftover from before this
+correction landed and should be updated to match §4.1. Full detail, including where the
+chrome/body-copy line was drawn for the display font and why the wordmark specifically got
+`--fs-head`, is in
 [`.scratch/sm-dex/issues/18-visual-identity.md`](issues/18-visual-identity.md)'s `## Handoff`.
 
 **Build order changed since the last handoff** (recorded in `DECISIONS.md` §Q5 and

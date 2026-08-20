@@ -50,44 +50,69 @@ discipline accounts for more of the perceived quality gap than any amount of ani
 full release build). License text copied alongside as `public/fonts/DepartureMono-LICENSE.txt`
 (OFL requires the license accompany any redistribution, including a subset). `@font-face`
 registered in `global.css` with `font-display: swap`, pointing only at that local file.
-`tokens.css` gained a five-step type scale (`--text-xs` 12 through `--text-xl` 32, one step per
-size actually in use) and `--accent`/`--accent-2`, aliased to `var(--t-dragon)`/`var(--t-steel)`
-as the site-wide fallback. Every hard-coded `font-size` in the codebase now references the
-scale, including the 9px `Sprite.astro` fallback caption, which was below the accessibility
-floor — raised to `--text-xs`. `font-family: var(--font-display)` is now applied to `h1`, the
-wordmark, `.vitals dt` field labels, `TypeBadge`, the status badge, and the sprite fallback —
-values and tooltip/body text stay on `--font-body`. `Base.astro` takes an optional `accentTypes`
-prop; when present it renders an inline `style` on `<html>` overriding `--accent`/`--accent-2`
-from the given types' canon colours, so the mechanism generalizes to every future roster entry
-(ticket 13), not just this one. `index.astro` passes `accentTypes={me.types}`. `Screen.astro`
-now checks `Astro.slots.has('bottom')` and renders a `STANDBY` resting state (a small dot in
-`--accent-2` that blinks under `prefers-reduced-motion: no-preference`, static otherwise) instead
-of an empty box when nothing has filled the bottom screen yet — this will silently stop
-rendering the moment a real ticket (04+) fills that slot, no follow-up needed.
+
+`tokens.css` gained the exact five-token scale BUILD.md §4.1 specifies —
+`--fs-label`/`--fs-body`/`--fs-head`/`--fs-name`/`--fs-mega` (12/15/24/40/72px), plus
+`--lh-body`(1.5)/`--lh-head`(1.25)/`--track-label`(0.08em) — and `--accent`/`--accent-2`, aliased
+to `var(--t-dragon)`/`var(--t-steel)` as the site-wide fallback. **Note on sequencing:** the
+first pass of this work used an invented five-step scale (`--text-xs` through `--text-xl`,
+12/13/16/24/32) before §4.1 landed in `BUILD.md` mid-session with a concrete, "not negotiable"
+scale — including the specific warning that 12px next to 13px is "noise, not a scale," which the
+first draft had just reproduced. Everything below describes the final state, conforming to
+§4.1; nothing of the first draft survived except the general shape (five tokens, one covering
+every size).
+
+Every hard-coded `font-size` in the codebase now references the scale, including the 9px
+`Sprite.astro` fallback caption, which was below the accessibility floor — raised to
+`--fs-label`. `font-family: var(--font-display)` is applied to `h1`, the wordmark, `.vitals dt`
+field labels, `TypeBadge`, the status badge, and the sprite fallback; values, species text and
+tooltip copy stay on `--font-body`. Per §4.1's "uppercase + tracking" rule, every label-tier
+element (`TypeBadge`, status badge, `.vitals dt`, the sprite fallback caption, `STANDBY`) got
+`text-transform: uppercase` and `letter-spacing: var(--track-label)`, replacing ad-hoc
+`0.04em`/`0.05em` values. `body` and `h1` carry `--lh-body`/`--lh-head` respectively.
+
+`Base.astro` takes an optional `accentTypes` prop; when present it renders an inline `style` on
+`<html>` overriding `--accent`/`--accent-2` from the given types' canon colours, so the
+mechanism generalizes to every future roster entry (ticket 13), not just this one. `index.astro`
+passes `accentTypes={me.types}`. `Screen.astro` now checks `Astro.slots.has('bottom')` and
+renders a `STANDBY` resting state (a small dot in `--accent-2` that blinks under
+`prefers-reduced-motion: no-preference`, static otherwise) instead of an empty box when nothing
+has filled the bottom screen yet — this will silently stop rendering the moment a real ticket
+(04+) fills that slot, no follow-up needed.
 
 **Verification:** confirmed `document.fonts` reports `Departure Mono` `loaded` and `h1`'s
-computed `font-family` resolves to it. Confirmed `font-display: swap` on the actual
-`CSSFontFaceRule`. Proved the dynamic-accent claim by temporarily changing `me.json`'s types to
-`fire`/`water`, rebuilding, and reading `--accent`/`--accent-2` off `documentElement` — they
-changed to `#ee8130`/`#6390f0` exactly, then reverted back to dragon/steel. Scanned every
-leaf element on the page for `font-size < 12px` — zero violations. Computed WCAG contrast ratios
-by hand (relative luminance, not a browser extension) for `--ink`/`--dim` against
-`--bg`/`--panel`/`--screen` — lowest was 6.15:1, comfortably above the 4.5:1 AA floor for normal
-text (none of the changed tokens are used for body text colour, so this was a regression check,
-not an expected-to-fail one). Re-checked no horizontal scroll at 375/768/1280px, since a
-monospace display face could plausibly widen badges enough to overflow — it didn't.
+computed `font-family` resolves to it, at `40px`/`50px` line-height (1.25× — correct). Confirmed
+`font-display: swap` on the actual `CSSFontFaceRule`. Proved the dynamic-accent claim by
+temporarily changing `me.json`'s types to `fire`/`water`, rebuilding, and reading
+`--accent`/`--accent-2` off `documentElement` — they changed to `#ee8130`/`#6390f0` exactly, then
+reverted back to dragon/steel. After the §4.1 rework, scanned every leaf element on the rendered
+page for its computed size: exactly four distinct values appeared (12, 15, 24, 40 — `--fs-mega`
+isn't used by anything yet, which is fine, five tokens is a ceiling not a quota), zero below
+12px. Computed WCAG contrast ratios by hand (relative luminance, not a browser extension) for
+`--ink`/`--dim` against `--bg`/`--panel`/`--screen` — lowest was 6.15:1, comfortably above the
+4.5:1 AA floor for normal text (none of the changed tokens are used for body text colour, so
+this was a regression check, not an expected-to-fail one). Re-checked no horizontal scroll at
+375/768/1280px after the rework too, since `h1` grew from 32px to 40px — still clean at all
+three.
 
 **Deviated:**
 - Ticket text says Departure Mono is "MIT licensed." The actual release `LICENSE` file is SIL
   OFL 1.1 (no Reserved Font Name declared, so subsetting under the original name is fine). Same
   category of correction as `DECISIONS.md` §P6's Astro-version note — worth fixing in
   `DECISIONS.md`/ticket text at some point, not blocking anything.
-- The ticket doesn't specify exact type-scale steps or which elements count as "dex chrome."
-  Built the scale to exactly replace the six ad-hoc sizes `DECISIONS.md` §P2 measured (9→12, 12,
-  13, 16, 24, 32), and drew the chrome/body line as: field labels, badges, wordmark and headings
+- `BUILD.md` §4's own literal code snippet for `tokens.css` still shows `--accent: #F7D02C;` as a
+  static value, unchanged by the §4.1 edit (which only touched typography). That reads as a
+  copy-paste artifact — whoever wrote §4.1 pasted the pre-`DECISIONS.md`-§Q3 version of the
+  tokens block as their base — not a reversal of the dynamic-accent decision, which
+  `DECISIONS.md` §Q3 and this ticket's own checklist state unambiguously. Implemented the
+  dynamic version; flagging the stale snippet so nobody "fixes" `Base.astro` back to match it.
+- Drew the chrome/body line for the display font as: field labels, badges, wordmark and headings
   are chrome (short, fixed Pokédex jargon); rendered values, species text, and tooltip copy are
-  content and stay on the body font. This is a design call this ticket left open, recorded here
-  so it's not silently re-decided differently later.
+  content and stay on the body font. §4.1 doesn't spell this out explicitly; recorded here so
+  it's not silently re-decided differently later.
+- Assigned the wordmark to `--fs-head` (24px) rather than a smaller label size — it's the one
+  piece of branding chrome on every page, and 12px read as insignificant for that role. Judgment
+  call, not dictated by §4.1.
 - Added `--screen-min-h` (96px) to `tokens.css`'s structure group so the resting state has room
   to sit in — same category as `--tap`/`--device-max` from ticket 02, an additive structural
   token, not a deviation from the locked colour palette.
