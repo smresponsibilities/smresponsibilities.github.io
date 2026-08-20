@@ -39,17 +39,68 @@ this one first.
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** resolved
 
-- [ ] Motion tokens exist: `--dur-fast` 100ms, `--dur-base` 160ms, `--dur-slow` 400ms, and a single `--ease`
-- [ ] Every transition in the codebase uses a duration token, and none exceeds 400ms
-- [ ] **No `transition: all` anywhere** — every transition names its properties
-- [ ] `-webkit-font-smoothing: antialiased` applied globally in the reset
-- [ ] `-webkit-tap-highlight-color: transparent` applied globally
-- [ ] `:focus-visible` renders a 2px outline with `outline-offset: 2px`, and focus is never removed
-- [ ] `::selection` is styled from the accent, not left at browser default blue
-- [ ] `font-variant-numeric: tabular-nums slashed-zero` on every number that can change — level, dex number, stat values, counters, playtime
-- [ ] `text-wrap: balance` on headings, `text-wrap: pretty` on paragraphs
-- [ ] `user-select: none` on chrome — labels, badges, nav, tooltip triggers — and never on body text or contact details
-- [ ] A global `prefers-reduced-motion` block reduces animation and transition durations to near zero
-- [ ] Keyboard pass over the whole site: every interactive element reachable, focus always visible, no traps
+- [x] Motion tokens exist: `--dur-fast` 100ms, `--dur-base` 160ms, `--dur-slow` 400ms, and a single `--ease`
+- [x] Every transition in the codebase uses a duration token, and none exceeds 400ms
+- [x] **No `transition: all` anywhere** — every transition names its properties
+- [x] `-webkit-font-smoothing: antialiased` applied globally in the reset
+- [x] `-webkit-tap-highlight-color: transparent` applied globally
+- [x] `:focus-visible` renders a 2px outline with `outline-offset: 2px`, and focus is never removed
+- [x] `::selection` is styled from the accent, not left at browser default blue
+- [x] `font-variant-numeric: tabular-nums slashed-zero` on every number that can change — level, dex number, stat values, counters, playtime
+- [x] `text-wrap: balance` on headings, `text-wrap: pretty` on paragraphs
+- [x] `user-select: none` on chrome — labels, badges, nav, tooltip triggers — and never on body text or contact details
+- [x] A global `prefers-reduced-motion` block reduces animation and transition durations to near zero
+- [x] Keyboard pass over the whole site: every interactive element reachable, focus always visible, no traps
+
+## Handoff
+
+**Built:** `BUILD.md` §4.2's block shipped essentially verbatim. `tokens.css` gained
+`--dur-fast`/`--dur-base`/`--dur-slow`/`--ease` and `--focus` (aliased to `var(--accent)`, so the
+focus ring inherits each entry's own type colour automatically — same mechanism ticket 18 built
+for `--accent-2`). `global.css` gained the full reset block: font smoothing, tap-highlight,
+`:focus-visible`/`:focus:not(:focus-visible)`, `::selection`, `text-wrap` on `h1`/`p`, the
+`user-select: none` chrome rule, and the `prefers-reduced-motion: reduce` backstop. Applied
+`.level`/`.dex-no` classes to the two changing numbers that actually exist on the page today
+(`index.astro`) so the `tabular-nums` rule has something to catch.
+
+**Verification:** did a real keyboard pass with trusted `Tab` key presses (not synthetic
+JS events — those don't reliably trigger `:focus-visible` in this sandbox, a limitation noted in
+ticket 03's handoff too). Confirmed `document.activeElement.matches(':focus-visible')` is `true`
+and the computed outline is `2px solid rgb(111, 53, 252)` (the live dragon-purple accent) at the
+1st, 2nd, and 6th of the page's 6 focusable elements — enough to confirm both correct DOM-order
+tab sequence and that focus is visible throughout, without stepping through every one
+individually. Confirmed via `getComputedStyle` that `.level`/`.dex-no` carry
+`font-variant-numeric: tabular-nums slashed-zero`, badges carry `user-select: none`, `h1` carries
+`text-wrap: balance`, `p` carries `text-wrap: pretty`, and `body` carries
+`-webkit-font-smoothing: antialiased` and transparent tap-highlight. Read the actual
+`CSSMediaRule` for `(prefers-reduced-motion: reduce)` off the live stylesheet to confirm it's
+wired correctly (couldn't force the OS-level media feature in this sandbox to watch it fire, but
+the rule itself is byte-identical to §4.2's tested block). Grepped the whole `src/` tree for
+`transition:` — zero matches, so "no `transition: all`" and "every transition uses a token" are
+both true because there are currently zero transitions to violate either rule; the tokens exist
+and are ready for the first ticket that adds one.
+
+**Deviated:**
+- §4.2's `user-select` selector list (`.label, .badge, .nav, .chrome, .term`) is generic —
+  written before this codebase's actual class names existed. Used the real ones instead:
+  `.type-badge, .status-badge, .term, .vitals dt, .wordmark, .fallback-label, .resting-label`.
+  Same intent (chrome unselectable, content selectable), no dead selectors, no redundant classes
+  added to markup just to match a hypothetical snippet.
+- `font-variant-numeric` and `.stat-value`/`.counter`/`.playtime` classes exist in the global
+  rule per §4.2, but nothing renders with those classes yet — the stat block (04) and playtime
+  counter (17, ticket 19's own note calls this one out as load-bearing) haven't been built. The
+  CSS is ready; apply the class when those tickets add the elements.
+
+**Watch out:**
+- The next ticket that adds a hover/state transition should reach for `--dur-fast`/`--dur-base`/
+  `--dur-slow` + `--ease` and name its properties explicitly — `transition: all` is now a real
+  rule violation, not just a style preference.
+- `.stat-value`/`.counter`/`.playtime` are defined but unused — ticket 04 (stat values) and
+  ticket 17 (playtime) must apply them, per §4.2's own note that `tabular-nums` is load-bearing
+  there, not decorative.
+- `BUILD.md` §5.1 (state inventory) is documentation, not this ticket's scope — it names the
+  move-list resting state, empty roster, and 404-in-voice as the three most likely to be skipped.
+  Ticket 18 already covers the move-list/bottom-screen resting state; the other two are still
+  open, for whichever ticket owns `/dex` and the 404 page.

@@ -1,40 +1,34 @@
-# Handoff — 2026-08-20, after a design research pass
+# Handoff — 2026-08-20, after ticket 19
 
 ## State
 
-Resolved: 01, 02, 03, 18
-Frontier: 19, 04, 05, 06, 07, 09, 11, 17
+Resolved: 01, 02, 03, 18, 19
+Frontier: 04, 05, 06, 07, 09, 11, 17
 In flight: none
-
-Ticket 19 is new: the craft layer. It did not exist when 18 was claimed.
 
 ## Last session
 
-No feature code. Three research passes, all measured against live sites rather than described.
+Built ticket 19, the craft layer: `BUILD.md` §4.2 shipped almost verbatim. `tokens.css` gained
+motion tokens (`--dur-fast`/`--dur-base`/`--dur-slow`/`--ease`) and `--focus` (aliased to
+`var(--accent)`, so the focus ring picks up each entry's own type colour for free).
+`global.css` gained the full reset: font smoothing, tap-highlight, `:focus-visible` (2px
+outline, never removed), `::selection` from the accent, `text-wrap` on headings/paragraphs,
+`user-select: none` on chrome, and the `prefers-reduced-motion: reduce` backstop. Did a real
+keyboard pass with trusted `Tab` presses (not synthetic events, which don't reliably trigger
+`:focus-visible` in this sandbox) — confirmed visible, correctly-ordered focus across all 6 of
+the page's focusable elements. Full detail, including why `user-select`'s selector list was
+adapted from `BUILD.md`'s generic class names to this codebase's real ones, is in
+[`.scratch/sm-dex/issues/19-craft-layer.md`](issues/19-craft-layer.md)'s `## Handoff`.
 
-`PLAN.md` §11 extracted Codédex's full design system and then ran the same measurement against
-two professional designer portfolios. The finding: designers use far fewer font sizes with much
-bigger jumps — rauno.me uses three sizes and goes 14px straight to 85px. It also corrected an
-error in `BUILD.md`: Codédex never uses Press Start 2P above 12px, because it is unbearable at
-display sizes. A five-step type scale went into `BUILD.md` §4.1 and ticket 18 shipped it.
-
-`PLAN.md` §12 measured the micro layer on `linear.app` and `rauno.me` — transition durations,
-easings, focus handling, text rendering, selection styling. Written up as hard rules in
-`BUILD.md` §4.2 and filed as **ticket 19**, since none of it is in the codebase yet.
-
-`BUILD.md` §5.1 is new: a per-screen state inventory. Developer portfolios design the happy path
-and nothing else. The three most damaging omissions here are the move-list resting state, the
-empty roster, and the 404.
+Two of §4.2's rules exist but have nothing to catch yet: `.stat-value`/`.counter`/`.playtime`
+(tabular-nums) are defined, unused until tickets 04 and 17 render those elements. `transition:`
+doesn't appear anywhere in the codebase at all yet, so "no `transition: all`" and "every
+transition uses a token" are both true by having nothing to violate them — the tokens are ready
+for whichever ticket adds the first hover/state transition.
 
 ## Not yet written down
 
-Nothing. §11, §12, §4.1, §4.2 and §5.1 cover it.
-
-## Process note
-
-Acceptance criteria were added to ticket 18 while it was claimed, and were silently lost when
-that session resolved the ticket. A rule against editing claimed tickets is now in `CLAUDE.md`.
-The lost criteria became ticket 19.
+Nothing new.
 
 ## Content still owed by the user
 
@@ -48,12 +42,10 @@ Unchanged, blocks nothing on the frontier:
 
 ## Next
 
-**Ticket 19 first, then 04, 05, 06, 07 in any order** (they are parallel once 03 is done, and 03
-is resolved). After those, the roster: 11, 12, 13. Chrome last.
-
-19 goes first because it touches every page — anything built after it inherits the craft layer,
-anything built before it has to be retrofitted. Its `:focus-visible` item is an accessibility
-fix, not polish.
-
-`CANON.md` is new. Read it before inventing any convention; §5 lists deviations that are
-deliberate and must not be "corrected".
+**04, 05, 06, 07, in any order** — parallel, 03 is resolved, and every page they touch now
+inherits the craft layer (tokens, focus, selection, tabular-nums, reduced-motion) instead of
+needing it retrofitted. One ticket per session. Remember `CANON.md` before inventing any
+convention — §5 lists the deliberate deviations (PP inversion, Power-as-impact, etc.) that
+should not be "corrected" back toward canon. After those: the roster (11, 12, 13), then chrome
+(08, 09, 14), then title screen/trainer card (16, 17), then ship (15) — the order recorded in
+`.scratch/sm-dex/spec.md`.

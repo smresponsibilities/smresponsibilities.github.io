@@ -8,8 +8,10 @@
   font-display: swap;
 }
 
-* {
+*, ::before, ::after {
   box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;   /* kills the grey flash on mobile tap */
 }
 
 body {
@@ -26,4 +28,50 @@ h1 {
   font-family: var(--font-display);
   font-size: var(--fs-name);
   line-height: var(--lh-head);
+}
+
+p {
+  text-wrap: pretty;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+/* focus — never remove it, always offset it */
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* a default blue selection on a themed site is a tell */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+/* numbers that change must not jitter */
+.stat-value, .dex-no, .playtime, .level, .counter {
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+/* chrome is not selectable; content is. Selectors are this codebase's actual
+   chrome classes (BUILD.md §4.2's .label/.badge/.nav/.chrome are generic
+   placeholders — these are what's really rendered). */
+.type-badge, .status-badge, .term, .vitals dt, .wordmark,
+.fallback-label, .resting-label {
+  user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

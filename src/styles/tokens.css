@@ -24,6 +24,14 @@
   --accent:    var(--t-dragon);
   --accent-2:  var(--t-steel);
 
+  /* motion — Linear's most-used value is 160ms. Fast, not slow. */
+  --dur-fast: 100ms;   /* colour, opacity, small state flips */
+  --dur-base: 160ms;   /* the default for everything else */
+  --dur-slow: 400ms;   /* entrances, page transitions */
+  --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);   /* easeOutQuad */
+
+  --focus: var(--accent);
+
   /* typography */
   --font-display: "Departure Mono", ui-monospace, monospace;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
