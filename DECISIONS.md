@@ -509,3 +509,77 @@ because of how it looks.
 - It says Astro 6; the project is on **Astro 7.2.4**. Harmless, but the doc is stale.
 - The Press Start 2P font file is in the §2 file tree but no ticket ever required loading it.
   That gap is why the site looks generic. Filed as ticket 18.
+
+
+---
+
+## Q. Convergence risk — why this would have looked like every other Pokédex portfolio
+
+Raised after three tickets: will this converge on the generic Pokédex-portfolio look?
+
+It would have. The audit is uncomfortable and worth keeping.
+
+### Q1. Where the spec converged
+
+| Our decision | Who else has it |
+|---|---|
+| Device shell with bezel and two screens | every Pokédex portfolio |
+| **Press Start 2P** | Codédex, moizm.dev, and most retro sites on the web |
+| Type badges as coloured pills | all of them |
+| Horizontal stat bars | all of them |
+| Dark slate palette with a warm accent | **taken from Codédex** — it is their look |
+| Sprite, flavour text, height and weight | all of them |
+
+Six visual decisions, all of them the default choice.
+
+### Q2. Where it is genuinely different — and the pattern
+
+Counted stats rather than rated ones. Ball type encoding *how* a job was obtained. Accuracy as
+reliability and PP as maintenance status, which makes the entry admit which projects are dead.
+The evolution chain's silhouetted fourth stage standing in for availability. The roster.
+
+**Every differentiator is information design. Every convergence is chrome.** That is the
+diagnosis, and it is what the three corrections below address.
+
+### Q3. Correction 1 — the palette follows the typing
+
+`--accent` was `#F7D02C`, electric yellow, which belongs to no part of this entry. The spec has
+always said the palette follows the entry's own types; the code did not. Dragon `#6F35FC` and
+Steel `#B7B7CE` give a purple-and-steel site, which is instantly not the red-and-white Pokédex
+everyone else builds. It costs two token values and comes from data that already exists.
+
+### Q4. Correction 2 — Departure Mono, not Press Start 2P
+
+Press Start 2P is the most heavily used pixel font on the web. Both reference sites studied for
+this project use it. Choosing it guarantees the site reads as genre rather than as itself.
+
+**Departure Mono** (MIT, v1.500) is monospaced and reads as a technical instrument rather than
+an arcade cabinet — much closer to what the content is. Alternatives considered: Workbench and
+Sixtyfour (OFL, variable, barely used) and Silkscreen (cleaner but still common).
+
+This reverses B7, which specified Press Start 2P. The reasoning behind B7 was licensing safety;
+Departure Mono is equally safe and not exhausted.
+
+### Q5. Correction 3 — substance before chrome
+
+Blocking edges say what is *possible*. They do not say what is *worth doing next*.
+
+The roster is the moat: a portfolio fifty people are inside cannot be copied without the
+people. Ticket 11 is blocked only by 02, so it has been takeable since the shell landed — yet
+it sat behind skins, canvas and polish, which are chrome.
+
+The failure mode is specific: energy runs out somewhere around ticket 10, and what ships is a
+good-looking Pokédex portfolio with no roster. That is precisely the generic outcome.
+
+New order, recorded in `.scratch/sm-dex/spec.md`:
+
+```
+18  →  04 05 06 07  →  11 12 13  →  08 09 14  →  16 17  →  15
+```
+
+### Q6. Motion is now a hard rule
+
+Competing sites are static — the closest one ships a single keyframe and no canvas at all. The
+canvas backgrounds, sprite idle and view transitions are a large part of what separates this
+from the genre, and they are exactly the kind of work that gets cut under time pressure.
+Added to `BUILD.md` §0 so it is treated as load-bearing rather than as polish.

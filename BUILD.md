@@ -31,6 +31,8 @@ implementing agent typically overrides by reflex. **Do not.**
 | **Do not put "Pokédex" in the site title, `<h1>`, or domain.** | Site is called **SM'S DEX**. |
 | **Every animation respects `prefers-reduced-motion`.** | Non-negotiable. |
 | **Audio never autoplays.** Sound toggle defaults **off**. | A recruiter opening this in an office. |
+| **Motion is a differentiator, not polish.** Do not cut it under time pressure. | Competing Pokédex portfolios are static — one of them ships a single keyframe and no canvas. The animation is a large part of what separates this from the genre. |
+| **Do not use Press Start 2P.** | It is the most heavily used pixel font on the web; it makes the site read as generic retro. See ticket 18. |
 
 If you believe one of these is wrong, write the reason in a comment and build it as specified
 anyway. Do not silently substitute.
@@ -75,7 +77,7 @@ Verified current as of 2026-08. The project is on Astro 7.2.4.
 | Hosting | GitHub Pages via `withastro/action` |
 | CI | GitHub Actions |
 | Submissions | GitHub Issue Forms → Action → commit |
-| Fonts | Press Start 2P (self-hosted woff2, subset latin) + system sans |
+| Fonts | **Departure Mono** (MIT, self-hosted woff2, subset latin) + system sans |
 
 **Astro content-collections API** (this is the current shape — do not use the pre-v5 form):
 
@@ -284,7 +286,7 @@ Every colour in the app comes from a token. **No hard-coded hex outside this fil
   --line:    #1A1A1A;   /* ball outlines */
 
   /* typography */
-  --font-display: "Press Start 2P", monospace;
+  --font-display: "Departure Mono", ui-monospace, monospace;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
   /* the 18 type colours — canon values, do not adjust */
@@ -695,8 +697,10 @@ Ranked by how much time each will cost if missed.
    paint, or every reload flashes the default skin.
 3. **`site` must be set** in `astro.config.mjs` or OG image URLs and the sitemap come out
    relative and break every share card.
-4. **Press Start 2P is display-only.** 8px multiples, headings and chrome only. Body copy in it
-   is unreadable and is an accessibility failure, not a style choice.
+4. **The display face is display-only.** Headings and chrome only. Body copy in a pixel face is
+   unreadable and is an accessibility failure, not a style choice. Also: a `--font-display`
+   token that nothing references means the font silently never applies — check the computed
+   style of an `h1`, not just the stylesheet.
 5. **`github-issue-parser` v3 needs `issue-body` passed.** v2 snippets silently do the wrong
    thing.
 6. **Canvas must be hero-bounded.** Animating behind 5,000px of scroll burns battery for an
