@@ -40,6 +40,16 @@ PR bodies, and every file in the repo. Also drop caveman for security warnings, 
 of irreversible actions, and ordered multi-step instructions where clipped fragments could be
 misread — then resume immediately. See `BUILD.md` §0.1.
 
+## Never edit a claimed ticket
+
+A ticket marked `Status: claimed` has a session working on it right now. Editing it from
+another session loses one side of the change — this has already happened once: acceptance
+criteria added to ticket 18 while it was claimed were silently overwritten when that session
+resolved it, and the work they described was never built.
+
+If new requirements appear for work already in flight, **file a new ticket**. It costs nothing
+and it survives.
+
 ## Handoff — required at the end of every session
 
 Work happens one ticket per session, in a fresh context. Nothing carries over except what is

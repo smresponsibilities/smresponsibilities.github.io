@@ -1,61 +1,52 @@
-# Handoff — 2026-08-20, after ticket 18
+# Handoff — 2026-08-20, after a design research pass
 
 ## State
 
 Resolved: 01, 02, 03, 18
-Frontier: 04, 05, 06, 07, 09, 11, 17
+Frontier: 19, 04, 05, 06, 07, 09, 11, 17
 In flight: none
+
+Ticket 19 is new: the craft layer. It did not exist when 18 was claimed.
 
 ## Last session
 
-Built ticket 18, visual identity: the site now has an actual display font. Departure Mono
-(SIL OFL, not MIT as the ticket text says — a documentation correction, not a blocker)
-downloaded, subset to the standard latin range with `fonttools`, and self-hosted at 6.3 KB.
-`Base.astro` now derives `--accent`/`--accent-2` per-entry from `me.types` via an inline style on
-`<html>` rather than a fixed hex — proved this by temporarily switching the data to fire/water
-and watching the rendered colours change, then reverting. `Screen.astro`'s bottom slot renders a
-`STANDBY` resting state (blinking dot, respects `prefers-reduced-motion`) instead of an empty
-box when nothing has filled it — this disappears automatically once ticket 04+ renders real
-content there.
+No feature code. Three research passes, all measured against live sites rather than described.
 
-**Mid-session spec update, worth knowing about:** `BUILD.md` gained a new §4.1 ("Type discipline
-— measured, not asserted") while this ticket was in progress, from a concurrent session's
-research pass — a "not negotiable" five-token scale (`--fs-label` 12 / `--fs-body` 15 /
-`--fs-head` 24 / `--fs-name` 40 / `--fs-mega` 72px, plus line-height and label-tracking tokens),
-replacing an earlier five-step scale this session had already built and shipped in its first
-pass. Reworked everything to match §4.1 before finishing — the token names in the codebase now
-are `--fs-*`/`--lh-*`/`--track-label`, not anything with `--text-` in it. If you see `--text-`
-referenced anywhere (a stale note, a half-applied patch), that's leftover from before this
-correction landed and should be updated to match §4.1. Full detail, including where the
-chrome/body-copy line was drawn for the display font and why the wordmark specifically got
-`--fs-head`, is in
-[`.scratch/sm-dex/issues/18-visual-identity.md`](issues/18-visual-identity.md)'s `## Handoff`.
+`PLAN.md` §11 extracted Codédex's full design system and then ran the same measurement against
+two professional designer portfolios. The finding: designers use far fewer font sizes with much
+bigger jumps — rauno.me uses three sizes and goes 14px straight to 85px. It also corrected an
+error in `BUILD.md`: Codédex never uses Press Start 2P above 12px, because it is unbearable at
+display sizes. A five-step type scale went into `BUILD.md` §4.1 and ticket 18 shipped it.
 
-**Build order changed since the last handoff** (recorded in `DECISIONS.md` §Q5 and
-`.scratch/sm-dex/spec.md`, both already in the repo): substance before chrome. The roster
-(11, 12, 13) now comes before skins/canvas/polish (08, 09, 14), because the roster is the actual
-differentiator and was at risk of being cut if energy ran out late. Full order:
-`18 → 04 05 06 07 → 11 12 13 → 08 09 14 → 16 17 → 15`.
+`PLAN.md` §12 measured the micro layer on `linear.app` and `rauno.me` — transition durations,
+easings, focus handling, text rendering, selection styling. Written up as hard rules in
+`BUILD.md` §4.2 and filed as **ticket 19**, since none of it is in the codebase yet.
+
+`BUILD.md` §5.1 is new: a per-screen state inventory. Developer portfolios design the happy path
+and nothing else. The three most damaging omissions here are the move-list resting state, the
+empty roster, and the 404.
 
 ## Not yet written down
 
-Nothing new from this session.
+Nothing. §11, §12, §4.1, §4.2 and §5.1 cover it.
+
+## Process note
+
+Acceptance criteria were added to ticket 18 while it was claimed, and were silently lost when
+that session resolved the ticket. A rule against editing claimed tickets is now in `CLAUDE.md`.
+The lost criteria became ticket 19.
 
 ## Content still owed by the user
 
-Unchanged, still doesn't block the current frontier:
+Unchanged, blocks nothing on the frontier:
 
-- Nature — 25 options listed in `SPEC.md` §7.5
+- Nature — 25 options in `SPEC.md` §7.5
 - Weaknesses / resistances / immunity
-- Three project links — Productivity Caller demo, Chaincode live + demo, QuizDeck repo
-- Three to five personal facts for the flavour text
+- Three project links
+- Three to five personal facts
 - The domain, once purchased
 
 ## Next
 
-Per the build order above: tickets 04–07 (stat block, moves, encounters, ribbons/evolution/
-flavour) run in parallel once picked up, all filling `Screen`'s `bottom` slot via the same
-`<Fragment slot="bottom">` pattern `index.astro` already uses for `top`. Ticket 04 (stat block)
-is the natural next pick — remember BUILD.md §6.3's fix: each stat's bar fill is
-`value / benchmark` from `me.json`, never a shared `log10` scale, and the tooltip must always
-state the benchmark (§9 gotcha #10).
+**Ticket 19**, then the build order in `spec.md`: your entry (04–07), then the roster (11–13),
+then chrome. 19 is cheap, unblocked, and touches every page.
