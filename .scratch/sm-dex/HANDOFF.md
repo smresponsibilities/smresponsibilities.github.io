@@ -48,6 +48,55 @@ Verified statically: the emitted rule, the transition property and behaviour lis
 visually** — the browser pane used for checking does not composite frames, so transitions do
 not advance there and `getAnimations()` reads empty. Someone should eyeball the fade once.
 
+## What exists in the codebase
+
+```
+src/components/   Screen · Sprite · Term · TypeBadge
+src/layouts/      Base
+src/lib/          level.ts · me.ts · types.ts
+src/pages/        index.astro
+src/styles/       global.css · tokens.css
+src/data/         me.json
+```
+
+`/` renders the identity block in the top screen. The bottom screen shows a `STANDBY` resting
+state, waiting for 04–07 to fill it. One dependency: `astro`. Nothing ships to the browser but
+HTML and CSS.
+
+## Reference documents, in order of authority
+
+1. `BUILD.md` — the implementation spec, wins any conflict. §4.1 type discipline · §4.2 the
+   craft layer · §5.1 per-screen state inventory · §6.3 stat bars · §7.4 move density.
+2. `CANON.md` — what the real games do, measured. Read before inventing a convention.
+   **§5 lists deliberate deviations — do not "fix" them.**
+3. `DECISIONS.md` — every decision, its alternatives, and why they lost.
+4. `SPEC.md` — the content that becomes the JSON.
+5. `PLAN.md` — background. §11 typography · §12 craft · §13 the three-way audit.
+
+## Things that will bite on 04–07
+
+- **Stat bars use a per-stat `benchmark`**, not a shared log scale: `fill = min(1, value /
+  benchmark)`. The number is the primary content and the tooltip must state the benchmark. An
+  earlier draft log-normalised all six and rendered the strongest signal as the weakest bar.
+  `BUILD.md` §6.3, and `SPEC.md` §4 was corrected to match.
+- **Status-category moves have no power at all**, not zero. `CANON.md` §4.
+- **Move descriptions are short** — real ones run a median of 34 characters. The level-2
+  disclosure really is one line; do not design for a paragraph.
+- **Empty fields must not render.** Sparsity is the entire density fix.
+- **A ball icon never appears without its reason text** beside it.
+- **Every new term gets a `Term` tooltip.** Legibility is part of each slice being done, not a
+  later pass.
+
+## A process lesson worth carrying
+
+**A token nobody references silently does nothing.** Twice now: `--font-display` before ticket
+18, `--dur-*` after ticket 19. Reading the stylesheet does not catch it — checking the computed
+style of a real rendered element does. If a ticket adds a token, it should add the first use of
+that token too.
+
+Related: **an acceptance criterion can pass vacuously.** "Every transition uses a duration
+token" was true when there were no transitions. Tick a box only when it is true *and* non-empty.
+
 ## Content still owed by the user
 
 Unchanged, blocks nothing on the frontier:
