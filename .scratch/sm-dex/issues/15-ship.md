@@ -3,7 +3,7 @@
 **What to build:** The site is live on the real domain with correct share cards, and the repo reads well to
 anyone opening it as a work sample.
 
-**Blocked by:** 10, 13, 14
+**Blocked by:** 10, 13, 14, 16, 17
 
 **Status:** ready-for-agent
 

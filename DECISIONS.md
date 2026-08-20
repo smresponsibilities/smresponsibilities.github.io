@@ -378,3 +378,59 @@ states the benchmark explicitly. New rule — **never render a bar whose scale i
 
 This is the kind of error that only surfaces when a design is written out precisely enough for
 someone else to build, which is the argument for having produced the spec at all.
+
+
+---
+
+## O. Teardown of moizm.dev
+
+Another Pokedex-style portfolio, inspected live rather than from a description. Two features
+adopted as tickets 16 and 17; three of its choices deliberately not copied.
+
+### O1. What it does
+
+| | |
+|---|---|
+| Stack | React + **Tailwind**, single JS bundle, hash routing (`#info/interests`) |
+| Layout | The device is a **background image**; content is positioned on top with per-breakpoint pixel margins (`ml-[90px] sm:max-md:ml-[140px] md:max-lg:ml-[177px]`) |
+| Sections | INFO / PROJECTS / RESUME / CONTACT, each a paginated deck with BACK / NEXT and a `Quit` |
+| Animation | One keyframe, Tailwind's built-in `pulse`. No canvas, no audio. |
+| Assets | Ships Nintendo's actual Pokemon logo, a 700x806 photo, a handprint image, a custom `PokedexFont` used for **body text** |
+
+### O2. Adopted
+
+| Idea | Where |
+|---|---|
+| **"X VERSION" naming** — the wordmark reads `MOIZ VERSION` | Folded into ticket 08. Our selector already drives skin and flavour text; naming the site is free on top. |
+| **BACK / NEXT paging** between entries | Folded into ticket 13. Without it a shared entry link is a dead end. |
+| **Title screen** — full-screen card, blinking "tap to begin" | New ticket 16 |
+| **Trainer card with a live playtime counter** | New ticket 17. The best idea on their site by a distance. |
+
+The playtime counter deserves its own note: in the games it is the quiet flex at the bottom of
+the trainer card. Theirs counts from a birthdate. Ours should count something that means
+something — a streak, a first commit — because a counter that has genuinely been running for
+years reads very differently from a sentence claiming it has.
+
+### O3. Not copied, deliberately
+
+**The desktop-only gate.** The site opens with *"This Pokedex-style portfolio is best viewed on
+a larger screen. [Continue Anyway]"*. That is not a feature, it is an apology: the layout is
+pinned to a background bitmap with hardcoded per-breakpoint margins, so it cannot reflow. Our
+C1 dual-screen choice exists precisely to avoid this — two screens *is* a responsive layout, and
+ticket 02 shipped verified with no horizontal scroll at 375 px. We need no apology.
+
+**Re-gating every visit.** Their `localStorage` and `sessionStorage` are both empty, so the
+title screen appears on every single visit forever. Ticket 16 requires it to show once and to
+be skipped entirely on deep links.
+
+**Hash routing.** `#info/interests` means no per-entry OpenGraph card — sharing a link previews
+the site's default image, not the entry. This is the exact weakness that made static
+`/dex/[username]` pages the reason for choosing Astro in A1.
+
+### O4. One thing they arguably do better
+
+Their project badges carry **real technology names** (`NEXT.JS`, `TAILWIND CSS`, `SUPABASE`,
+`PYTHON`). Ours map technologies onto Pokemon types, so a recruiter scanning for "Kotlin" sees
+`ELECTRIC`. Our tooltips (§7.5) close the gap, and `/resume` closes it completely, but it is a
+real cost of the metaphor and worth watching once the site is live. If it bites, the fix is to
+show the stack list alongside the type badge in the move detail rather than only on expand.
