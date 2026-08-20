@@ -140,9 +140,14 @@ This is strictly better than a rating:
 - **Self-updating.** Streak and problem count come from live data at build time.
 - **It answers your question.** Nothing is calculated. It's counted.
 
-**Bar rendering:** the number is the content, the bar is decoration. Fill is `log10`-normalised
-so 5,000,000 doesn't flatten 425 into an invisible sliver. The tooltip on each bar states the
-exact metric and where it comes from — which is the §7.5 legibility requirement doing its job.
+**Bar rendering:** the number is the content, the bar is decoration. **Each stat declares its
+own benchmark** in `me.json` and the bar fills to `min(1, value / benchmark)`. An earlier draft
+`log10`-normalised all six onto one scale; that was wrong, because the values are in
+incompatible units and it rendered 425 test suites as a 12% bar against 5M events at 94% —
+telling a recruiter the opposite of the truth. See `BUILD.md` §6.3.
+
+The tooltip states the metric **and** the benchmark, so the scale is declared rather than
+invented. Never render a bar whose scale is not stated.
 
 If you'd still rather drop the panel entirely, say so — but these six numbers are the most
 persuasive thing on your resume, and a stat block is the single best place to put them.
