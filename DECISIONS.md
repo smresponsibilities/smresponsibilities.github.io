@@ -607,3 +607,59 @@ than trimmed, since they read as Pokémon in a way an abstract data stream does 
 this genre* pixel fonts are rare — most sites use browser defaults or Poppins. Departure Mono
 remains the right pick, and typography turns out to be an unusually cheap place to look
 distinct, because almost nobody here commits to a display face at all.
+
+
+---
+
+## S. The device casing — and a scoped exception to C6
+
+Reference images from `moizm.dev` show a fully drawn clamshell: hinge bar with a camera dot,
+D-pad in a circular housing, speaker dots, shoulder area, two round buttons, an LED. It reads
+unmistakably as a physical object, and that is the effect wanted.
+
+### S1. The conflict
+
+That device is **glossy** — radial gradients on the shell, drop shadows under the D-pad,
+bevelled circles. **C6 forbids gradients and shadows entirely.** Both cannot hold.
+
+### S2. Resolution — the rule was about the wrong thing
+
+C6 was derived from Codédex, whose flat panels and hard borders are what make *screen content*
+read as pixel-art rather than as generic flat design. That reasoning applies to the UI. It was
+never reasoning about a physical shell, because there wasn't one.
+
+A real handheld photographs as a moulded plastic object with soft shading, containing screens
+that are flat. That is not an inconsistency, it is the actual relationship between a device and
+its display.
+
+**So C6 is scoped rather than broken:**
+
+| Region | Rule |
+|---|---|
+| **Inside the screens** — all content, panels, badges, bars, text | C6 as written. Flat fills, 2px borders, **no gradients, no shadows.** Unchanged. |
+| **The casing** — shell, hinge, D-pad, buttons, grille, LED | Gradients and shadows permitted, **only** to describe physical form |
+
+The boundary is the screen bezel. Nothing decorative crosses it.
+
+### S3. Constraints that still hold
+
+- **Drawn in CSS and SVG, never a bitmap.** `moizm.dev` uses a fixed-aspect image with content
+  pinned by per-breakpoint margins, which is exactly why it ships a
+  "best viewed on a larger screen" warning. Ours must reflow.
+- **The casing must serve our layout, not the reference's.** A DS hinge is horizontal because
+  its screens stack. **Ours sit side by side at desktop**, so the seam runs vertically between
+  them. Do not adopt a stacked layout to match the reference — the side-by-side arrangement is
+  what lets the site work on a phone without apologising.
+- **Chrome degrades, structure does not.** At 375px the casing thins or disappears; the two
+  screens remain.
+- **No Nintendo assets.** No Poké Ball logotype, no Pokémon logo, no sprites, no stored
+  landscape background.
+- Casing colour comes from the tokens, not the reference's red.
+
+### S4. Add-a-Pokémon button
+
+The roster submission needs a visible entry point and currently has none. It goes in the casing
+at the **top right**, where a handheld would carry a shoulder button or cartridge slot.
+
+It must **say what it does** — `+ ADD POKÉMON` — per the legibility rule in `BUILD.md` §7.5. An
+unlabelled icon in device chrome is decoration, and nobody will find it.
