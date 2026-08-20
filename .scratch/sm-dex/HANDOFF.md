@@ -30,6 +30,24 @@ for whichever ticket adds the first hover/state transition.
 
 Nothing new.
 
+## Follow-up since ticket 19
+
+Ticket 19 left the motion tokens defined but unused — there were no transitions anywhere in the
+codebase, so `--dur-fast`, `--dur-base` and `--ease` were dead in exactly the way
+`--font-display` was before ticket 18. Its acceptance criterion "every transition uses a
+duration token" passed vacuously, because zero transitions satisfy "every".
+
+Wired the first real use: `Term.astro` tooltips now fade in over `--dur-fast` with a 2px rise.
+A popover lives in the top layer and toggles `display`, so both `display` and `overlay` need
+`transition-behavior: allow-discrete` or the exit transition never runs — the tip would animate
+open and then vanish instantly on close. `@starting-style` supplies the pre-open state and
+Astro scopes it correctly.
+
+Verified statically: the emitted rule, the transition property and behaviour lists, the
+`@starting-style` rule in the CSSOM, and five elements now carrying transitions. **Not verified
+visually** — the browser pane used for checking does not composite frames, so transitions do
+not advance there and `getAnimations()` reads empty. Someone should eyeball the fade once.
+
 ## Content still owed by the user
 
 Unchanged, blocks nothing on the frontier:

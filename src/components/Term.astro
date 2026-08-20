@@ -52,6 +52,32 @@ const hasCustomTrigger = Astro.slots.has('default');
     font-size: var(--fs-body);
     line-height: var(--lh-body);
     font-family: var(--font-body);
+
+    /* Fade in rather than snapping. A popover is in the top layer and toggles
+       `display`, so both `display` and `overlay` need `allow-discrete` for the
+       exit transition to run at all — without them the tip vanishes instantly
+       on close even though the open animates. */
+    opacity: 0;
+    transform: translateY(-2px);
+    transition:
+      opacity var(--dur-fast) var(--ease),
+      transform var(--dur-fast) var(--ease),
+      display var(--dur-fast) allow-discrete,
+      overlay var(--dur-fast) allow-discrete;
+  }
+
+  .tip:popover-open {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* The entry animation needs a declared "before open" state. Browsers without
+     @starting-style just show the tip immediately, which is a fine fallback. */
+  @starting-style {
+    .tip:popover-open {
+      opacity: 0;
+      transform: translateY(-2px);
+    }
   }
 </style>
 
