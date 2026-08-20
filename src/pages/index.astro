@@ -24,7 +24,7 @@ const STATUS_NOTES: Record<string, string> = {
 };
 ---
 
-<Base title={`${me.name} | SM'S DEX`}>
+<Base title={`${me.name} | SM'S DEX`} accentTypes={me.types}>
   <Screen>
     <Fragment slot="top">
       <div class="identity">
@@ -102,7 +102,8 @@ const STATUS_NOTES: Record<string, string> = {
 
   .vitals dt {
     color: var(--dim);
-    font-size: 12px;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
   }
 
   .vitals dd {
@@ -115,7 +116,8 @@ const STATUS_NOTES: Record<string, string> = {
     background: var(--panel);
     border: var(--border-w) solid var(--accent);
     border-radius: var(--radius);
-    font-size: 12px;
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
     font-weight: 700;
     letter-spacing: 0.04em;
   }

@@ -15,6 +15,7 @@ someone who lands on a shared link can browse the rest without going back to the
 - [ ] Counter shows the registered total against the target
 - [ ] Each entry has its own statically generated URL
 - [ ] Sharing an entry link previews that person's sprite and name
+- [ ] Each card is tinted by that person's primary type, so the grid reads as varied rather than as identical boxes
 - [ ] Shiny entries are visually distinct
 - [ ] Grid works at 375 px
 - [ ] BACK and NEXT move between adjacent entries by dex number and wrap at the ends

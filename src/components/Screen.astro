@@ -1,6 +1,7 @@
 ---
 // The device shell: two stacked screens. Single column on narrow viewports,
 // side by side once there's room (BUILD.md §2, ticket 02).
+const hasBottom = Astro.slots.has('bottom');
 ---
 
 <div class="device">
@@ -8,7 +9,14 @@
     <slot name="top" />
   </section>
   <section class="screen screen--bottom" aria-label="Bottom screen">
-    <slot name="bottom" />
+    {hasBottom ? (
+      <slot name="bottom" />
+    ) : (
+      <div class="resting">
+        <span class="resting-dot" aria-hidden="true"></span>
+        <span class="resting-label">STANDBY</span>
+      </div>
+    )}
   </section>
 </div>
 

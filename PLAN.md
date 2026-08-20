@@ -851,6 +851,77 @@ Rules to keep it cheap:
 
 ---
 
+## 10. Genre research — what a "Pokédex portfolio" actually is
+
+Searched the space, then inspected the live sites rather than reading about them. The result
+reframes the convergence worry: **most of what the search results return is not a competitor at
+all.**
+
+### 10.1 Three categories, and only one is ours
+
+**Category 1 — PokéAPI clones.** The overwhelming majority. They list *real* Pokémon fetched
+from the API; there is no person in them. They are a front-end exercise wearing a Pokédex
+costume, and they dominate every search for "pokedex portfolio".
+
+Measured on a representative one (`aricharikar.github.io/pokedex`): body font **Times New
+Roman**, background `#FF0000` flat, **zero `@font-face`**, **zero keyframes**, zero canvas, no
+shadows. Content is `1. Bulbasaur 2. Ivysaur 3. Venusaur`.
+
+These are not competition. They are homework.
+
+**Category 2 — Pokédex-shaped personal portfolios.** The actual competitive set: device chrome,
+and *you* are the entry. `moizm.dev` is the strongest example found and is torn down in
+`DECISIONS.md` §O. **This category is small.**
+
+**Category 3 — Pokémon-themed but not Pokédex-shaped.** A normal portfolio with Pokémon
+content bolted on. Measured on `pokemon-portfolio-jade.vercel.app`: **Poppins** (no pixel font
+anywhere), **four canvases running WebGL** for 3D models, jQuery plus SweetAlert2, dark navy
+`#151030`, and weather keyframes — `rain`, `lightning`, `flash`, `fall`. No dex chrome, no type
+badges, no stats. It is a dark portfolio that happens to render a Rayquaza.
+
+### 10.2 What this changes
+
+The thing that dominates search results is Category 1, which nobody would mistake for a
+portfolio. Our real competitive set is a handful of Category 2 sites. **The convergence risk is
+narrower than it looked** — but it is still real, because the few Category 2 sites all reach for
+the same chrome, and a visitor who has seen one has seen the genre.
+
+### 10.3 What nobody in any category has
+
+Checked against every site inspected:
+
+- Stats that are **counted** rather than invented
+- A **joinable** roster — no personal Pokédex portfolio found lets anyone else in
+- Honest project metadata (`PP 0/15` admitting a repo is archived)
+- Ball type encoding **how the job was obtained**
+- Multiple generation skins on one selector
+- A plain-text résumé escape hatch
+
+Six differentiators, all information design, none of them chrome. This is the same conclusion
+`DECISIONS.md` §Q reached, now confirmed against the wider field.
+
+### 10.4 Two ideas worth taking from the field
+
+**Weather as a background mode.** Category 3 runs `rain` and `lightning` keyframes, and weather
+is canon Pokémon. Both are already in our thirteen background modes (§8.7) — worth keeping
+rather than trimming, because they read as *Pokémon* in a way an abstract data stream does not.
+
+**Type-tinted entry cards.** Category 1's one good habit: the card recolours to the entry's
+primary type. Applied to our roster, every person's card is tinted by their own typing, so
+`/dex` becomes a visually varied wall instead of a grid of identical boxes. Cheap — the type
+colours are already tokens. Added to ticket 13.
+
+### 10.5 One correction to §Q
+
+§Q argued Press Start 2P is overused. That is true of the **retro web generally** — Codédex and
+most pixel-styled sites use it — but within Pokédex portfolios specifically, pixel fonts turn
+out to be *rare*: Category 1 uses browser defaults and Category 3 uses Poppins. Only
+`moizm.dev` reaches for one.
+
+The conclusion does not change. Departure Mono is still the better pick, and the fact that
+almost nobody in this genre commits to a display face at all makes typography an unusually
+cheap place to look distinct.
+
 ## Sources
 
 - PokéAPI Fair Use Policy — https://pokeapi.co/docs/v2 (no rate limits since 2018; cache locally)

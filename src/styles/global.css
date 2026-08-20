@@ -1,5 +1,13 @@
 @import "./tokens.css";
 
+@font-face {
+  font-family: "Departure Mono";
+  src: url("/fonts/departure-mono-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -9,4 +17,10 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
+}
+
+h1 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
 }

@@ -583,3 +583,27 @@ Competing sites are static — the closest one ships a single keyframe and no ca
 canvas backgrounds, sprite idle and view transitions are a large part of what separates this
 from the genre, and they are exactly the kind of work that gets cut under time pressure.
 Added to `BUILD.md` §0 so it is treated as load-bearing rather than as polish.
+
+
+---
+
+## R. Genre research
+
+Full write-up in `PLAN.md` §10, from live inspection rather than description.
+
+**Headline:** three categories exist, and only one is competition. The PokéAPI clones that
+dominate search results have no person in them — one measured example renders in Times New
+Roman on flat `#FF0000` with zero keyframes. Pokémon-themed-but-not-dex-shaped sites (Poppins,
+WebGL, no dex chrome) are a different thing again. The genuine competitive set — Pokédex-shaped
+portfolios where *you* are the entry — is small.
+
+**Confirmed:** all six of our differentiators are absent from every site inspected, and all six
+are information design rather than chrome. §Q's diagnosis holds against the wider field.
+
+**Adopted:** type-tinted roster cards, added to ticket 13. Weather background modes kept rather
+than trimmed, since they read as Pokémon in a way an abstract data stream does not.
+
+**Corrected:** §Q said Press Start 2P is overused. True of the retro web at large, but *within
+this genre* pixel fonts are rare — most sites use browser defaults or Poppins. Departure Mono
+remains the right pick, and typography turns out to be an unusually cheap place to look
+distinct, because almost nobody here commits to a display face at all.

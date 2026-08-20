@@ -4,13 +4,21 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  // The entry whose colours the page should wear — primary type drives
+  // --accent, secondary drives --accent-2. Omit on pages with no single
+  // entry (e.g. the roster grid); the site-wide fallback in tokens.css
+  // applies instead.
+  accentTypes?: readonly string[];
 }
 
-const { title } = Astro.props;
+const { title, accentTypes } = Astro.props;
+const accentStyle = accentTypes?.length
+  ? `--accent: var(--t-${accentTypes[0]}); --accent-2: var(--t-${accentTypes[1] ?? accentTypes[0]});`
+  : undefined;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" style={accentStyle}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,7 +46,7 @@ const { title } = Astro.props;
     padding-inline: 4px;
     color: var(--ink);
     font-family: var(--font-display);
-    font-size: 16px;
+    font-size: var(--text-base);
     text-decoration: none;
   }
 </style>
