@@ -12,7 +12,7 @@ are one line in a JSON file.
 
 | # | Decision | Chosen | Alternatives | Why | How to change |
 |---|---|---|---|---|---|
-| A1 | Framework | 🔒 **Astro 6** | Next.js, plain HTML/CSS/JS, SvelteKit | 0 KB JS baseline; `output:'export'` would disable everything Next is for; content collections validate bot-written JSON at build | Rewrite. Do it now or never. |
+| A1 | Framework | 🔒 **Astro 7** (7.2.4) | Next.js, plain HTML/CSS/JS, SvelteKit | 0 KB JS baseline; `output:'export'` would disable everything Next is for; content collections validate bot-written JSON at build | Rewrite. Do it now or never. |
 | A2 | Hosting | 🔒 **GitHub Pages, custom domain + `smresponsibilities.github.io`** | Cloudflare Pages, Netlify, Vercel | Free; both URLs work — see note in §J | 10 min to move to Cloudflare |
 | A3 | Backend | 🔒 **None — GitHub Issue Forms** | Supabase, Firebase, Formspree, custom API | Free forever, no cold starts, auth + spam + moderation included | Swap the submit target |
 | A4 | Data store | 🔒 **5 JSON files** | CMS, database, Markdown | Content is tiny and structured | — |
@@ -30,7 +30,7 @@ are one line in a JSON file.
 | B4 | Type icons | 🔒 **Draw own / CSS** | `duiker101/pokemon-type-svg-icons` | That repo has **no license file** | Drop the files in |
 | B5 | Nintendo assets | 🔒 **Ship none** | Hotlink PokéAPI sprites | Zero legal exposure, and avatars are more personal anyway | Hotlink via jsDelivr, never commit |
 | B6 | Image storage | 🔒 **Zero bytes. Nothing, ever.** | Spritesheet (~30 KB), per-user uploads | Original requirement, fully restored | — |
-| B7 | Fonts | 🔒 **Press Start 2P display + readable sans body** | Pixel font throughout | Press Start 2P is unreadable at paragraph length — accessibility floor | Swap the body stack |
+| B7 | Fonts | 🔒 **Departure Mono display + system sans body** — *supersedes the original Press Start 2P choice, see §Q4* | Press Start 2P (too widely used), Workbench, Sixtyfour, Silkscreen | A display face is unreadable at paragraph length; and Press Start 2P is the most-used pixel font on the web | Swap the token |
 
 ## C. Visual design
 

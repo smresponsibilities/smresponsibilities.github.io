@@ -51,11 +51,44 @@ number prominently, it is four characters so it survives 375px, and it gives the
 point without competing with the name for meaning. Show me that, and show me one alternative if
 you think something else deserves the climax more.
 
+## The device casing — the biggest gap, and read this before drawing it
+
+A previous mock came back with the *screens* but no **device**. The screens are the inside of a
+Pokédex; I want the outside of one too — a physical object the screens are set into.
+
+For a sense of the effect, look at `moizm.dev`. That is roughly the impression I want: you are
+holding a handheld, and the content lives in windows cut into its shell.
+
+**But do not build it the way that site does, and this is the important part.** Its casing is a
+single bitmap (`pokedexbackground.webp`, `background-size: contain`) with the content nailed on
+top using hardcoded per-breakpoint margins — `ml-14 sm:ml-20 md:ml-30 w-[150px] sm:w-[225px]
+md:w-[300px]`. Because the layout is pinned to a fixed-aspect image, it cannot reflow, and the
+site consequently opens with *"This Pokédex-style portfolio is best viewed on a larger
+screen. [Continue Anyway]"*. That warning is not a feature; it is the bill for the technique.
+
+So the casing must be:
+
+- **Drawn in CSS and inline SVG.** No image of a device. It has to stretch, and the screens
+  inside it stay fluid.
+- **Chrome, not structure.** The two screens are the layout. The casing wraps them where there
+  is room, and thins down or falls away entirely at 375px. **The site must never apologise for
+  being on a phone.**
+- **Original.** Not traced from a real Pokédex, and no Poké Ball logotype.
+- Built from the existing tokens — same border weight, same palette, no new colours.
+
+Casing elements worth considering, from the vocabulary of handheld instruments generally: an
+outer shell in a slightly different fill from the screens, a seam or hinge between the two
+screens, a large round lens near the top corner, small indicator lights, a directional control,
+a speaker grille, a couple of buttons. **Pick a few, not all of them** — a busy casing competes
+with the content, and the content is the point.
+
+Give me **three treatments at different intensities**: a full casing, a restrained one that is
+mostly a bezel and a seam, and one that is nearly nothing. Show each at 1280px **and** at 375px,
+so I can see how the chrome degrades rather than guessing.
+
 ## Where I want options — two or three each
 
-1. **The device frame.** Right now the "device" is two bordered panels and nothing else. How
-   much physical chrome should surround them — a full bezel, a hairline, or none at all? The
-   constraint is that it must be original, not a traced Pokédex.
+1. **Casing intensity** — covered directly above; that is the main one.
 2. **Density.** The identity block is currently a loose flex column with generous gaps. Real
    dex screens pack small labelled fields tightly, and dense reads as *instrument* while sparse
    reads as *toy*. Show me a tighter treatment against the current one.
