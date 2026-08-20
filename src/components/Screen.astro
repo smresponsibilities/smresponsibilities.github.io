@@ -45,4 +45,40 @@ const hasBottom = Astro.slots.has('bottom');
     padding: var(--screen-pad);
     overflow-wrap: anywhere;
   }
+
+  .screen--bottom {
+    min-height: var(--screen-min-h);
+    display: flex;
+  }
+
+  .resting {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: auto;
+    color: var(--dim);
+  }
+
+  .resting-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-2);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .resting-dot {
+      animation: blink 1.2s steps(1) infinite;
+    }
+  }
+
+  @keyframes blink {
+    50% { opacity: 0.25; }
+  }
+
+  .resting-label {
+    font-family: var(--font-display);
+    font-size: var(--text-xs);
+    letter-spacing: 0.05em;
+  }
 </style>

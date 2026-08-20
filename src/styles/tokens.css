@@ -6,6 +6,7 @@
   --screen-pad: 16px;
   --tap:        44px;   /* minimum touch target */
   --device-max: 900px;  /* device shell max width */
+  --screen-min-h: 96px; /* bottom screen, so an empty resting state doesn't collapse */
 
   /* palette — overridden per skin */
   --bg:      #0B0E12;

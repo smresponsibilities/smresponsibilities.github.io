@@ -289,6 +289,17 @@ Every colour in the app comes from a token. **No hard-coded hex outside this fil
   --font-display: "Departure Mono", ui-monospace, monospace;
   --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
+  /* type scale — FIVE sizes, real jumps. See §4.1. Do not add a sixth. */
+  --fs-label: 12px;   /* uppercase + tracking. Nothing renders smaller than this. */
+  --fs-body:  15px;
+  --fs-head:  24px;
+  --fs-name:  40px;
+  --fs-mega:  72px;
+
+  --lh-body: 1.5;
+  --lh-head: 1.25;
+  --track-label: 0.08em;
+
   /* the 18 type colours — canon values, do not adjust */
   --t-normal:#A8A77A; --t-fire:#EE8130; --t-water:#6390F0; --t-electric:#F7D02C;
   --t-grass:#7AC74C;  --t-ice:#96D9D6;  --t-fighting:#C22E28; --t-poison:#A33EA1;
@@ -311,6 +322,40 @@ Ship four. The other four are additive later, and each is the same shape.
 [data-version="rotom"]     { --bg:#FAFAFA; --panel:#FFFFFF; --screen:#FFFFFF; --ink:#18181B;
                              --border:#E11D48; --dim:#71717A; --accent:#E11D48; --radius:12px; }
 ```
+
+### 4.1 Type discipline — measured, not asserted
+
+The same extraction was run against Codédex and two professional designer portfolios
+(`PLAN.md` §11). The result:
+
+| | rauno.me | thibaudallie.com | Codédex |
+|---|---|---|---|
+| Font families | 1 | 2 | 3 |
+| Distinct sizes | **3** | 3 clusters | ~8 over 3 families |
+| Text colours | 3 | 3 | — |
+| Weights | 1 | 2 | 3 |
+| Box-shadows | **0** | **0** | **0** |
+
+**Designers use fewer sizes with bigger jumps.** Rauno goes 14px → 85px with nothing between.
+Thibaud goes 12 → 32 → 160.
+
+Rules that follow, and they are not negotiable:
+
+- **Five sizes. Use the tokens.** Adding a sixth because something "needs to be slightly bigger"
+  is how you end up with 12px and 13px side by side, which is noise, not a scale.
+- **Nothing below 12px, ever.**
+- **Small labels are uppercase with `--track-label` tracking.** Two properties; it is most of
+  what makes an interface read as an interface rather than a document.
+- **Three text colours maximum** (`--ink`, `--dim`, and one accent). **Two weights maximum.**
+- **Zero box-shadows.** Depth comes from borders and flat panel fills. Confirmed on all three
+  reference sites.
+- Line height 1.5 for body, 1.25 for headings.
+
+One more correction from the same research: **Codédex never uses Press Start 2P above 12px** —
+a second pixel face carries its headings, because Press Start 2P is unbearable at 32px. An
+earlier version of this document said to use it for headings. That was wrong, and it is part of
+why Departure Mono replaced it: being monospaced, it holds up at both label and display sizes,
+so one face covers the whole scale.
 
 **Skins may only redefine custom properties.** If a skin needs different HTML, stop and flag
 it — that breaks the cost model. One exception is allowed: a single empty `<div class="bezel">`

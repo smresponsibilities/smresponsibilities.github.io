@@ -922,6 +922,114 @@ The conclusion does not change. Departure Mono is still the better pick, and the
 almost nobody in this genre commits to a display face at all makes typography an unusually
 cheap place to look distinct.
 
+## 11. Codédex, deep — and what designers do differently
+
+Two passes: a full design-system extraction from Codédex, then the same measurement run against
+professional *designer* portfolios to find where the visual-quality gap actually sits.
+
+### 11.1 Codédex — the whole system, measured
+
+**Three typefaces, three roles.** This is the part worth copying, and it corrects an error in
+`BUILD.md`:
+
+| Face | Sizes actually used | Role |
+|---|---|---|
+| **Mulish** (readable sans) | 14/21 w500 — 47 uses, plus 12, 16, 18 | Body. The workhorse. |
+| **Press Start 2P** | **12px only.** Never larger. 23 uses | Small labels and chrome |
+| **PixelGrid S/M** | 18, 20, 24, 32 | Actual headings |
+
+**Press Start 2P is never used above 12px.** A *different* pixel face carries the headings,
+because Press Start 2P at 32px is unbearably wide and blocky. `BUILD.md` said to use it for
+headings. That was wrong.
+
+Line heights are consistent ratios: **1.5 for the sans** (14/21, 16/24, 12/18), **1.4 for the
+pixel headings** (32/44.8, 24/33.6).
+
+**Small text is uppercase with heavy tracking.** 16 elements at `letter-spacing: 1.68px` and 16
+more at `0.96px` — roughly 0.12em and 0.08em — combined with `text-transform: uppercase`. This
+is a large part of why the site reads as an interface rather than a document, and it costs two
+properties.
+
+**Spacing is a clean 4px scale**: gaps of 4, 8, 12, 16, 20, 24, 32, 48, 64, with 8 and 16
+dominating. Padding follows the same base.
+
+**Borders: one colour.** `1.6px solid #475569` on everything, plus a single accent blue. Radii
+are two-tier: **4px** for panels, **100–200px** for pills. Container maxes at **1210px**.
+
+**Zero box-shadows on the entire page.** Confirmed across every element. Depth comes from
+borders and flat panel fills. This is the single most copyable decision on the site.
+
+Layout is flex-dominant — 136 flex containers to 5 grids.
+
+### 11.2 Designer portfolios — the same measurement
+
+Ran the identical extraction against two professional designer sites.
+
+**rauno.me** — Rauno Freiberg, interaction designer at Vercel:
+
+```
+font families      1
+font sizes         3      →  14px, 85px, 720px
+text colours       3
+box-shadows        0
+border radii       2      →  12px, pill
+```
+
+**thibaudallie.com** — Paris art director:
+
+```
+font families      2
+font sizes         10, 12, 32, 40, ~160     (three clusters, nothing between)
+text colours       3
+font weights       2      →  100 and 400
+box-shadows        0
+border radii       0      →  no rounded corners at all
+letter-spacing     normal only
+CSS keyframes      0
+background colours 1      →  #FAF3DD
+```
+
+### 11.3 The finding
+
+| | rauno.me | thibaudallie | Codédex | **SM'S DEX today** |
+|---|---|---|---|---|
+| Font families | 1 | 2 | 3 | 1 (display never loads) |
+| Distinct sizes | **3** | 3 clusters | ~8 across 3 families | **6, ad-hoc** |
+| Text colours | 3 | 3 | — | 2 |
+| Weights | 1 | 2 | 3 | 2 |
+| Shadows | 0 | 0 | 0 | 0 ✅ |
+
+**Designers use fewer sizes with bigger jumps. Developers use more sizes with small jumps.**
+
+Rauno goes 14 → 85. A six-times jump, with nothing in between. Thibaud goes 12 → 32 → 160.
+
+Ours is 9, 12, 13, 16, 24, 32. **12 and 13 are indistinguishable** — that is not a scale, it is
+six numbers that happened. And 9px is below any accessibility floor.
+
+That single difference — scale discipline — accounts for more of the perceived quality gap than
+any amount of animation or colour work.
+
+### 11.4 One more idea worth stealing
+
+Thibaud frames his portfolio as a **publication**: the header reads `Issue N°001 / AUGUST 20,
+2026 / Folio—26`. A conceptual frame carried consistently is what makes an otherwise plain
+layout feel authored.
+
+We already have that frame — the dex number, the version naming, the species classification.
+The lesson is only to carry it *everywhere*, including the places where a normal site would put
+generic furniture: pagination, empty states, error pages, the 404.
+
+### 11.5 Actions
+
+1. **A real type scale**, five sizes with real jumps, replacing the current six. Ticket 18.
+2. **Nothing below 12px.** Ticket 18.
+3. **Uppercase plus ~0.08em tracking on small labels.** Two properties, large effect.
+4. **Keep zero shadows.** Already correct, now confirmed three times over.
+5. **Cap text colours at three** and weights at two.
+6. `BUILD.md` corrected: a blocky display face belongs at small sizes, or you need a second
+   face for headings. Departure Mono is monospaced and holds up at both, which is part of why
+   it beats Press Start 2P here.
+
 ## Sources
 
 - PokéAPI Fair Use Policy — https://pokeapi.co/docs/v2 (no rate limits since 2018; cache locally)
