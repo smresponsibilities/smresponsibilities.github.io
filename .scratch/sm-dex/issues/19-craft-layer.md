@@ -21,6 +21,22 @@ Two of these are not polish:
 Transitions are **100–200ms**. The most-used value across both reference sites is 160ms.
 Developers reach for 300–500ms and it reads as lag rather than as polish.
 
+**Measured on the running build**, so this is a defect list rather than a wishlist:
+
+| Property | Ours now | Linear | rauno.me |
+|---|---|---|---|
+| `-webkit-font-smoothing` | **auto** | antialiased | global |
+| `-webkit-tap-highlight-color` | **browser default** | transparent | kept deliberately |
+| `font-variant-numeric` | **normal** | tabular-nums slashed-zero | — |
+| `text-wrap` | **wrap** | balance + pretty | — |
+| `::selection` rules | **0** | 1 | 2 |
+| **`:focus-visible` rules** | **0** | 6 | 3 |
+| transition durations | **none at all** | 0.1 / 0.16 / 0.4s | 0.15 / 0.2s |
+
+**`:focus-visible` at zero is not polish, it is access.** On a dark custom theme the browser's
+default focus ring can be effectively invisible, which makes the site unusable by keyboard. Do
+this one first.
+
 **Blocked by:** None (can start immediately)
 
 **Status:** ready-for-agent

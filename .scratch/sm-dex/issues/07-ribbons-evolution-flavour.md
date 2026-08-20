@@ -13,4 +13,6 @@ Flavour text keyed by version, so different versions show different facts.
 - [ ] Evolution stages are authored in data and a stage can be added without touching code
 - [ ] Final stage renders as a silhouette with a question mark
 - [ ] Flavour text is keyed by version id
+- [ ] Entries render correctly at the real dex length - median 103 characters, two sentences - and the layout does not depend on them being longer
+- [ ] Nothing in the layout breaks at the 150-character cap
 - [ ] Term covered: ribbons

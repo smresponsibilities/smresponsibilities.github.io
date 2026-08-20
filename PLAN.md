@@ -1113,6 +1113,98 @@ Written up as hard rules in `BUILD.md` §4.2, with a full per-screen state inven
 because the other half of the gap is that developer portfolios design the happy path and
 nothing else.
 
+## 13. Three-way audit — us vs. the original games vs. designers
+
+Everything so far compared us to competitors and to designers. The missing axis was the
+**source material**. Measured 229 unique English Pokédex entries pulled from PokéAPI across 16
+species and every generation, then measured our own running build against both.
+
+### 13.1 What the real Pokédex actually does
+
+```
+FLAVOUR TEXT     229 unique entries
+  characters     min 68 | median 103 | mean 116 | max 214
+  words          min 12 | median  20 | max 36
+  sentences      median 2 | max 3
+  <=150 chars    84%
+  <=120 chars    69%
+  first person   0%
+
+SPECIES LINE ("genus")
+  median 15 chars, max 20
+  "Mouse Pokémon" · "Genetic Pokémon" · "Scratch Cat Pokémon" · "Sky High Pokémon"
+
+HEIGHT / WEIGHT  imperial in English releases, inches zero-padded: HT 1'04"  WT 13.2 lbs
+```
+
+The median entry is **103 characters and two sentences**. That is much shorter than anyone
+writing one from scratch assumes.
+
+### 13.2 Our build, measured live after ticket 18
+
+```
+fonts loaded     Departure Mono ✅
+font families    2          ← designer standard is 1–2
+font sizes       4          ← 12 / 15 / 24 / 40. was 6 ad-hoc. rauno.me uses 3
+text colours     2          ← cap is 3
+font weights     2          ← cap is 2
+--accent         #6F35FC    ← Dragon purple, no longer generic yellow
+bottom screen    96px, "STANDBY"   ← resting state exists
+horizontal scroll none
+```
+
+Typography is now **at or better than the designer benchmark**. Ticket 18 did its job.
+
+### 13.3 Nitpicks against the original
+
+| # | Finding | Severity |
+|---|---|---|
+| 1 | **`entry` capped at 200 chars.** The real median is 103 and 84% are under 150. A 200 cap invites entries twice the length of a real one. Our own drafted entries average ~99 and are well-calibrated — the schema is looser than our own practice. | tighten to **150** |
+| 2 | **`species` capped at 40 chars.** The real max across every species measured is **20** ("Scratch Cat Pokémon"). At 40, visitors will write "Full Stack Web Developer Pokémon" and it will read wrong. | tighten to **24** |
+| 3 | **Nothing enforces third-person voice.** 0% of real entries use first person. The form will happily accept "I love coding!!" and it will sit next to entries written in dex voice. | add a form hint + example |
+| 4 | **Sentence count is unbounded.** Real entries are 2 sentences, max 3. | guidance, not validation |
+| 5 | **No footprint field.** Present in Gens II–V. moizm.dev uses a handprint image for it. | optional, cheap |
+| 6 | `#001` vs the games' `Nº001` | ignore — `#` is more web-native |
+| 7 | HT/WT format `6'00"` / `169.8 lbs` | ✅ exactly correct, including the zero-padded inches |
+
+### 13.4 Nitpicks against the designers
+
+Measured on our running build. Every one of these is ticket 19, and this is the evidence it is
+justified:
+
+| Property | Ours | Linear | rauno.me |
+|---|---|---|---|
+| `-webkit-font-smoothing` | **auto** | antialiased ×631 | global |
+| `-webkit-tap-highlight-color` | **rgba(0,0,0,.18)** — browser default | transparent ×3766 | kept, deliberately |
+| `font-variant-numeric` | **normal** | tabular-nums slashed-zero | — |
+| `text-wrap` | **wrap** | balance + pretty | — |
+| `::selection` rules | **0** | 1 | 2 |
+| **`:focus-visible` rules** | **0** | 6 | 3 |
+| transition durations | **none at all** | 0.1 / 0.16 / 0.4s | 0.15 / 0.2s |
+| `transition: all` | 0 ✅ | 0 ✅ | 105 |
+| `prefers-reduced-motion` | 2 ✅ | 4 | **0** |
+
+**`:focus-visible` at zero is the serious one.** It is not polish — on a dark custom theme the
+browser default focus ring may be effectively invisible, which makes the site unusable by
+keyboard. Everything else on that list is craft; this one is access.
+
+The site currently has **no transitions at all**, so every state change is instant. That is not
+worse than a bad transition, but it is a missed 100–160ms of perceived quality on every hover
+and selection.
+
+### 13.5 Where we are already ahead
+
+- **Reduced motion**: we have rules, rauno.me has none.
+- **`transition: all`**: zero, matching Linear and beating rauno.me's 105 uses.
+- **Font sizes**: four, against Codédex's ~eight.
+- **Stats**: counted from real numbers. No site in any category does this.
+
+### 13.6 Actions
+
+Schema tightening (1, 2) into `BUILD.md` §3 and tickets 07 and 12. Voice guidance (3, 4) into
+the issue form copy. Footprint (5) noted and not scheduled. Everything in §13.4 is ticket 19,
+now with measurements attached.
+
 ## Sources
 
 - PokéAPI Fair Use Policy — https://pokeapi.co/docs/v2 (no rate limits since 2018; cache locally)

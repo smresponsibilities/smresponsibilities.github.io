@@ -33,6 +33,7 @@ implementing agent typically overrides by reflex. **Do not.**
 | **Audio never autoplays.** Sound toggle defaults **off**. | A recruiter opening this in an office. |
 | **Motion is a differentiator, not polish.** Do not cut it under time pressure. | Competing Pokédex portfolios are static — one of them ships a single keyframe and no canvas. The animation is a large part of what separates this from the genre. |
 | **Do not use Press Start 2P.** | It is the most heavily used pixel font on the web; it makes the site read as generic retro. See ticket 18. |
+| **Flavour text is short and third-person.** Aim 100 characters, two sentences. Never first person. | Measured across 229 real entries: median 103 chars, median 2 sentences, **0% first person**. `PLAN.md` §13. |
 
 If you believe one of these is wrong, write the reason in a comment and build it as specified
 anyway. Do not silently substitute.
@@ -189,9 +190,9 @@ const roster = defineCollection({
   schema: z.object({
     id:       z.string(),               // === username, lowercased. Used as the URL slug.
     username: USERNAME,
-    species:  z.string().max(40),
+    species:  z.string().max(24),   // real dex genera max out at 20 chars. See PLAN.md §13.
     types:    z.array(z.enum(TYPES)).min(1).max(2),
-    entry:    z.string().max(200),      // the dex flavour line
+    entry:    z.string().max(150),      // real entries: median 103, 84% under 150. PLAN.md §13.
     stats:    z.object({
       hp: z.number().int().min(0).max(255), atk: z.number().int().min(0).max(255),
       def: z.number().int().min(0).max(255), spa: z.number().int().min(0).max(255),
@@ -216,7 +217,7 @@ const moves = defineCollection({
     power: z.number().int().min(0).max(255),
     accuracy: z.number().int().min(0).max(100),
     pp: z.object({ current: z.number().int(), max: z.number().int() }),
-    effect: z.string().max(160),           // ONE line. Level 2 disclosure.
+    effect: z.string().max(150),           // ONE line. Level 2 disclosure. Matches dex-entry length.
     detail: z.string().optional(),         // Level 3 disclosure.
     stack: z.array(z.string()).default([]),
     priority: z.number().int().default(0),
