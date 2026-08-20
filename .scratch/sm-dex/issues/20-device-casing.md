@@ -25,7 +25,7 @@ free to vary. See `DECISIONS.md` sections S and T.
 
 **Blocked by:** None (can start immediately)
 
-**Status:** ready-for-agent
+**Status:** claimed
 
 - [ ] Casing is drawn entirely in CSS and inline SVG - no image files
 - [ ] Screens sit side by side at desktop with the seam running vertically between them
@@ -38,3 +38,22 @@ free to vary. See `DECISIONS.md` sections S and T.
 - [ ] Controls are real buttons: keyboard reachable, focus visible, correctly labelled
 - [ ] No Nintendo assets - no Poke Ball logotype, no Pokemon logo, no stored background image
 - [ ] Adding a second generation's casing later requires no change inside the bezel
+
+## Reference audit
+
+The rejected generated casing was never copied into the repository or referenced by the site.
+The live `moizm.dev` asset inventory was inspected on 2026-08-20. It exposes six images: a
+Pokémon logo, profile image, handprint, two landscape backgrounds, and a green screen texture.
+There is no casing bitmap to reuse; the visible physical casing is assembled from page markup
+and CSS. Production `Screen.astro` has been restored to its pre-ticket state.
+The primary-source trace, asset inventory, public-repository check, and reuse finding are in
+`docs/research/moizm-casing-source.md`.
+
+## Handoff
+
+**Built:** No production casing. The official HeartGold/SoulSilver page asset inventory was
+inspected and exported to an OS temporary directory for reference only; no Nintendo asset was
+copied into the repository.
+**Deviated:** Nothing remains in production.
+**Watch out:** `BUILD.md` was changed by the user during this session. `AGENTS.md`, this ticket,
+and `DECISIONS.md` still prohibit shipping Nintendo assets. Preserve the user's `BUILD.md` edit.

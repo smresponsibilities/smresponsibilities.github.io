@@ -768,3 +768,53 @@ correct amount of friction for a decision that was made deliberately once.
   appearance, because the appearance is CSS.
 
 Neither is forbidden now. The docs just make clear which one is being chosen.
+
+
+---
+
+## V. Correction — moizm.dev's casing is not a bitmap
+
+§S and §T both assert that the reference site's casing is a background image with content pinned
+on by per-breakpoint margins, and that this is why it ships a desktop-only warning. **That is
+wrong**, and it is repeated in ticket 20. Corrected here; the tickets and sections above are left
+as written so the error stays traceable.
+
+A session investigating the actual source found (`docs/research/moizm-casing-source.md`):
+
+- The casing is **CSS, not an image** — React-rendered elements with Tailwind gradients,
+  rounded rectangles, circles, borders and shadows. The D-pad is two perpendicular `div`s.
+- The `.webp` files that look like a shell are not one. `pokedexbackground.webp` is the
+  background *inside* the display panel; `startPageBackground.webp` sits inside the closed
+  cover; `mainBackground.webp` is the page landscape. None is the casing.
+- No source map is exposed and the owner publishes no licence, so the deployed component tree
+  cannot be copied regardless.
+
+**What was right for the wrong reason.** The desktop-only warning is real, and the per-breakpoint
+sizing is real — `w-[150px] sm:w-[225px] md:w-[300px]` is hardcoded dimensions at each
+breakpoint rather than fluid layout. That is the actual cause. So the guidance in §S and ticket
+20 still stands: build the casing fluid, not pinned to fixed sizes. Only the stated reason
+changes.
+
+It also means the reference proves the harder point: **a convincing device casing can be built
+entirely in CSS.** They did it. There is no bitmap shortcut being passed up.
+
+## W. Sourcing the casing artwork
+
+The user approved using original Nintendo artwork and asked for the real casing rather than an
+invented design. Two facts change what that means in practice.
+
+**There is no official source.** Nintendo does not distribute Pokédex or DS hardware artwork
+under any licence. The sprite repositories verified earlier in `PLAN.md` §2.4 — PokéAPI and
+Pokémon Showdown — carry *creature and item* sprites, not device or hardware renders. There is
+no file to fetch, licensed or otherwise; what exists is promotional renders and photographs on
+wikis, which are raster and carry the same reflow problem §V just described.
+
+**The reference site did not use one either.** Its casing is hand-built CSS.
+
+**So "not your own invention" is satisfied by faithful reproduction, not by asset acquisition.**
+Draw the real Gen 4/5 device accurately — its proportions, hinge, control placement, speaker
+grille, button geometry — in CSS and SVG, working from visual reference. That is closer to the
+original than an invented shell, and it scales, which a promotional render does not.
+
+The zero-image-storage rule in `BUILD.md` §0 is unaffected and is what makes this the right
+answer anyway.
