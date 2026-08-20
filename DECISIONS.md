@@ -663,3 +663,58 @@ at the **top right**, where a handheld would carry a shoulder button or cartridg
 
 It must **say what it does** — `+ ADD POKÉMON` — per the legibility rule in `BUILD.md` §7.5. An
 unlabelled icon in device chrome is decoration, and nobody will find it.
+
+
+---
+
+## T. The casing is per-generation, and the bezel is the contract
+
+Clarified after the reference images: the drawn clamshell is **not the device**, it is **the
+Gen 4/5 skin's device**. Every generation has its own physical object.
+
+| Skin | Its casing |
+|---|---|
+| Gen 1 — Red/Blue | Game Boy: tall, single screen, round A/B buttons, a chunky D-pad |
+| Gen 3 — Ruby/Sapphire | The red handheld dex: hinged, a large round lens, a keypad |
+| **Gen 4/5 — DS** | Clamshell: hinge with a camera dot, D-pad in a circular housing, speaker dots, shoulder area, LED. **The reference, and the first one to build.** |
+| Rotom / modern | Barely a casing at all — a thin bezel, or none |
+
+### T1. What makes this affordable
+
+§S drew a boundary at the screen bezel for a different reason (gradients allowed outside, not
+inside). That boundary turns out to do a second job:
+
+- **Inside the bezel** — layout, components, type scale, content. **Shared and fixed across
+  every skin.** Never varies.
+- **Outside the bezel** — the casing. **Free to vary per generation**, because nothing inside
+  depends on it.
+
+So a new casing is additive artwork, not a re-layout. That is what keeps "all eight
+generations" from becoming eight builds.
+
+### T2. This does change the C2 cost model, honestly
+
+C2 said skins are "~30 CSS vars each" and §9.1 said **skins may only redefine custom
+properties**. A drawn casing is more than that — closer to 1.5–2 hours of SVG each.
+
+The rule is amended rather than abandoned: **a skin may redefine custom properties *and* swap
+one casing component.** It still may not touch layout, component structure, or anything inside
+the bezel. That keeps the constraint doing its actual job — preventing a skin from becoming a
+fork — while admitting that the shell is real work.
+
+Consequence: ticket 08 keeps its original cheap scope (palette, type, flavour text, wordmark
+across four skins). Casings become their own ticket, **20**, delivering the Gen 4/5 one and
+leaving the rest additive.
+
+### T3. Mobile — the casing is desktop-only
+
+At 375px the two screens stack, and a casing that wants a D-pad beside them has nowhere to put
+it. Rather than restrict which generations are selectable on a phone, **the casing itself
+degrades to a bezel or disappears below the breakpoint.**
+
+The rest of the skin — palette, typography, flavour text, wordmark — still applies. So the
+version selector stays meaningful on mobile; it just stops drawing furniture that will not fit.
+
+This is the same principle as everywhere else on this project: **chrome degrades, structure
+does not.** It is also precisely what the reference site got wrong, and why it greets phone
+visitors with an apology instead of a portfolio.
