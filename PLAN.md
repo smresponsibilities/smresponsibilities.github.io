@@ -13,7 +13,7 @@ Researched: 2026-08-19. All URLs below were fetched live and returned 200.
 | Sprite | **GitHub avatar only.** DiceBear and Kenney trainer-gallery both researched and rejected. Zero bytes. | ✅ locked |
 | Visual effects | Codédex-style pixel/retro treatment. Recipe reverse-engineered in §8. | ✅ locked |
 | Framework | **Astro.** User targets frontend+backend both, fine defending choice in README. Not Next-exclusive. | ✅ locked |
-| Generation / shell | **All 8 distinct dex designs**, added over time. One layout, swappable skins. See §9.1. | ✅ locked |
+| Generation / shell | **8 selector skins, 8 casings — one real device each, 1 shared screen layout.** Clubbing removed 2026-08-23; see BUILD.md §"Casings". | ✅ locked |
 | Legibility | **Hover/tap tooltips on every Pokédex term + first-visit onboarding.** Raised as priority. See §7.5. | ✅ locked |
 | Identity | Shivam Mahajan · Software Developer · "Humanoid Pokémon" · `smresponsibilities` | ✅ locked |
 | Level system | **1 month professional experience = 1 level.** Computed at build. Currently Lv. 12. | ✅ locked |
@@ -373,7 +373,7 @@ along the way. Add ~40% if Astro is brand new to you.
 | 4 | Community | `/become` builder page, issue form YAML, validate Action, label-triggered commit, `/dex` roster, share links | 4 |
 | 5 | Polish | Mobile layout, focus rings + reduced-motion + alt text, per-entry OG images, optional select beep | 4 |
 | 5b | **Legibility** | Tooltips on every dex term (native Popover API), first-visit onboarding card, `VIEW AS PLAIN TEXT` mode | **3** |
-| 5c | Version skins | 4 skins at launch over one layout, merged with the flavour-text version selector. Remaining 4 are additive. | **3** |
+| 5c | Version skins | 4 skins at launch over one layout, merged with the flavour-text version selector and mapped to a casing family. Remaining 4 are additive. | **3** |
 | 6 | Ship | Custom domain, favicon, meta, README | 1 |
 | | **Total** | | **~30 h** |
 
@@ -382,6 +382,9 @@ across the following week of evenings. Realistically **8–12 days** from start 
 
 Phase 0 is now largely done — `SPEC.md` drafts your content from your resume. It needs your
 corrections, not authoring from scratch.
+
+The phase-5c estimate covers version-token work only. Production casing components are separate
+work; tickets 23 and 24 provide approved visual masters, not shippable assets.
 
 ### Order matters
 
@@ -815,7 +818,24 @@ entirely on one distinction:
 - **Skin changes are cheap.** Palette, fonts, border weight, corner radius, chrome details,
   bezel treatment — all of that is CSS custom properties.
 
-So: **one layout, many skins.** Four at launch, the other four added whenever.
+> **Superseded 2026-08-23 (ticket 30).** The four-family clubbing below was removed: measured
+> research (`docs/research/pokedex-hardware-by-generation.md`) shows every selected version ships
+> a physically distinct device, so it is now **one casing per skin**, each imitating its own
+> game's real Pokédex. Kept for the reasoning trail; BUILD.md §"Casings" is current.
+
+So: **one layout, eight selector skins, four casing families.** Four skins launch first; the
+other four remain additive. The physical chrome is clubbed separately:
+
+| Casing family | Selector skins | Physical behaviour |
+|---|---|---|
+| **Game Boy** | Red/Blue · Gold/Silver | Stationary landscape dual-screen adaptation |
+| **Classic red** | Ruby/Sapphire | Hinged; one controllable right leaf |
+| **Dual-screen** | Diamond/Pearl · HeartGold/SoulSilver · Black/White | Hinged; one controllable right leaf |
+| **Modern Rotom** | Sun/Moon · Scarlet/Violet | Stationary thin frame covering Gen VI–IX |
+
+This keeps two kinds of reuse explicit: all eight skins share content/layout, while related
+skins also share one of four shell components. Gen VI–IX is one physical family even though
+the distinct selector designs currently represented are Sun/Moon and Scarlet/Violet.
 
 Build the **Gen 4/5 dual-screen layout** as the single structural foundation — it's the one
 whose layout is load-bearing rather than decorative, and it's already responsive. Then the
@@ -829,7 +849,9 @@ thirty custom properties.
 [data-version="rotom"]       { --bg:#FAFAFA; --screen:#FFFFFF; --border:#E11D48; --radius:12px; --font-display:"Silkscreen"; }
 ```
 
-That's the whole mechanism. Persist the choice in `localStorage`, respect it on load.
+That's the version-skin mechanism. Persist the choice in `localStorage`, respect it on load,
+then derive its casing-family key from the same version record. Do not maintain a second user
+setting for the casing.
 
 **The elegant part:** §F1 already planned a version selector for the *Pokédex flavour text* —
 each game version showing a different fact about you. That's canon behaviour. So **one
@@ -837,14 +859,17 @@ control does both jobs**: pick RED and you get the green Game Boy skin *and* Red
 entry about you. The feature you wanted and the joke that was already planned are the same
 component.
 
-Cost: **+3 h** on phase 5 for the first four skins (roughly 45 min each after the first). The first
-skin is free — it's the site.
+Cost: **+3 h** on phase 5 for the first four token skins (roughly 45 min each after the first).
+That estimate does not include reconstructing the four casing families as controllable code.
+The first skin is free — it's the site.
 
 Rules to keep it cheap:
 
-- Skins may only change custom properties. The moment a skin needs its own HTML structure,
-  it stops being a skin and the budget breaks. If Gen 1 truly needs a Game Boy frame, that's
-  one extra wrapper `div` that other skins leave empty — no more.
+- Version skins may only change custom properties and select a casing-family key. They may not
+  add per-version HTML or change shared screen content.
+- The four family masters under `.scratch/sm-dex/assets/ticket-23/` and `ticket-24/` are
+  approval references only. Production uses controllable CSS/SVG/DOM parts, transparent screen
+  openings, independent native buttons, and coherent moving lid faces.
 - Every skin must pass the same contrast check. The Gen 1 green LCD is the risk here; if
   green-on-green fails WCAG AA for body text, darken the foreground rather than shipping it.
 - Default to the recruiter-safe skin on first load, not the most retro one.

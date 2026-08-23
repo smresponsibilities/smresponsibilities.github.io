@@ -187,7 +187,7 @@ sm-dex/
 │  ├─ styles/
 │  │  ├─ global.css
 │  │  ├─ tokens.css            # base tokens
-│  │  └─ skins.css             # 8 generation skins
+│  │  └─ skins.css             # 8 version skins, each bound to its own casing
 │  └─ content.config.ts
 ├─ astro.config.mjs
 └─ README.md
@@ -307,7 +307,8 @@ export const collections = { roster, moves, encounters, entries };
 ## 4. Design tokens — `src/styles/tokens.css`
 
 Every colour in the app comes from a token. **No hard-coded hex outside this file and
-`skins.css`.** That rule is what makes eight skins cost 30 lines each instead of a rewrite.
+`skins.css`.** That rule keeps the eight version skins cheap. Physical chrome is bound per
+skin: each of the eight versions carries its own casing, defined below.
 
 ```css
 :root {
@@ -365,6 +366,62 @@ Ship four. The other four are additive later, and each is the same shape.
 [data-version="rotom"]     { --bg:#FAFAFA; --panel:#FFFFFF; --screen:#FFFFFF; --ink:#18181B;
                              --border:#E11D48; --dim:#71717A; --accent:#E11D48; --radius:12px; }
 ```
+
+### Casings — eight shells, one per version skin
+
+**A version skin is its own casing.** Measured research
+(`docs/research/pokedex-hardware-by-generation.md`) shows every selected game version ships a
+physically distinct Pokédex model, so generation clubbing was removed by decision (ticket 30,
+DECISIONS.md §X). The selector still controls palette, typography, wordmark, background mode,
+and flavour text per skin; the casing is now bound 1:1 to the skin:
+
+| Skin | Its real device | Master | Closes? |
+|---|---|---|---|
+| Red/Blue | Kanto Pokédex — red hinged body, round lens, keypad | `.scratch/sm-dex/assets/ticket-23/` masters, re-slotted from Gen III | Yes |
+| Gold/Silver | Johto HANDY808 — folding top cover, always-visible blue lens, GBC-style interior | pending `ticket-30/gs-johto-master.png` | Yes |
+| Ruby/Sapphire | Hoenn Pokédex — solid landscape GBA-shaped body | pending `ticket-30/rs-hoenn-master.png` | No |
+| Diamond/Pearl | Sinnoh HANDY910is — DS-Lite-style clamshell | pending `ticket-30/dp-sinnoh-open-master.png` + `-closed` | Yes |
+| HeartGold/SoulSilver | DSi-style Johto redesign — red clamshell, green LED, blue open-button, two styluses | pending `ticket-30/hgss-open-master.png` + `-closed`, regenerated pure (B/W hybrid controls removed) | Yes |
+| Black/White | Unova Pokédex — vertical slider, extending top screen, one Poké Ball button, touch lower screen | pending `ticket-30/bw-unova-master.png` | Slides |
+| Sun/Moon | Rotom Pokédex — red device, spike antenna, flap arms, feet | pending `ticket-30/sm-rotom-master.png`, reworked from the ticket-24 modern frame | No |
+| Scarlet/Violet | Paldea Rotom Phone + case — dex as an app | pending `ticket-30/sv-phone-master.png` | No |
+
+Recorded deviations: Red/Blue uses the approved illustrated *anime*-style Kanto device rather
+than the games' solid GB-like artwork (DECISIONS.md §X3). Johto's second right-side cover is
+simplified away; one folding top cover ships.
+
+The PNGs are **approval and measurement references only**. Production must reconstruct each
+casing as controllable CSS/SVG/DOM components; it must not import, crop, trace at runtime, or
+cross-fade the masters. Screen openings remain transparent and contain the same accessible DOM
+screen content in every casing. No master may bake in text, a face, or screen UI.
+
+#### Component ownership
+
+- The shared screen layout owns content, focus order, navigation, and responsive stacking.
+- Each casing owns only its shell geometry, bezel, hinge, lamps, grille, and physical controls.
+- Every visible control is its own native `<button>` hit target. Do not place one click handler
+  over a control cluster or over the whole casing.
+- Each D-pad direction is independently actionable even when the four directions share one
+  cross-shaped visual housing. Clicking empty casing must do nothing.
+- A pressable control has a fixed base and a moving face with the same silhouette. Only the face
+  translates down **4px** while pressed; the base, neighbouring controls, and casing do not move.
+- The Hoenn body, Rotom Dex, and Rotom Phone are stationary. Do not invent a lid for them.
+
+#### Lid ownership and motion
+
+The hinged casings — Kanto, Johto's top cover, Sinnoh, and HGSS — use one assembly contract.
+The stationary body owns the hinge. The moving leaf owns two coherent faces: the inner control
+face while open and the outer cover as its back face while closed. Its transform origin is the
+hinge edge; opening and closing rotate that one leaf by 180 degrees. The hinge, stationary body,
+buttons on the stationary body, and DOM screens never travel with it.
+
+The Unova slider is the one translating casing: its upper-screen tray extends along the
+device's long axis instead of rotating. The tray owns both its recessed and extended faces.
+
+Opening, closing, and sliding must be triggered by an explicit native button, expose state with
+`aria-expanded`, remain operable by keyboard, and preserve visible `:focus-visible` styling.
+Under `prefers-reduced-motion: reduce`, change state without the animated sweep. Closed content
+must not remain focusable or exposed to assistive technology.
 
 ### 4.1 Type discipline — measured, not asserted
 
@@ -484,7 +541,8 @@ needs a deliberate design, and "it will not happen" is not one of them.
 | **`/become`** | untouched · invalid username · stats over budget · randomised · ready to submit · after submit (what does the user see?) |
 | **`/resume`** | screen · **print** · no-JS |
 | **404** | in the dex voice — `NO DATA` / `SPECIES NOT REGISTERED`, not a default Astro error page |
-| **Version selector** | before hydration (no flash of the wrong skin) · each of the four skins at AA contrast |
+| **Version selector** | before hydration (no flash of the wrong skin) · every implemented version skin at AA contrast · correct mapping to its own casing |
+| **Casing** | every skin's casing · every physical button pressed independently · hinged and sliding casings open and closed · reduced-motion state change · closed content removed from focus order |
 
 **The three most likely to be skipped, and the most damaging:**
 
@@ -493,9 +551,10 @@ needs a deliberate design, and "it will not happen" is not one of them.
    as a bug.
 3. **404 in voice.** Cheap, and it is the single most-shared accidental page on any site.
 
-**Skins may only redefine custom properties.** If a skin needs different HTML, stop and flag
-it — that breaks the cost model. One exception is allowed: a single empty `<div class="bezel">`
-that skins may style or leave invisible.
+**Version skins may only redefine custom properties.** Structural chrome may change only by
+drawing the skin's own approved casing component. A version may not borrow another version's
+shell, introduce an unapproved casing, alter shared screen markup, or fork content layout
+without a new recorded decision.
 
 ---
 
@@ -862,7 +921,7 @@ a half-built community feature.
 | 4 | Community | `/become` builds a working prefill URL; issue → validate → label → commit → `/dex` shows the entry; `/dex/<user>` has its own OG image | 4 |
 | 5 | Polish | Move L3; dither; sound toggle (default off); shiny; "Who's that Pokémon" once per session | 4 |
 | 5b | **Legibility** | Every term in §6.4 has a tooltip; onboarding card shows once; `/resume` complete; full keyboard pass | 3 |
-| 5c | Skins | 4 skins; **each passes WCAG AA contrast for body text**; background mode bound per skin | 3 |
+| 5c | Skins | 4 launch version skins; **each passes WCAG AA contrast for body text**; background mode and casing bound per skin; remaining 4 stay additive | 3 |
 | 6 | Ship | Custom domain, favicon, OG defaults, README documenting the Astro-over-Next decision | 1 |
 | | | | **~30** |
 

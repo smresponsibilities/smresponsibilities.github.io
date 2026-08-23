@@ -113,6 +113,9 @@ session recognises them as decisions rather than errors.
 | **Ball** | What you were caught in | *How* the job was obtained | Canon-faithful in spirit — the ball has always encoded the circumstance of capture |
 | **Species** | Biological classification | Job classification | Direct analogue |
 | **Evolution** | Species transformation | Career progression, final stage unrevealed | Direct analogue |
+| **Device identity** | Every game version ships its own physically distinct Pokédex hardware | Eight skins, eight distinct casings — each skin draws the real device its game shows; no clubbing | Matches the measured hardware lineage instead of inventing shared shells |
+| **Screen geometry** | Single-screen, stacked-screen, and app layouts vary by title | One shared two-screen DOM layout sits side by side on desktop and stacks on mobile | Content and responsive behaviour remain stable while chrome changes around it |
+| **Lid motion** | Hardware hinges and opening directions vary | Hinged casings (Kanto, Johto cover, Sinnoh, HGSS) rotate one leaf around a fixed hinge edge; the Unova slider translates its upper tray; solid bodies (Hoenn, Rotom Dex, Rotom Phone) do not move | Gives independently controllable, coherent parts across the shared layout |
 
 The PP inversion is the one most likely to be "corrected" by someone who knows the games. It is
 intentional.

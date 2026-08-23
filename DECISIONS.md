@@ -37,7 +37,7 @@ are one line in a JSON file.
 | # | Decision | Chosen | Alternatives | Why | How to change |
 |---|---|---|---|---|---|
 | C1 | Shell layout | 🔒 **Gen 4/5 dual-screen, ONE layout** | Gen 1 Game Boy, Gen 3 device, modern, or four real layouts | Two screens *is* a responsive layout; also solves move density (see E3) | Expensive — this is the structure |
-| C2 | Generations | 🔒 **All of them, added over time** | Pick one, or ship all 9 at launch | 8 visually distinct dex designs exist; each is ~45 min of CSS vars | Add a skin any time — purely additive |
+| C2 | Generations | 🔒 **All of them, added over time** | Pick one, or ship all 9 at launch | 8 version skins, each bound to its own real device's casing — see §X as amended 2026-08-23 | New skin means new casing, but it stays additive artwork outside the bezel (§T1/T2) |
 | C3 | Selector | 🔒 **One control, two jobs** | Two separate controls | Version selector drives skin **and** which flavour text shows — canon behaviour | — |
 | C4 | Background | 🔒 **Canvas 2D event stream, hero only** | CSS gradient, WebGL, full-page, none | Matches thavlik.dev's actual technique; hero-only keeps it cheap | CSS fallback documented |
 | C5 | Background intensity | 🔒 **Low** | Prominent like thavlik.dev | His site is typographically plain; ours is already loud | Turn opacity up |
@@ -190,7 +190,7 @@ need moderation, virus scanning, and a storage bill. The rule is intact. Nothing
 
 Build order: **Gen IV/V dual-screen first** (it's the structural layout), then add skins one at
 a time. Each is independent CSS variables — roughly 45 minutes, zero risk to what already
-works. Nine skins is ~7 h if you want them all, but there's no reason to do it before launch.
+works. Eight skins is ~6 h if you want them all, but there's no reason to do it before launch.
 
 
 ---
@@ -669,6 +669,11 @@ unlabelled icon in device chrome is decoration, and nobody will find it.
 
 ## T. The casing is per-generation, and the bezel is the contract
 
+**Superseded by §X as amended (§X3, 2026-08-23).** This section first guessed the per-skin
+devices wrong in two slots (Game Boy on Gen 1, red hinged dex on Gen 3), was clubbed into four
+casing families after ticket 23's approval, and has now come full circle: one casing per skin,
+but with each device matched to its real game. Kept as history; the table below is not current.
+
 Clarified after the reference images: the drawn clamshell is **not the device**, it is **the
 Gen 4/5 skin's device**. Every generation has its own physical object.
 
@@ -818,3 +823,71 @@ original than an invented shell, and it scales, which a promotional render does 
 
 The zero-image-storage rule in `BUILD.md` §0 is unaffected and is what makes this the right
 answer anyway.
+
+
+---
+
+## X. Eight selector skins, eight casings
+
+Amended 2026-08-23 (ticket 30). The four-family clubbing that followed tickets 23/24 is
+reversed. Measured research (`docs/research/pokedex-hardware-by-generation.md`) shows every
+selected game version ships a physically distinct Pokédex model, and the user confirmed the
+per-skin reading: the version selector and the physical casing are now the same axis.
+
+- **Eight version skins** control palette, typography, wordmark, background mode, flavour
+  text — **and each draws its own real device's casing.**
+- Casings are still additive artwork outside the bezel (§T1/T2 survive): a new casing never
+  re-layouts the shared screen content.
+- A casing may not be borrowed by another skin, and a skin may not ship an unapproved shell.
+
+| Skin | Its device | Master |
+|---|---|---|
+| Red/Blue | Kanto Pokédex | Ticket-23 masters, re-slotted from Gen III |
+| Gold/Silver | Johto HANDY808 — folding cover, blue lens, GBC interior | Pending ticket-30 |
+| Ruby/Sapphire | Hoenn Pokédex — landscape GBA-shaped body | Pending ticket-30 |
+| Diamond/Pearl | Sinnoh HANDY910is — DS-Lite clamshell | Pending ticket-30 |
+| HeartGold/SoulSilver | DSi-style Johto redesign | Pending ticket-30, pure HGSS |
+| Black/White | Unova slider — extending top screen, one Poké Ball button | Pending ticket-30 |
+| Sun/Moon | Rotom Pokédex — antenna, flap arms, feet | Rework of ticket-24 modern frame |
+| Scarlet/Violet | Paldea Rotom Phone + case | Pending ticket-30 |
+
+### X3. Why the clubbing died
+
+The four-family model (Game Boy = I–II, classic red = III, dual-screen = IV–V, modern = VI–IX)
+contradicted the games in all four rows: no game shows a grey DMG; the approved hinged device is
+Kanto language sitting on the Hoenn slot; Black/White's dex is an iPod-like slider, not a
+clamshell; Sun/Moon and Scarlet/Violet are different objects entirely (dedicated Rotom device vs
+phone app). Verification that settled it: identical devices only repeat across version pairs the
+selector did not both pick (DP=Pt, BW=B2W2, RB=Y), so within our eight skins every device is
+unique — "every one separate" is the canon-faithful reading, not gold-plating.
+
+### X4. Recorded deviations under the per-skin model
+
+- **Red/Blue draws the anime-style Kanto dex.** The games' Gen I artwork is a solid GB-like
+  handheld; the approved illustrated reference (ticket 23) is the hinged, keypad-equipped iconic
+  Kanto object. The approved illustration wins; recorded here so nobody "fixes" it.
+- **Johto ships one folding top cover**, not its two covers (top + right side).
+- **HGSS regenerates pure.** The ticket-24 master hybridised HGSS geometry with B/W controls;
+  the replacement uses official HGSS art only.
+
+### X1. Masters are references, not production assets
+
+The files under `.scratch/sm-dex/assets/ticket-23/` and `ticket-24/` are approval-only raster
+masters. They establish silhouette, part placement, transparency, and open/closed coherence.
+Production reconstructs those parts as CSS/SVG/DOM so controls can move independently and real
+screen content can remain accessible. The PNGs are not imported, sliced into runtime sprites,
+or cross-faded between states.
+
+### X2. Shared interaction contract
+
+- Every visible control is an independent native button.
+- Each D-pad direction has its own hit target; empty casing and control gaps do nothing.
+- A control consists of a fixed base and a same-silhouette moving face. A press moves only the
+  face down four pixels.
+- Hoenn, the Rotom Dex, and the Rotom Phone are stationary.
+- Kanto, Johto, Sinnoh, and HGSS share the same lid model: the stationary body owns the hinge;
+  one moving leaf owns an inner face and an outer back face and rotates around its hinge edge.
+- The Unova slider translates its upper-screen tray along the long axis instead of rotating.
+- The screen openings are transparent. Shared accessible DOM content sits behind them and never
+  becomes part of the casing artwork.
+- Reduced motion removes the animated sweep, not the open/closed state change.
