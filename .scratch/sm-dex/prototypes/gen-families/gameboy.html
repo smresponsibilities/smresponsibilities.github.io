@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SM'S DEX - Game Boy casing family prototype (asset layer)</title>
+  <link rel="stylesheet" href="family.css">
+</head>
+<body>
+  <header>
+    <h1>GEN I-II - GAME BOY CASING</h1>
+    <p>Asset-layer prototype · pixels cropped from ticket-24 master · <a href="index.html">all families</a></p>
+  </header>
+  <div class="viewport">
+    <div class="stage" role="group" aria-label="Game Boy style Pokédex"></div>
+  </div>
+  <footer>D-pad move · A open · B back · START menu · SELECT version · arrows/Enter/Escape on keyboard</footer>
+  <script>
+    window.FAMILY_CONFIG = {
+      title: "SM'S DEX - GEN I/II",
+      about: "Wide dual-screen adaptation of the original gray Game Boy. Every visible pixel is cropped from the approved ticket-24 master.",
+      stage: { x: 60, y: 130, w: 840, h: 770 },
+      roster: [
+        { no: "001", name: "BULBASAUR", types: ["GRASS", "POISON"], hp: 45, atk: 49, def: 49, spe: 45 },
+        { no: "004", name: "CHARMANDER", types: ["FIRE"], hp: 39, atk: 52, def: 43, spe: 65 },
+        { no: "007", name: "SQUIRTLE", types: ["WATER"], hp: 44, atk: 48, def: 65, spe: 43 },
+        { no: "016", name: "PIDGEY", types: ["NORMAL", "FLYING"], hp: 40, atk: 45, def: 40, spe: 56 },
+        { no: "025", name: "PIKACHU", types: ["ELECTRIC"], hp: 35, atk: 55, def: 40, spe: 90 },
+        { no: "133", name: "EEVEE", types: ["NORMAL"], hp: 55, atk: 55, def: 50, spe: 55 },
+        { no: "143", name: "SNORLAX", types: ["NORMAL"], hp: 160, atk: 110, def: 65, spe: 30 },
+        { no: "130", name: "GYARADOS", types: ["WATER", "FLYING"], hp: 95, atk: 125, def: 79, spe: 81 }
+      ],
+      versions: [
+        { id: "red", label: "RED", palette: { bg: "#0e120c", ink: "#c3d46e", dim: "#75854a", accent: "#55681f", accentInk: "#eef3da" } },
+        { id: "blue", label: "BLUE", palette: { bg: "#0a0e14", ink: "#a8c6e8", dim: "#5a7590", accent: "#2f5378", accentInk: "#eaf2fc" } },
+        { id: "gold", label: "GOLD", palette: { bg: "#14100a", ink: "#d8c56e", dim: "#93824a", accent: "#6e5c1d", accentInk: "#f6efd8" } },
+        { id: "silver", label: "SILVER", palette: { bg: "#101214", ink: "#c9ccd2", dim: "#7f858d", accent: "#565d66", accentInk: "#f2f4f7" } }
+      ],
+      layers: [
+        { img: "gb-body.png", x: 80, y: 158, w: 792, h: 712 },
+        { img: "gb-dpad-base.png", x: 144, y: 604, w: 104, h: 104 }
+      ],
+      apertures: [
+        { x: 217, y: 272, w: 214, h: 206 },
+        { x: 528, y: 272, w: 211, h: 208 }
+      ],
+      buttons: [
+        { id: "dpad-up", label: "D-pad up", action: "up", img: "gb-dpad-up.png", x: 176, y: 604, w: 40, h: 52 },
+        { id: "dpad-down", label: "D-pad down", action: "down", img: "gb-dpad-down.png", x: 176, y: 656, w: 40, h: 52 },
+        { id: "dpad-left", label: "D-pad left", action: "left", img: "gb-dpad-left.png", x: 143, y: 636, w: 53, h: 40 },
+        { id: "dpad-right", label: "D-pad right", action: "right", img: "gb-dpad-right.png", x: 196, y: 636, w: 53, h: 40 },
+        { id: "btn-a", label: "A - confirm", action: "a", ghost: true, x: 732, y: 596, w: 76, h: 70 },
+        { id: "btn-b", label: "B - back", action: "b", ghost: true, x: 626, y: 648, w: 76, h: 68 },
+        { id: "start", label: "START - main menu", action: "start", img: "gb-pill-start.png", x: 296, y: 772, w: 94, h: 38 },
+        { id: "select", label: "SELECT - change version", action: "select", img: "gb-pill-select.png", x: 420, y: 772, w: 92, h: 38 }
+      ]
+    };
+  </script>
+  <script src="family.js"></script>
+</body>
+</html>

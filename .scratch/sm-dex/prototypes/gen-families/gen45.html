@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SM'S DEX - Gen IV/V casing family prototype (asset layer)</title>
+  <link rel="stylesheet" href="family.css">
+</head>
+<body>
+  <header>
+    <h1>GEN IV-V - DUAL SCREEN CASING</h1>
+    <p>Asset-layer prototype · pixels cropped from ticket-24 masters · <a href="index.html">all families</a></p>
+  </header>
+  <div class="viewport">
+    <div class="stage" role="group" aria-label="Gen IV/V style Pokédex"></div>
+  </div>
+  <footer>Cross and ring move · A open · B back · START menu · HOME/pills version · arrows/Enter/Escape on keyboard</footer>
+  <script>
+    window.FAMILY_CONFIG = {
+      title: "SM'S DEX - GEN IV/V",
+      about: "HGSS clamshell geometry with Black/White controls. Open-form pixels cropped from the approved ticket-24 masters; lid parts are extracted but the closed composition awaits ticket 20.",
+      stage: { x: 60, y: 120, w: 700, h: 800 },
+      roster: [
+        { no: "152", name: "CHIKORITA", types: ["GRASS"], hp: 45, atk: 49, def: 65, spe: 45 },
+        { no: "155", name: "CYNDAQUIL", types: ["FIRE"], hp: 39, atk: 52, def: 43, spe: 65 },
+        { no: "158", name: "TOTODILE", types: ["WATER"], hp: 50, atk: 65, def: 64, spe: 43 },
+        { no: "025", name: "PIKACHU", types: ["ELECTRIC"], hp: 35, atk: 55, def: 40, spe: 90 },
+        { no: "373", name: "SALAMENCE", types: ["DRAGON", "FLYING"], hp: 95, atk: 135, def: 80, spe: 100 },
+        { no: "448", name: "LUCARIO", types: ["FIGHTING", "STEEL"], hp: 70, atk: 110, def: 70, spe: 90 },
+        { no: "493", name: "ARCEUS", types: ["NORMAL"], hp: 120, atk: 120, def: 120, spe: 120 },
+        { no: "445", name: "GARCHOMP", types: ["DRAGON", "GROUND"], hp: 108, atk: 130, def: 95, spe: 102 }
+      ],
+      versions: [
+        { id: "hgss", label: "HGSS", palette: { bg: "#160f08", ink: "#f0c068", dim: "#9a7a3c", accent: "#b3541e", accentInk: "#fdf3dc" } },
+        { id: "bw", label: "B/W", palette: { bg: "#14090b", ink: "#e8e3de", dim: "#97858a", accent: "#c22032", accentInk: "#fbeef0" } }
+      ],
+      layers: [
+        { img: "g45-shell.png", x: 78, y: 142, w: 638, h: 520 },
+        { img: "g45-cross-base.png", x: 230, y: 666, w: 132, h: 134 },
+        { img: "g45-ring-base.png", x: 602, y: 666, w: 144, h: 144 },
+        { img: "g45-start-base.png", x: 558, y: 469, w: 90, h: 88 }
+      ],
+      apertures: [
+        { x: 131, y: 195, w: 201, h: 205 },
+        { x: 467, y: 195, w: 201, h: 205 }
+      ],
+      buttons: [
+        { id: "cross-up", label: "Cross up", action: "up", img: "g45-cross-up.png", x: 275, y: 666, w: 42, h: 67 },
+        { id: "cross-down", label: "Cross down", action: "down", img: "g45-cross-down.png", x: 275, y: 733, w: 42, h: 67 },
+        { id: "cross-left", label: "Cross left", action: "left", img: "g45-cross-left.png", x: 231, y: 710, w: 65, h: 46 },
+        { id: "cross-right", label: "Cross right", action: "right", img: "g45-cross-right.png", x: 296, y: 710, w: 65, h: 46 },
+        { id: "ring-up", label: "Ring up", action: "up", img: "g45-ring-up.png", x: 637, y: 664, w: 74, h: 74 },
+        { id: "ring-down", label: "Ring down", action: "down", img: "g45-ring-down.png", x: 637, y: 738, w: 74, h: 74 },
+        { id: "ring-left", label: "Ring left", action: "left", img: "g45-ring-left.png", x: 600, y: 701, w: 74, h: 74 },
+        { id: "ring-right", label: "Ring right", action: "right", img: "g45-ring-right.png", x: 674, y: 701, w: 74, h: 74 },
+        { id: "start", label: "START - main menu", action: "start", img: "g45-start-face.png", x: 559, y: 470, w: 88, h: 88 },
+        { id: "pill-a", label: "Version down", action: "select", img: "g45-pill-a.png", x: 270, y: 572, w: 64, h: 30 },
+        { id: "pill-b", label: "Version up", action: "select", img: "g45-pill-b.png", x: 352, y: 572, w: 64, h: 28 },
+        { id: "home", label: "HOME - back", action: "b", img: "g45-home-pill.png", x: 440, y: 568, w: 124, h: 30 }
+      ]
+    };
+  </script>
+  <script src="family.js"></script>
+</body>
+</html>
