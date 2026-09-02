@@ -64,20 +64,34 @@ change, and that the live screens contain Shivam's portfolio rather than baked P
       It implements `assets/ticket-30/BUTTON-UI-PORTFOLIO-MAP.md` and distinguishes site mappings
       from undocumented Pokémon hardware functions.
 
-## Progress — Kanto approval gate
+## Progress: Kanto approval gate, revision 3
 
-The user requested a staged proof: Kanto first, then the remaining seven only after Kanto approval.
-The Kanto scratch build now lives at `prototypes/ticket-31-eight-casings/` with separable vector shell,
-hinge, inner/outer leaf faces, 26 native physical controls, hover/focus function labels, live portfolio
-DOM, responsive scaling, screenshots, and browser verification. The ticket remains claimed and none
-of the eight-casing acceptance boxes are checked until the remaining seven are built.
+The user rejected the first vector proof and subsequently selected ticket 26's illustrated direction.
+They asked for regenerated coherent assets, more visible button separation, clean casing plates,
+and an explicit way to close the device. These later instructions supersede the earlier boundary
+that treated ticket 26 as architecture evidence only.
+
+Revision 3 lives in `prototypes/ticket-31-eight-casings/`. It combines a generated clean casing atlas,
+live DOM screens, and 28 native CSS controls. Keypad gutters are 10px; white-pair gutters are 14px.
+The D-pad is one rocking cross with four non-overlapping hit regions. The outside triangle opens;
+the right black CLOSE pill folds the same cover around the fixed hinge, retaining the current page.
+The cover faces share a mirrored outline and do not duplicate the stationary lens header.
+
+The ticket remains claimed and the eight-casing acceptance boxes remain unchecked. Kanto approval,
+real held-input visual capture, touch emulation, and the remaining seven devices are not complete.
+The README distinguishes measured checks from outstanding checks and records the RGB atlas limitation.
 
 ## Handoff
 
-**Built:** Kanto approval build under `prototypes/ticket-31-eight-casings/`; pointer, keyboard,
-device-state, portfolio-content, reduced-motion, accessibility, and overflow checks pass.
-**Deviated:** The user required a straight-on UI, so the scratch shell is a perspective-normalized
-vector reconstruction. Literal source-pixel reassembly is incompatible with straightening and remains
-unclaimed; `docs/research/kanto-device-interaction-references.md` records the boundary.
-**Watch out:** Do not build Gold/Silver through Scarlet/Violet until the user approves or revises this
-Kanto geometry and interaction model. Tickets 20 and 21 remain untouched.
+**Built:** Kanto revision 3 with clean illustrated plates, separated raised caps and fixed sockets,
+hover/focus descriptions, native pointer/Space/Enter activation, and coherent open/close geometry.
+The prototype README records the action/content map, browser checks, and asset prompts.
+
+**Deviated:** Per the user's updated request, controls are deterministic CSS parts over a generated
+button-free raster casing. This is not literal reference-pixel reassembly. The D-pad rocks as one part
+instead of moving four sliced arms independently. The generated atlas is RGB, so runtime uses
+explicit silhouette masks and live opaque display interiors rather than claiming true alpha.
+
+**Watch out:** Await Kanto approval before producing the remaining seven. Mobile overview controls
+are small and need a separate enlarged-interaction decision before production. Tickets 20 and 21
+remain untouched. Do not reuse the casing atlas without the masks documented in the README.

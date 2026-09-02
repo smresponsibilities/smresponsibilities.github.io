@@ -1,68 +1,67 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
-    <title>SM'S DEX — Interactive Kanto approval build</title>
-    <link rel="stylesheet" href="styles.css" />
-    <script src="app.js" defer></script>
+    <title>SM'S DEX — Classic Red control prototype</title>
+    <link rel="preload" as="image" href="assets/kanto-clean-casing-v3.png" />
+    <link rel="stylesheet" href="styles.css?v=3.2" />
   </head>
   <body>
     <main>
-      <header class="site-head">
-        <div>
-          <p class="eyebrow">CASING 01 / 08 · KANTO APPROVAL BUILD</p>
-          <h1>SM'S DEX</h1>
+      <h1 class="sr-only">SM'S DEX Classic Red interaction prototype</h1>
+      <button class="add-pokemon" id="add-pokemon" type="button" data-tip="Open the public roster form at /become">
+        + ADD POKÉMON
+      </button>
+
+      <div class="device-frame" id="device-frame">
+        <div class="device" id="device" data-open="false" data-mode="closed" aria-label="Interactive Kanto Pokédex casing">
+          <section class="stationary" aria-label="Stationary body">
+            <div class="screen body-screen" id="primary-screen" aria-live="polite"></div>
+            <div class="master-layer body-master atlas-layer" aria-hidden="true"></div>
+            <div class="controls controls-body" id="body-controls" inert></div>
+          </section>
+
+          <div class="master-layer hinge atlas-layer" aria-hidden="true"></div>
+
+          <section class="leaf" id="leaf" aria-label="Moving lid">
+            <div class="leaf-face inner-face" id="inner-face" inert>
+              <div class="screen lid-screen" id="secondary-screen" aria-live="polite"></div>
+              <div class="master-layer face-master inner-master atlas-layer" aria-hidden="true"></div>
+              <svg class="leaf-rim" viewBox="0 0 420 816" aria-hidden="true"><use href="#leaf-outline" /></svg>
+              <div class="controls controls-inner" id="inner-controls"></div>
+            </div>
+
+            <div class="leaf-face outer-face" id="outer-face">
+              <div class="master-layer face-master outer-master atlas-layer" aria-hidden="true"></div>
+              <svg class="leaf-rim outer-rim" viewBox="0 0 420 816" aria-hidden="true"><use href="#leaf-outline" /></svg>
+              <div class="controls controls-outer" id="outer-controls"></div>
+            </div>
+          </section>
+
+          <div id="screen-hub" hidden></div>
         </div>
-        <button class="add-pokemon" type="button" data-site-action="become">+ ADD POKÉMON</button>
-      </header>
+      </div>
 
-      <section class="proof" aria-labelledby="proof-title">
-        <div class="proof-head">
-          <div>
-            <h2 id="proof-title">RED / BLUE FIELD UNIT</h2>
-            <p>Straight-on UI · central book hinge · every control independent</p>
-          </div>
-          <button class="text-action" id="motion-toggle" type="button" aria-pressed="false">MOTION: ON</button>
-        </div>
+      <div class="device-guide" aria-live="polite">
+        <span id="device-hint">Press the yellow OPEN latch.</span>
+        <button id="parts-toggle" type="button" aria-pressed="false">Inspect parts</button>
+      </div>
 
-        <div class="device-stage" id="device-stage">
-          <div class="device-frame" id="device-frame">
-            <article class="device" id="device" data-open="false" data-mode="closed" aria-label="Interactive Kanto Pokédex casing">
-              <section class="stationary" aria-label="Stationary body">
-                <img class="shell-art" src="assets/kanto-body.svg" alt="" draggable="false" />
-                <div class="screen body-screen" id="body-screen" aria-live="polite"></div>
-                <div class="control-plane" id="body-controls"></div>
-              </section>
-
-              <img class="hinge" src="assets/kanto-hinge.svg" alt="" draggable="false" />
-
-              <section class="leaf" id="leaf" aria-label="Moving right leaf">
-                <div class="leaf-face inner-face" id="inner-face">
-                  <img class="shell-art" src="assets/kanto-inner-leaf.svg" alt="" draggable="false" />
-                  <div class="screen leaf-screen" id="leaf-screen" aria-live="polite"></div>
-                  <div class="control-plane" id="leaf-controls"></div>
-                </div>
-                <div class="leaf-face outer-face" id="outer-face">
-                  <img class="shell-art" src="assets/kanto-outer-leaf.svg" alt="" draggable="false" />
-                  <div class="control-plane" id="outer-controls"></div>
-                </div>
-              </section>
-            </article>
-          </div>
-        </div>
-
-        <footer class="state-strip" aria-live="polite">
-          <span><b>STATE</b> <output id="state-output">CLOSED</output></span>
-          <span><b>LAST INPUT</b> <output id="input-output">NONE</output></span>
-          <span><b>VERSION</b> <output id="version-output">RED</output></span>
-        </footer>
-      </section>
-
-      <p class="hint">Hover or focus any button → function. Keyboard: arrows navigate, Enter confirms, Escape returns.</p>
+      <p class="sr-only" id="control-help">
+        Arrow keys operate the D-pad. Enter confirms. Escape goes back. Physical START opens the
+        main menu and SELECT changes the version entry.
+      </p>
     </main>
-
     <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+    <svg width="0" height="0" class="geometry-defs" aria-hidden="true">
+      <defs>
+        <path id="leaf-outline" d="M 2,99 H 137 C 176,99 196,169 236,169 H 418 V 791 Q 418,814 394,814 H 26 Q 2,814 2,791 Z" />
+        <clipPath id="inner-silhouette" clipPathUnits="objectBoundingBox"><path d="M 0,.12 H .326 C .419,.12 .467,.207 .562,.207 H 1 V .97 Q 1,1 .938,1 H .062 Q 0,1 0,.97 Z" /></clipPath>
+        <clipPath id="outer-silhouette" clipPathUnits="objectBoundingBox"><path d="M 1,.12 H .674 C .581,.12 .533,.207 .438,.207 H 0 V .97 Q 0,1 .062,1 H .938 Q 1,1 1,.97 Z" /></clipPath>
+      </defs>
+    </svg>
+    <script type="module" src="app.js?v=3.2"></script>
   </body>
 </html>

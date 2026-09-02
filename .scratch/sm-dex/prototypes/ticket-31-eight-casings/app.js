@@ -1,404 +1,629 @@
-const MENU = ["PROFILE", "MOVES", "ENCOUNTERS", "RIBBONS", "EVOLUTION", "DEX"];
-const CONTENT = {
-  PROFILE: {
-    title: "SHIVAM MAHAJAN",
-    meta: "#001 · HUMANOID POKÉMON",
-    body: "Software developer from Punjab. Builds reliable systems, measured by shipped work rather than self-ratings.",
-    facts: ["1,150 DAY STREAK", "425 TEST SUITES", "2,600 DSA", "9.35 CGPA"],
-  },
-  MOVES: {
-    title: "PRODUCTIVITY CALLER",
-    meta: "ELECTRIC / STEEL · POWER 95",
-    body: "25,000+ lines of Kotlin. Native phone-call reminders, 80+ NLP patterns, and 35% higher task completion.",
-    facts: ["KOTLIN", "JETPACK COMPOSE", "MVVM", "PP 30/30"],
-  },
-  ENCOUNTERS: {
-    title: "MORGAN STANLEY",
-    meta: "TECHNOLOGY APPRENTICE · RELEASED",
-    body: "Architected 5M+ Kafka events through PySpark workflows into Snowflake with zero row-count tolerance.",
-    facts: ["5M+ EVENTS", "1M LOAD TEST", "500K+ USERS", "NEST BALL"],
-  },
-  RIBBONS: {
-    title: "ENDURANCE RIBBON",
-    meta: "1,150+ ACTIVE DAYS",
-    body: "Co-founded 1001 Days of Code, scaled it to 2,002 days, and kept an active coding streak beyond 1,150 days.",
-    facts: ["CORE CONTRIBUTOR", "PROBLEM SOLVER", "TOURNAMENT", "DEAN'S LIST"],
-  },
-  EVOLUTION: {
-    title: "SOFTWARE DEVELOPER → ???",
-    meta: "EVOLUTION CONDITION UNKNOWN",
-    body: "Student evolved into apprentice, then software developer. Next form remains undiscovered.",
-    facts: ["STUDENT", "APPRENTICE", "DEVELOPER", "???"],
-  },
-  DEX: {
-    title: "RED VERSION ENTRY",
-    meta: "DRAGON / STEEL · PUNJAB",
-    body: "Consumes coffee to regulate operating temperature. Has not skipped a day of code in over 1,150 days.",
-    facts: ["ABILITY: ZERO TOLERANCE", "HIDDEN: STREAK", "HELD: VIM"],
-  },
-};
+import { controls } from "./controls.js?v=3.2";
 
-const SPECIAL = {
-  resume: {
-    title: "PLAIN-TEXT RESUME",
-    meta: "ACCESSIBLE VIEW · SAMPLE",
-    body: "Shivam Mahajan — software developer. Experience, projects, education, and achievements without device chrome.",
-    facts: ["MORGAN STANLEY", "5M+ EVENTS", "425 TEST SUITES", "9.35 CGPA"],
+const device = document.querySelector("#device");
+const frame = document.querySelector("#device-frame");
+const primaryScreen = document.querySelector("#primary-screen");
+const secondaryScreen = document.querySelector("#secondary-screen");
+const bodyControls = document.querySelector("#body-controls");
+const innerControls = document.querySelector("#inner-controls");
+const outerControls = document.querySelector("#outer-controls");
+const innerFace = document.querySelector("#inner-face");
+const outerFace = document.querySelector("#outer-face");
+const tooltip = document.querySelector("#tooltip");
+const addPokemon = document.querySelector("#add-pokemon");
+
+if (new URLSearchParams(window.location.search).has("reduce-motion")) {
+  document.documentElement.classList.add("reduce-motion");
+}
+
+const MENU = ["PROFILE", "MOVES", "ENCOUNTERS", "RIBBONS", "EVOLUTION", "DEX"];
+const VERSIONS = [
+  {
+    name: "RED",
+    entry:
+      "Consumes coffee to regulate operating temperature. Has not skipped a day of code in over 1,150 days.",
   },
-  become: {
-    title: "+ ADD POKÉMON",
-    meta: "PUBLIC ROSTER · /BECOME",
-    body: "Future action opens the public GitHub-backed roster form. Scratch mode demonstrates the destination without navigation.",
-    facts: ["GITHUB ID", "PUBLIC ENTRY", "AUTO-ROLLED STATS", "ISSUE SUBMISSION"],
+  {
+    name: "BLUE",
+    entry: "Capable of processing five million events in a single migration cycle. Refuses to drop a single row.",
   },
+];
+
+const SECTIONS = {
+  PROFILE: [
+    {
+      title: "SHIVAM MAHAJAN",
+      meta: "#001 · HUMANOID POKÉMON",
+      body: "Software Developer. Dragon/Steel. Released and ready for the next evolution.",
+      badges: ["DRAGON", "STEEL", "RELEASED"],
+      facts: [["Lv.", "12"], ["HT", "6'00\""], ["WT", "169.8 lbs"], ["OT", "MORGAN STANLEY"]],
+    },
+    {
+      title: "ZERO TOLERANCE",
+      meta: "ABILITY",
+      body: "This Pokémon's pipelines do not drop rows.",
+      badges: ["ABILITY"],
+      facts: [["HIDDEN", "STREAK"], ["ITEM", "VIM"]],
+    },
+    {
+      title: "EVOLUTION",
+      meta: "STUDENT → APPRENTICE → DEVELOPER",
+      body: "Next evolution exists. Its condition remains unknown.",
+      badges: ["Lv. ??"],
+      facts: [["STUDENT", "2022"], ["APPRENTICE", "Lv. 1"], ["DEVELOPER", "Lv. 12"]],
+    },
+  ],
+  MOVES: [
+    {
+      title: "PRODUCTIVITY CALLER",
+      meta: "ELECTRIC · PHYSICAL · Lv. 10",
+      body: "Calls you instead of notifying you.",
+      badges: ["ELECTRIC", "KOTLIN"],
+      facts: [["PWR", "95"], ["ACC", "100%"], ["PP", "30/30"], ["TARGET", "ALL ADJACENT"]],
+    },
+    {
+      title: "TM01 · CIAM WAREHOUSE",
+      meta: "WATER · SPECIAL · Lv. 1",
+      body: "Moves five million events, drops none.",
+      badges: ["WATER", "PYSPARK"],
+      facts: [["PWR", "100"], ["ACC", "100%"], ["PP", "30/30"], ["USERS", "500K+"]],
+    },
+    {
+      title: "CHAINCODE",
+      meta: "DRAGON · SPECIAL · BEFORE CAPTURE",
+      body: "Turns committed code into an NFT.",
+      badges: ["DRAGON", "SOLIDITY"],
+      facts: [["PWR", "85"], ["ACC", "95%"], ["PP", "0/15"], ["PRIO", "+1"]],
+    },
+    {
+      title: "QUIZDECK",
+      meta: "ELECTRIC · SPECIAL · BEFORE CAPTURE",
+      body: "Real-time quiz for 500 at once.",
+      badges: ["ELECTRIC", "REACT"],
+      facts: [["PWR", "70"], ["ACC", "75%"], ["PP", "0/10"], ["LATENCY", "31 ms"]],
+    },
+  ],
+  ENCOUNTERS: [
+    {
+      title: "MORGAN STANLEY",
+      meta: "TECHNOLOGY APPRENTICE",
+      body: "Caught on campus with a Nest Ball. Met at Lv. 1.",
+      badges: ["NEST BALL", "RELEASED"],
+      facts: [["FROM", "AUG 2025"], ["TO", "AUG 2026"], ["MET", "Lv. 1"]],
+    },
+    {
+      title: "CHITKARA UNIVERSITY",
+      meta: "ORIGIN · PRE-EVOLUTION",
+      body: "Computer Science and Engineering. Dean's List, 2022–2026.",
+      badges: ["STUDENT"],
+      facts: [["CGPA", "9.35/10"], ["FROM", "2022"], ["TO", "2026"]],
+    },
+  ],
+  RIBBONS: [
+    { title: "ENDURANCE", meta: "2,002 DAYS OF CODE", body: "Maintained a 1,150+ day active streak.", badges: ["RIBBON"] },
+    { title: "CORE CONTRIBUTOR", meta: "MEDIAWIKI CORE", body: "Selected from 260+ applicants; change merged into core.", badges: ["RIBBON"] },
+    { title: "PROBLEM SOLVER", meta: "2,600+ PROBLEMS", body: "LeetCode 1,900+ and Codeforces 700+.", badges: ["RIBBON"] },
+    { title: "TOURNAMENT", meta: "3RD OF 200+ TEAMS", body: "Placed third at HackIndia Regionals.", badges: ["RIBBON"] },
+    { title: "DEAN'S LIST", meta: "CGPA 9.35 / 10", body: "Chitkara University, 2022–2026.", badges: ["RIBBON"] },
+  ],
+  EVOLUTION: [
+    {
+      title: "STUDENT",
+      meta: "CHITKARA UNIVERSITY · 2022",
+      body: "Computer Science and Engineering origin form.",
+      badges: ["Lv. 0"],
+      facts: [["CGPA", "9.35/10"], ["STATUS", "EVOLVED"]],
+    },
+    {
+      title: "APPRENTICE",
+      meta: "MORGAN STANLEY · Lv. 1",
+      body: "Learned production data systems before evolving.",
+      badges: ["NEST BALL"],
+      facts: [["FROM", "AUG 2025"], ["TO", "AUG 2026"]],
+    },
+    {
+      title: "SOFTWARE DEVELOPER → ???",
+      meta: "EVOLUTION CONDITION UNKNOWN",
+      body: "Next form exists. Its condition remains undiscovered.",
+      badges: ["Lv. ??"],
+      facts: [["STATUS", "RELEASED"], ["NEXT", "???"]],
+    },
+  ],
+  DEX: [
+    {
+      title: "#001 SHIVAM",
+      meta: "DRAGON / STEEL",
+      body: "Humanoid Pokémon. Registered and released.",
+      badges: ["REGISTERED"],
+      facts: [["SEEN", "001"], ["CAUGHT", "001"]],
+    },
+    {
+      title: "REGISTERED 1/151",
+      meta: "COMMUNITY ROSTER",
+      body: "One species registered. Empty slots invite the next trainer.",
+      badges: ["DEX"],
+      facts: [["SLOTS", "151"], ["OPEN", "150"]],
+    },
+    {
+      title: "UNIDENTIFIED SPECIES",
+      meta: "AVATAR FALLBACK",
+      body: "GitHub identicons remain valid entries when no custom avatar exists.",
+      badges: ["NO DATA"],
+    },
+  ],
 };
 
 const state = {
   open: false,
   mode: "closed",
   menuIndex: 0,
+  itemIndex: 0,
   page: 0,
   version: 0,
-  lastInput: "NONE",
+  lastControl: null,
 };
 
-const versions = ["RED", "BLUE"];
-const device = document.querySelector("#device");
-const frame = document.querySelector("#device-frame");
-const stage = document.querySelector("#device-stage");
-const bodyScreen = document.querySelector("#body-screen");
-const leafScreen = document.querySelector("#leaf-screen");
-const bodyControls = document.querySelector("#body-controls");
-const leafControls = document.querySelector("#leaf-controls");
-const outerControls = document.querySelector("#outer-controls");
-const innerFace = document.querySelector("#inner-face");
-const outerFace = document.querySelector("#outer-face");
-const tooltip = document.querySelector("#tooltip");
-let bootTimer;
+let bootTimer = 0;
+let motionTimer = 0;
+let savedMode = "menu";
+let hasBooted = false;
+let moving = false;
+const instantMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("reduce-motion");
 
 function escapeHtml(value) {
-  return String(value).replace(/[&<>'"]/g, (character) => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;",
-  })[character]);
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
 
-function buttonMarkup({ id, action, label, x, y, width, height, tone = "black", shape = "rect", text = "" }) {
+
+function showTooltip(target) {
+  tooltip.textContent = target.dataset.tip;
+  tooltip.hidden = false;
+  const targetBox = target.getBoundingClientRect();
+  const tipBox = tooltip.getBoundingClientRect();
+  const left = Math.min(
+    window.innerWidth - tipBox.width - 8,
+    Math.max(8, targetBox.left + targetBox.width / 2 - tipBox.width / 2),
+  );
+  const top = targetBox.top > tipBox.height + 12
+    ? targetBox.top - tipBox.height - 8
+    : targetBox.bottom + 8;
+  Object.assign(tooltip.style, { left: `${left}px`, top: `${top}px` });
+}
+
+function hideTooltip() {
+  tooltip.hidden = true;
+}
+
+function addControl(container, spec) {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = `control ${tone} ${shape}`;
-  button.dataset.controlId = id;
-  button.dataset.action = action;
-  button.dataset.tip = label;
-  button.setAttribute("aria-label", label);
-  Object.assign(button.style, { left: `${x}px`, top: `${y}px`, width: `${width}px`, height: `${height}px` });
-  button.innerHTML = `<span class="control-base"></span><span class="control-face">${escapeHtml(text)}</span>`;
-  bindControl(button);
-  return button;
-}
-
-function addButton(parent, config) { parent.append(buttonMarkup(config)); }
-
-function buildControls() {
-  const dpad = document.createElement("div");
-  dpad.className = "dpad";
-  [
-    ["dpad-up", "up", "Up — move selection up", "dpad-up"],
-    ["dpad-down", "down", "Down — move selection down", "dpad-down"],
-    ["dpad-left", "left", "Left — previous page or tab", "dpad-left"],
-    ["dpad-right", "right", "Right — next page or tab", "dpad-right"],
-  ].forEach(([id, action, label, className]) => {
-    const button = buttonMarkup({ id, action, label, x: 0, y: 0, width: 1, height: 1 });
-    button.className = `control ${className}`;
-    button.removeAttribute("style");
-    dpad.append(button);
+  button.className = `control tone-${spec.tone} shape-${spec.shape}`;
+  button.dataset.action = spec.action;
+  button.dataset.controlId = spec.id;
+  button.dataset.tip = spec.label;
+  button.setAttribute("aria-label", spec.label);
+  button.setAttribute("aria-describedby", "control-help");
+  Object.assign(button.style, {
+    left: `${spec.x}px`, top: `${spec.y}px`, width: `${spec.width}px`, height: `${spec.height}px`,
   });
-  const centre = document.createElement("span");
-  centre.className = "dpad-centre";
-  centre.setAttribute("aria-hidden", "true");
-  dpad.append(centre);
-  bodyControls.append(dpad);
-
-  [
-    { id: "body-bezel-b", action: "back", label: "B — return one UI level", x: 70, y: 437, width: 26, height: 26, tone: "red", shape: "round", text: "" },
-    { id: "body-b", action: "back", label: "B — return one UI level", x: 48, y: 511, width: 62, height: 62, tone: "black", shape: "round", text: "B" },
-    { id: "body-start", action: "menu", label: "START — open Main Menu", x: 128, y: 515, width: 94, height: 31, tone: "red", shape: "pill", text: "START" },
-    { id: "body-select", action: "version", label: "SELECT — switch Red or Blue entry", x: 238, y: 515, width: 101, height: 31, tone: "cyan", shape: "pill", text: "SELECT" },
-    { id: "body-main", action: "menu", label: "Main Menu — show all portfolio sections", x: 128, y: 568, width: 145, height: 75, tone: "green", shape: "rect", text: "MENU" },
-  ].forEach((config) => addButton(bodyControls, config));
-
-  const keypad = document.createElement("div");
-  keypad.className = "keypad";
-  const labels = [
-    "PROFILE — identity and counted stats", "MOVES — selected projects", "ENCOUNTERS — work experience",
-    "RIBBONS — achievements", "EVOLUTION — career stages", "DEX — version flavour entry",
-    "RESUME — sample plain-text mode", "ADD — sample public roster action", "VERSION — switch Red or Blue", "MENU — return to Main Menu",
-  ];
-  labels.forEach((label, index) => keypad.append(buttonMarkup({
-    id: `key-${index + 1}`, action: `key-${index + 1}`, label: `${index + 1}: ${label}`,
-    x: 0, y: 0, width: 1, height: 1, tone: "cyan", shape: "rect", text: String(index + 1),
-  })));
-  leafControls.append(keypad);
-
-  [
-    { id: "leaf-prev", action: "left", label: "Previous — previous content page", x: 57, y: 432, width: 63, height: 69, tone: "white", shape: "rect", text: "◀" },
-    { id: "leaf-next", action: "right", label: "Next — next content page", x: 120, y: 432, width: 63, height: 69, tone: "white", shape: "rect", text: "▶" },
-    { id: "leaf-close", action: "close", label: "Close — fold right leaf over central hinge", x: 297, y: 433, width: 113, height: 31, tone: "black", shape: "pill", text: "CLOSE" },
-    { id: "leaf-a", action: "confirm", label: "A — confirm or open highlighted section", x: 418, y: 437, width: 57, height: 57, tone: "yellow", shape: "round", text: "A" },
-    { id: "leaf-version-prev", action: "version-prev", label: "Previous version — show Red or Blue entry", x: 56, y: 535, width: 170, height: 73, tone: "darkgreen", shape: "rect", text: "RED" },
-    { id: "leaf-version-next", action: "version-next", label: "Next version — show Red or Blue entry", x: 260, y: 535, width: 170, height: 73, tone: "darkgreen", shape: "rect", text: "BLUE" },
-  ].forEach((config) => addButton(leafControls, config));
-
-  addButton(outerControls, {
-    id: "outer-open", action: "open", label: "Open Pokédex — unfold right leaf and boot portfolio UI",
-    x: 16, y: 331, width: 70, height: 84, tone: "yellow", shape: "triangle", text: "",
+  if (spec.shape !== "dpad") {
+    const base = document.createElement("span");
+    base.className = "base";
+    base.setAttribute("aria-hidden", "true");
+    const face = document.createElement("span");
+    face.className = "face";
+    face.textContent = spec.text;
+    face.setAttribute("aria-hidden", "true");
+    button.append(base, face);
+  } else {
+    button.dataset.direction = spec.action;
+  }
+  const press = () => {
+    button.classList.add("is-pressed");
+    if (spec.shape === "dpad") device.dataset.dpad = spec.action;
+  };
+  const release = () => {
+    button.classList.remove("is-pressed");
+    if (spec.shape === "dpad") delete device.dataset.dpad;
+  };
+  button.addEventListener("click", () => handleAction(spec.action, spec.id));
+  button.addEventListener("pointerdown", (event) => {
+    if (event.button !== 0) return;
+    press();
   });
-}
-
-function bindControl(button) {
-  const release = () => button.classList.remove("is-held");
-  button.addEventListener("pointerdown", () => button.classList.add("is-held"));
   button.addEventListener("pointerup", release);
   button.addEventListener("pointercancel", release);
   button.addEventListener("pointerleave", release);
   button.addEventListener("keydown", (event) => {
-    if (event.key === " " || event.key === "Enter") button.classList.add("is-held");
+    if (event.repeat && (event.key === " " || event.key === "Enter")) {
+      event.preventDefault();
+      return;
+    }
+    if (event.key === " " || event.key === "Enter") press();
   });
   button.addEventListener("keyup", release);
-  button.addEventListener("blur", release);
-  button.addEventListener("click", () => act(button.dataset.action, button.dataset.controlId));
   button.addEventListener("mouseenter", () => showTooltip(button));
   button.addEventListener("focus", () => showTooltip(button));
   button.addEventListener("mouseleave", hideTooltip);
-  button.addEventListener("blur", hideTooltip);
+  button.addEventListener("blur", () => { release(); hideTooltip(); });
+  container.append(button);
+}
+
+function buildControls() {
+  const dpad = document.createElement("div");
+  dpad.className = "dpad-assembly";
+  dpad.setAttribute("aria-hidden", "true");
+  dpad.innerHTML = '<div class="dpad-socket"></div><div class="dpad-rocker"><span class="north">▲</span><span class="west">◀</span><span class="east">▶</span><span class="south">▼</span><i></i></div>';
+  bodyControls.append(dpad);
+  const owners = { body: bodyControls, inner: innerControls, outer: outerControls };
+  controls.forEach((control) => addControl(owners[control.owner], control));
+}
+
+function currentItems() {
+  return SECTIONS[MENU[state.menuIndex]];
+}
+
+function currentItem() {
+  const items = currentItems();
+  state.itemIndex = Math.max(0, Math.min(items.length - 1, state.itemIndex));
+  return items[state.itemIndex];
 }
 
 function menuMarkup() {
-  return `<div class="screen-ui">
-    <div class="screen-head"><span>MAIN MENU</span><span>${versions[state.version]} · PAGE ${state.page + 1}/2</span></div>
-    <div class="rows" role="listbox" aria-label="Portfolio sections">${MENU.map((item, index) => `
-      <div class="row ${index === state.menuIndex ? "selected" : ""}" role="option" aria-selected="${index === state.menuIndex}">
-        <span>${index === state.menuIndex ? "▶" : "·"} ${item}</span><span class="num">0${index + 1}</span>
-      </div>`).join("")}</div>
-    <div class="screen-foot"><span>↑↓ SELECT</span><span>A OPEN</span></div>
-  </div>`;
+  return `
+    <div class="screen-shell">
+      <div class="screen-header"><span>MAIN MENU</span><span>PAGE ${state.page + 1}/2</span></div>
+      <div class="menu-list" role="listbox" aria-label="Main menu">
+        ${MENU.map(
+          (item, index) => `
+            <div class="screen-row ${index === state.menuIndex ? "selected" : ""}" role="option" aria-selected="${index === state.menuIndex}">
+              <span class="cursor">${index === state.menuIndex ? "SEL" : "·"}</span><span>${item}</span><span>${String(index + 1).padStart(2, "0")}</span>
+            </div>`,
+        ).join("")}
+      </div>
+      <div class="screen-status">A CONFIRM · B CLOSE</div>
+    </div>`;
 }
 
 function identityMarkup() {
-  return `<div class="screen-ui compact">
-    <div class="screen-head"><span>SM'S DEX</span><span>#001</span></div>
-    <div class="identity"><span class="avatar" aria-hidden="true">SM</span><div><div class="screen-title">SHIVAM</div><div class="micro">SOFTWARE DEVELOPER</div><div class="tags"><span class="tag">DRAGON</span><span class="tag">STEEL</span></div></div></div>
-  </div>`;
+  const version = VERSIONS[state.version];
+  if (state.page === 1) {
+    return `<div class="screen-shell compact"><div class="screen-header"><span>ENTRY · ${version.name}</span><span>2/2</span></div><p class="screen-copy">${escapeHtml(version.entry)}</p><div class="screen-status">←/→ IDENTITY</div></div>`;
+  }
+  return `
+    <div class="screen-shell compact">
+      <div class="screen-header"><span>SM'S DEX</span><span>${version.name}</span></div>
+      <div class="identity-mini">
+        <img src="https://avatars.githubusercontent.com/smresponsibilities?s=108" alt="smresponsibilities's sprite" />
+        <div><div class="dex-number">#001</div><div class="detail-title">SHIVAM</div><div class="micro">HUMANOID POKÉMON</div></div>
+      </div>
+      <div class="badges"><span class="badge">DRAGON</span><span class="badge steel">STEEL</span></div>
+    </div>`;
 }
 
-function detailMarkup(section, specialMode = "") {
-  const source = specialMode ? SPECIAL[specialMode] : CONTENT[section];
-  const item = section === "DEX" && state.version === 1
-    ? { ...source, title: "BLUE VERSION ENTRY", body: "Processes five million events in one migration cycle. Refuses to drop a single row." }
-    : source;
-  const copy = state.page === 0 ? item.body : `${item.facts.join(" · ")}.`;
-  return `<div class="screen-ui">
-    <div class="screen-head"><span>${escapeHtml(section)} · ${state.page + 1}/2</span><span>${versions[state.version]}</span></div>
-    <div class="screen-title">${escapeHtml(item.title)}</div>
-    <div class="micro">${escapeHtml(item.meta)}</div>
-    <p class="screen-copy">${escapeHtml(copy)}</p>
-    <div class="facts">${item.facts.slice(0, 4).map((fact) => `<span class="fact">${escapeHtml(fact)}</span>`).join("")}</div>
-    <div class="screen-foot"><span>←→ PAGE</span><span>B BACK</span></div>
-  </div>`;
+function listMarkup() {
+  const section = MENU[state.menuIndex];
+  return `
+    <div class="screen-shell">
+      <div class="screen-header"><span>${section}</span><span>${state.itemIndex + 1}/${currentItems().length}</span></div>
+      <div class="data-list" role="listbox" aria-label="${section} list">
+        ${currentItems()
+          .map(
+            (item, index) => `
+              <div class="screen-row ${index === state.itemIndex ? "selected" : ""}" role="option" aria-selected="${index === state.itemIndex}">
+                <span class="cursor">${index === state.itemIndex ? "SEL" : "·"}</span><span>${escapeHtml(item.title)}</span>
+              </div>`,
+          )
+          .join("")}
+      </div>
+      <div class="screen-status">A OPEN · B MENU</div>
+    </div>`;
 }
 
-function detailContextMarkup(section, specialMode = "") {
-  const source = specialMode ? SPECIAL[specialMode] : CONTENT[section];
-  const item = section === "DEX" && state.version === 1 ? { ...source, title: "BLUE VERSION ENTRY" } : source;
-  return `<div class="screen-ui compact">
-    <div class="screen-head"><span>${escapeHtml(section)}</span><span>LIVE DOM</span></div>
-    <div class="screen-title">${escapeHtml(item.title)}</div>
-    <div class="micro">${escapeHtml(item.facts[state.page % item.facts.length])}</div>
-  </div>`;
+function previewMarkup() {
+  const item = currentItem();
+  return `
+    <div class="screen-shell compact">
+      <div class="screen-header"><span>${MENU[state.menuIndex]}</span><span>PG ${state.page + 1}</span></div>
+      <div class="detail-title">${escapeHtml(item.title)}</div>
+      <div class="micro">${escapeHtml(item.meta)}</div>
+      <p class="screen-copy">${escapeHtml(state.page === 0 ? item.body : VERSIONS[state.version].entry)}</p>
+    </div>`;
+}
+
+function factsMarkup(item) {
+  if (!item.facts?.length) return "";
+  return `<div class="micro-grid">${item.facts
+    .slice(0, 4)
+    .map(([key, value]) => `<div class="micro-cell"><span class="micro">${escapeHtml(key)}</span><span>${escapeHtml(value)}</span></div>`)
+    .join("")}</div>`;
+}
+
+function detailMarkup() {
+  const item = currentItem();
+  const badges = (item.badges || [])
+    .map((badge) => `<span class="badge ${badge === "STEEL" ? "steel" : badge === "ELECTRIC" ? "electric" : badge === "WATER" ? "water" : ""}">${escapeHtml(badge)}</span>`)
+    .join("");
+  return `
+    <div class="screen-shell">
+      <div class="screen-header"><span>${MENU[state.menuIndex]} · DETAIL</span><span>${state.itemIndex + 1}/${currentItems().length}</span></div>
+      <div class="detail-title">${escapeHtml(item.title)}</div>
+      <div class="micro">${escapeHtml(item.meta)}</div>
+      <div class="badges">${badges}</div>
+      <p class="screen-copy">${escapeHtml(item.body)}</p>
+      ${factsMarkup(item)}
+      ${MENU[state.menuIndex] === "PROFILE" ? '<div class="stat-bar"><span style="width:85%"></span></div><div class="micro">DEFENSE · 425 OF 500</div>' : ""}
+    </div>`;
+}
+
+function detailContextMarkup() {
+  const item = currentItem();
+  return `
+    <div class="screen-shell compact">
+      <div class="screen-header"><span>ENTRY · ${VERSIONS[state.version].name}</span><span>PAGE ${state.page + 1}</span></div>
+      <div class="detail-title">${escapeHtml(item.title)}</div>
+      <p class="screen-copy">${escapeHtml(state.page === 0 ? VERSIONS[state.version].entry : item.body)}</p>
+      <div class="screen-status">←/→ PAGE · B BACK</div>
+    </div>`;
 }
 
 function bootMarkup(compact = false) {
-  return `<div class="screen-ui boot ${compact ? "compact" : ""}"><div class="boot-mark">SM'S DEX</div><div class="micro">KANTO LINK · READY</div></div>`;
+  return `
+    <div class="screen-shell boot ${compact ? "compact" : ""}">
+      <div class="wordmark">SM'S DEX</div>
+      <div class="screen-status">CLASSIC RED · BOOT</div>
+      <div class="screen-status">SYSTEM CHECK 151/151</div>
+    </div>`;
 }
 
 function render() {
   device.dataset.open = String(state.open);
   device.dataset.mode = state.mode;
   device.dataset.menuIndex = String(state.menuIndex);
+  device.dataset.itemIndex = String(state.itemIndex);
   device.dataset.page = String(state.page);
-  device.dataset.version = versions[state.version].toLowerCase();
-  device.dataset.lastInput = state.lastInput;
-
-  document.querySelector("#state-output").value = state.open ? state.mode.toUpperCase() : "CLOSED";
-  document.querySelector("#input-output").value = state.lastInput.toUpperCase();
-  document.querySelector("#version-output").value = versions[state.version];
+  device.dataset.version = VERSIONS[state.version].name.toLowerCase();
+  device.dataset.lastControl = state.lastControl || "";
+  document.querySelector("#device-hint").textContent = state.open
+    ? "Hover for function · Press a cap · CLOSE folds the cover"
+    : "Press the yellow OPEN latch · Your page is kept";
 
   if (!state.open) {
-    bodyScreen.replaceChildren();
-    leafScreen.replaceChildren();
+    primaryScreen.replaceChildren();
+    secondaryScreen.replaceChildren();
     return;
   }
+
   if (state.mode === "boot") {
-    bodyScreen.innerHTML = bootMarkup();
-    leafScreen.innerHTML = bootMarkup(true);
+    primaryScreen.innerHTML = bootMarkup();
+    secondaryScreen.innerHTML = bootMarkup(true);
   } else if (state.mode === "menu") {
-    bodyScreen.innerHTML = menuMarkup();
-    leafScreen.innerHTML = identityMarkup();
+    primaryScreen.innerHTML = menuMarkup();
+    secondaryScreen.innerHTML = identityMarkup();
+  } else if (state.mode === "list") {
+    primaryScreen.innerHTML = listMarkup();
+    secondaryScreen.innerHTML = previewMarkup();
+  } else if (state.mode === "resume" || state.mode === "become") {
+    const resume = state.mode === "resume";
+    primaryScreen.innerHTML = `<div class="screen-shell"><div class="screen-header">${resume ? "RESUME · SAMPLE" : "/become · SAMPLE"}</div><div class="detail-title">${resume ? "SHIVAM MAHAJAN" : "JOIN THE DEX"}</div><p class="screen-copy">${resume ? "Software Developer. Sample resume destination. Final content follows casing approval." : "Public roster preview. The final form creates a GitHub issue for a new entry. Nothing is submitted here."}</p><div class="screen-status">B BACK · START MENU</div></div>`;
+    secondaryScreen.innerHTML = identityMarkup();
   } else {
-    const section = MENU[state.menuIndex];
-    const specialMode = state.mode === "resume" || state.mode === "become" ? state.mode : "";
-    bodyScreen.innerHTML = detailMarkup(specialMode ? specialMode.toUpperCase() : section, specialMode);
-    leafScreen.innerHTML = detailContextMarkup(specialMode ? specialMode.toUpperCase() : section, specialMode);
+    primaryScreen.innerHTML = detailMarkup();
+    secondaryScreen.innerHTML = detailContextMarkup();
   }
 }
 
 function applySemantics() {
   const closed = !state.open;
-  bodyScreen.hidden = closed;
-  leafScreen.hidden = closed;
-  bodyScreen.setAttribute("aria-hidden", String(closed));
-  leafScreen.setAttribute("aria-hidden", String(closed));
-  bodyControls.hidden = closed;
-  leafControls.hidden = closed;
-  outerControls.hidden = !closed;
-  innerFace.inert = closed;
-  outerFace.inert = !closed;
+  primaryScreen.hidden = closed;
+  secondaryScreen.hidden = closed;
+  primaryScreen.setAttribute("aria-hidden", String(closed));
+  secondaryScreen.setAttribute("aria-hidden", String(closed));
+  // Never remove the cap artwork during a fold. Only interaction and accessibility change.
+  bodyControls.inert = closed || moving;
+  innerFace.inert = closed || moving;
+  outerFace.inert = !closed || moving;
+  bodyControls.setAttribute("aria-hidden", String(closed));
+  innerFace.setAttribute("aria-hidden", String(closed));
+  outerFace.setAttribute("aria-hidden", String(!closed));
 }
 
-function openDevice() {
+function openDevice(destination) {
   if (state.open) return;
-  clearTimeout(bootTimer);
+  window.clearTimeout(bootTimer);
+  window.clearTimeout(motionTimer);
+  hideTooltip();
+  moving = true;
   state.open = true;
-  state.mode = "boot";
-  state.page = 0;
+  state.mode = hasBooted ? (destination || savedMode) : "boot";
   applySemantics();
   render();
-  bootTimer = setTimeout(() => {
-    state.mode = "menu";
+  bootTimer = window.setTimeout(() => {
+    moving = false;
+    hasBooted = true;
+    state.mode = destination || savedMode;
+    applySemantics();
     render();
     document.querySelector('[data-control-id="dpad-down"]')?.focus({ preventScroll: true });
-  }, document.documentElement.classList.contains("reduce-motion") ? 0 : 520);
+  }, instantMotion() ? 0 : 720);
 }
 
 function closeDevice() {
   if (!state.open) return;
-  clearTimeout(bootTimer);
+  window.clearTimeout(bootTimer);
+  window.clearTimeout(motionTimer);
+  hideTooltip();
+  savedMode = state.mode === "boot" ? "menu" : state.mode;
+  moving = true;
   state.open = false;
   state.mode = "closed";
-  state.page = 0;
+  document.querySelectorAll(".is-pressed").forEach((button) => button.classList.remove("is-pressed"));
+  delete device.dataset.dpad;
   applySemantics();
   render();
-  setTimeout(() => document.querySelector('[data-control-id="outer-open"]')?.focus({ preventScroll: true }), 0);
+  motionTimer = window.setTimeout(() => {
+    moving = false;
+    applySemantics();
+    document.querySelector('[data-control-id="outer-latch"]')?.focus({ preventScroll: true });
+  }, instantMotion() ? 0 : 720);
 }
 
-function move(delta) {
-  if (state.mode !== "menu") state.mode = "menu";
-  state.menuIndex = (state.menuIndex + delta + MENU.length) % MENU.length;
+function moveSelection(delta) {
+  if (state.mode === "menu") {
+    state.menuIndex = (state.menuIndex + delta + MENU.length) % MENU.length;
+    state.itemIndex = 0;
+  } else if (state.mode === "list" || state.mode === "detail") {
+    const length = currentItems().length;
+    state.itemIndex = (state.itemIndex + delta + length) % length;
+  }
+  render();
+}
+
+function changePage(delta) {
+  state.page = (state.page + delta + 2) % 2;
+  render();
+}
+
+function confirm() {
+  if (state.mode === "menu") {
+    state.mode = "list";
+    state.itemIndex = 0;
+  } else if (state.mode === "list") {
+    state.mode = "detail";
+  }
+  render();
+}
+
+function back() {
+  if (state.mode === "detail") state.mode = "list";
+  else if (state.mode === "list" || state.mode === "resume" || state.mode === "become") state.mode = "menu";
+  else if (state.mode === "menu") return closeDevice();
+  render();
+}
+
+function start() {
+  if (!state.open || state.mode === "boot") return;
+  state.mode = "menu";
+  state.itemIndex = 0;
   state.page = 0;
   render();
 }
 
-function showSection(index) {
-  state.menuIndex = Math.max(0, Math.min(MENU.length - 1, index));
-  state.mode = "detail";
-  state.page = 0;
+function setVersion(delta) {
+  state.version = (state.version + delta + VERSIONS.length) % VERSIONS.length;
+  if (state.mode === "menu") state.page = 1;
   render();
 }
 
-function act(action, source = action) {
-  state.lastInput = source;
+function keypad(number) {
+  if (number <= 6) {
+    state.menuIndex = number - 1;
+    state.itemIndex = 0;
+    state.mode = "list";
+  } else if (number === 7) state.mode = "resume";
+  else if (number === 8) state.mode = "become";
+  else if (number === 9) return setVersion(1);
+  else return start();
+  render();
+}
+
+function handleAction(action, controlId = action) {
+  if (moving) return;
+  state.lastControl = controlId;
+  device.dataset.lastControl = controlId;
   if (action === "open") return openDevice();
   if (action === "close") return closeDevice();
-  if (!state.open || state.mode === "boot") return render();
-  if (action === "up") return move(-1);
-  if (action === "down") return move(1);
-  if (action === "left" || action === "right") {
-    state.page = action === "left" ? (state.page + 1) % 2 : (state.page + 1) % 2;
-    return render();
-  }
-  if (action === "confirm") return showSection(state.menuIndex);
-  if (action === "back") {
-    if (["detail", "resume", "become"].includes(state.mode)) state.mode = "menu";
-    else return closeDevice();
-    return render();
-  }
-  if (action === "menu") { state.mode = "menu"; state.page = 0; return render(); }
-  if (["version", "version-prev", "version-next"].includes(action)) {
-    state.version = (state.version + 1) % versions.length;
-    return render();
-  }
-  if (action.startsWith("key-")) {
-    const key = Number(action.split("-")[1]);
-    if (key <= 6) return showSection(key - 1);
-    if (key === 7) { state.mode = "resume"; state.page = 0; return render(); }
-    if (key === 8) { state.mode = "become"; state.page = 0; return render(); }
-    if (key === 9) { state.version = (state.version + 1) % versions.length; return render(); }
-    if (key === 10) { state.mode = "menu"; state.page = 0; return render(); }
-  }
+  if (!state.open || state.mode === "boot") return;
+  if (action === "up") return moveSelection(-1);
+  if (action === "down") return moveSelection(1);
+  if (action === "left") return changePage(-1);
+  if (action === "right") return changePage(1);
+  if (action === "a") return confirm();
+  if (action === "b") return back();
+  if (action === "start") return start();
+  if (action === "select") return setVersion(1);
+  if (action === "version-prev") return setVersion(-state.version);
+  if (action === "version-next") return setVersion(1 - state.version);
+  if (action.startsWith("keypad-")) return keypad(Number(action.split("-")[1]));
 }
 
-function showTooltip(button) {
-  tooltip.textContent = button.dataset.tip;
-  tooltip.hidden = false;
-  const box = button.getBoundingClientRect();
-  const tipBox = tooltip.getBoundingClientRect();
-  const left = Math.min(window.innerWidth - tipBox.width - 8, Math.max(8, box.left + box.width / 2 - tipBox.width / 2));
-  const top = box.top > tipBox.height + 12 ? box.top - tipBox.height - 9 : box.bottom + 9;
-  Object.assign(tooltip.style, { left: `${left}px`, top: `${top}px` });
-}
-
-function hideTooltip() { tooltip.hidden = true; }
-
-function flash(action) {
-  const button = [...document.querySelectorAll(`.control[data-action="${action}"]`)].find((item) => !item.closest("[inert]") && !item.closest("[hidden]"));
+function flashControl(action) {
+  const button = [...document.querySelectorAll(`.control[data-action="${action}"]`)].find((candidate) => !candidate.closest("[inert]"));
   if (!button) return;
-  button.classList.add("is-held");
-  setTimeout(() => button.classList.remove("is-held"), 110);
+  button.classList.add("is-pressed");
+  if (button.dataset.direction) device.dataset.dpad = button.dataset.direction;
+  window.setTimeout(() => {
+    button.classList.remove("is-pressed");
+    delete device.dataset.dpad;
+  }, 100);
+}
+
+function keyboardAction(event) {
+  if (event.repeat) return;
+  if (event.target.closest("button") && (event.key === "Enter" || event.key === " ")) return;
+  const map = {
+    ArrowUp: "up",
+    ArrowDown: "down",
+    ArrowLeft: "left",
+    ArrowRight: "right",
+    Enter: "a",
+    Escape: "b",
+  };
+  const action = map[event.key];
+  if (!action || !state.open || moving) return;
+  event.preventDefault();
+  flashControl(action);
+  handleAction(action, `keyboard-${action}`);
 }
 
 function resizeDevice() {
-  const available = Math.max(1, stage.clientWidth - 16);
-  const scale = Math.min(1, available / 1038);
-  document.documentElement.style.setProperty("--scale", String(scale));
-  frame.style.width = `${1038 * scale}px`;
-  frame.style.height = `${680 * scale}px`;
+  const width = Math.min(896, Math.max(1, window.innerWidth - (window.innerWidth <= 480 ? 16 : 24)));
+  const scale = width / 896;
+  document.documentElement.style.setProperty("--device-scale", String(scale));
+  frame.style.width = `${width}px`;
+  frame.style.height = `${816 * scale}px`;
 }
 
 buildControls();
+resizeDevice();
 applySemantics();
 render();
-resizeDevice();
 window.addEventListener("resize", resizeDevice);
-
-document.addEventListener("keydown", (event) => {
-  if (event.repeat || event.target.closest("button")) return;
-  const map = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", Enter: "confirm", Escape: "back" };
-  const action = map[event.key];
-  if (!action || !state.open) return;
-  event.preventDefault();
-  flash(action);
-  act(action, `keyboard-${action}`);
+window.addEventListener("keydown", keyboardAction);
+window.addEventListener("blur", () => {
+  document.querySelectorAll(".is-pressed").forEach((button) => button.classList.remove("is-pressed"));
+  delete device.dataset.dpad;
+  hideTooltip();
 });
-
-document.querySelector("#motion-toggle").addEventListener("click", (event) => {
-  const reduced = document.documentElement.classList.toggle("reduce-motion");
-  event.currentTarget.setAttribute("aria-pressed", String(reduced));
-  event.currentTarget.textContent = reduced ? "MOTION: REDUCED" : "MOTION: ON";
-});
-
-document.querySelector('[data-site-action="become"]').addEventListener("click", () => {
-  state.lastInput = "add-pokemon";
-  if (state.open && state.mode !== "boot") state.mode = "become";
+addPokemon.addEventListener("click", () => {
+  if (moving) return;
+  if (!state.open) return openDevice("become");
+  state.mode = "become";
   render();
 });
+addPokemon.addEventListener("mouseenter", () => showTooltip(addPokemon));
+addPokemon.addEventListener("focus", () => showTooltip(addPokemon));
+addPokemon.addEventListener("mouseleave", hideTooltip);
+addPokemon.addEventListener("blur", hideTooltip);
+document.querySelector("#parts-toggle").addEventListener("click", (event) => {
+  const inspect = device.classList.toggle("inspect-parts");
+  event.currentTarget.setAttribute("aria-pressed", String(inspect));
+  event.currentTarget.textContent = inspect ? "Show assembled" : "Inspect parts";
+});
 
-window.__kantoProof = {
-  getState: () => ({ ...state, section: MENU[state.menuIndex], version: versions[state.version] }),
+window.__dexPrototype = {
+  getState: () => ({ ...state, section: MENU[state.menuIndex], item: currentItem()?.title }),
   controls: () => [...document.querySelectorAll(".control")].map((button) => ({
     id: button.dataset.controlId,
     action: button.dataset.action,
     label: button.getAttribute("aria-label"),
   })),
-  action: act,
   open: openDevice,
   close: closeDevice,
+  action: handleAction,
 };
