@@ -5,37 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="color-scheme" content="dark" />
     <title>SM'S DEX — Classic Red control prototype</title>
-    <link rel="preload" as="image" href="assets/kanto-clean-casing-v3.png" />
-    <link rel="stylesheet" href="styles.css?v=4" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
   <body>
     <main>
       <h1 class="sr-only">SM'S DEX Classic Red interaction prototype</h1>
-      <button class="add-pokemon" id="add-pokemon" type="button" data-tip="Open the public roster form at /become">
-        + ADD POKÉMON
-      </button>
+      <button class="add-pokemon" id="add-pokemon" type="button" title="Open the public roster form">+ ADD POKÉMON</button>
 
       <div class="device-frame" id="device-frame">
-        <div class="device" id="device" data-open="false" data-mode="closed" aria-label="Interactive Kanto Pokédex casing">
+        <div class="device" id="device" data-open="false" data-mode="closed">
           <section class="stationary" aria-label="Stationary body">
             <div class="screen body-screen" id="primary-screen" aria-live="polite"></div>
-            <div class="master-layer body-master atlas-layer" aria-hidden="true"></div>
+            <img class="master-layer body-master" src="assets/stationary-body.png" alt="" />
             <div class="controls controls-body" id="body-controls" inert></div>
           </section>
 
-          <div class="master-layer hinge atlas-layer" aria-hidden="true"></div>
+          <img class="master-layer hinge" src="assets/stationary-hinge.png" alt="" />
 
           <section class="leaf" id="leaf" aria-label="Moving lid">
             <div class="leaf-face inner-face" id="inner-face" inert>
               <div class="screen lid-screen" id="secondary-screen" aria-live="polite"></div>
-              <div class="master-layer face-master inner-master atlas-layer" aria-hidden="true"></div>
-              <svg class="leaf-rim" viewBox="0 0 420 816" aria-hidden="true"><use href="#leaf-outline" /></svg>
+              <img class="master-layer face-master inner-master" src="assets/moving-inner-lid.png" alt="" />
               <div class="controls controls-inner" id="inner-controls"></div>
+              <div class="speaker" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
             </div>
 
             <div class="leaf-face outer-face" id="outer-face">
-              <div class="master-layer face-master outer-master atlas-layer" aria-hidden="true"></div>
-              <svg class="leaf-rim outer-rim" viewBox="0 0 420 816" aria-hidden="true"><use href="#leaf-outline" /></svg>
+              <img class="master-layer face-master outer-master" src="assets/moving-outer-cover.png" alt="" />
               <div class="controls controls-outer" id="outer-controls"></div>
             </div>
           </section>
@@ -44,24 +40,11 @@
         </div>
       </div>
 
-      <div class="device-guide" aria-live="polite">
-        <span id="device-hint">Press the yellow OPEN latch.</span>
-        <button id="parts-toggle" type="button" aria-pressed="false">Inspect parts</button>
-      </div>
-
       <p class="sr-only" id="control-help">
         Arrow keys operate the D-pad. Enter confirms. Escape goes back. Physical START opens the
         main menu and SELECT changes the version entry.
       </p>
     </main>
-    <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
-    <svg width="0" height="0" class="geometry-defs" aria-hidden="true">
-      <defs>
-        <path id="leaf-outline" d="M 2,99 H 137 C 176,99 196,169 236,169 H 418 V 791 Q 418,814 394,814 H 26 Q 2,814 2,791 Z" />
-        <clipPath id="inner-silhouette" clipPathUnits="objectBoundingBox"><path d="M 0,.12 H .326 C .419,.12 .467,.207 .562,.207 H 1 V .97 Q 1,1 .938,1 H .062 Q 0,1 0,.97 Z" /></clipPath>
-        <clipPath id="outer-silhouette" clipPathUnits="objectBoundingBox"><path d="M 1,.12 H .674 C .581,.12 .533,.207 .438,.207 H 0 V .97 Q 0,1 .062,1 H .938 Q 1,1 1,.97 Z" /></clipPath>
-      </defs>
-    </svg>
-    <script type="module" src="app.js?v=4"></script>
+    <script src="app.js?v=5"></script>
   </body>
 </html>

@@ -93,18 +93,54 @@ Live Codédex inspection confirmed the 4px/100ms mechanism. The revision now use
 darkened-held-face behavior. Enter/Space hold feedback until release, then activate once.
 All 28 controls passed pointer, Space, and Enter activation checks after the change.
 
+## Original-reference comparison, 2026-09-03
+
+The user rejected revision 4, explicitly selected ticket 26's visual treatment again, then asked
+to compare the original too and whether React or Next.js would improve the result. No new visual
+revision or framework migration was made during this comparison.
+
+Compared the saved ticket-26 and revision-4 assembled screenshots against both frozen Kanto
+references in `assets/ticket-30/references/`. The Red/Green illustration has two black inner
+buttons, different speaker placement, and different panel proportions. Ticket 26 is therefore
+a selected style reference, not an exact reconstruction of the original device. The Gen I
+open/closed reference and Red/Green illustration also differ in details; do not silently mix them.
+
+The ticket-26 extraction manifest shows independent nonuniform scaling: its 417 by 673 inner
+image becomes 420 by 816, while its 425 by 825 outer image becomes 420 by 816. Its separate control
+crops also do not register exactly over the baked controls. Revision 4 replaced these with new
+generated plates and CSS caps, changing the accepted visual treatment instead of just fixing it.
+
+Both scratch versions use standalone HTML, CSS, and JavaScript. Astro is not responsible for
+these image and layer mismatches. React could organize the eventual interactive device without
+a Next.js migration; Astro officially supports React hydration. No framework choice is approved.
+
+Before changing the selected ticket-26 baseline, clarify whether original device geometry and
+control count should take priority wherever they differ from ticket 26. Preserve the chosen
+illustrated treatment, but do not describe it as original-pixel-perfect.
+
+## Revision 5: OG geometry and coherent controls
+
+The user confirmed that original geometry and control count override ticket 26 wherever they
+conflict, then accepted the OG geometry direction and requested coherent Codédex-style controls.
+Revision 5 keeps the illustrated pixels but stops stretching the 417 by 673 inner lid to 420 by
+816. It restores the lower, shorter inner panel, second black inner button, and speaker holes.
+
+The 28 native hit targets have no overlaps. Keypad boundaries are integer-aligned. The D-pad is
+one raster rocker with four non-overlapping directional regions. Pressed faces move 4px over 100ms.
+Browser checks covered open, close, reopen, pointer content changes, Space navigation, Enter version
+change, six menu destinations, zero target overlaps, and browser errors. Full touch emulation and
+every-control replay remain outstanding until the visual gate is approved.
+
 ## Handoff
 
-**Built:** Kanto revision 4 with clean illustrated plates, separated caps and fixed depth layers,
-Codédex-style 4px/100ms press feedback, release-driven keyboard activation, clearer triangle/CLOSE
-controls, and coherent open/close geometry.
-The prototype README records the action/content map, browser checks, and asset prompts.
+**Built:** Kanto revision 5 with accepted OG geometry direction, native-proportion illustrated
+layers, two black inner controls, speaker detail, coherent button clusters, 28 native targets,
+and 4px/100ms press feedback. README records mappings and measured browser checks.
 
-**Deviated:** Per the user's updated request, controls are deterministic CSS parts over a generated
-button-free raster casing. This is not literal reference-pixel reassembly. The D-pad rocks as one part
-instead of moving four sliced arms independently. The generated atlas is RGB, so runtime uses
-explicit silhouette masks and live opaque display interiors rather than claiming true alpha.
+**Deviated:** Illustrated ticket-23/26 pixels remain the finish; original reference geometry and
+control count now override ticket 26. Speaker holes are CSS decoration. D-pad moves as one physical
+raster part instead of independent sliced arms.
 
-**Watch out:** Await Kanto approval before producing the remaining seven. Mobile overview controls
-are small and need a separate enlarged-interaction decision before production. Tickets 20 and 21
-remain untouched. Do not reuse the casing atlas without the masks documented in the README.
+**Watch out:** OG geometry direction is accepted; revision 5 controls still await the user's visual
+approval. Do not build the remaining seven before that. Full touch and every-control replay remain.
+Tickets 20 and 21 remain untouched.

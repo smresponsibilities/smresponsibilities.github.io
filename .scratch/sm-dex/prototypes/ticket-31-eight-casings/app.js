@@ -1,6 +1,3 @@
-import { controls } from "./controls.js?v=4";
-import { bindPressFeedback } from "./press-feedback.js?v=4";
-
 const device = document.querySelector("#device");
 const frame = document.querySelector("#device-frame");
 const primaryScreen = document.querySelector("#primary-screen");
@@ -10,8 +7,6 @@ const innerControls = document.querySelector("#inner-controls");
 const outerControls = document.querySelector("#outer-controls");
 const innerFace = document.querySelector("#inner-face");
 const outerFace = document.querySelector("#outer-face");
-const tooltip = document.querySelector("#tooltip");
-const addPokemon = document.querySelector("#add-pokemon");
 
 if (new URLSearchParams(window.location.search).has("reduce-motion")) {
   document.documentElement.classList.add("reduce-motion");
@@ -109,25 +104,11 @@ const SECTIONS = {
   ],
   EVOLUTION: [
     {
-      title: "STUDENT",
-      meta: "CHITKARA UNIVERSITY · 2022",
-      body: "Computer Science and Engineering origin form.",
-      badges: ["Lv. 0"],
-      facts: [["CGPA", "9.35/10"], ["STATUS", "EVOLVED"]],
-    },
-    {
-      title: "APPRENTICE",
-      meta: "MORGAN STANLEY · Lv. 1",
-      body: "Learned production data systems before evolving.",
-      badges: ["NEST BALL"],
-      facts: [["FROM", "AUG 2025"], ["TO", "AUG 2026"]],
-    },
-    {
-      title: "SOFTWARE DEVELOPER → ???",
-      meta: "EVOLUTION CONDITION UNKNOWN",
-      body: "Next form exists. Its condition remains undiscovered.",
-      badges: ["Lv. ??"],
-      facts: [["STATUS", "RELEASED"], ["NEXT", "???"]],
+      title: "STUDENT → DEVELOPER",
+      meta: "CAREER EVOLUTION",
+      body: "Student, technology apprentice, then software developer. Next evolution remains unknown.",
+      badges: ["EVOLUTION"],
+      facts: [["START", "2022"], ["CURRENT", "Lv. 12"]],
     },
   ],
   DEX: [
@@ -165,11 +146,6 @@ const state = {
 };
 
 let bootTimer = 0;
-let motionTimer = 0;
-let savedMode = "menu";
-let hasBooted = false;
-let moving = false;
-const instantMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches || document.documentElement.classList.contains("reduce-motion");
 
 function escapeHtml(value) {
   return String(value)
@@ -180,76 +156,257 @@ function escapeHtml(value) {
     .replaceAll("'", "&#039;");
 }
 
-
-function showTooltip(target) {
-  tooltip.textContent = target.dataset.tip;
-  tooltip.hidden = false;
-  const targetBox = target.getBoundingClientRect();
-  const tipBox = tooltip.getBoundingClientRect();
-  const left = Math.min(
-    window.innerWidth - tipBox.width - 8,
-    Math.max(8, targetBox.left + targetBox.width / 2 - tipBox.width / 2),
-  );
-  const top = targetBox.top > tipBox.height + 12
-    ? targetBox.top - tipBox.height - 8
-    : targetBox.bottom + 8;
-  Object.assign(tooltip.style, { left: `${left}px`, top: `${top}px` });
-}
-
-function hideTooltip() {
-  tooltip.hidden = true;
+function addLayer(container, src, className, x, y, width, height) {
+  const image = document.createElement("img");
+  image.className = `control-layer ${className}`;
+  image.src = src;
+  image.alt = "";
+  Object.assign(image.style, {
+    left: `${x}px`,
+    top: `${y}px`,
+    width: `${width}px`,
+    height: `${height}px`,
+  });
+  container.append(image);
+  return image;
 }
 
 function addControl(container, spec) {
   const button = document.createElement("button");
   button.type = "button";
-  button.className = `control tone-${spec.tone} shape-${spec.shape}`;
+  button.className = `control ${spec.className || ""}`.trim();
   button.dataset.action = spec.action;
   button.dataset.controlId = spec.id;
-  button.dataset.tip = spec.label;
   button.setAttribute("aria-label", spec.label);
+  button.title = spec.label;
   button.setAttribute("aria-describedby", "control-help");
   Object.assign(button.style, {
-    left: `${spec.x}px`, top: `${spec.y}px`, width: `${spec.width}px`, height: `${spec.height}px`,
+    left: `${spec.x}px`,
+    top: `${spec.y}px`,
+    width: `${spec.width}px`,
+    height: `${spec.height}px`,
   });
-  if (spec.shape !== "dpad") {
-    const base = document.createElement("span");
+
+  const label = document.createElement("span");
+  label.className = "sr-only";
+  label.textContent = spec.label;
+  button.append(label);
+
+  if (spec.base) {
+    const base = document.createElement("img");
     base.className = "base";
-    base.setAttribute("aria-hidden", "true");
-    const face = document.createElement("span");
-    face.className = "face";
-    face.textContent = spec.text;
-    face.setAttribute("aria-hidden", "true");
-    button.append(base, face);
-  } else {
-    button.dataset.direction = spec.action;
+    base.src = spec.base;
+    base.alt = "";
+    button.append(base);
   }
-  const press = () => {
-    button.classList.add("is-pressed");
-    if (spec.shape === "dpad") device.dataset.dpad = spec.action;
-  };
-  const release = () => {
-    button.classList.remove("is-pressed");
-    if (spec.shape === "dpad") delete device.dataset.dpad;
-  };
+
+  if (spec.face) {
+    const face = document.createElement("img");
+    face.className = "face";
+    face.src = spec.face;
+    face.alt = "";
+    button.append(face);
+  }
   button.addEventListener("click", () => handleAction(spec.action, spec.id));
-  const cancel = bindPressFeedback(button, { press, release });
-  window.addEventListener("blur", cancel);
-  button.addEventListener("mouseenter", () => showTooltip(button));
-  button.addEventListener("focus", () => showTooltip(button));
-  button.addEventListener("mouseleave", hideTooltip);
-  button.addEventListener("blur", () => { cancel(); hideTooltip(); });
   container.append(button);
+  return button;
 }
 
 function buildControls() {
-  const dpad = document.createElement("div");
-  dpad.className = "dpad-assembly";
-  dpad.setAttribute("aria-hidden", "true");
-  dpad.innerHTML = '<div class="dpad-socket"></div><div class="dpad-rocker"><span class="north">▲</span><span class="west">◀</span><span class="east">▶</span><span class="south">▼</span><i></i></div>';
-  bodyControls.append(dpad);
-  const owners = { body: bodyControls, inner: innerControls, outer: outerControls };
-  controls.forEach((control) => addControl(owners[control.owner], control));
+  const asset = (name) => `assets/${name}.png`;
+
+  addControl(outerControls, {
+    id: "outer-latch",
+    action: "open",
+    label: "Open lid",
+    x: 26,
+    y: 396,
+    width: 58,
+    height: 74,
+    base: asset("outer-latch-face"),
+    face: asset("outer-latch-face"),
+    className: "self-base",
+  });
+  addControl(bodyControls, {
+    id: "body-b",
+    action: "b",
+    label: "B: back",
+    x: 85,
+    y: 458,
+    width: 31,
+    height: 31,
+    base: asset("stationary-round-base"),
+    face: asset("bezel-round-face"),
+  });
+  addControl(bodyControls, {
+    id: "body-power",
+    action: "close",
+    label: "Close lid",
+    x: 38,
+    y: 546,
+    width: 58,
+    height: 58,
+    base: asset("stationary-round-base"),
+    face: asset("stationary-round-face"),
+  });
+  addControl(bodyControls, {
+    id: "body-start",
+    action: "start",
+    label: "START: main menu",
+    x: 111,
+    y: 545,
+    width: 80,
+    height: 29,
+    base: asset("stationary-red-pill-base"),
+    face: asset("stationary-red-pill-face"),
+  });
+  addControl(bodyControls, {
+    id: "body-select",
+    action: "select",
+    label: "SELECT: change version",
+    x: 214,
+    y: 545,
+    width: 90,
+    height: 28,
+    base: asset("stationary-blue-pill-base"),
+    face: asset("stationary-blue-pill-face"),
+  });
+  addControl(bodyControls, {
+    id: "body-grey-select",
+    action: "select",
+    label: "Alternate SELECT: change version",
+    x: 325,
+    y: 542,
+    width: 38,
+    height: 29,
+    base: asset("stationary-red-pill-base"),
+    face: asset("stationary-grey-pill-face"),
+  });
+  addControl(bodyControls, {
+    id: "body-menu",
+    action: "start",
+    label: "Open main menu",
+    x: 111,
+    y: 605,
+    width: 139,
+    height: 85,
+    base: asset("stationary-green-base"),
+    face: asset("stationary-green-face"),
+  });
+
+  addLayer(bodyControls, asset("stationary-dpad-base"), "dpad-base", 282, 577, 124, 124);
+  addLayer(bodyControls, asset("stationary-dpad-face"), "dpad-rocker", 282, 577, 124, 124);
+  [
+    ["up", "D-pad Up: move selection up", 324, 577, 40, 41],
+    ["left", "D-pad Left: previous page", 282, 618, 42, 42],
+    ["right", "D-pad Right: next page", 364, 618, 42, 42],
+    ["down", "D-pad Down: move selection down", 324, 660, 40, 41],
+  ].forEach(([action, label, x, y, width, height]) =>
+    addControl(bodyControls, {
+      id: `dpad-${action}`,
+      action,
+      label,
+      x,
+      y,
+      width,
+      height,
+      className: "dpad-hit",
+    }),
+  );
+
+  addLayer(innerControls, asset("inner-keypad-base"), "keypad-base", 55, 355, 304, 136);
+  for (let index = 0; index < 10; index += 1) {
+    const column = index % 5;
+    const row = Math.floor(index / 5);
+    const number = index + 1;
+    addControl(innerControls, {
+      id: `keypad-${number}`,
+      action: `keypad-${number}`,
+      label: number <= 6 ? `Open ${MENU[number - 1]}` : `Portfolio shortcut ${number}`,
+      x: [55, 116, 177, 238, 298][column],
+      y: 355 + row * 68,
+      width: [61, 61, 61, 60, 61][column],
+      height: 68,
+      face: asset(`inner-keypad-${String(number).padStart(2, "0")}-face`),
+    });
+  }
+
+  addLayer(innerControls, asset("inner-white-base"), "white-base", 51, 536, 124, 77);
+  addControl(innerControls, {
+    id: "inner-page-left",
+    action: "left",
+    label: "Previous page or tab",
+    x: 51,
+    y: 536,
+    width: 62,
+    height: 77,
+    face: asset("inner-white-01-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-page-right",
+    action: "right",
+    label: "Next page or tab",
+    x: 113,
+    y: 536,
+    width: 62,
+    height: 77,
+    face: asset("inner-white-02-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-back",
+    action: "b",
+    label: "Back: return one screen",
+    x: 244,
+    y: 516,
+    width: 50,
+    height: 30,
+    base: asset("inner-pill-base"),
+    face: asset("inner-pill-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-close",
+    action: "close",
+    label: "Close: fold the lid and retain this page",
+    x: 309,
+    y: 516,
+    width: 50,
+    height: 30,
+    base: asset("inner-pill-base"),
+    face: asset("inner-pill-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-version-prev",
+    action: "version-prev",
+    label: "Previous version",
+    x: 52,
+    y: 663,
+    width: 137,
+    height: 76,
+    base: asset("inner-green-base"),
+    face: asset("inner-green-left-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-version-next",
+    action: "version-next",
+    label: "Next version",
+    x: 218,
+    y: 663,
+    width: 141,
+    height: 76,
+    base: asset("inner-green-base"),
+    face: asset("inner-green-right-face"),
+  });
+  addControl(innerControls, {
+    id: "inner-a",
+    action: "a",
+    label: "A: confirm or open",
+    x: 310,
+    y: 573,
+    width: 50,
+    height: 59,
+    base: asset("stationary-round-base"),
+    face: asset("inner-confirm-face"),
+  });
 }
 
 function currentItems() {
@@ -280,9 +437,6 @@ function menuMarkup() {
 
 function identityMarkup() {
   const version = VERSIONS[state.version];
-  if (state.page === 1) {
-    return `<div class="screen-shell compact"><div class="screen-header"><span>ENTRY · ${version.name}</span><span>2/2</span></div><p class="screen-copy">${escapeHtml(version.entry)}</p><div class="screen-status">←/→ IDENTITY</div></div>`;
-  }
   return `
     <div class="screen-shell compact">
       <div class="screen-header"><span>SM'S DEX</span><span>${version.name}</span></div>
@@ -377,9 +531,6 @@ function render() {
   device.dataset.page = String(state.page);
   device.dataset.version = VERSIONS[state.version].name.toLowerCase();
   device.dataset.lastControl = state.lastControl || "";
-  document.querySelector("#device-hint").textContent = state.open
-    ? "To close: press ◀ CLOSE, the right black button below the keypad."
-    : "To open: press the yellow triangle on the cover. Your page is kept.";
 
   if (!state.open) {
     primaryScreen.replaceChildren();
@@ -396,10 +547,6 @@ function render() {
   } else if (state.mode === "list") {
     primaryScreen.innerHTML = listMarkup();
     secondaryScreen.innerHTML = previewMarkup();
-  } else if (state.mode === "resume" || state.mode === "become") {
-    const resume = state.mode === "resume";
-    primaryScreen.innerHTML = `<div class="screen-shell"><div class="screen-header">${resume ? "RESUME · SAMPLE" : "/become · SAMPLE"}</div><div class="detail-title">${resume ? "SHIVAM MAHAJAN" : "JOIN THE DEX"}</div><p class="screen-copy">${resume ? "Software Developer. Sample resume destination. Final content follows casing approval." : "Public roster preview. The final form creates a GitHub issue for a new entry. Nothing is submitted here."}</p><div class="screen-status">B BACK · START MENU</div></div>`;
-    secondaryScreen.innerHTML = identityMarkup();
   } else {
     primaryScreen.innerHTML = detailMarkup();
     secondaryScreen.innerHTML = detailContextMarkup();
@@ -412,53 +559,41 @@ function applySemantics() {
   secondaryScreen.hidden = closed;
   primaryScreen.setAttribute("aria-hidden", String(closed));
   secondaryScreen.setAttribute("aria-hidden", String(closed));
-  // Never remove the cap artwork during a fold. Only interaction and accessibility change.
-  bodyControls.inert = closed || moving;
-  innerFace.inert = closed || moving;
-  outerFace.inert = !closed || moving;
-  bodyControls.setAttribute("aria-hidden", String(closed));
-  innerFace.setAttribute("aria-hidden", String(closed));
-  outerFace.setAttribute("aria-hidden", String(!closed));
+  bodyControls.hidden = closed;
+  innerControls.hidden = closed;
+  outerControls.hidden = !closed;
+  bodyControls.inert = closed;
+  innerFace.inert = closed;
+  outerFace.inert = !closed;
 }
 
-function openDevice(destination) {
+function openDevice() {
   if (state.open) return;
   window.clearTimeout(bootTimer);
-  window.clearTimeout(motionTimer);
-  hideTooltip();
-  moving = true;
   state.open = true;
-  state.mode = hasBooted ? (destination || savedMode) : "boot";
+  state.mode = "boot";
+  state.itemIndex = 0;
+  state.page = 0;
   applySemantics();
   render();
   bootTimer = window.setTimeout(() => {
-    moving = false;
-    hasBooted = true;
-    state.mode = destination || savedMode;
-    applySemantics();
+    state.mode = "menu";
     render();
     document.querySelector('[data-control-id="dpad-down"]')?.focus({ preventScroll: true });
-  }, instantMotion() ? 0 : 720);
+  }, 650);
 }
 
 function closeDevice() {
   if (!state.open) return;
   window.clearTimeout(bootTimer);
-  window.clearTimeout(motionTimer);
-  hideTooltip();
-  savedMode = state.mode === "boot" ? "menu" : state.mode;
-  moving = true;
   state.open = false;
   state.mode = "closed";
-  document.querySelectorAll(".is-pressed").forEach((button) => button.classList.remove("is-pressed"));
-  delete device.dataset.dpad;
+  state.menuIndex = 0;
+  state.itemIndex = 0;
+  state.page = 0;
   applySemantics();
   render();
-  motionTimer = window.setTimeout(() => {
-    moving = false;
-    applySemantics();
-    document.querySelector('[data-control-id="outer-latch"]')?.focus({ preventScroll: true });
-  }, instantMotion() ? 0 : 720);
+  window.setTimeout(() => document.querySelector('[data-control-id="outer-latch"]')?.focus({ preventScroll: true }), 0);
 }
 
 function moveSelection(delta) {
@@ -489,7 +624,7 @@ function confirm() {
 
 function back() {
   if (state.mode === "detail") state.mode = "list";
-  else if (state.mode === "list" || state.mode === "resume" || state.mode === "become") state.mode = "menu";
+  else if (state.mode === "list") state.mode = "menu";
   else if (state.mode === "menu") return closeDevice();
   render();
 }
@@ -504,7 +639,6 @@ function start() {
 
 function setVersion(delta) {
   state.version = (state.version + delta + VERSIONS.length) % VERSIONS.length;
-  if (state.mode === "menu") state.page = 1;
   render();
 }
 
@@ -513,15 +647,17 @@ function keypad(number) {
     state.menuIndex = number - 1;
     state.itemIndex = 0;
     state.mode = "list";
-  } else if (number === 7) state.mode = "resume";
-  else if (number === 8) state.mode = "become";
-  else if (number === 9) return setVersion(1);
-  else return start();
+  } else if (number <= 9) {
+    const items = currentItems();
+    state.itemIndex = Math.min(number - 7, items.length - 1);
+    state.mode = "detail";
+  } else {
+    return start();
+  }
   render();
 }
 
 function handleAction(action, controlId = action) {
-  if (moving) return;
   state.lastControl = controlId;
   device.dataset.lastControl = controlId;
   if (action === "open") return openDevice();
@@ -535,8 +671,8 @@ function handleAction(action, controlId = action) {
   if (action === "b") return back();
   if (action === "start") return start();
   if (action === "select") return setVersion(1);
-  if (action === "version-prev") return setVersion(-state.version);
-  if (action === "version-next") return setVersion(1 - state.version);
+  if (action === "version-prev") return setVersion(-1);
+  if (action === "version-next") return setVersion(1);
   if (action.startsWith("keypad-")) return keypad(Number(action.split("-")[1]));
 }
 
@@ -544,11 +680,7 @@ function flashControl(action) {
   const button = [...document.querySelectorAll(`.control[data-action="${action}"]`)].find((candidate) => !candidate.closest("[inert]"));
   if (!button) return;
   button.classList.add("is-pressed");
-  if (button.dataset.direction) device.dataset.dpad = button.dataset.direction;
-  window.setTimeout(() => {
-    button.classList.remove("is-pressed");
-    delete device.dataset.dpad;
-  }, 100);
+  window.setTimeout(() => button.classList.remove("is-pressed"), 100);
 }
 
 function keyboardAction(event) {
@@ -563,15 +695,15 @@ function keyboardAction(event) {
     Escape: "b",
   };
   const action = map[event.key];
-  if (!action || !state.open || moving) return;
+  if (!action || !state.open) return;
   event.preventDefault();
   flashControl(action);
   handleAction(action, `keyboard-${action}`);
 }
 
 function resizeDevice() {
-  const width = Math.min(896, Math.max(1, window.innerWidth - (window.innerWidth <= 480 ? 16 : 24)));
-  const scale = width / 896;
+  const width = Math.min(871, Math.max(1, window.innerWidth - (window.innerWidth <= 480 ? 16 : 24)));
+  const scale = width / 871;
   document.documentElement.style.setProperty("--device-scale", String(scale));
   frame.style.width = `${width}px`;
   frame.style.height = `${816 * scale}px`;
@@ -583,25 +715,11 @@ applySemantics();
 render();
 window.addEventListener("resize", resizeDevice);
 window.addEventListener("keydown", keyboardAction);
-window.addEventListener("blur", () => {
-  document.querySelectorAll(".is-pressed").forEach((button) => button.classList.remove("is-pressed"));
-  delete device.dataset.dpad;
-  hideTooltip();
-});
-addPokemon.addEventListener("click", () => {
-  if (moving) return;
-  if (!state.open) return openDevice("become");
-  state.mode = "become";
+
+document.querySelector("#add-pokemon").addEventListener("click", () => {
+  if (!state.open) return openDevice();
+  state.mode = "menu";
   render();
-});
-addPokemon.addEventListener("mouseenter", () => showTooltip(addPokemon));
-addPokemon.addEventListener("focus", () => showTooltip(addPokemon));
-addPokemon.addEventListener("mouseleave", hideTooltip);
-addPokemon.addEventListener("blur", hideTooltip);
-document.querySelector("#parts-toggle").addEventListener("click", (event) => {
-  const inspect = device.classList.toggle("inspect-parts");
-  event.currentTarget.setAttribute("aria-pressed", String(inspect));
-  event.currentTarget.textContent = inspect ? "Show assembled" : "Inspect parts";
 });
 
 window.__dexPrototype = {
