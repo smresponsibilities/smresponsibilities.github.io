@@ -1,6 +1,6 @@
 // Measured in each 420 × 816 casing plate. Gaps belong to the shell, never to a button.
 export const controls = [
-  { id: "outer-latch", owner: "outer", action: "open", label: "OPEN: unfold the cover and resume the portfolio", text: "▶", tone: "yellow", shape: "latch", x: 28, y: 399, width: 56, height: 64 },
+  { id: "outer-latch", owner: "outer", action: "open", label: "OPEN: press and release the yellow triangle to unfold the cover", text: "▶", tone: "yellow", shape: "latch", x: 28, y: 399, width: 64, height: 72 },
   { id: "body-b", owner: "body", action: "b", label: "B: go back one level; close from Main Menu", text: "", tone: "red", shape: "round", x: 57, y: 501, width: 30, height: 30 },
   { id: "body-power", owner: "body", action: "close", label: "CLOSE: fold the cover; keep the current portfolio page", text: "⏻", tone: "black", shape: "round", x: 28, y: 580, width: 62, height: 62 },
   { id: "body-start", owner: "body", action: "start", label: "START: return to all six portfolio sections", text: "START", tone: "red", shape: "pill", x: 112, y: 583, width: 77, height: 32 },
@@ -21,7 +21,7 @@ export const controls = [
     x: 32 + index % 5 * 72, y: 383 + Math.floor(index / 5) * 72, width: 62, height: 62,
   })),
   { id: "inner-back", owner: "inner", action: "b", label: "B: go back one level; close from Main Menu", text: "B", tone: "black", shape: "pill", x: 182, y: 545, width: 87, height: 34 },
-  { id: "inner-close", owner: "inner", action: "close", label: "CLOSE: fold this cover over the hinge; keep your page", text: "CLOSE", tone: "black", shape: "pill", x: 291, y: 545, width: 87, height: 34 },
+  { id: "inner-close", owner: "inner", action: "close", label: "CLOSE: press and release to fold this cover left; keep your page", text: "◀ CLOSE", tone: "black", shape: "pill", x: 278, y: 539, width: 104, height: 44 },
   { id: "inner-page-left", owner: "inner", action: "left", label: "PREVIOUS: show previous content page", text: "◀", tone: "white", shape: "key", x: 32, y: 562, width: 57, height: 62 },
   { id: "inner-page-right", owner: "inner", action: "right", label: "NEXT: show next content page", text: "▶", tone: "white", shape: "key", x: 103, y: 562, width: 57, height: 62 },
   { id: "inner-a", owner: "inner", action: "a", label: "A: open the highlighted section or entry", text: "A", tone: "yellow", shape: "round", x: 318, y: 604, width: 58, height: 58 },

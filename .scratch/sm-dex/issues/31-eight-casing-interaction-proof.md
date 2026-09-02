@@ -81,10 +81,23 @@ The ticket remains claimed and the eight-casing acceptance boxes remain unchecke
 real held-input visual capture, touch emulation, and the remaining seven devices are not complete.
 The README distinguishes measured checks from outstanding checks and records the RGB atlas limitation.
 
+## Revision 4: annotated preview and Codédex feedback
+
+The user's annotation referred to the button-free generated atlas, which had been linked as though
+it were the assembled result. That preview omitted the separately rendered triangle and controls.
+Show assembled browser captures from now on.
+
+The triangle and its OPEN caption are larger and higher contrast. The interior ◀ CLOSE control is
+larger, remains clear of its neighbours, and is named explicitly in the state-specific guide.
+Live Codédex inspection confirmed the 4px/100ms mechanism. The revision now uses its fixed-depth,
+darkened-held-face behavior. Enter/Space hold feedback until release, then activate once.
+All 28 controls passed pointer, Space, and Enter activation checks after the change.
+
 ## Handoff
 
-**Built:** Kanto revision 3 with clean illustrated plates, separated raised caps and fixed sockets,
-hover/focus descriptions, native pointer/Space/Enter activation, and coherent open/close geometry.
+**Built:** Kanto revision 4 with clean illustrated plates, separated caps and fixed depth layers,
+Codédex-style 4px/100ms press feedback, release-driven keyboard activation, clearer triangle/CLOSE
+controls, and coherent open/close geometry.
 The prototype README records the action/content map, browser checks, and asset prompts.
 
 **Deviated:** Per the user's updated request, controls are deterministic CSS parts over a generated

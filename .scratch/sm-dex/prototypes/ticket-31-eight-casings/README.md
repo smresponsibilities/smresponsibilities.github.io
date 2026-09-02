@@ -1,4 +1,4 @@
-# Ticket 31: Kanto casing and controls, revision 3
+# Ticket 31: Kanto casing and controls, revision 4
 
 This is the Kanto approval gate only. The user rejected the vector revision and asked to keep
 ticket 26's illustrated look, separate the controls, and make the device close coherently.
@@ -14,7 +14,7 @@ python -m http.server 4173 --bind 127.0.0.1
 node .scratch/sm-dex/prototypes/ticket-31-eight-casings/verify_controls.mjs
 ```
 
-Open `http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-31-eight-casings/?v=3.2`.
+Open `http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-31-eight-casings/?v=4`.
 Add `&reduce-motion` for the instant-transition verification path.
 
 ## How the parts work
@@ -22,10 +22,16 @@ Add `&reduce-motion` for the instant-transition verification path.
 The casing is a generated raster plate. Buttons and screen content are not baked into it.
 `controls.js` is the single list of button positions, shapes, labels, and actions.
 
-Each ordinary button contains a fixed recessed socket and an inset cap. At rest the cap has a
-visible lower edge. Hover brightens only the cap. Pointer down, Space, and Enter lower it 4px.
-Release, pointer exit, pointer cancellation, and blur release it. The 7px bottom inset leaves
-3px of clearance even while pressed. The target and socket never move.
+Each ordinary button contains a fixed recessed socket and a cap. At rest the cap has a visible
+4px lower edge. Hover brightens only the cap. Pointer down, Space, and Enter lower it 4px over
+100ms ease, darken it, and remove its text shadow. The fixed depth starts 6px below the top.
+The face is 4px shorter than the target, so pressing it lands flush without overshooting.
+This matches the measured Codédex mechanism while retaining the casing's colours and shapes.
+
+The actual event bindings live in `press-feedback.js`. Space and Enter do not activate on keydown.
+They hold the face down, then activate once on keyup. Pointer activation uses native click release.
+Pointer cancellation and blur cancel feedback; keyboard blur also cancels pending activation.
+The target, depth layer, and neighbours never move. The tests exercise the same event bindings.
 
 The ten blue keys have 10px horizontal and vertical gaps. The white pair has a 14px gap.
 All 28 target rectangles are non-overlapping within their casing face. These are device-space
@@ -40,10 +46,12 @@ It is a scratch diagnostic, not the portfolio's final chrome.
 
 ## How it closes
 
-The yellow triangle is a triangular outer latch, not a round button carrying an arrow.
+The yellow triangle is a 64 × 72px triangular outer latch, not a round button carrying an arrow.
+Its OPEN caption is high contrast. The right black ◀ CLOSE pill has a 104 × 44px target.
+The guide beneath the casing names the control available in the current state.
 
-1. When closed, pressing the triangle opens the cover.
-2. When open, pressing the right-hand black CLOSE pill folds that same cover left.
+1. When closed, press and release the triangle to open the cover.
+2. When open, press and release the right-hand black ◀ CLOSE pill to fold that same cover left.
 3. The cover rotates 180 degrees about the stationary hinge. The triangle moves with its outer face.
 4. The fixed lens header stays exposed. The cover never carries a second lens strip.
 5. Closing retains the current section, entry, page, and version. Reopening resumes them.
@@ -111,9 +119,12 @@ cover outline, and the right display's vertical adjustment are deliberate intera
 
 - `node verify_controls.mjs`: 28 unique targets; no overlaps; 10px keypad gaps; 14px white-key gap;
   cap containment; unified D-pad; registered hinge and cover geometry.
-- Native browser pointer activation: 28/28 controls recorded their own ID and changed the expected
+- Revision 4 native browser pointer activation: 28/28 controls recorded their own ID and changed the expected
   device/content state.
-- Native browser keyboard activation: 28/28 Space and 28/28 Enter activations.
+- Revision 4 native browser keyboard activation: 28/28 Space and 28/28 Enter activations.
+- The regression check first failed with "Codédex face timing must be 100ms ease"; it now passes.
+  Event-binding tests cover held keys, no keydown activation, keyup activation once, repeat suppression,
+  blur cancellation, and pointer cancellation.
 - Hover labels were checked on all 28 controls, including the triangular outer latch.
 - Keys 1–6 exposed identifying portfolio content. Resume and /become are explicitly labelled samples.
 - CLOSE → triangle → reopen retained the selected project and detail text.
@@ -122,10 +133,16 @@ cover outline, and the right display's vertical adjustment are deliberate intera
 - 375, 768, and 1280px overview layouts had zero document horizontal overflow.
 - Reduced-motion flow exercised the instant open/close path.
 - Browser console contained no warnings or errors during the final verification pass.
-- Held-state travel is checked from geometry/CSS; an automated real held-input screenshot and touch
+- Held-state travel is checked from geometry/CSS and event-binding tests; an automated real held-input screenshot and touch
   emulation have not been completed. Do not claim the full original eight-casing acceptance gate.
 - Small-screen overview scales the complete device. Fine controls are small on a phone; a dedicated
   enlarged interaction view remains a separate usability decision before production.
 
 Approval captures are in `screenshots/`. Source research remains in
 `docs/research/kanto-device-interaction-references.md`.
+
+The button-free atlas is an implementation layer, not an assembled approval preview. Show the
+live prototype or the open/closed screenshots to users, never that atlas as evidence of controls.
+Codédex was rechecked at https://www.codedex.io/ on 2026-09-03: live face transition 0.1s,
+face height total minus 4px, fixed depth top 6px. Prior detailed research is
+`docs/research/codedex-button-press.md`.

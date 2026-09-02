@@ -1,4 +1,5 @@
-import { controls } from "./controls.js?v=3.2";
+import { controls } from "./controls.js?v=4";
+import { bindPressFeedback } from "./press-feedback.js?v=4";
 
 const device = document.querySelector("#device");
 const frame = document.querySelector("#device-frame");
@@ -232,25 +233,12 @@ function addControl(container, spec) {
     if (spec.shape === "dpad") delete device.dataset.dpad;
   };
   button.addEventListener("click", () => handleAction(spec.action, spec.id));
-  button.addEventListener("pointerdown", (event) => {
-    if (event.button !== 0) return;
-    press();
-  });
-  button.addEventListener("pointerup", release);
-  button.addEventListener("pointercancel", release);
-  button.addEventListener("pointerleave", release);
-  button.addEventListener("keydown", (event) => {
-    if (event.repeat && (event.key === " " || event.key === "Enter")) {
-      event.preventDefault();
-      return;
-    }
-    if (event.key === " " || event.key === "Enter") press();
-  });
-  button.addEventListener("keyup", release);
+  const cancel = bindPressFeedback(button, { press, release });
+  window.addEventListener("blur", cancel);
   button.addEventListener("mouseenter", () => showTooltip(button));
   button.addEventListener("focus", () => showTooltip(button));
   button.addEventListener("mouseleave", hideTooltip);
-  button.addEventListener("blur", () => { release(); hideTooltip(); });
+  button.addEventListener("blur", () => { cancel(); hideTooltip(); });
   container.append(button);
 }
 
@@ -390,8 +378,8 @@ function render() {
   device.dataset.version = VERSIONS[state.version].name.toLowerCase();
   device.dataset.lastControl = state.lastControl || "";
   document.querySelector("#device-hint").textContent = state.open
-    ? "Hover for function · Press a cap · CLOSE folds the cover"
-    : "Press the yellow OPEN latch · Your page is kept";
+    ? "To close: press ◀ CLOSE, the right black button below the keypad."
+    : "To open: press the yellow triangle on the cover. Your page is kept.";
 
   if (!state.open) {
     primaryScreen.replaceChildren();
