@@ -656,6 +656,11 @@ The boundary is the screen bezel. Nothing decorative crosses it.
   landscape background.
 - Casing colour comes from the tokens, not the reference's red.
 
+**Superseded for casing art by §U and §X.** Ticket 30's later source-lock decision permits
+Pokémon device artwork and source-derived raster layers, preserves the reference viewpoint and
+palette, and does not reorient hardware merely to fit the shared layout. The accessible screen
+DOM and responsive behavior constraints survive.
+
 ### S4. Add-a-Pokémon button
 
 The roster submission needs a visible entry point and currently has none. It goes in the casing
@@ -842,41 +847,49 @@ per-skin reading: the version selector and the physical casing are now the same 
 
 | Skin | Its device | Master |
 |---|---|---|
-| Red/Blue | Kanto Pokédex | Ticket-23 masters, re-slotted from Gen III |
-| Gold/Silver | Johto HANDY808 — folding cover, blue lens, GBC interior | Pending ticket-30 |
-| Ruby/Sapphire | Hoenn Pokédex — landscape GBA-shaped body | Pending ticket-30 |
-| Diamond/Pearl | Sinnoh HANDY910is — DS-Lite clamshell | Pending ticket-30 |
-| HeartGold/SoulSilver | DSi-style Johto redesign | Pending ticket-30, pure HGSS |
-| Black/White | Unova slider — extending top screen, one Poké Ball button | Pending ticket-30 |
-| Sun/Moon | Rotom Pokédex — antenna, flap arms, feet | Rework of ticket-24 modern frame |
-| Scarlet/Violet | Paldea Rotom Phone + case | Pending ticket-30 |
+| Red/Blue | Kanto red book device — central vertical hinge and ten-key pad | Fresh source lock; ticket 23 rejected |
+| Gold/Silver | Coral Johto device — top and right leaves, blue orbs | Ticket-30 source lock |
+| Ruby/Sapphire | Orange Hoenn clamshell — tall lid and circular left control | Ticket-30 source lock |
+| Diamond/Pearl | Rose vertical dual-screen clamshell — two side control pods | Ticket-30 source lock |
+| HeartGold/SoulSilver | Tall orange-red Johto clamshell — loop and gold side rails | Ticket-30 source lock |
+| Black/White | Grey Unova slider — two screens and large white centre control | Ticket-30 source lock |
+| Sun/Moon | Wide Rotom Pokédex — horn, arms, feet, eye housings | Ticket-30 source lock |
+| Scarlet/Violet | Orange-red Rotom Phone — spike, tail, fins, dual camera | Ticket-30 rear source lock; front unresolved |
 
 ### X3. Why the clubbing died
 
 The four-family model (Game Boy = I–II, classic red = III, dual-screen = IV–V, modern = VI–IX)
-contradicted the games in all four rows: no game shows a grey DMG; the approved hinged device is
-Kanto language sitting on the Hoenn slot; Black/White's dex is an iPod-like slider, not a
+contradicted the games in all four rows: no game shows a grey DMG; the earlier hinged candidate
+used Kanto language while sitting on the Hoenn slot; Black/White's dex is a slider, not a
 clamshell; Sun/Moon and Scarlet/Violet are different objects entirely (dedicated Rotom device vs
 phone app). Verification that settled it: identical devices only repeat across version pairs the
 selector did not both pick (DP=Pt, BW=B2W2, RB=Y), so within our eight skins every device is
 unique — "every one separate" is the canon-faithful reading, not gold-plating.
 
-### X4. Recorded deviations under the per-skin model
+### X4. Corrections under the per-skin model
 
-- **Red/Blue draws the anime-style Kanto dex.** The games' Gen I artwork is a solid GB-like
-  handheld; the approved illustrated reference (ticket 23) is the hinged, keypad-equipped iconic
-  Kanto object. The approved illustration wins; recorded here so nobody "fixes" it.
-- **Johto ships one folding top cover**, not its two covers (top + right side).
-- **HGSS regenerates pure.** The ticket-24 master hybridised HGSS geometry with B/W controls;
-  the replacement uses official HGSS art only.
+- **Kanto was never approved.** Ticket 23 saved candidates for approval; it did not record an
+  approval. Red/Blue now locks fresh open and open/closed Generation I references.
+- **Gold/Silver keeps both moving structures.** Removing its right-side leaf was an unsupported
+  simplification and is no longer accepted.
+- **Hoenn is hinged.** The official source shows an orange clamshell, not a stationary landscape
+  GBA slab.
+- **HGSS stays source-pure.** It receives no Black/White D-pad, A/B, or START/SELECT controls.
+- **Rotom anatomy stays.** Sun/Moon keeps the eye housings, horn, arms, and feet; Scarlet/Violet
+  keeps the spike, tail, fins, rear motif, and cameras. Live expressions and portfolio content
+  remain DOM rather than baked casing pixels.
 
-### X1. Masters are references, not production assets
+### X1. Source-locked masters and extracted runtime layers
 
-The files under `.scratch/sm-dex/assets/ticket-23/` and `ticket-24/` are approval-only raster
-masters. They establish silhouette, part placement, transparency, and open/closed coherence.
-Production reconstructs those parts as CSS/SVG/DOM so controls can move independently and real
-screen content can remain accessible. The PNGs are not imported, sliced into runtime sprites,
-or cross-faded between states.
+Ticket 23 and ticket 24 are rejected history. Ticket 30 freezes exact source revisions, hashes,
+and native dimensions. Source-visible resting pixels are not generated, traced, recoloured, or
+resampled. Production may use pre-extracted source-derived raster layers so the accepted visible
+pixels survive; it must not crop source masters dynamically or cross-fade unrelated state images.
+Hidden bases and unseen surfaces may be generated only when labelled reconstructed.
+
+Screen apertures in extracted layers are transparent. Accessible portfolio DOM sits above or
+behind them. Captured game UI, text, counters, and Rotom expressions in a source reference never
+become casing pixels.
 
 ### X2. Shared interaction contract
 
@@ -884,10 +897,13 @@ or cross-faded between states.
 - Each D-pad direction has its own hit target; empty casing and control gaps do nothing.
 - A control consists of a fixed base and a same-silhouette moving face. A press moves only the
   face down four pixels.
-- Hoenn, the Rotom Dex, and the Rotom Phone are stationary.
-- Kanto, Johto, Sinnoh, and HGSS share the same lid model: the stationary body owns the hinge;
-  one moving leaf owns an inner face and an outer back face and rotates around its hinge edge.
+- The Rotom Dex and Rotom Phone are stationary; Hoenn is hinged.
+- Kanto uses a central vertical book hinge; Gold/Silver owns separate top and right leaves;
+  Hoenn, Sinnoh, and HGSS use horizontal clamshell hinges. The stationary body owns each hinge,
+  and each moving leaf keeps registered inner and outer faces.
 - The Unova slider translates its upper-screen tray along the long axis instead of rotating.
 - The screen openings are transparent. Shared accessible DOM content sits behind them and never
   becomes part of the casing artwork.
+- Hardware art does not prove button semantics. Neutral component IDs map to application actions
+  later; touch-led casings use labelled screen-DOM controls rather than invented hardware.
 - Reduced motion removes the animated sweep, not the open/closed state change.

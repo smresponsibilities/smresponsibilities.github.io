@@ -377,49 +377,56 @@ and flavour text per skin; the casing is now bound 1:1 to the skin:
 
 | Skin | Its real device | Master | Closes? |
 |---|---|---|---|
-| Red/Blue | Kanto Pokédex — red hinged body, round lens, keypad | `.scratch/sm-dex/assets/ticket-23/` masters, re-slotted from Gen III | Yes |
-| Gold/Silver | Johto HANDY808 — folding top cover, always-visible blue lens, GBC-style interior | pending `ticket-30/gs-johto-master.png` | Yes |
-| Ruby/Sapphire | Hoenn Pokédex — solid landscape GBA-shaped body | pending `ticket-30/rs-hoenn-master.png` | No |
-| Diamond/Pearl | Sinnoh HANDY910is — DS-Lite-style clamshell | pending `ticket-30/dp-sinnoh-open-master.png` + `-closed` | Yes |
-| HeartGold/SoulSilver | DSi-style Johto redesign — red clamshell, green LED, blue open-button, two styluses | pending `ticket-30/hgss-open-master.png` + `-closed`, regenerated pure (B/W hybrid controls removed) | Yes |
-| Black/White | Unova Pokédex — vertical slider, extending top screen, one Poké Ball button, touch lower screen | pending `ticket-30/bw-unova-master.png` | Slides |
-| Sun/Moon | Rotom Pokédex — red device, spike antenna, flap arms, feet | pending `ticket-30/sm-rotom-master.png`, reworked from the ticket-24 modern frame | No |
-| Scarlet/Violet | Paldea Rotom Phone + case — dex as an app | pending `ticket-30/sv-phone-master.png` | No |
+| Red/Blue | Kanto red book device — central vertical hinge, blue lens, three lamps, ten-key pad | `.scratch/sm-dex/assets/ticket-30/rb-kanto-source-master.png` | Yes |
+| Gold/Silver | Coral Johto device — stationary base, top screen leaf, separate right-side leaf, blue orbs | `.scratch/sm-dex/assets/ticket-30/gs-johto-source-master.png` | Yes, two leaves |
+| Ruby/Sapphire | Orange Hoenn clamshell — tall lid, broad hinge, circular left control | `.scratch/sm-dex/assets/ticket-30/rs-hoenn-source-master.png` | Open source only |
+| Diamond/Pearl | Rose vertical dual-screen clamshell — D-pad pod and green control pod | `.scratch/sm-dex/assets/ticket-30/dp-sinnoh-source-master.png` | Yes; outer face reconstructed |
+| HeartGold/SoulSilver | Tall orange-red clamshell — loop, green indicators, blue circle, gold rails | `.scratch/sm-dex/assets/ticket-30/hgss-johto-source-master.png` | Yes |
+| Black/White | Grey vertical slider — two screens, orange plate, large white centre control | `.scratch/sm-dex/assets/ticket-30/bw-unova-source-master.png` | Slides |
+| Sun/Moon | Wide Rotom Pokédex — horn, arms, feet, eye housings, central display | `.scratch/sm-dex/assets/ticket-30/sm-rotom-dex-source-master.png` | No |
+| Scarlet/Violet | Orange-red Rotom Phone — spike, tail, cyan/white fins, dual camera | `.scratch/sm-dex/assets/ticket-30/sv-rotom-phone-source-master.png` | No; front unresolved |
 
-Recorded deviations: Red/Blue uses the approved illustrated *anime*-style Kanto device rather
-than the games' solid GB-like artwork (DECISIONS.md §X3). Johto's second right-side cover is
-simplified away; one folding top cover ships.
+No prior casing is approved, including ticket 23's Kanto output. Ticket 30 freezes one exact
+source revision per skin. Source-visible resting pixels must not be regenerated, redrawn,
+resampled, cleaned up, or recoloured. Generated art is permitted only for a hidden base, cavity,
+rear face, or transition surface and must be labelled reconstructed.
 
-The PNGs are **approval and measurement references only**. Production must reconstruct each
-casing as controllable CSS/SVG/DOM components; it must not import, crop, trace at runtime, or
-cross-fade the masters. Screen openings remain transparent and contain the same accessible DOM
-screen content in every casing. No master may bake in text, a face, or screen UI.
+Production uses pre-extracted source-derived raster layers plus CSS/SVG/DOM controls. It must not
+crop a source master dynamically at runtime or cross-fade separately generated states. Screen
+apertures in extracted casing layers remain transparent and hold accessible portfolio DOM. A
+source master may contain captured game UI or a Rotom expression; neither survives into the
+extracted casing layer.
 
 #### Component ownership
 
-- The shared screen layout owns content, focus order, navigation, and responsive stacking.
-- Each casing owns only its shell geometry, bezel, hinge, lamps, grille, and physical controls.
+- The shared screen layout owns portfolio content, focus order, navigation, and responsive stacking.
+- Each casing package owns its source-locked shell geometry, bezel, hinge, lamps, grille, and
+  visible physical controls. It does not invent controls to fill a quota.
 - Every visible control is its own native `<button>` hit target. Do not place one click handler
   over a control cluster or over the whole casing.
 - Each D-pad direction is independently actionable even when the four directions share one
   cross-shaped visual housing. Clicking empty casing must do nothing.
 - A pressable control has a fixed base and a moving face with the same silhouette. Only the face
   translates down **4px** while pressed; the base, neighbouring controls, and casing do not move.
-- The Hoenn body, Rotom Dex, and Rotom Phone are stationary. Do not invent a lid for them.
+- Hardware artwork does not document software semantics. Asset IDs describe morphology and
+  position; the later interaction map assigns actions.
+- The Rotom Dex and Rotom Phone are stationary. Hoenn is hinged. Do not invent missing states.
+- HGSS, Sun/Moon, and Scarlet/Violet use labelled screen-DOM controls rather than invented
+  hardware navigation.
 
 #### Lid ownership and motion
 
-The hinged casings — Kanto, Johto's top cover, Sinnoh, and HGSS — use one assembly contract.
-The stationary body owns the hinge. The moving leaf owns two coherent faces: the inner control
-face while open and the outer cover as its back face while closed. Its transform origin is the
-hinge edge; opening and closing rotate that one leaf by 180 degrees. The hinge, stationary body,
-buttons on the stationary body, and DOM screens never travel with it.
+Hinge topology follows each source rather than one universal lid model. Kanto uses a central
+vertical book hinge. Gold/Silver has a stationary base plus independently modelled top and right
+leaves. Hoenn, Sinnoh, and HGSS use horizontal clamshell hinges. In every case the stationary
+body owns the hinge, while a moving leaf owns coherent inner and outer faces with one registered
+transform origin. Fixed body, hinge, unrelated controls, and DOM screens do not move.
 
 The Unova slider is the one translating casing: its upper-screen tray extends along the
 device's long axis instead of rotating. The tray owns both its recessed and extended faces.
 
-Opening, closing, and sliding must be triggered by an explicit native button, expose state with
-`aria-expanded`, remain operable by keyboard, and preserve visible `:focus-visible` styling.
+Opening, closing, and sliding must be triggered by an explicit labelled native button, expose
+state with `aria-expanded`, remain operable by keyboard, and preserve visible `:focus-visible` styling.
 Under `prefers-reduced-motion: reduce`, change state without the animated sweep. Closed content
 must not remain focusable or exposed to assistive technology.
 
@@ -542,7 +549,10 @@ needs a deliberate design, and "it will not happen" is not one of them.
 | **`/resume`** | screen · **print** · no-JS |
 | **404** | in the dex voice — `NO DATA` / `SPECIES NOT REGISTERED`, not a default Astro error page |
 | **Version selector** | before hydration (no flash of the wrong skin) · every implemented version skin at AA contrast · correct mapping to its own casing |
-| **Casing** | every skin's casing · every physical button pressed independently · hinged and sliding casings open and closed · reduced-motion state change · closed content removed from focus order |
+| **Casing** | every skin's casing · source-covered open/closed/compact states · reconstructed or unresolved states labelled honestly · reduced-motion state change · unavailable content removed from focus order |
+| **Casing press** | every physical button pressed independently with pointer, touch, Space, and Enter · held sample proves only the moving face/glyph moves 4px · base, hit target, shell, hinge, and neighbours keep their rectangles · release restores the face |
+| **Casing action** | after native click, assert the mapped UI state and one identifying content value · inert casing parts do nothing · every touch-led equivalent is a labelled DOM button · mappings follow `.scratch/sm-dex/assets/ticket-30/BUTTON-UI-PORTFOLIO-MAP.md` |
+| **Casing screen content** | PROFILE, MOVES, ENCOUNTERS, RIBBONS, EVOLUTION, DEX, `+ ADD POKÉMON`, and plain-text mode all expose Shivam's real portfolio data from the accepted content files; no generic specimen or baked game UI substitutes for it |
 
 **The three most likely to be skipped, and the most damaging:**
 

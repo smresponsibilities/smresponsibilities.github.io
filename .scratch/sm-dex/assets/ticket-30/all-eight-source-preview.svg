@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+     width="1600" height="1000" viewBox="0 0 1600 1000" role="img"
+     aria-labelledby="title description">
+  <title id="title">Eight source-locked Pokédex casing packages</title>
+  <desc id="description">A four by two review grid containing the exact source masters for Red and Blue, Gold and Silver, Ruby and Sapphire, Diamond and Pearl, HeartGold and SoulSilver, Black and White, Sun and Moon, and Scarlet and Violet.</desc>
+  <defs>
+    <pattern id="checker" width="24" height="24" patternUnits="userSpaceOnUse">
+      <rect width="24" height="24" fill="#f8fafc"/>
+      <rect width="12" height="12" fill="#e2e8f0"/>
+      <rect x="12" y="12" width="12" height="12" fill="#e2e8f0"/>
+    </pattern>
+    <style>
+      .cell { fill: url(#checker); stroke: #172033; stroke-width: 2; }
+      .label { font: 700 20px system-ui, sans-serif; fill: #0f172a; }
+      .meta { font: 500 13px system-ui, sans-serif; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="1600" height="1000" fill="#0f172a"/>
+
+  <g transform="translate(20 20)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="rb-kanto-source-master.png"/>
+    <text class="label" x="18" y="425">RED / BLUE</text>
+    <text class="meta" x="18" y="448">Kanto · open + closed · fresh source lock</text>
+  </g>
+  <g transform="translate(415 20)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="gs-johto-source-master.png"/>
+    <text class="label" x="18" y="425">GOLD / SILVER</text>
+    <text class="meta" x="18" y="448">Johto · closed + top leaf + right leaf</text>
+  </g>
+  <g transform="translate(810 20)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="rs-hoenn-source-master.png"/>
+    <text class="label" x="18" y="425">RUBY / SAPPHIRE</text>
+    <text class="meta" x="18" y="448">Hoenn · hinged open source · closed unresolved</text>
+  </g>
+  <g transform="translate(1205 20)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="dp-sinnoh-source-master.png"/>
+    <text class="label" x="18" y="425">DIAMOND / PEARL</text>
+    <text class="meta" x="18" y="448">Sinnoh · vertical dual-screen clamshell</text>
+  </g>
+
+  <g transform="translate(20 520)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="hgss-johto-source-master.png"/>
+    <text class="label" x="18" y="425">HEARTGOLD / SOULSILVER</text>
+    <text class="meta" x="18" y="448">Johto redesign · open + closed · no invented pad</text>
+  </g>
+  <g transform="translate(415 520)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="bw-unova-source-master.png"/>
+    <text class="label" x="18" y="425">BLACK / WHITE</text>
+    <text class="meta" x="18" y="448">Unova · extended + compact · upper screen retained</text>
+  </g>
+  <g transform="translate(810 520)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="sm-rotom-dex-source-master.png"/>
+    <text class="label" x="18" y="425">SUN / MOON</text>
+    <text class="meta" x="18" y="448">Alola Rotom Dex · full creature silhouette</text>
+  </g>
+  <g transform="translate(1205 520)">
+    <rect class="cell" width="375" height="460" rx="12"/>
+    <image x="12" y="12" width="351" height="382" preserveAspectRatio="xMidYMid meet" xlink:href="sv-rotom-phone-source-master.png"/>
+    <text class="label" x="18" y="425">SCARLET / VIOLET</text>
+    <text class="meta" x="18" y="448">Paldea Rotom Phone · rear exact · front unresolved</text>
+  </g>
+</svg>
