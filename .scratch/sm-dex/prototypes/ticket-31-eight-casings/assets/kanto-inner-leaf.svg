@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 680" role="img" aria-labelledby="title desc">
+  <title id="title">Kanto Pokédex inner right leaf</title>
+  <desc id="desc">Straight-on red control leaf with a second display opening and ten-key control area.</desc>
+  <defs>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ff1748"/><stop offset=".62" stop-color="#e50035"/><stop offset="1" stop-color="#b8002a"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="7" stdDeviation="5" flood-color="#000" flood-opacity=".42"/>
+    </filter>
+  </defs>
+  <path d="M18 62H298Q319 62 333 78L375 124H473Q490 124 490 143V650Q490 670 470 670H27Q10 670 10 651V82Q10 62 18 62Z" fill="url(#red)" stroke="#22000a" stroke-width="7" filter="url(#shadow)"/>
+  <path d="M20 84H293Q308 84 319 97L360 143H484" fill="none" stroke="#ff5271" stroke-width="3" opacity=".52"/>
+  <rect x="52" y="124" width="396" height="117" rx="7" fill="#101216" stroke="#240009" stroke-width="7"/>
+  <path d="M22 645H480" stroke="#ff496a" stroke-width="3" opacity=".55"/>
+</svg>

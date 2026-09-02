@@ -1,6 +1,6 @@
 # 31: Eight-casing interaction and portfolio-content proof
 
-Status: open
+Status: claimed
 Priority: highest
 Blocked by: none
 
@@ -63,3 +63,21 @@ change, and that the live screens contain Shivam's portfolio rather than baked P
 - [ ] README records the control-to-action-to-visible-content map for all eight casings.
       It implements `assets/ticket-30/BUTTON-UI-PORTFOLIO-MAP.md` and distinguishes site mappings
       from undocumented Pokémon hardware functions.
+
+## Progress — Kanto approval gate
+
+The user requested a staged proof: Kanto first, then the remaining seven only after Kanto approval.
+The Kanto scratch build now lives at `prototypes/ticket-31-eight-casings/` with separable vector shell,
+hinge, inner/outer leaf faces, 26 native physical controls, hover/focus function labels, live portfolio
+DOM, responsive scaling, screenshots, and browser verification. The ticket remains claimed and none
+of the eight-casing acceptance boxes are checked until the remaining seven are built.
+
+## Handoff
+
+**Built:** Kanto approval build under `prototypes/ticket-31-eight-casings/`; pointer, keyboard,
+device-state, portfolio-content, reduced-motion, accessibility, and overflow checks pass.
+**Deviated:** The user required a straight-on UI, so the scratch shell is a perspective-normalized
+vector reconstruction. Literal source-pixel reassembly is incompatible with straightening and remains
+unclaimed; `docs/research/kanto-device-interaction-references.md` records the boundary.
+**Watch out:** Do not build Gold/Silver through Scarlet/Violet until the user approves or revises this
+Kanto geometry and interaction model. Tickets 20 and 21 remain untouched.

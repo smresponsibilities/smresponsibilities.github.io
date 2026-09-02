@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>SM'S DEX — Interactive Kanto approval build</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header class="site-head">
+        <div>
+          <p class="eyebrow">CASING 01 / 08 · KANTO APPROVAL BUILD</p>
+          <h1>SM'S DEX</h1>
+        </div>
+        <button class="add-pokemon" type="button" data-site-action="become">+ ADD POKÉMON</button>
+      </header>
+
+      <section class="proof" aria-labelledby="proof-title">
+        <div class="proof-head">
+          <div>
+            <h2 id="proof-title">RED / BLUE FIELD UNIT</h2>
+            <p>Straight-on UI · central book hinge · every control independent</p>
+          </div>
+          <button class="text-action" id="motion-toggle" type="button" aria-pressed="false">MOTION: ON</button>
+        </div>
+
+        <div class="device-stage" id="device-stage">
+          <div class="device-frame" id="device-frame">
+            <article class="device" id="device" data-open="false" data-mode="closed" aria-label="Interactive Kanto Pokédex casing">
+              <section class="stationary" aria-label="Stationary body">
+                <img class="shell-art" src="assets/kanto-body.svg" alt="" draggable="false" />
+                <div class="screen body-screen" id="body-screen" aria-live="polite"></div>
+                <div class="control-plane" id="body-controls"></div>
+              </section>
+
+              <img class="hinge" src="assets/kanto-hinge.svg" alt="" draggable="false" />
+
+              <section class="leaf" id="leaf" aria-label="Moving right leaf">
+                <div class="leaf-face inner-face" id="inner-face">
+                  <img class="shell-art" src="assets/kanto-inner-leaf.svg" alt="" draggable="false" />
+                  <div class="screen leaf-screen" id="leaf-screen" aria-live="polite"></div>
+                  <div class="control-plane" id="leaf-controls"></div>
+                </div>
+                <div class="leaf-face outer-face" id="outer-face">
+                  <img class="shell-art" src="assets/kanto-outer-leaf.svg" alt="" draggable="false" />
+                  <div class="control-plane" id="outer-controls"></div>
+                </div>
+              </section>
+            </article>
+          </div>
+        </div>
+
+        <footer class="state-strip" aria-live="polite">
+          <span><b>STATE</b> <output id="state-output">CLOSED</output></span>
+          <span><b>LAST INPUT</b> <output id="input-output">NONE</output></span>
+          <span><b>VERSION</b> <output id="version-output">RED</output></span>
+        </footer>
+      </section>
+
+      <p class="hint">Hover or focus any button → function. Keyboard: arrows navigate, Enter confirms, Escape returns.</p>
+    </main>
+
+    <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  </body>
+</html>
