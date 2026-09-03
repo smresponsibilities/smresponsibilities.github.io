@@ -10,3 +10,13 @@
 #flat-host{z-index:1}#three-host{z-index:2;pointer-events:none}#targets{z-index:3}
 #device-stage[data-variant=hybrid] #flat-host{perspective:none}
 @media(max-width:400px){.switcher{gap:2px;padding:4px}.switcher button{padding-inline:7px;font-size:10px}}
+/* Hybrid view tilts the complete composite, including its native hit targets. */
+#device-rig{position:absolute;inset:0;transform-origin:center;transform-style:flat}
+#device-stage[data-variant=hybrid] #device-rig[data-view=angle]{transform:rotateX(-6deg) rotateY(-14deg) scale(.97)}
+#view-tools button[aria-pressed=true]{border-color:#b4c4c4;color:#f3f6e9;background:#303b40}
+/* Keep a thin top bevel and a shallow well rather than the previous heavy black rims. */
+.cap-art{box-shadow:inset 0 0 0 1px #253039,inset 1px 2px 0 #79878e80,inset -1px -1px 0 #0e182766}
+.cap-art.cyan{box-shadow:inset 0 0 0 1px #2d6278,inset 1px 2px 0 #a7dbe2,inset -1px -1px 0 #387c9566}
+.cap-art.white{box-shadow:inset 0 0 0 1px #6f796f,inset 1px 2px 0 #fffef3,inset -1px -1px 0 #a0ada766}
+.cap-art.round-yellow{box-shadow:inset 0 0 0 1px #947324,inset 1px 2px 0 #f8e58e,inset -1px -1px 0 #a2883166}
+.dpad-art{filter:drop-shadow(0 1px 0 #1f2830);border-top:2px solid #5c6970}

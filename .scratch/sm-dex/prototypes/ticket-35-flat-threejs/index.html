@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <title>SM'S DEX | Flat, Three.js and hybrid comparison</title>
-  <link rel="stylesheet" href="style.css?v=36">
+  <link rel="stylesheet" href="style.css?v=37">
   <script type="importmap">{"imports":{"three":"./vendor/three.module.js"}}</script>
 </head>
 <body>
   <header><h1>SM'S DEX</h1><span class="edition">KANTO / LOCAL PROTOTYPE</span><a href="../../research/restart/?gen=1">References 1 · 5 · 6</a></header>
   <main>
     <div class="toolbar"><button id="lid-toggle" aria-expanded="true">Close device</button><button id="power-toggle">Power off</button><button id="read-toggle" aria-expanded="false">Readable view</button><label><input type="checkbox" id="reduce-motion"> Reduce motion</label><span id="view-tools" hidden><button id="front-view">Front view</button><button id="angle-view">Angled view</button><button id="hinge-view">Inspect hinge</button></span></div>
-    <div id="device-stage" class="stage" aria-label="Interactive Kanto device"><div id="flat-host"></div><div id="three-host" hidden></div><div id="hybrid-host" hidden></div><div id="targets"></div></div>
+    <div id="device-stage" class="stage" aria-label="Interactive Kanto device"><div id="device-rig"><div id="flat-host"></div><div id="three-host" hidden></div><div id="hybrid-host" hidden></div><div id="targets"></div></div></div>
     <div class="interaction-status"><span id="hint" role="status">Hover or focus a button for its action.</span><output id="state-status">MAIN MENU / OPEN / ON</output></div>
     <section id="reader" class="reader" hidden aria-label="Readable portfolio screen"><div id="reader-content" aria-live="polite"></div><div id="accessible-controls" class="accessible-controls"></div></section>
     <details class="notes"><summary>Comparison notes &amp; input checks</summary><p>Flat uses new SVG/DOM geometry. Three.js uses extruded parts with the same control coordinates. Hybrid keeps the flat casing and uses genuine Three.js caps. All three recreate 26's dark menu/list/detail UI. Round caps and the connected D-pad have raised bevelled geometry; full 3D has stronger casing rims and closing clearance. Depth and the matching lid are interpreted from references, not a pixel-identical trace. No retired imagery is loaded.</p><p>Arrows navigate, A opens, Escape or B returns. Focused buttons use Space or Enter. Clicks activate on release. Dragging off cancels. Closing preserves the current entry. Power is separate. Small-screen use has a readable view with larger controls.</p><button id="run-checks">Run input checks</button> <button id="half-open">Inspect half-open lid</button><output id="press-metrics">No press measured.</output><ol id="check-results"></ol><a href="README.md">Scope, sources and measured results</a></details>
   </main>
   <nav class="switcher" aria-label="Rendering version"><button id="previous-variant" aria-label="Previous version">←</button><button data-variant="flat" aria-pressed="true">01 · Flat</button><button data-variant="three" aria-pressed="false">02 · Three.js</button><button data-variant="hybrid" aria-pressed="false">03 · Hybrid</button><button id="next-variant" aria-label="Next version">→</button></nav>
-  <script type="module" src="app.js?v=36c"></script>
+  <script type="module" src="app.js?v=37"></script>
 </body>
 </html>

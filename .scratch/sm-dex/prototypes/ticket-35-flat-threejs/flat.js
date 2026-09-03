@@ -6,8 +6,8 @@ const circle=(x,y,r,fill,stroke='#550c1c')=>`<circle cx="${x}" cy="${y}" r="${r}
 export function createFlat(host,screens){
   host.innerHTML='<div class="flat-device"><div class="flat-body"></div><div class="flat-leaf"><div class="leaf-face leaf-inner"></div><div class="leaf-face leaf-back"></div></div><div class="flat-hinge"></div></div>';
   const device=host.firstElementChild,body=host.querySelector('.flat-body'),inner=host.querySelector('.leaf-inner'),back=host.querySelector('.leaf-back'),leaf=host.querySelector('.flat-leaf');
-  const wells=part=>controls.filter(c=>c.part===part&&c.kind!=='direction').map(c=>rect(c.x-2,c.y-2,c.w+4,c.h+7,'#511225',c.kind.includes('round')?c.w/2:5)).join('');
-  body.innerHTML=svg(`<defs><linearGradient id="shell" x2="1" y2="1"><stop stop-color="#e9475a"/><stop offset=".47" stop-color="#cc233e"/><stop offset="1" stop-color="#a71331"/></linearGradient><radialGradient id="lens" cx=".32" cy=".28"><stop stop-color="#8cefff"/><stop offset=".5" stop-color="#30a8ce"/><stop offset="1" stop-color="#176c98"/></radialGradient></defs>${poly(bodyOutline,'url(#shell)')}
+  const wells=part=>controls.filter(c=>c.part===part&&c.kind!=='direction').map(c=>rect(c.x-2,c.y-2,c.w+4,c.h+2,'#71263a',c.kind.includes('round')?c.w/2:5,'#641b2f')).join('');
+  body.innerHTML=svg(`<defs><linearGradient id="shell" x2="1" y2="1"><stop stop-color="#df3c53"/><stop offset=".47" stop-color="#ce2d45"/><stop offset="1" stop-color="#bd2540"/></linearGradient><radialGradient id="lens" cx=".32" cy=".28"><stop stop-color="#8cefff"/><stop offset=".5" stop-color="#30a8ce"/><stop offset="1" stop-color="#176c98"/></radialGradient></defs>${poly(bodyOutline,'url(#shell)')}
   <path d="M59 178H244L337 124H458M59 184H246L339 131H458" stroke="#740e28" stroke-width="5"/><path d="M61 63V161M65 199V636Q65 648 80 648H447" stroke="#f7737e" stroke-width="3" opacity=".65"/>
   ${circle(107,101,43,'#c7d0c9')}${circle(107,101,35,'url(#lens)','#194b63')}${circle(95,88,11,'#bfeffa','#bfeffa')}
   ${circle(174,74,11,'#b21935')}${circle(208,74,11,'#eac347')}${circle(242,74,11,'#45945b')}

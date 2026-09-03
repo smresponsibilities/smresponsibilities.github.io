@@ -1,8 +1,10 @@
 import {controls,initial,reduce,screenData,sections,WIDTH} from './model.js';
 import {createScreens} from './screens.js';
-import {createFlat} from './flat.js?v=36';
+import {createFlat} from './flat.js?v=37';
 const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens),variants=['flat','three','hybrid'];
 let state=initial(),variant='flat',three=null,hybrid=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
+const views={flat:'front',three:'angle',hybrid:'front'},requested=new URL(location.href),requestedVariant=requested.searchParams.get('variant'),requestedView=requested.searchParams.get('view');
+if(variants.includes(requestedVariant)&&['front','angle','hinge'].includes(requestedView)&&requestedVariant!=='flat'&&(requestedVariant==='three'||requestedView!=='hinge'))views[requestedVariant]=requestedView;
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),reduced=()=>motion.matches||$('reduce-motion').checked;
 const physical=new Map(),accessible=new Map(),allButtons=[];
 const escaped=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -73,16 +75,22 @@ let switchSerial=0;
 async function setVariant(next){
   cancel();clearFeedback();const serial=++switchSerial;
   if(!variants.includes(next))next='flat';
-  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=36c');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
-  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=36c');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
+  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=37');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
+  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=37');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
   if(serial!==switchSerial)return;variant=next;const url=new URL(location.href);url.searchParams.set('variant',variant);history.replaceState(null,'',url);
-  $('flat-host').hidden=variant==='three';$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('view-tools').hidden=variant!=='three';flat.setCapsVisible(variant!=='hybrid');
+  $('flat-host').hidden=variant==='three';$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('view-tools').hidden=variant==='flat';$('hinge-view').hidden=variant!=='three';flat.setCapsVisible(variant!=='hybrid');
   document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.variant===variant)));$('device-stage').dataset.variant=variant;
-  flat.resize();three?.resize();hybrid?.resize();render();$('hint').textContent=variant==='flat'?'Flat SVG / DOM. Same portfolio controls.':variant==='three'?'Three.js. Use view buttons to inspect stronger depth.':'Flat casing with genuine Three.js controls.';
+  flat.resize();three?.resize();hybrid?.resize();setView(views[variant]);render();$('hint').textContent=variant==='flat'?'Flat SVG / DOM. Shallower button shadows.':variant==='three'?'Three.js. Pixel screens use nearest sampling; front view is sharpest.':'Hybrid. Front or angled view keeps casing, caps and targets together.';
 }
 document.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>setVariant(b.dataset.variant)));
 const cycle=direction=>setVariant(variants[(variants.indexOf(variant)+direction+variants.length)%variants.length]);$('previous-variant').addEventListener('click',()=>cycle(-1));$('next-variant').addEventListener('click',()=>cycle(1));
-for(const [id,preset] of [['front-view','front'],['angle-view','angle'],['hinge-view','hinge']])$(id).addEventListener('click',()=>{cancel();three?.view(preset);updateTargets();});
+function setView(preset){
+  cancel();views[variant]=preset;$('device-rig').dataset.view=variant==='hybrid'?preset:'front';$('device-stage').dataset.view=preset;
+  if(variant==='three')three?.view(preset);
+  for(const [id,value] of [['front-view','front'],['angle-view','angle'],['hinge-view','hinge']])$(id).setAttribute('aria-pressed',String(value===preset));
+  const url=new URL(location.href);if(variant==='flat')url.searchParams.delete('view');else url.searchParams.set('view',preset);history.replaceState(null,'',url);updateTargets();
+}
+for(const [id,preset] of [['front-view','front'],['angle-view','angle'],['hinge-view','hinge']])$(id).addEventListener('click',()=>setView(preset));
 document.querySelector('.switcher').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();cycle(e.key==='ArrowLeft'?-1:1);}});
 window.addEventListener('keydown',e=>{if(e.defaultPrevented||e.repeat||pending||e.target.closest('input,select,textarea,[contenteditable]')||(e.target.closest('button')&&!e.target.closest('.physical')))return;const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',Enter:'entry',Escape:'back',a:'entry',b:'back'};const c=controls.find(c=>c.id===map[e.key]);if(c){e.preventDefault();clearFeedback();action(c,'Keyboard shortcut');}});
 window.addEventListener('popstate',()=>setVariant(new URL(location.href).searchParams.get('variant')));

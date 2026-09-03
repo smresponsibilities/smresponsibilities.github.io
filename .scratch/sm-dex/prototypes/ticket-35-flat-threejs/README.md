@@ -1,6 +1,6 @@
 # Flat, Three.js and hybrid Kanto comparison
 
-Tickets 35 and 36. Local-only, self-authored functional device UI. No version is approved final art.
+Tickets 35–37. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -9,6 +9,7 @@ Use the existing server, `python -m http.server 4173 --bind 127.0.0.1` from the 
 - [Flat version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=flat)
 - [Three.js version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=three)
 - [Hybrid version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=hybrid)
+- [Angled hybrid](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=hybrid&view=angle)
 
 The bottom switcher changes `?variant=` without resetting the current portfolio entry, power or
 lid state. The flat version is the default. Nothing is submitted or persisted across reloads.
@@ -151,3 +152,33 @@ These dimensions are design reconstruction, not a source measurement or collisio
 
 See `evidence/ticket36-checks.json`. Physical touchscreen, alternate engines, canonical source
 pixel matching and final visual approval remain outside this local comparison's evidence.
+
+## Ticket 37 view and clarity changes
+
+Hybrid now has Front and Angled view buttons. `view=angle` is shareable and survives reload.
+The transform belongs to a single wrapper containing the SVG shell, WebGL control canvas and
+native targets. It tilts the composite together, rather than orbiting an independently modelled
+hybrid shell. Full Three.js remains the genuine mesh-view comparison. View selection changes
+instantly without adding a motion animation, including under reduced motion.
+
+Flat cap highlights and lower shadows are thinner. The exposed dark well height is five design
+units smaller, and the shell gradient is less contrasty. Casing contours remain defined. These
+SVG-shell adjustments also appear in hybrid; its button caps still come from Three.js.
+
+Screen textures now use nearest-neighbour filtering for both minification and magnification,
+with no mipmaps. Full-3D Front view removes the extra 0.97 model scale and centres the model on
+the flat coordinate origin. This removes linear texture softening, but it cannot make tiny text
+pixel-identical at every viewport, fractional scale or viewing angle. Font rasterisation and
+browser compositing still matter. Use Front view or the readable view for fine text. No claim
+that all blur has been eliminated is supported by this check.
+
+Flat front, hybrid front/angle, and Three.js front/angle each pass 56/56 existing assertions at
+375 and 1280px with no horizontal overflow. All 23 native hybrid-angle controls accept once,
+travel four model units and show zero target/neighbour drift. Fourteen gap/centre points remain
+inert. A native drag-off in an isolated check tab cancels without a held cap or ripple. Native
+reduced-motion input has zero travel; the scripted check verifies static acknowledgement.
+Hybrid angle was visually checked open and closed with controls disabled when closed.
+
+`evidence/ticket37-*` contains before/after captures and the check summary. Browser interaction
+was interrupted during this ticket; the local Python server was restarted and final checks ran
+in a separate tab to avoid concurrent view changes. Production and root dependencies are untouched.
