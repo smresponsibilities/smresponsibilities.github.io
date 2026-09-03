@@ -1,6 +1,6 @@
-# Flat and Three.js Kanto comparison
+# Flat, Three.js and hybrid Kanto comparison
 
-Ticket 35. Local-only, self-authored functional device UI. Neither version is approved final art.
+Tickets 35 and 36. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -8,6 +8,7 @@ Use the existing server, `python -m http.server 4173 --bind 127.0.0.1` from the 
 
 - [Flat version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=flat)
 - [Three.js version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=three)
+- [Hybrid version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=hybrid)
 
 The bottom switcher changes `?variant=` without resetting the current portfolio entry, power or
 lid state. The flat version is the default. Nothing is submitted or persisted across reloads.
@@ -84,18 +85,19 @@ choices into one front elevation is a disclosed design interpretation, not a pix
 The leaf's outer silhouette is the mirror of its inner silhouette. The closed anime reference
 in `research/restart/KANTO-20-MORE.md` supports an exposed lens/header and lower cover slots.
 The triangle is deliberately omitted following the user's earlier instruction. Depth, material
-response, unseen surfaces and hinge clearance are reconstructed. The 3D axis is at x=466 with a
-26-unit front offset, keeping the returning inner controls above the stationary body. This is
+response, unseen surfaces and hinge clearance are reconstructed. The 3D axis is at x=466 and z=18.
+Open inner faces are coplanar; closed inner faces are 36 units apart for the taller caps. This is
 model geometry, not a measurement of an original prop or an inspected canonical hinge sequence.
 
-The runtime is locally pinned Three.js 0.182.0, loaded only when the 3D view is selected. Its two
+The runtime is locally pinned Three.js 0.182.0, loaded only when a WebGL view is selected. Its two
 unmodified module files and MIT licence are in `vendor/`. Root dependencies and production files
 are unchanged. The 3D view renders on demand, caps device pixel ratio at two, shares resources
-where possible, and disposes GPU resources on page exit. The measured scene uses 87 draw calls.
+where possible, and disposes GPU resources on page exit. The current full scene uses 100 draw calls;
+the hybrid overlay uses 49.
 See the [Three.js installation guide](https://threejs.org/manual/en/installation.html) for module
 loading and [Three.js documentation](https://threejs.org/docs/) for the geometry and texture APIs.
 
-## Verification
+## Ticket 35 verification
 
 - Native browser mouse clicks on all 23 controls in both modes. Each accepts exactly once and
   produces the recorded portfolio state. Measured target/neighbour drift is zero.
@@ -114,3 +116,38 @@ Evidence is in `evidence/`. Synthetic touch is not a physical touchscreen test. 
 motion, other browser engines, a real screen reader and source-aligned pixel-difference comparison
 remain untested. The capped press study does not establish exact canonical functions for these
 portfolio mappings, nor does this comparison approve the final casing geometry.
+
+## Ticket 36 changes and verification
+
+The hybrid retains the flat SVG shell, native screens and fixed control coordinates. It hides the
+flat cap artwork and puts the same Three.js control geometry above it in a transparent canvas.
+The front camera is orthographic and aligned to the flat coordinate origin. A depth-only leaf
+mask hides controls covered by the closing flat shell. Hybrid closure uses the flat projection,
+not the separate full-3D mechanical reconstruction.
+
+Round caps now use nine-unit lathed profiles with bevelled shoulders, dark collars and recessed
+wells. The connected D-pad has an eleven-unit extrusion, a three-unit bevel, its own well and
+four raised direction marks. Each cap depresses four model units and darkens while held, so the
+front-only hybrid view still shows the hold. Hit targets do not move or resize. The D-pad centre
+remains inert. Reduced motion disables travel and uses the existing static acknowledgement.
+
+The faint lid outlines were partly a depth bug: strokes lay beneath the bevelled front face.
+The corrected paths sit above the face and use dark tube geometry rather than driver-dependent
+thin WebGL lines. A key light, cool rim light and hemisphere fill define the bevels. The full-3D
+hinge now opens both inner faces in one plane and leaves 36 units between them when closed.
+These dimensions are design reconstruction, not a source measurement or collision-simulation claim.
+
+- All three variants pass 56/56 input assertions at 375, 768 and 1280px. Full 3D was rerun at all
+  three sizes after the hinge change.
+- Native browser clicks exercised all 23 controls in hybrid and full 3D. Each accepted once,
+  travelled four model units, and recorded zero target/neighbour drift. Full 3D was rerun after
+  the hinge change.
+- All thirteen keypad gaps and the inert D-pad centre were clicked in both WebGL modes without
+  increasing the accepted-action count.
+- No horizontal overflow at the measured widths. A fresh 375px hybrid load shows the readable
+  view and equivalent controls at least 44px high.
+- Open/closed hybrid and full-3D states were inspected. The hybrid closed view has no caps showing
+  through the exterior. Evidence files prefixed `ticket36-` contain this revision's captures.
+
+See `evidence/ticket36-checks.json`. Physical touchscreen, alternate engines, canonical source
+pixel matching and final visual approval remain outside this local comparison's evidence.

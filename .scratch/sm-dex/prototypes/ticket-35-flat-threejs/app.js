@@ -1,14 +1,14 @@
 import {controls,initial,reduce,screenData,sections,WIDTH} from './model.js';
 import {createScreens} from './screens.js';
-import {createFlat} from './flat.js';
-const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens);
-let state=initial(),variant='flat',three=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
+import {createFlat} from './flat.js?v=36';
+const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens),variants=['flat','three','hybrid'];
+let state=initial(),variant='flat',three=null,hybrid=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),reduced=()=>motion.matches||$('reduce-motion').checked;
 const physical=new Map(),accessible=new Map(),allButtons=[];
 const escaped=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const activeRenderer=()=>variant==='three'&&three?three:flat;
+const activeRenderer=()=>variant==='three'&&three?three:variant==='hybrid'&&hybrid?hybrid:flat;
 function updateTargets(){for(const t of activeRenderer().targets()){const b=physical.get(t.id);Object.assign(b.style,{left:t.left+'px',top:t.top+'px',width:t.width+'px',height:t.height+'px',clipPath:t.clip});}}
-function draw(){screens.draw(state);three?.update();flat.pose(progress);three?.pose(progress);updateTargets();}
+function draw(){screens.draw(state);three?.update();flat.pose(progress);three?.pose(progress);hybrid?.pose(progress);updateTargets();}
 function render(){
   const d=screenData(state);document.body.classList.toggle('reduced',reduced());
   $('lid-toggle').textContent=state.open?'Close device':'Open device';$('lid-toggle').setAttribute('aria-expanded',String(state.open));
@@ -21,19 +21,19 @@ function render(){
   $('screen-summary').textContent=d.active?`${d.heading}. ${state.mode==='detail'?d.item.name+'. '+(state.page?d.item.facts.join('. '):d.item.copy):d.rows.map((r,i)=>(i===d.selection?'Selected: ':'')+r).join('. ')}`:'';
   $('screen-summary').setAttribute('aria-hidden',String(!d.active));draw();
 }
-function clearFeedback(){clearTimeout(feedbackTimer);for(const b of physical.values()){b.replaceChildren();delete b.dataset.static;}if(activeFeedback){flat.feedback(activeFeedback,false);three?.feedback(activeFeedback,false);}activeFeedback=null;}
-function held(c,on){if(!reduced()){flat.press(c.id,on);three?.press(c.id,on);}physical.get(c.id).dataset.held=String(on);}
+function clearFeedback(){clearTimeout(feedbackTimer);for(const b of physical.values()){b.replaceChildren();delete b.dataset.static;}if(activeFeedback)activeRenderer().feedback(activeFeedback,false);activeFeedback=null;}
+function held(c,on){if(!reduced())activeRenderer().press(c.id,on);physical.get(c.id).dataset.held=String(on);}
 function cancel(){if(!pending)return;held(pending.control,false);pending=null;state=reduce(state,'cancel');clearFeedback();render();$('hint').textContent=state.last;}
 function measureHold(c,input){
   const before=[...physical.values()].map(b=>b.getBoundingClientRect()),capBefore=activeRenderer().measure(c.id);held(c,true);const after=[...physical.values()].map(b=>b.getBoundingClientRect()),capAfter=activeRenderer().measure(c.id);
   const drift=Math.max(...before.flatMap((r,i)=>['x','y','width','height'].map(k=>Math.abs(r[k]-after[i][k]))));
-  const travel=variant==='three'?capBefore.z-capAfter.z:capAfter.y-capBefore.y;
-  $('press-metrics').textContent=`${input} · ${c.label}\nTarget / neighbour drift: ${drift.toFixed(3)}px\nCap travel: ${travel.toFixed(3)} ${variant==='three'?'model units into casing':'CSS px downward'}\nAccepted: ${state.accepted}; cancelled: ${state.cancelled}`;
+  const webgl=variant!=='flat',travel=webgl?capBefore.z-capAfter.z:capAfter.y-capBefore.y;
+  $('press-metrics').textContent=`${input} · ${c.label}\nTarget / neighbour drift: ${drift.toFixed(3)}px\nCap travel: ${travel.toFixed(3)} ${webgl?'model units into casing':'CSS px downward'}\nAccepted: ${state.accepted}; cancelled: ${state.cancelled}`;
   $('press-metrics').dataset.drift=drift;$('press-metrics').dataset.input=input;$('press-metrics').dataset.travel=travel;
 }
 function acknowledge(c,x,y){
   const b=physical.get(c.id);activeFeedback=c.id;
-  if(reduced()){b.dataset.static='true';flat.feedback(c.id,true);three?.feedback(c.id,true);}
+  if(reduced()){b.dataset.static='true';activeRenderer().feedback(c.id,true);}
   else {const rect=b.getBoundingClientRect(),r=document.createElement('i'),size=Math.hypot(rect.width,rect.height)*2;r.className='ripple';r.style.width=r.style.height=size+'px';r.style.left=(x==null||x<rect.left||x>rect.right?rect.width/2:x-rect.left)+'px';r.style.top=(y==null||y<rect.top||y>rect.bottom?rect.height/2:y-rect.top)+'px';b.append(r);}
   feedbackTimer=setTimeout(clearFeedback,reduced()?220:370);
 }
@@ -66,25 +66,27 @@ $('lid-toggle').addEventListener('click',toggleLid);$('power-toggle').addEventLi
 $('half-open').addEventListener('click',()=>{cancel();clearFeedback();cancelAnimationFrame(animation);progress=.5;moving=true;state={...state,open:false};render();$('hint').textContent='Half-open inspection. Controls disabled; Open device resumes.';});
 function readable(show){$('reader').hidden=!show;$('read-toggle').setAttribute('aria-expanded',String(show));$('read-toggle').textContent=show?'Hide readable view':'Readable view';}
 $('read-toggle').addEventListener('click',()=>readable($('reader').hidden));if(matchMedia('(max-width:640px)').matches)readable(true);
-function changeMotion(){cancel();clearFeedback();if(reduced()){for(const c of controls){flat.press(c.id,false);three?.press(c.id,false);}cancelAnimationFrame(animation);progress=state.open?0:1;moving=false;}render();}
+function changeMotion(){cancel();clearFeedback();if(reduced()){for(const c of controls)activeRenderer().press(c.id,false);cancelAnimationFrame(animation);progress=state.open?0:1;moving=false;}render();}
 $('reduce-motion').addEventListener('change',changeMotion);motion.addEventListener('change',changeMotion);
 window.addEventListener('blur',cancel);document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel();});
 let switchSerial=0;
 async function setVariant(next){
   cancel();clearFeedback();const serial=++switchSerial;
-  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
+  if(!variants.includes(next))next='flat';
+  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=36c');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
+  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=36c');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
   if(serial!==switchSerial)return;variant=next;const url=new URL(location.href);url.searchParams.set('variant',variant);history.replaceState(null,'',url);
-  $('flat-host').hidden=variant!=='flat';$('three-host').hidden=variant!=='three';$('view-tools').hidden=variant!=='three';
+  $('flat-host').hidden=variant==='three';$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('view-tools').hidden=variant!=='three';flat.setCapsVisible(variant!=='hybrid');
   document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.variant===variant)));$('device-stage').dataset.variant=variant;
-  flat.resize();three?.resize();render();$('hint').textContent=variant==='flat'?'Flat SVG / DOM. Same portfolio controls.':'Three.js. Use view buttons to inspect depth.';
+  flat.resize();three?.resize();hybrid?.resize();render();$('hint').textContent=variant==='flat'?'Flat SVG / DOM. Same portfolio controls.':variant==='three'?'Three.js. Use view buttons to inspect stronger depth.':'Flat casing with genuine Three.js controls.';
 }
 document.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>setVariant(b.dataset.variant)));
-const cycle=()=>setVariant(variant==='flat'?'three':'flat');$('previous-variant').addEventListener('click',cycle);$('next-variant').addEventListener('click',cycle);
+const cycle=direction=>setVariant(variants[(variants.indexOf(variant)+direction+variants.length)%variants.length]);$('previous-variant').addEventListener('click',()=>cycle(-1));$('next-variant').addEventListener('click',()=>cycle(1));
 for(const [id,preset] of [['front-view','front'],['angle-view','angle'],['hinge-view','hinge']])$(id).addEventListener('click',()=>{cancel();three?.view(preset);updateTargets();});
-document.querySelector('.switcher').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();cycle();}});
+document.querySelector('.switcher').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();cycle(e.key==='ArrowLeft'?-1:1);}});
 window.addEventListener('keydown',e=>{if(e.defaultPrevented||e.repeat||pending||e.target.closest('input,select,textarea,[contenteditable]')||(e.target.closest('button')&&!e.target.closest('.physical')))return;const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',Enter:'entry',Escape:'back',a:'entry',b:'back'};const c=controls.find(c=>c.id===map[e.key]);if(c){e.preventDefault();clearFeedback();action(c,'Keyboard shortcut');}});
-window.addEventListener('popstate',()=>setVariant(new URL(location.href).searchParams.get('variant')==='three'?'three':'flat'));
-new ResizeObserver(()=>{flat.resize();three?.resize();updateTargets();}).observe($('device-stage'));
+window.addEventListener('popstate',()=>setVariant(new URL(location.href).searchParams.get('variant')));
+new ResizeObserver(()=>{flat.resize();three?.resize();hybrid?.resize();updateTargets();}).observe($('device-stage'));
 $('run-checks').addEventListener('click',()=>{
   cancel();clearFeedback();cancelAnimationFrame(animation);moving=false;progress=0;state=initial();render();const checks=[],check=(name,pass)=>checks.push({name,pass});
   const emit=(b,type,kind='mouse',point,repeat=false)=>{const r=b.getBoundingClientRect(),p=point||[r.x+r.width/2,r.y+r.height/2];b.dispatchEvent(new PointerEvent(type,{bubbles:true,cancelable:true,isPrimary:true,pointerId:19,pointerType:kind,button:0,buttons:type==='pointerup'?0:1,clientX:p[0],clientY:p[1]}));};
@@ -100,5 +102,5 @@ $('run-checks').addEventListener('click',()=>{
   state={...state,open:true,power:true};progress=0;render();check('Reopen resumes selection',state.section===1&&state.mode==='list');
   $('check-results').replaceChildren(...checks.map(c=>{const li=document.createElement('li');li.textContent=(c.pass?'PASS · ':'FAIL · ')+c.name;li.dataset.pass=c.pass;return li;}));$('check-results').dataset.passed=checks.filter(c=>c.pass).length;$('check-results').dataset.total=checks.length;$('check-results').scrollIntoView({block:'start',behavior:'instant'});
 });
-await document.fonts.load('12px Departure');render();await setVariant(new URL(location.href).searchParams.get('variant')==='three'?'three':'flat');
-window.addEventListener('pagehide',()=>{cancelAnimationFrame(animation);clearTimeout(feedbackTimer);three?.dispose();},{once:true});
+await document.fonts.load('12px Departure');render();await setVariant(new URL(location.href).searchParams.get('variant'));
+window.addEventListener('pagehide',()=>{cancelAnimationFrame(animation);clearTimeout(feedbackTimer);three?.dispose();hybrid?.dispose();},{once:true});

@@ -35,7 +35,8 @@ export function createFlat(host,screens){
   function pose(progress){leaf.style.transform=`rotateY(${-180*progress}deg)`;leaf.style.zIndex=progress>0?'3':'1';}
   function press(id,held){const c=controls.find(c=>c.id===id);if(c?.kind==='direction'){rocker.style.transform=held?'translateY(4px)':'none';return;}faces.get(id)?.classList.toggle('is-held',held);}
   function feedback(id,on){faces.get(id)?.classList.toggle('ack',on);}
+  function setCapsVisible(visible){for(const face of faces.values())face.hidden=!visible;rocker.hidden=!visible;}
   function targets(){return controls.map(c=>({...c,left:c.x*scale,top:c.y*scale,width:c.w*scale,height:c.h*scale,clip:c.kind.includes('round')?'circle(50%)':'inset(0 round '+(c.kind==='direction'?0:4*scale)+'px)'}));}
   function measure(id){const c=controls.find(c=>c.id===id),r=(c?.kind==='direction'?rocker:faces.get(id)).getBoundingClientRect();return {x:r.x,y:r.y,z:0};}
-  return {resize,pose,press,feedback,targets,measure,visible:()=>{},dispose:()=>host.replaceChildren()};
+  return {resize,pose,press,feedback,setCapsVisible,targets,measure,dispose:()=>host.replaceChildren()};
 }

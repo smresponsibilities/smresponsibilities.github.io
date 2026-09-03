@@ -5,3 +5,8 @@
 .stage{width:min(100%,940px,calc((100dvh - 195px)*1.3352))}
 .accessible-controls button:active{background:#3a484c;box-shadow:inset 0 2px 0 #080c10}
 @media(prefers-reduced-motion:reduce){.ripple{display:none;animation:none}.cap-art,.dpad-art{transform:none!important}}
+/* Ticket 36: a transparent WebGL control layer over the unchanged flat shell. */
+#hybrid-host{position:absolute;inset:0;pointer-events:none;z-index:2}
+#flat-host{z-index:1}#three-host{z-index:2;pointer-events:none}#targets{z-index:3}
+#device-stage[data-variant=hybrid] #flat-host{perspective:none}
+@media(max-width:400px){.switcher{gap:2px;padding:4px}.switcher button{padding-inline:7px;font-size:10px}}
