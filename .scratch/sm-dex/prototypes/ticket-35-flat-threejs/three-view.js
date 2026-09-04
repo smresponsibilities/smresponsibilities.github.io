@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.js';
-import {controls,bodyOutline,lidOutline,bezelOutline,dpadOutline,mainScreen,sideScreen,WIDTH,HEIGHT,HINGE} from './model.js';
+import {controls,bodyOutline,lidOutline,bezelOutline,dpadOutline,outerLatchOutline,outerLatchWellOutline,mainScreen,sideScreen,WIDTH,HEIGHT,HINGE} from './model.js';
 
 export function createThree(host,screens,onProjection,options={}){
   const buttonsOnly=options.buttonsOnly===true;
@@ -47,8 +47,9 @@ export function createThree(host,screens,onProjection,options={}){
     // The back belongs to the same physical leaf; these recesses rotate with it.
     for(const y of [588,601,614])box(lid,713,y,116,5,0x751630,-17,1,2);
     line(lid,[[483,134],[598,134],[696,192],[867,192],[867,628],[852,645],[483,645],[483,134]],0xf0576b,-16.8);
-    const latchWell=poly(lid,[[838,388],[804,405],[833,434]],0x5b1020,-18,3,1);edge(lid,latchWell,0x27050d);
-    latch=poly(lid,[[833,392],[809,405],[828,429]],0xe7c631,-20,3,1);edge(lid,latch,0x4a0b16);
+    const exteriorToLeaf=points=>points.map(([x,y])=>[2*HINGE-x,y]);
+    const latchWell=poly(lid,exteriorToLeaf(outerLatchWellOutline),0x5b1020,-18,3,1);edge(lid,latchWell,0x27050d);
+    latch=poly(lid,exteriorToLeaf(outerLatchOutline),0xe7c631,-20,3,1);edge(lid,latch,0x4a0b16);
     box(lid,512,228,327,126,0x1a292b,1,2,5);
     for(const [x,w] of [[519,145],[681,151]])box(lid,x,592,w,45,0x1a2a2b,1,2,3);
     for(const x of [678,693,708,723])for(const y of [540,549])box(lid,x,y,7,2,0x74192f,2,1,0);

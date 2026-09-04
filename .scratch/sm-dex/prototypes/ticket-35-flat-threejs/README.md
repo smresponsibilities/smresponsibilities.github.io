@@ -1,6 +1,6 @@
 # Four-way Kanto device comparison
 
-Tickets 35–41. Local-only, self-authored functional device UI. No version is approved final art.
+Tickets 35–42. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -86,9 +86,10 @@ choices into one front elevation is a disclosed design interpretation, not a pix
 
 The leaf's outer silhouette is the mirror of its inner silhouette. The closed anime reference
 in `research/restart/KANTO-20-MORE.md` supports an exposed lens/header and lower cover slots.
-The yellow triangle is an exterior latch/closure cue, not a control. It shares the moving cover,
-stays behind the open leaf and appears on the closed exterior. Depth, material response, unseen
-surfaces and hinge clearance are reconstructed. The 3D axis is at x=466 and z=18.
+The yellow triangle is an exterior mark. The sources do not prove that it is a latch or a control.
+It shares the moving cover, stays behind the open leaf and appears on the closed exterior. Depth,
+material response, unseen surfaces and hinge clearance are reconstructed. The 3D axis is at x=466
+and z=18.
 Open inner faces are coplanar; closed inner faces are 36 units apart for the taller caps. This is
 model geometry, not a measurement of an original prop or an inspected canonical hinge sequence.
 
@@ -265,8 +266,8 @@ The user-supplied closed-cover reference restores the yellow triangular latch. F
 one SVG polygon on the mirrored exterior face. Full Three.js and 3D / quiet caps use one extruded
 yellow mesh and a dark recess on the same rotating leaf as the screen and controls. It is visible
 only at the closed endpoint, is absent from the control manifest and never receives a hit target.
-After visual review, its closed-face inset moved from 14 to 34 model units to match the reference
-proportion instead of clinging to the free edge.
+Ticket 41's final placement was later rejected. Ticket 42 below supersedes its screen-space inset
+with a perspective-correct cover-local measurement.
 
 All four variants now use clearer comparison names and matching decision notes. Device targets gain
 a subtle hover outline without changing their bounds. Toolbar and readable-view buttons gain hover
@@ -277,5 +278,22 @@ At the default desktop viewport and 375 × 774, flat passes 59/59 checks, full T
 hybrid 61/61 and 3D / quiet caps 66/66. The added checks cover closed latch visibility, open
 latch concealment and the absence of a latch input target.
 Syntax, whitespace and the focused interface-guideline audit pass. Full Three.js is the recommended
-base because casing, hinge, latch, controls, press depth, lid motion and projected hit targets remain
+base because casing, hinge, triangle, controls, press depth, lid motion and projected hit targets remain
 in one coordinate system. Flat remains the line-art reference; both hybrids remain treatment studies.
+
+## Ticket 42, reference-measured triangle alignment
+
+The attached artwork and archived Generation I artwork were measured against the moving cover,
+not the whole closed device. The attached yellow centroid is `(86.01, 243.07)`. Bilinear mapping
+from the reference cover corners into the prototype cover places it near `(89, 390)`, 7.4 percent
+from the free edge and 42.9 percent down from the upper cover seam. `k1-01` confirms that the mark
+exists but its hand occlusion makes it unsuitable for exact placement.
+
+The final triangle is `80,372 105,388 82,409`. Its base follows the local free-edge vector and its
+tip points right and slightly upward with the cover's across-sweep vector. `model.js` owns these
+points once. Flat reads them directly; Three.js mirrors them around the x=466 hinge, so all four
+variants land on the same closed coordinates. The mark remains absent from the control manifest.
+
+Flat passes 59/59 checks, full Three.js 66/66, hybrid 61/61 and 3D / quiet caps 66/66 after this
+change. Syntax and whitespace checks pass, and the final browser run records no warnings or errors.
+Detailed measurements and source limits are in `research/restart/KANTO-LATCH-ALIGNMENT.md`.

@@ -6,6 +6,9 @@ export const bezelOutline = [[88,204],[412,204],[412,496],[114,496],[88,470]];
 export const mainScreen = {x:113,y:236,w:274,h:218};
 export const sideScreen = {x:519,y:235,w:313,h:112};
 export const dpadOutline = [[348,544],[374,544],[374,573],[403,573],[403,599],[374,599],[374,628],[348,628],[348,599],[319,599],[319,573],[348,573]];
+// Rectified from the supplied closed-cover reference, then mapped into this cover's local plane.
+export const outerLatchOutline = [[80,372],[105,388],[82,409]];
+export const outerLatchWellOutline = [[77,368],[111,387],[78,415]];
 const button = (id,label,action,x,y,w,h,kind='dark',part='body',mark='')=>({id,label,action,x,y,w,h,kind,part,mark});
 export const controls = [
   button('back','Back one level','back',84,523,49,49,'round'),
