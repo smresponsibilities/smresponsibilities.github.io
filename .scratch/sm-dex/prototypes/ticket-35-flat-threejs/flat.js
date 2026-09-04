@@ -23,20 +23,21 @@ export function createFlat(host,screens){
     <path d="M678 540H685M693 540H700M708 540H715M723 540H730M678 549H685M693 549H700M708 549H715M723 549H730" stroke="#6a1930" stroke-width="3"/>`);
   // Mirror the same leaf silhouette. Its exterior is not a separately stretched illustration.
   const mirrored=lidOutline.map(([x,y])=>[2*HINGE-x,y]);
-  back.innerHTML=svg(`${poly(mirrored,'#c62b44')}<path d="M65 192H236L334 134H449V645H82Q65 645 65 628Z" stroke="#740c27" stroke-width="3"/><path d="M75 202V625" stroke="#f36879" stroke-width="3"/><path d="M103 588H219M103 601H219M103 614H219" stroke="#6a132c" stroke-width="7" stroke-linecap="round"/>`);
+  back.innerHTML=svg(`${poly(mirrored,'#c62b44')}<path d="M65 192H236L334 134H449V645H82Q65 645 65 628Z" stroke="#740c27" stroke-width="3"/><path d="M75 202V625" stroke="#f36879" stroke-width="3"/><polygon data-latch="exterior" points="99,392 123,405 104,429" fill="#e7c631" stroke="#5b1020" stroke-width="4" stroke-linejoin="round"/><path d="M103 588H219M103 601H219M103 614H219" stroke="#6a132c" stroke-width="7" stroke-linecap="round"/>`);
   host.querySelector('.flat-hinge').innerHTML=svg(`<defs><linearGradient id="hinge"><stop stop-color="#6c0d27"/><stop offset=".35" stop-color="#e84a60"/><stop offset=".65" stop-color="#ce2c48"/><stop offset="1" stop-color="#690c25"/></linearGradient></defs>${rect(451,115,29,548,'url(#hinge)',9,'#6c1027')}<path d="M452 143H478M452 152H478M452 619H478M452 628H478" stroke="#740e29" stroke-width="3"/>`);
   const faces=new Map();for(const c of controls){if(c.kind==='direction')continue;const cap=document.createElement('div');cap.className='cap-art '+c.kind;cap.style.cssText=`left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h-4}px`; (c.part==='body'?body:inner).append(cap);faces.set(c.id,cap);}
   const rocker=document.createElement('div');rocker.className='dpad-art';body.append(rocker);
   const main=screens.main,side=screens.side;
   for(const [canvas,area,parent] of [[main,mainScreen,body],[side,sideScreen,inner]]){canvas.className='screen-canvas';canvas.style.cssText=`left:${area.x}px;top:${area.y}px;width:${area.w}px;height:${area.h}px`;canvas.setAttribute('aria-hidden','true');parent.append(canvas);}
   for(const {canvas,area,part} of screens.auxiliary){canvas.className='screen-canvas';canvas.style.cssText=`left:${area.x}px;top:${area.y}px;width:${area.w}px;height:${area.h}px`;canvas.setAttribute('aria-hidden','true');(part==='body'?body:inner).append(canvas);}
-  let scale=1;
+  let scale=1,currentPose=0;
   function resize(){scale=host.clientWidth/WIDTH;device.style.transform=`scale(${scale})`;}
-  function pose(progress){leaf.style.transform=`rotateY(${-180*progress}deg)`;leaf.style.zIndex=progress>0?'3':'1';}
+  function pose(progress){currentPose=progress;leaf.style.transform=`rotateY(${-180*progress}deg)`;leaf.style.zIndex=progress>0?'3':'1';host.dataset.latch=progress>=.99?'visible':'hidden';}
   function press(id,held){const c=controls.find(c=>c.id===id);if(c?.kind==='direction'){rocker.style.transform=held?'translateY(4px)':'none';return;}faces.get(id)?.classList.toggle('is-held',held);}
   function feedback(id,on){faces.get(id)?.classList.toggle('ack',on);}
   function setCapsVisible(visible){for(const face of faces.values())face.hidden=!visible;rocker.hidden=!visible;}
   function targets(){return controls.map(c=>({...c,left:c.x*scale,top:c.y*scale,width:c.w*scale,height:c.h*scale,clip:c.kind.includes('round')?'circle(50%)':'inset(0 round '+(c.kind==='direction'?0:4*scale)+'px)'}));}
   function measure(id){const c=controls.find(c=>c.id===id),r=(c?.kind==='direction'?rocker:faces.get(id)).getBoundingClientRect();return {x:r.x,y:r.y,z:0};}
-  return {resize,pose,press,feedback,setCapsVisible,targets,measure,dispose:()=>host.replaceChildren()};
+  function latchState(){return currentPose>=.99&&back.querySelector('[data-latch="exterior"]')!==null;}
+  return {resize,pose,press,feedback,setCapsVisible,targets,measure,latchState,dispose:()=>host.replaceChildren()};
 }

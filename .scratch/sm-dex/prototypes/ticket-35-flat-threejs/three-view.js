@@ -16,7 +16,7 @@ export function createThree(host,screens,onProjection,options={}){
   const keyLight=new THREE.DirectionalLight(0xfff3df,1.42);keyLight.position.set(-520,720,1000);scene.add(keyLight);
   const rimLight=new THREE.DirectionalLight(0x9fd6ff,.62);rimLight.position.set(720,-280,620);scene.add(rimLight);
   const materials=new Map(),geometries=new Set(),textures=new Set(),caps=new Map(),capBase=new Map();let width=940,height=704,currentPose=0;
-  let indicator=null,powered=true;
+  let indicator=null,latch=null,powered=true;
   const mat=(color,shine=35)=>{const key=color+'-'+shine;if(!materials.has(key))materials.set(key,new THREE.MeshPhongMaterial({color,shininess:shine,specular:0x18232a}));return materials.get(key);};
   function shape(points){const s=new THREE.Shape();points.forEach(([x,y],i)=>{if(i===0)s.moveTo(x-HINGE,352-y);else s.lineTo(x-HINGE,352-y);});s.closePath();return s;}
   function poly(parent,points,color,z,depth=4,bevel=1){const g=new THREE.ExtrudeGeometry(shape(points),{depth,steps:1,bevelEnabled:bevel>0,bevelSize:bevel,bevelThickness:bevel,bevelSegments:2,curveSegments:6});geometries.add(g);const m=new THREE.Mesh(g,mat(color));m.position.z=z;parent.add(m);return m;}
@@ -47,6 +47,8 @@ export function createThree(host,screens,onProjection,options={}){
     // The back belongs to the same physical leaf; these recesses rotate with it.
     for(const y of [588,601,614])box(lid,713,y,116,5,0x751630,-17,1,2);
     line(lid,[[483,134],[598,134],[696,192],[867,192],[867,628],[852,645],[483,645],[483,134]],0xf0576b,-16.8);
+    const latchWell=poly(lid,[[838,388],[804,405],[833,434]],0x5b1020,-18,3,1);edge(lid,latchWell,0x27050d);
+    latch=poly(lid,[[833,392],[809,405],[828,429]],0xe7c631,-20,3,1);edge(lid,latch,0x4a0b16);
     box(lid,512,228,327,126,0x1a292b,1,2,5);
     for(const [x,w] of [[519,145],[681,151]])box(lid,x,592,w,45,0x1a2a2b,1,2,3);
     for(const x of [678,693,708,723])for(const y of [540,549])box(lid,x,y,7,2,0x74192f,2,1,0);
@@ -113,7 +115,7 @@ export function createThree(host,screens,onProjection,options={}){
   function watchDensity(){densityQuery=matchMedia(`(resolution: ${devicePixelRatio}dppx)`);densityQuery.addEventListener('change',densityChanged,{once:true});}
   function densityChanged(){resize();onProjection();watchDensity();}
   watchDensity();
-  function pose(p){currentPose=p;pivot.rotation.y=-Math.PI*p;render();}
+  function pose(p){currentPose=p;pivot.rotation.y=-Math.PI*p;host.dataset.latch=!buttonsOnly&&p>=.99?'visible':'hidden';render();}
   function view(preset){
     if(preset==='front'){root.rotation.set(0,0,0);root.scale.setScalar(1);root.position.x=HINGE-WIDTH/2;}
     else if(preset==='hinge'){root.rotation.set(-.10,.52,0);root.scale.setScalar(.90);root.position.x=0;}
@@ -130,6 +132,7 @@ export function createThree(host,screens,onProjection,options={}){
     render();
   }
   function indicatorState(){return indicator?indicator.material.emissiveIntensity>0&&indicator.light.intensity>0:false;}
+  function latchState(){return !buttonsOnly&&latch!==null&&currentPose>=.99;}
   function update(power=powered){
     powered=power;
     if(indicator){indicator.material.emissiveIntensity=powered?.9:0;indicator.material.color.setHex(powered?0x238bb1:0x13435b);indicator.light.intensity=powered?900:0;host.dataset.indicator=indicatorState()?'on':'off';}
@@ -152,5 +155,5 @@ export function createThree(host,screens,onProjection,options={}){
     );
     return checks;
   }
-  resize();view(buttonsOnly?'front':'angle');return {resize,pose,view,press,feedback,targets,measure,update,dispose,renderChecks,indicatorState};
+  resize();view(buttonsOnly?'front':'angle');return {resize,pose,view,press,feedback,targets,measure,update,dispose,renderChecks,indicatorState,latchState};
 }

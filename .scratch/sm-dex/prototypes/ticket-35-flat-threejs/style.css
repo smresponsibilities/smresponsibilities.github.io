@@ -21,3 +21,13 @@
 .cap-art.round-yellow{box-shadow:inset 0 0 0 1px #947324,inset 1px 2px 0 #f8e58e,inset -1px -1px 0 #a2883166}
 .dpad-art{filter:drop-shadow(0 1px 0 #1f2830);border-top:2px solid #5c6970}
 #shell-flat-host{position:absolute;inset:0;pointer-events:none;z-index:2}
+/* Ticket 41: comparison clarity and visible interaction states. */
+button{touch-action:manipulation;-webkit-tap-highlight-color:#fff2a033}
+.skip-link{position:fixed;z-index:20;top:-100px;left:8px;padding:8px 12px;background:#f3f5e6;color:#202920;border-radius:4px}
+.skip-link:focus-visible{top:8px}
+h1,.reader h2{text-wrap:balance}
+.toolbar button:hover:not(:disabled),.notes button:hover:not(:disabled),.accessible-controls button:hover:not(:disabled){border-color:#69717d;background:#292c34;color:#fff}
+.toolbar button:active:not(:disabled),.notes button:active:not(:disabled),.accessible-controls button:active:not(:disabled){transform:translateY(1px);box-shadow:inset 0 2px 0 #080c10}
+.physical:hover:not(:disabled){background:#fff2a012;box-shadow:inset 0 0 0 1px #fff2a04d}
+.notes .verdict{color:#c8d1da}
+@media(max-width:400px){.switcher button[data-variant]{font-size:0;padding-inline:6px}.switcher button[data-variant]::after{content:attr(data-short);font:10px Departure,monospace}}

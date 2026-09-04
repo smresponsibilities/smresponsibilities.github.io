@@ -1,6 +1,6 @@
-# Flat, Three.js and hybrid Kanto comparison
+# Four-way Kanto device comparison
 
-Tickets 35–39. Local-only, self-authored functional device UI. No version is approved final art.
+Tickets 35–41. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -10,6 +10,7 @@ Use the existing server, `python -m http.server 4173 --bind 127.0.0.1` from the 
 - [Three.js version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=three)
 - [Hybrid version](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=hybrid)
 - [Angled hybrid](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=hybrid&view=angle)
+- [Three.js shell with quiet caps](http://127.0.0.1:4173/.scratch/sm-dex/prototypes/ticket-35-flat-threejs/?variant=shell-flat)
 
 The bottom switcher changes `?variant=` without resetting the current portfolio entry, power or
 lid state. The flat version is the default. Nothing is submitted or persisted across reloads.
@@ -85,8 +86,9 @@ choices into one front elevation is a disclosed design interpretation, not a pix
 
 The leaf's outer silhouette is the mirror of its inner silhouette. The closed anime reference
 in `research/restart/KANTO-20-MORE.md` supports an exposed lens/header and lower cover slots.
-The triangle is deliberately omitted following the user's earlier instruction. Depth, material
-response, unseen surfaces and hinge clearance are reconstructed. The 3D axis is at x=466 and z=18.
+The yellow triangle is an exterior latch/closure cue, not a control. It shares the moving cover,
+stays behind the open leaf and appears on the closed exterior. Depth, material response, unseen
+surfaces and hinge clearance are reconstructed. The 3D axis is at x=466 and z=18.
 Open inner faces are coplanar; closed inner faces are 36 units apart for the taller caps. This is
 model geometry, not a measurement of an original prop or an inspected canonical hinge sequence.
 
@@ -256,3 +258,24 @@ and the inverse hybrid each pass 63/63 input/render assertions at the default de
 at 375 × 774. Target and neighbour drift remain zero, reduced-motion feedback remains static, the
 power-linked blue indicator still passes, and no console errors were recorded. The temporary phone
 viewport was reset. These checks prove interaction and fit, not final visual approval.
+
+## Ticket 41, exterior latch and four-way verdict
+
+The user-supplied closed-cover reference restores the yellow triangular latch. Flat and hybrid use
+one SVG polygon on the mirrored exterior face. Full Three.js and 3D / quiet caps use one extruded
+yellow mesh and a dark recess on the same rotating leaf as the screen and controls. It is visible
+only at the closed endpoint, is absent from the control manifest and never receives a hit target.
+After visual review, its closed-face inset moved from 14 to 34 model units to match the reference
+proportion instead of clinging to the free edge.
+
+All four variants now use clearer comparison names and matching decision notes. Device targets gain
+a subtle hover outline without changing their bounds. Toolbar and readable-view buttons gain hover
+and active feedback. The page adds a skip link, theme colour and phone-specific short switcher labels.
+At 375 × 774, the switcher shrank from 433px to 272px and the document has no horizontal overflow.
+
+At the default desktop viewport and 375 × 774, flat passes 59/59 checks, full Three.js 66/66,
+hybrid 61/61 and 3D / quiet caps 66/66. The added checks cover closed latch visibility, open
+latch concealment and the absence of a latch input target.
+Syntax, whitespace and the focused interface-guideline audit pass. Full Three.js is the recommended
+base because casing, hinge, latch, controls, press depth, lid motion and projected hit targets remain
+in one coordinate system. Flat remains the line-art reference; both hybrids remain treatment studies.
