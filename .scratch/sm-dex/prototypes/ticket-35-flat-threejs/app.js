@@ -1,6 +1,6 @@
 import {controls,initial,reduce,screenData,sections,WIDTH} from './model.js';
 import {createScreens} from './screens.js';
-import {createFlat} from './flat.js?v=48';
+import {createFlat} from './flat.js?v=49';
 const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens),variants=['flat','three','hybrid','shell-flat'];
 let state=initial(),variant='flat',three=null,hybrid=null,shellFlat=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
 const views={flat:'front',three:'angle',hybrid:'front','shell-flat':'angle'},requested=new URL(location.href),requestedVariant=requested.searchParams.get('variant'),requestedView=requested.searchParams.get('view');
@@ -75,9 +75,9 @@ let switchSerial=0;
 async function setVariant(next){
   cancel();clearFeedback();const serial=++switchSerial;
   if(!variants.includes(next))next='flat';
-  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=48');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
-  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=48');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets(),latchState:()=>flat.latchState()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
-  if(next==='shell-flat'&&!shellFlat){$('hint').textContent='Loading the inverse hybrid…';try{const {createThree}=await import('./three-view.js?v=48');shellFlat=createThree($('shell-flat-host'),screens,updateTargets,{flatButtons:true});}catch(error){$('hint').textContent='Inverse hybrid unavailable: '+error.message;return;}}
+  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=49');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
+  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=49');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets(),latchState:()=>flat.latchState(),latchMountState:()=>flat.latchMountState()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
+  if(next==='shell-flat'&&!shellFlat){$('hint').textContent='Loading the inverse hybrid…';try{const {createThree}=await import('./three-view.js?v=49');shellFlat=createThree($('shell-flat-host'),screens,updateTargets,{flatButtons:true});}catch(error){$('hint').textContent='Inverse hybrid unavailable: '+error.message;return;}}
   if(serial!==switchSerial)return;variant=next;const url=new URL(location.href);url.searchParams.set('variant',variant);history.replaceState(null,'',url);
   $('flat-host').hidden=['three','shell-flat'].includes(variant);$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('shell-flat-host').hidden=variant!=='shell-flat';$('view-tools').hidden=variant==='flat';$('hinge-view').hidden=!['three','shell-flat'].includes(variant);flat.setCapsVisible(variant!=='hybrid');
   document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.variant===variant)));$('device-stage').dataset.variant=variant;
@@ -112,6 +112,7 @@ $('run-checks').addEventListener('click',()=>{
   if(['three','shell-flat'].includes(variant))check('Power-off extinguishes blue indicator',activeRenderer().indicatorState()===false);
   state={...state,open:false};progress=1;render();check('Closed removes screen accessibility',$('reader-content').inert&&$('screen-summary').getAttribute('aria-hidden')==='true'&&allButtons.every(b=>b.disabled));
   check('Closed exterior shows yellow latch',activeRenderer().latchState?.()===true);
+  check('Closed exterior mark meets cover rail',activeRenderer().latchMountState?.()===true);
   check('Exterior latch is not an input target',!controls.some(c=>c.id==='latch')&&!document.querySelector('[data-latch] button'));
   state={...state,open:true,power:true};progress=0;render();check('Reopen resumes selection',state.section===1&&state.mode==='list');
   check('Open interior hides exterior latch',activeRenderer().latchState?.()===false);

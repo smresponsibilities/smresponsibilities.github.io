@@ -297,3 +297,20 @@ variants land on the same closed coordinates. The mark remains absent from the c
 Flat passes 59/59 checks, full Three.js 66/66, hybrid 61/61 and 3D / quiet caps 66/66 after this
 change. Syntax and whitespace checks pass, and the final browser run records no warnings or errors.
 Detailed measurements and source limits are in `research/restart/KANTO-LATCH-ALIGNMENT.md`.
+
+## Ticket 43, exterior mark mounting correction
+
+The screenshot crop exposed a separate continuity error after ticket 42's measurement: the yellow
+face was correctly placed, but its dark outline started to the right of the cover's vertical rail.
+That gap made the mark look detached. The measured yellow face remains exactly
+`80,372 105,388 82,409`.
+
+Flat now draws a separate shared dark mounting well behind the yellow face, matching the existing
+Three.js construction. The well begins at x=75, the same x coordinate as the exterior highlight
+rail, so the two shapes overlap instead of leaving a visible gap. Both render paths read the same
+well points from `model.js`. The mark remains exterior-only and non-interactive. A closed-state
+check now fails if the mounting well no longer reaches the rail.
+
+Flat passes 60/60 checks, full Three.js 67/67, hybrid 62/62 and 3D / quiet caps 67/67. The
+settled flat and angled full-Three closed views were inspected in-browser; no warnings or errors
+were recorded.

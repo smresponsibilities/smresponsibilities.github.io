@@ -8,7 +8,9 @@ export const sideScreen = {x:519,y:235,w:313,h:112};
 export const dpadOutline = [[348,544],[374,544],[374,573],[403,573],[403,599],[374,599],[374,628],[348,628],[348,599],[319,599],[319,573],[348,573]];
 // Rectified from the supplied closed-cover reference, then mapped into this cover's local plane.
 export const outerLatchOutline = [[80,372],[105,388],[82,409]];
-export const outerLatchWellOutline = [[77,368],[111,387],[78,415]];
+// Dark mounting well meets the exterior highlight rail. The measured yellow face stays inset.
+export const outerLatchRailX = 75;
+export const outerLatchWellOutline = [[75,368],[111,387],[76,415]];
 const button = (id,label,action,x,y,w,h,kind='dark',part='body',mark='')=>({id,label,action,x,y,w,h,kind,part,mark});
 export const controls = [
   button('back','Back one level','back',84,523,49,49,'round'),

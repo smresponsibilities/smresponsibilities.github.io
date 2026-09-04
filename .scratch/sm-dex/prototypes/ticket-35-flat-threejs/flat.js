@@ -1,4 +1,4 @@
-import {controls,bodyOutline,lidOutline,bezelOutline,mainScreen,sideScreen,dpadOutline,outerLatchOutline,polygon,WIDTH,HEIGHT,HINGE} from './model.js';
+import {controls,bodyOutline,lidOutline,bezelOutline,mainScreen,sideScreen,dpadOutline,outerLatchOutline,outerLatchWellOutline,outerLatchRailX,polygon,WIDTH,HEIGHT,HINGE} from './model.js';
 const svg=body=>`<svg viewBox="0 0 ${WIDTH} ${HEIGHT}" xmlns="http://www.w3.org/2000/svg" fill="none" aria-hidden="true">${body}</svg>`;
 const poly=(points,fill,stroke='#530b1c',width=3)=>`<polygon points="${polygon(points)}" fill="${fill}" stroke="${stroke}" stroke-width="${width}" stroke-linejoin="round"/>`;
 const rect=(x,y,w,h,fill,r=4,stroke='#550c1c')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${fill}" stroke="${stroke}" stroke-width="2"/>`;
@@ -23,7 +23,7 @@ export function createFlat(host,screens){
     <path d="M678 540H685M693 540H700M708 540H715M723 540H730M678 549H685M693 549H700M708 549H715M723 549H730" stroke="#6a1930" stroke-width="3"/>`);
   // Mirror the same leaf silhouette. Its exterior is not a separately stretched illustration.
   const mirrored=lidOutline.map(([x,y])=>[2*HINGE-x,y]);
-  back.innerHTML=svg(`${poly(mirrored,'#c62b44')}<path d="M65 192H236L334 134H449V645H82Q65 645 65 628Z" stroke="#740c27" stroke-width="3"/><path d="M75 202V625" stroke="#f36879" stroke-width="3"/><polygon data-latch="exterior" points="${polygon(outerLatchOutline)}" fill="#e7c631" stroke="#5b1020" stroke-width="4" stroke-linejoin="round"/><path d="M103 588H219M103 601H219M103 614H219" stroke="#6a132c" stroke-width="7" stroke-linecap="round"/>`);
+  back.innerHTML=svg(`${poly(mirrored,'#c62b44')}<path d="M65 192H236L334 134H449V645H82Q65 645 65 628Z" stroke="#740c27" stroke-width="3"/><path d="M${outerLatchRailX} 202V625" stroke="#f36879" stroke-width="3"/><polygon data-latch-well="exterior" points="${polygon(outerLatchWellOutline)}" fill="#5b1020"/><polygon data-latch="exterior" points="${polygon(outerLatchOutline)}" fill="#e7c631"/><path d="M103 588H219M103 601H219M103 614H219" stroke="#6a132c" stroke-width="7" stroke-linecap="round"/>`);
   host.querySelector('.flat-hinge').innerHTML=svg(`<defs><linearGradient id="hinge"><stop stop-color="#6c0d27"/><stop offset=".35" stop-color="#e84a60"/><stop offset=".65" stop-color="#ce2c48"/><stop offset="1" stop-color="#690c25"/></linearGradient></defs>${rect(451,115,29,548,'url(#hinge)',9,'#6c1027')}<path d="M452 143H478M452 152H478M452 619H478M452 628H478" stroke="#740e29" stroke-width="3"/>`);
   const faces=new Map();for(const c of controls){if(c.kind==='direction')continue;const cap=document.createElement('div');cap.className='cap-art '+c.kind;cap.style.cssText=`left:${c.x}px;top:${c.y}px;width:${c.w}px;height:${c.h-4}px`; (c.part==='body'?body:inner).append(cap);faces.set(c.id,cap);}
   const rocker=document.createElement('div');rocker.className='dpad-art';body.append(rocker);
@@ -39,5 +39,6 @@ export function createFlat(host,screens){
   function targets(){return controls.map(c=>({...c,left:c.x*scale,top:c.y*scale,width:c.w*scale,height:c.h*scale,clip:c.kind.includes('round')?'circle(50%)':'inset(0 round '+(c.kind==='direction'?0:4*scale)+'px)'}));}
   function measure(id){const c=controls.find(c=>c.id===id),r=(c?.kind==='direction'?rocker:faces.get(id)).getBoundingClientRect();return {x:r.x,y:r.y,z:0};}
   function latchState(){return currentPose>=.99&&back.querySelector('[data-latch="exterior"]')!==null;}
-  return {resize,pose,press,feedback,setCapsVisible,targets,measure,latchState,dispose:()=>host.replaceChildren()};
+  function latchMountState(){return Math.min(...outerLatchWellOutline.map(([x])=>x))<=outerLatchRailX;}
+  return {resize,pose,press,feedback,setCapsVisible,targets,measure,latchState,latchMountState,dispose:()=>host.replaceChildren()};
 }

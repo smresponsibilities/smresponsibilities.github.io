@@ -1,5 +1,5 @@
 import * as THREE from './vendor/three.module.js';
-import {controls,bodyOutline,lidOutline,bezelOutline,dpadOutline,outerLatchOutline,outerLatchWellOutline,mainScreen,sideScreen,WIDTH,HEIGHT,HINGE} from './model.js';
+import {controls,bodyOutline,lidOutline,bezelOutline,dpadOutline,outerLatchOutline,outerLatchWellOutline,outerLatchRailX,mainScreen,sideScreen,WIDTH,HEIGHT,HINGE} from './model.js';
 
 export function createThree(host,screens,onProjection,options={}){
   const buttonsOnly=options.buttonsOnly===true;
@@ -134,6 +134,7 @@ export function createThree(host,screens,onProjection,options={}){
   }
   function indicatorState(){return indicator?indicator.material.emissiveIntensity>0&&indicator.light.intensity>0:false;}
   function latchState(){return !buttonsOnly&&latch!==null&&currentPose>=.99;}
+  function latchMountState(){return !buttonsOnly&&Math.min(...outerLatchWellOutline.map(([x])=>x))<=outerLatchRailX;}
   function update(power=powered){
     powered=power;
     if(indicator){indicator.material.emissiveIntensity=powered?.9:0;indicator.material.color.setHex(powered?0x238bb1:0x13435b);indicator.light.intensity=powered?900:0;host.dataset.indicator=indicatorState()?'on':'off';}
@@ -156,5 +157,5 @@ export function createThree(host,screens,onProjection,options={}){
     );
     return checks;
   }
-  resize();view(buttonsOnly?'front':'angle');return {resize,pose,view,press,feedback,targets,measure,update,dispose,renderChecks,indicatorState,latchState};
+  resize();view(buttonsOnly?'front':'angle');return {resize,pose,view,press,feedback,targets,measure,update,dispose,renderChecks,indicatorState,latchState,latchMountState};
 }
