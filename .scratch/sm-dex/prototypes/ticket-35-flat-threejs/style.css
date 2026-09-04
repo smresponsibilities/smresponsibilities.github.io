@@ -20,3 +20,4 @@
 .cap-art.white{box-shadow:inset 0 0 0 1px #6f796f,inset 1px 2px 0 #fffef3,inset -1px -1px 0 #a0ada766}
 .cap-art.round-yellow{box-shadow:inset 0 0 0 1px #947324,inset 1px 2px 0 #f8e58e,inset -1px -1px 0 #a2883166}
 .dpad-art{filter:drop-shadow(0 1px 0 #1f2830);border-top:2px solid #5c6970}
+#shell-flat-host{position:absolute;inset:0;pointer-events:none;z-index:2}

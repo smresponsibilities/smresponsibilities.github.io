@@ -1,16 +1,16 @@
 import {controls,initial,reduce,screenData,sections,WIDTH} from './model.js';
 import {createScreens} from './screens.js';
 import {createFlat} from './flat.js?v=37';
-const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens),variants=['flat','three','hybrid'];
-let state=initial(),variant='flat',three=null,hybrid=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
-const views={flat:'front',three:'angle',hybrid:'front'},requested=new URL(location.href),requestedVariant=requested.searchParams.get('variant'),requestedView=requested.searchParams.get('view');
-if(variants.includes(requestedVariant)&&['front','angle','hinge'].includes(requestedView)&&requestedVariant!=='flat'&&(requestedVariant==='three'||requestedView!=='hinge'))views[requestedVariant]=requestedView;
+const $=id=>document.getElementById(id),screens=createScreens(),flat=createFlat($('flat-host'),screens),variants=['flat','three','hybrid','shell-flat'];
+let state=initial(),variant='flat',three=null,hybrid=null,shellFlat=null,pending=null,progress=0,moving=false,animation=0,feedbackTimer=0,activeFeedback=null;
+const views={flat:'front',three:'angle',hybrid:'front','shell-flat':'angle'},requested=new URL(location.href),requestedVariant=requested.searchParams.get('variant'),requestedView=requested.searchParams.get('view');
+if(variants.includes(requestedVariant)&&['front','angle','hinge'].includes(requestedView)&&requestedVariant!=='flat'&&(['three','shell-flat'].includes(requestedVariant)||requestedView!=='hinge'))views[requestedVariant]=requestedView;
 const motion=matchMedia('(prefers-reduced-motion: reduce)'),reduced=()=>motion.matches||$('reduce-motion').checked;
 const physical=new Map(),accessible=new Map(),allButtons=[];
 const escaped=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const activeRenderer=()=>variant==='three'&&three?three:variant==='hybrid'&&hybrid?hybrid:flat;
+const activeRenderer=()=>variant==='three'&&three?three:variant==='hybrid'&&hybrid?hybrid:variant==='shell-flat'&&shellFlat?shellFlat:flat;
 function updateTargets(){for(const t of activeRenderer().targets()){const b=physical.get(t.id);Object.assign(b.style,{left:t.left+'px',top:t.top+'px',width:t.width+'px',height:t.height+'px',clipPath:t.clip});}}
-function draw(){screens.draw(state);three?.update();flat.pose(progress);three?.pose(progress);hybrid?.pose(progress);updateTargets();}
+function draw(){screens.draw(state);three?.update(state.power);shellFlat?.update(state.power);flat.pose(progress);three?.pose(progress);hybrid?.pose(progress);shellFlat?.pose(progress);updateTargets();}
 function render(){
   const d=screenData(state);document.body.classList.toggle('reduced',reduced());
   $('lid-toggle').textContent=state.open?'Close device':'Open device';$('lid-toggle').setAttribute('aria-expanded',String(state.open));
@@ -75,18 +75,20 @@ let switchSerial=0;
 async function setVariant(next){
   cancel();clearFeedback();const serial=++switchSerial;
   if(!variants.includes(next))next='flat';
-  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=37');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
-  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=37');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
+  if(next==='three'&&!three){$('hint').textContent='Loading the 3D device…';try{const {createThree}=await import('./three-view.js?v=41');three=createThree($('three-host'),screens,updateTargets);}catch(error){$('hint').textContent='3D unavailable: '+error.message;return;}}
+  if(next==='hybrid'&&!hybrid){$('hint').textContent='Loading the hybrid controls…';try{const {createThree}=await import('./three-view.js?v=41');const overlay=createThree($('hybrid-host'),screens,updateTargets,{buttonsOnly:true});hybrid={...overlay,targets:()=>flat.targets()};}catch(error){$('hint').textContent='Hybrid unavailable: '+error.message;return;}}
+  if(next==='shell-flat'&&!shellFlat){$('hint').textContent='Loading the inverse hybrid…';try{const {createThree}=await import('./three-view.js?v=41');shellFlat=createThree($('shell-flat-host'),screens,updateTargets,{flatButtons:true});}catch(error){$('hint').textContent='Inverse hybrid unavailable: '+error.message;return;}}
   if(serial!==switchSerial)return;variant=next;const url=new URL(location.href);url.searchParams.set('variant',variant);history.replaceState(null,'',url);
-  $('flat-host').hidden=variant==='three';$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('view-tools').hidden=variant==='flat';$('hinge-view').hidden=variant!=='three';flat.setCapsVisible(variant!=='hybrid');
+  $('flat-host').hidden=['three','shell-flat'].includes(variant);$('three-host').hidden=variant!=='three';$('hybrid-host').hidden=variant!=='hybrid';$('shell-flat-host').hidden=variant!=='shell-flat';$('view-tools').hidden=variant==='flat';$('hinge-view').hidden=!['three','shell-flat'].includes(variant);flat.setCapsVisible(variant!=='hybrid');
   document.querySelectorAll('[data-variant]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.variant===variant)));$('device-stage').dataset.variant=variant;
-  flat.resize();three?.resize();hybrid?.resize();setView(views[variant]);render();$('hint').textContent=variant==='flat'?'Flat SVG / DOM. Shallower button shadows.':variant==='three'?'Three.js. Pixel screens use nearest sampling; front view is sharpest.':'Hybrid. Front or angled view keeps casing, caps and targets together.';
+  flat.resize();three?.resize();hybrid?.resize();shellFlat?.resize();setView(views[variant]);render();
+  $('hint').textContent={flat:'Flat SVG / DOM. Shallower button shadows.',three:'Three.js. Left-biased angle, lit blue power indicator, deeper raised controls.',hybrid:'Hybrid. Flat casing with projected 3D controls.','shell-flat':'Inverse hybrid. 3D casing with flat-style faces on raised, outlined caps.'}[variant];
 }
 document.querySelectorAll('[data-variant]').forEach(b=>b.addEventListener('click',()=>setVariant(b.dataset.variant)));
 const cycle=direction=>setVariant(variants[(variants.indexOf(variant)+direction+variants.length)%variants.length]);$('previous-variant').addEventListener('click',()=>cycle(-1));$('next-variant').addEventListener('click',()=>cycle(1));
 function setView(preset){
   cancel();views[variant]=preset;$('device-rig').dataset.view=variant==='hybrid'?preset:'front';$('device-stage').dataset.view=preset;
-  if(variant==='three')three?.view(preset);
+  if(variant==='three')three?.view(preset);else if(variant==='shell-flat')shellFlat?.view(preset);
   for(const [id,value] of [['front-view','front'],['angle-view','angle'],['hinge-view','hinge']])$(id).setAttribute('aria-pressed',String(value===preset));
   const url=new URL(location.href);if(variant==='flat')url.searchParams.delete('view');else url.searchParams.set('view',preset);history.replaceState(null,'',url);updateTargets();
 }
@@ -94,9 +96,10 @@ for(const [id,preset] of [['front-view','front'],['angle-view','angle'],['hinge-
 document.querySelector('.switcher').addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();e.stopPropagation();cycle(e.key==='ArrowLeft'?-1:1);}});
 window.addEventListener('keydown',e=>{if(e.defaultPrevented||e.repeat||pending||e.target.closest('input,select,textarea,[contenteditable]')||(e.target.closest('button')&&!e.target.closest('.physical')))return;const map={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',Enter:'entry',Escape:'back',a:'entry',b:'back'};const c=controls.find(c=>c.id===map[e.key]);if(c){e.preventDefault();clearFeedback();action(c,'Keyboard shortcut');}});
 window.addEventListener('popstate',()=>setVariant(new URL(location.href).searchParams.get('variant')));
-new ResizeObserver(()=>{flat.resize();three?.resize();hybrid?.resize();updateTargets();}).observe($('device-stage'));
+new ResizeObserver(()=>{flat.resize();three?.resize();hybrid?.resize();shellFlat?.resize();updateTargets();}).observe($('device-stage'));
 $('run-checks').addEventListener('click',()=>{
   cancel();clearFeedback();cancelAnimationFrame(animation);moving=false;progress=0;state=initial();render();const checks=[],check=(name,pass)=>checks.push({name,pass});
+  for(const result of activeRenderer().renderChecks?.()||[])check(result.name,result.pass);
   const emit=(b,type,kind='mouse',point,repeat=false)=>{const r=b.getBoundingClientRect(),p=point||[r.x+r.width/2,r.y+r.height/2];b.dispatchEvent(new PointerEvent(type,{bubbles:true,cancelable:true,isPrimary:true,pointerId:19,pointerType:kind,button:0,buttons:type==='pointerup'?0:1,clientX:p[0],clientY:p[1]}));};
   for(const c of controls){if(!state.power){state={...state,power:true};render();}const b=physical.get(c.id);b.scrollIntoView({block:'center',behavior:'instant'});const before=state.accepted;emit(b,'pointerdown');emit(b,'pointerup');check(c.id+' accepts once',state.accepted===before+1);check(c.id+' targets stay fixed',Number($('press-metrics').dataset.drift)<.01);}
   state=initial();render();const b=physical.get('key-2');b.scrollIntoView({block:'center',behavior:'instant'});const r=b.getBoundingClientRect();emit(b,'pointerdown');emit(b,'pointermove','mouse',[r.right+5,r.top+r.height/2]);emit(b,'pointerup','mouse',[r.right+5,r.top+r.height/2]);check('Off-target release cancels',state.accepted===0&&state.cancelled===1&&!document.querySelector('.ripple'));
@@ -106,9 +109,11 @@ $('run-checks').addEventListener('click',()=>{
   check('Ripple remains pointer-inert',getComputedStyle(b).overflow==='hidden'&&(!b.querySelector('.ripple')||getComputedStyle(b.querySelector('.ripple')).pointerEvents==='none'));
   const previousReduced=$('reduce-motion').checked;$('reduce-motion').checked=true;render();clearFeedback();emit(b,'pointerdown');emit(b,'pointerup');check('Reduced motion has zero travel and static feedback',Number($('press-metrics').dataset.travel)===0&&b.dataset.static==='true'&&!document.querySelector('.ripple'));$('reduce-motion').checked=previousReduced;render();
   state={...state,power:false};render();check('Power-off disables controls',allButtons.filter(b=>b.dataset.action!=='power').every(b=>b.disabled));
+  if(['three','shell-flat'].includes(variant))check('Power-off extinguishes blue indicator',activeRenderer().indicatorState()===false);
   state={...state,open:false};progress=1;render();check('Closed removes screen accessibility',$('reader-content').inert&&$('screen-summary').getAttribute('aria-hidden')==='true'&&allButtons.every(b=>b.disabled));
   state={...state,open:true,power:true};progress=0;render();check('Reopen resumes selection',state.section===1&&state.mode==='list');
+  if(['three','shell-flat'].includes(variant))check('Power-on relights blue indicator',activeRenderer().indicatorState()===true);
   $('check-results').replaceChildren(...checks.map(c=>{const li=document.createElement('li');li.textContent=(c.pass?'PASS · ':'FAIL · ')+c.name;li.dataset.pass=c.pass;return li;}));$('check-results').dataset.passed=checks.filter(c=>c.pass).length;$('check-results').dataset.total=checks.length;$('check-results').scrollIntoView({block:'start',behavior:'instant'});
 });
 await document.fonts.load('12px Departure');render();await setVariant(new URL(location.href).searchParams.get('variant'));
-window.addEventListener('pagehide',()=>{cancelAnimationFrame(animation);clearTimeout(feedbackTimer);three?.dispose();hybrid?.dispose();},{once:true});
+window.addEventListener('pagehide',()=>{cancelAnimationFrame(animation);clearTimeout(feedbackTimer);three?.dispose();hybrid?.dispose();shellFlat?.dispose();},{once:true});

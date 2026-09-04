@@ -1,6 +1,6 @@
 # Flat, Three.js and hybrid Kanto comparison
 
-Tickets 35–37. Local-only, self-authored functional device UI. No version is approved final art.
+Tickets 35–39. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -182,3 +182,77 @@ Hybrid angle was visually checked open and closed with controls disabled when cl
 `evidence/ticket37-*` contains before/after captures and the check summary. Browser interaction
 was interrupted during this ticket; the local Python server was restarted and final checks ran
 in a separate tab to avoid concurrent view changes. Production and root dependencies are untouched.
+
+## Ticket 38, sampling correction awaiting visual review
+
+Ticket 37's nearest-filter policy above is superseded. The user reported excessive pixelation.
+Matched screenshots show nearest minification dropping fine glyph strokes. All five textures now
+use trilinear mipmapped minification, linear magnification and anisotropy capped at eight or the
+GPU limit. Geometry antialiasing stays enabled. Resize refreshes the device pixel ratio, and a
+resolution-change listener handles density changes without a stage resize. Disposal removes it.
+The Three.js textures/fundamentals skills and the
+[official Texture documentation](https://threejs.org/docs/pages/Texture.html) guided this change.
+Optional best-practices rule files were missing. No geometry, controls, fonts or layout changed.
+
+Runtime checks inspect actual texture and renderer properties. Old settings give 58/60 with two
+filtering failures. Corrected full Three.js passes 60/60 in front and angle at 575 × 574 and
+1280 × 720. At 575 × 574, hybrid front/angle pass 58/58 and flat passes 56/56. Native rocker and
+cyan-key clicks accept once, travel four units and report zero target drift. Native closing
+disables all internal controls. Reopening, syntax checks and whitespace checks pass; no console
+errors were recorded. A full native-button batch timed out, so it is not claimed as complete.
+
+The matched 1280 × 720, DPR 1.25 captures are `evidence/ticket38-angle-before.jpg` and
+`ticket38-angle-filtered.jpg`; `ticket38-narrow-after.jpg` records the reported narrow size.
+These checks do not establish subjective approval. Physical monitor-density transitions,
+alternate engines and source-pixel fidelity remain untested. Tiny device labels remain tiny.
+
+The user then reported a worse result. Inspection found their actual tab still running
+`app.js?v=37`, nearest/nearest filtering and a 711-pixel buffer for a 711.2 CSS-pixel canvas at
+DPR 1.25. The new code had only loaded in the isolated test tab. Their actual front-view tab
+was subsequently navigated to `?variant=three&view=front&v=38-final`. Await their review before
+further rendering changes. Temporary viewport overrides were reset. Changes remain uncommitted.
+
+## Ticket 39, blue indicator and casing-edge antialiasing
+
+The next request identifies two remaining issues: the large blue lens is a light, and the angled
+casing border is jagged. The lens now has its own emissive material and a short-range cyan point
+light. Both follow the existing power state. Closing does not extinguish it. It stays steady under
+reduced motion, has no hit target and cannot be pressed. The external reflection remains visible
+when the light is off. The [Three.js material guidance](https://threejs.org/docs/pages/MeshPhongMaterial.html)
+distinguishes that reflection from self-emission.
+
+Full Three.js now renders at two backing pixels per CSS pixel, with geometry antialiasing still
+enabled. This improves coverage along shallow angled edges on 1x and fractional-density displays.
+The buffer stays bounded at 2x, at most about 2.65 million pixels for the current device size.
+On the tested DPR 1.25 display this costs 2.56 times as many rendered pixels as native density.
+Hybrid keeps its previous capped native density. No silhouette, mesh geometry, control position,
+screen filter, font or flat shadow changed. Rendering remains on demand; no bloom or pulse was added.
+
+Full Three.js passes 63/63 checks in front and angle at 375 and 1280px, and angle at 774px.
+Native power-off/on and close/open confirm the indicator state; a native click on the lamp does
+not increase accepted actions. Flat and hybrid retain their existing checks. The matched 774 × 742,
+DPR 1.25 views are `evidence/ticket39-angle-before.jpg` and `ticket39-angle-after.jpg`.
+`ticket39-power-off.jpg` records the unlit lens. These are visual comparisons, not a claim that
+every shallow diagonal is perfectly smooth at every scale or that the casing is approved final art.
+JavaScript syntax/whitespace checks pass. GPU performance on other devices remains unmeasured.
+
+## Ticket 40, leftward angle and inverse hybrid
+
+The full Three.js angle now turns farther left, adds a slight counter-clockwise lean and scales to
+95 percent so the silhouette stays inside the stage. Front and hinge views are unchanged. This is
+a fixed comparison pose, not an orbit animation or user camera control.
+
+A fourth shareable version, `variant=shell-flat`, reverses the existing hybrid. It keeps the full
+Three.js casing, screens, lamp, hinge and projection but uses the flat version's simpler cap colours
+and forms. The first attempt made those meshes unlit and one unit deep; user review found that they
+looked printed onto the casing. The accepted revision uses seven-unit matte Phong slabs, dark wells,
+dark geometry edges and restrained highlights. The standard Three.js rectangular caps also grow
+from five to eight units and gain explicit dark edges. Round controls and the connected D-pad have
+matching wells and sidewall contrast. Both treatments still depress four model units.
+
+The fourth version remains one 3D scene. Its native HTML hit targets are projected from the same
+control coordinates as the visible meshes; there is no DOM artwork over the canvas. Full Three.js
+and the inverse hybrid each pass 63/63 input/render assertions at the default desktop viewport and
+at 375 × 774. Target and neighbour drift remain zero, reduced-motion feedback remains static, the
+power-linked blue indicator still passes, and no console errors were recorded. The temporary phone
+viewport was reset. These checks prove interaction and fit, not final visual approval.
