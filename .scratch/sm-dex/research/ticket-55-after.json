@@ -1,0 +1,72 @@
+[
+  {
+    "gen": "red",
+    "glossyCaps": 0,
+    "screens": [
+      {
+        "role": "main",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      },
+      {
+        "role": "side",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      }
+    ],
+    "collisions": []
+  },
+  {
+    "gen": "gold",
+    "glossyCaps": 0,
+    "screens": [
+      {
+        "role": "side",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      },
+      {
+        "role": "main",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      }
+    ],
+    "collisions": []
+  },
+  {
+    "gen": "ruby",
+    "glossyCaps": 0,
+    "screens": [
+      {
+        "role": "main",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      }
+    ],
+    "collisions": []
+  },
+  {
+    "gen": "diamond",
+    "glossyCaps": 0,
+    "screens": [
+      {
+        "role": "side",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      },
+      {
+        "role": "main",
+        "overflowY": 0,
+        "overflowX": 0,
+        "font": "12px"
+      }
+    ],
+    "collisions": []
+  }
+]

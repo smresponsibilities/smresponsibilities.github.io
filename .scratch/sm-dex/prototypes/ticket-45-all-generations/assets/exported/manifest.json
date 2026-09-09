@@ -1,0 +1,1145 @@
+{
+  "version": 1,
+  "format": "Authored layered SVG",
+  "deviceCount": 10,
+  "devices": [
+    {
+      "id": "red",
+      "generation": "I",
+      "region": "Kanto",
+      "games": "Red / Blue",
+      "reference": "https://archives.bulbagarden.net/wiki/File:RG_Pok%C3%A9dex.png",
+      "note": "The selected ticket-35 front elevation combines RG and anime references. The exterior keeps ticket 44’s level arrow. Hidden surfaces and hinge clearance are reconstructed.",
+      "width": 940,
+      "height": 704,
+      "open": "red-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "red-body.svg",
+          "motion": null
+        },
+        {
+          "id": "lid",
+          "file": "red-lid.svg",
+          "motion": {
+            "type": "hinge-y",
+            "origin": [
+              466,
+              0
+            ]
+          },
+          "outer": "red-lid-outer.svg"
+        },
+        {
+          "id": "hinge",
+          "file": "red-hinge.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "red-controls.svg",
+      "controls": [
+        {
+          "id": "back",
+          "label": "Back one level",
+          "action": "back",
+          "x": 84,
+          "y": 523,
+          "w": 49,
+          "h": 49,
+          "kind": "round",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "round",
+          "fill": "#21262c"
+        },
+        {
+          "id": "menu",
+          "label": "Main menu",
+          "action": "menu",
+          "x": 161,
+          "y": 519,
+          "w": 62,
+          "h": 18,
+          "kind": "red",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "rect",
+          "fill": "#d7424c"
+        },
+        {
+          "id": "entry",
+          "label": "Open selected entry",
+          "action": "confirm",
+          "x": 237,
+          "y": 519,
+          "w": 62,
+          "h": 18,
+          "kind": "blue",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "rect",
+          "fill": "#457fbc"
+        },
+        {
+          "id": "bezel",
+          "label": "Change detail page",
+          "action": "page",
+          "x": 104,
+          "y": 461,
+          "w": 20,
+          "h": 20,
+          "kind": "round-red",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "round",
+          "fill": "#d7424c"
+        },
+        {
+          "id": "up",
+          "label": "Previous item",
+          "action": "up",
+          "x": 348,
+          "y": 544,
+          "w": 26,
+          "h": 27,
+          "kind": "direction",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "direction",
+          "fill": "#20262b",
+          "rocker": "red-pad"
+        },
+        {
+          "id": "left",
+          "label": "Previous page",
+          "action": "left",
+          "x": 319,
+          "y": 573,
+          "w": 27,
+          "h": 26,
+          "kind": "direction",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "direction",
+          "fill": "#20262b",
+          "rocker": "red-pad"
+        },
+        {
+          "id": "right",
+          "label": "Next page",
+          "action": "right",
+          "x": 376,
+          "y": 573,
+          "w": 27,
+          "h": 26,
+          "kind": "direction",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "direction",
+          "fill": "#20262b",
+          "rocker": "red-pad"
+        },
+        {
+          "id": "down",
+          "label": "Next item",
+          "action": "down",
+          "x": 348,
+          "y": 601,
+          "w": 26,
+          "h": 27,
+          "kind": "direction",
+          "part": "body",
+          "mark": "",
+          "layer": "body",
+          "shape": "direction",
+          "fill": "#20262b",
+          "rocker": "red-pad"
+        },
+        {
+          "id": "key-1",
+          "label": "Profile",
+          "action": "section-0",
+          "x": 519,
+          "y": 382,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-2",
+          "label": "Moves",
+          "action": "section-1",
+          "x": 583,
+          "y": 382,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-3",
+          "label": "Encounters",
+          "action": "section-2",
+          "x": 647,
+          "y": 382,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-4",
+          "label": "Ribbons",
+          "action": "section-3",
+          "x": 711,
+          "y": 382,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-5",
+          "label": "Dex",
+          "action": "section-4",
+          "x": 775,
+          "y": 382,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-6",
+          "label": "Main menu",
+          "action": "menu",
+          "x": 519,
+          "y": 435,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-7",
+          "label": "Previous item",
+          "action": "up",
+          "x": 583,
+          "y": 435,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-8",
+          "label": "Next item",
+          "action": "down",
+          "x": 647,
+          "y": 435,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-9",
+          "label": "Open selected entry",
+          "action": "confirm",
+          "x": 711,
+          "y": 435,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "key-10",
+          "label": "Back one level",
+          "action": "back",
+          "x": 775,
+          "y": 435,
+          "w": 56,
+          "h": 45,
+          "kind": "cyan",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#5eafcb"
+        },
+        {
+          "id": "white-left",
+          "label": "Previous page, white key",
+          "action": "left",
+          "x": 519,
+          "y": 521,
+          "w": 54,
+          "h": 31,
+          "kind": "white",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "white-right",
+          "label": "Next page, white key",
+          "action": "right",
+          "x": 581,
+          "y": 521,
+          "w": 54,
+          "h": 31,
+          "kind": "white",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "aux-left",
+          "label": "Previous item, black key",
+          "action": "up",
+          "x": 663,
+          "y": 495,
+          "w": 45,
+          "h": 15,
+          "kind": "dark",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#21262c"
+        },
+        {
+          "id": "aux-right",
+          "label": "Next item, black key",
+          "action": "down",
+          "x": 718,
+          "y": 495,
+          "w": 45,
+          "h": 15,
+          "kind": "dark",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "rect",
+          "fill": "#21262c"
+        },
+        {
+          "id": "power",
+          "label": "Power on or off",
+          "action": "power",
+          "x": 785,
+          "y": 518,
+          "w": 45,
+          "h": 45,
+          "kind": "round-yellow",
+          "part": "lid",
+          "mark": "",
+          "layer": "lid",
+          "shape": "round",
+          "fill": "#edc936"
+        }
+      ],
+      "screens": [
+        {
+          "layer": "body",
+          "x": 113,
+          "y": 236,
+          "w": 274,
+          "h": 218,
+          "role": "main"
+        },
+        {
+          "layer": "lid",
+          "x": 519,
+          "y": 235,
+          "w": 313,
+          "h": 112,
+          "role": "side"
+        }
+      ]
+    },
+    {
+      "id": "gold",
+      "generation": "II",
+      "region": "Johto",
+      "games": "Gold / Silver",
+      "reference": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_GSC.png",
+      "note": "Authored front elevation with widened screen apertures. The upper dome now projects above the open leaf and the lower blue orb remains visible at the closed endpoint, matching the GSC artwork. Unseen leaf returns, hinge faces and leaf trajectories remain reconstructed. The two blue orbs are inert; button actions are portfolio adaptations.",
+      "width": 940,
+      "height": 760,
+      "open": "gold-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "gold-body.svg",
+          "motion": null
+        },
+        {
+          "id": "right-leaf",
+          "file": "gold-right-leaf.svg",
+          "motion": {
+            "type": "hinge-y",
+            "origin": [
+              490,
+              630
+            ],
+            "range": [
+              0.5,
+              1
+            ],
+            "clearance": 1
+          },
+          "outer": "gold-right-leaf-outer.svg"
+        },
+        {
+          "id": "top-leaf",
+          "file": "gold-top-leaf.svg",
+          "motion": {
+            "type": "hinge-x",
+            "origin": [
+              276,
+              364
+            ],
+            "range": [
+              0,
+              0.5
+            ],
+            "clearance": 2
+          },
+          "outer": "gold-top-leaf-outer.svg"
+        },
+        {
+          "id": "hinge",
+          "file": "gold-hinge.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "gold-controls.svg",
+      "controls": [
+        {
+          "id": "gold-dpad-up",
+          "label": "Previous item",
+          "action": "up",
+          "layer": "body",
+          "x": 153,
+          "y": 572,
+          "w": 28,
+          "h": 33,
+          "shape": "direction",
+          "rocker": "gold-dpad",
+          "fill": "#21262c"
+        },
+        {
+          "id": "gold-dpad-right",
+          "label": "Next page",
+          "action": "right",
+          "layer": "body",
+          "x": 181,
+          "y": 605,
+          "w": 33,
+          "h": 28,
+          "shape": "direction",
+          "rocker": "gold-dpad",
+          "fill": "#21262c"
+        },
+        {
+          "id": "gold-dpad-down",
+          "label": "Next item",
+          "action": "down",
+          "layer": "body",
+          "x": 153,
+          "y": 633,
+          "w": 28,
+          "h": 33,
+          "shape": "direction",
+          "rocker": "gold-dpad",
+          "fill": "#21262c"
+        },
+        {
+          "id": "gold-dpad-left",
+          "label": "Previous page",
+          "action": "left",
+          "layer": "body",
+          "x": 120,
+          "y": 605,
+          "w": 33,
+          "h": 28,
+          "shape": "direction",
+          "rocker": "gold-dpad",
+          "fill": "#21262c"
+        },
+        {
+          "id": "small-oval",
+          "label": "Back",
+          "action": "back",
+          "layer": "body",
+          "x": 246,
+          "y": 599,
+          "w": 48,
+          "h": 18,
+          "shape": "pill",
+          "fill": "#21262c"
+        },
+        {
+          "id": "round-left",
+          "label": "Open entry",
+          "action": "confirm",
+          "layer": "body",
+          "x": 317,
+          "y": 601,
+          "w": 40,
+          "h": 40,
+          "shape": "round",
+          "fill": "#21262c"
+        },
+        {
+          "id": "small-oval-lower",
+          "label": "Main menu",
+          "action": "menu",
+          "layer": "body",
+          "x": 246,
+          "y": 625,
+          "w": 48,
+          "h": 18,
+          "shape": "pill",
+          "fill": "#21262c"
+        },
+        {
+          "id": "round-right",
+          "label": "Open profile",
+          "action": "section-0",
+          "layer": "body",
+          "x": 373,
+          "y": 601,
+          "w": 40,
+          "h": 40,
+          "shape": "round",
+          "fill": "#21262c"
+        }
+      ],
+      "screens": [
+        {
+          "layer": "top-leaf",
+          "x": 104,
+          "y": 115,
+          "w": 344,
+          "h": 224,
+          "role": "main"
+        },
+        {
+          "layer": "body",
+          "x": 104,
+          "y": 410,
+          "w": 344,
+          "h": 136,
+          "role": "side"
+        }
+      ]
+    },
+    {
+      "id": "ruby",
+      "generation": "III",
+      "region": "Hoenn",
+      "games": "Ruby / Sapphire",
+      "reference": "https://archives.bulbagarden.net/wiki/File:RSE_Pok%C3%A9dex.png",
+      "note": "User-selected revision 47 landscape RSE treatment. The right crescent closes sideways around the exposed disc. This motion is a deliberate visual preference and is not presented as canonical hinge construction. Release art supplies the component inventory; exact depth and unpictured exterior remain inferred. Controls retain portfolio actions, with an inert blue disc centre, red lamp and green lid lens.",
+      "width": 940,
+      "height": 760,
+      "open": "ruby-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "ruby-body.svg",
+          "motion": null
+        },
+        {
+          "id": "lid",
+          "file": "ruby-lid.svg",
+          "motion": {
+            "type": "hinge-y",
+            "origin": [
+              480,
+              380
+            ],
+            "clearance": 2
+          },
+          "outer": "ruby-lid-outer.svg"
+        },
+        {
+          "id": "hinge",
+          "file": "ruby-hinge.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "ruby-controls.svg",
+      "controls": [
+        {
+          "id": "ruby-disc-up",
+          "label": "Previous item",
+          "action": "up",
+          "x": 75,
+          "y": 308,
+          "w": 50,
+          "h": 47,
+          "layer": "body",
+          "shape": "direction",
+          "rocker": "ruby-disc",
+          "fill": "#f5f7ee"
+        },
+        {
+          "id": "ruby-disc-right",
+          "label": "Next page",
+          "action": "right",
+          "x": 125,
+          "y": 355,
+          "w": 47,
+          "h": 50,
+          "layer": "body",
+          "shape": "direction",
+          "rocker": "ruby-disc",
+          "fill": "#f5f7ee"
+        },
+        {
+          "id": "ruby-disc-down",
+          "label": "Next item",
+          "action": "down",
+          "x": 75,
+          "y": 405,
+          "w": 50,
+          "h": 47,
+          "layer": "body",
+          "shape": "direction",
+          "rocker": "ruby-disc",
+          "fill": "#f5f7ee"
+        },
+        {
+          "id": "ruby-disc-left",
+          "label": "Previous page",
+          "action": "left",
+          "x": 28,
+          "y": 355,
+          "w": 47,
+          "h": 50,
+          "layer": "body",
+          "shape": "direction",
+          "rocker": "ruby-disc",
+          "fill": "#f5f7ee"
+        },
+        {
+          "id": "centre-green",
+          "label": "Open entry",
+          "action": "confirm",
+          "layer": "body",
+          "x": 142,
+          "y": 459,
+          "w": 46,
+          "h": 46,
+          "shape": "round",
+          "fill": "#43d053"
+        },
+        {
+          "id": "white-pill-left",
+          "label": "Back",
+          "action": "back",
+          "layer": "body",
+          "x": 267,
+          "y": 498,
+          "w": 56,
+          "h": 20,
+          "shape": "rect",
+          "fill": "#f6f8ee"
+        },
+        {
+          "id": "white-pill-right",
+          "label": "Main menu",
+          "action": "menu",
+          "layer": "body",
+          "x": 345,
+          "y": 498,
+          "w": 56,
+          "h": 20,
+          "shape": "rect",
+          "fill": "#f6f8ee"
+        }
+      ],
+      "screens": [
+        {
+          "layer": "body",
+          "x": 192,
+          "y": 276,
+          "w": 246,
+          "h": 190,
+          "role": "main"
+        }
+      ]
+    },
+    {
+      "id": "diamond",
+      "generation": "IV",
+      "region": "Sinnoh",
+      "games": "Diamond / Pearl",
+      "reference": "https://archives.bulbagarden.net/wiki/File:DP_Pok%C3%A9dex.png",
+      "note": "Authored front elevation using one Diamond/Pearl game-art shell. Both lid faces share the complete outline, including the semicircular left extension. The closed exterior remains reconstructed. Speaker holes, the lid dot, pod indicator, and small dark pod inset are inert.",
+      "width": 940,
+      "height": 760,
+      "open": "diamond-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "diamond-body.svg",
+          "motion": null
+        },
+        {
+          "id": "lid",
+          "file": "diamond-lid.svg",
+          "motion": {
+            "type": "hinge-x",
+            "origin": [
+              503,
+              382
+            ]
+          },
+          "outer": "diamond-lid-outer.svg"
+        },
+        {
+          "id": "hinge",
+          "file": "diamond-hinge.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "diamond-controls.svg",
+      "controls": [
+        {
+          "id": "diamond-dpad-up",
+          "label": "Previous item",
+          "action": "up",
+          "layer": "body",
+          "x": 186,
+          "y": 489.5,
+          "w": 32,
+          "h": 33,
+          "shape": "direction",
+          "rocker": "diamond-dpad",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "diamond-dpad-right",
+          "label": "Next page",
+          "action": "right",
+          "layer": "body",
+          "x": 218,
+          "y": 522.5,
+          "w": 33,
+          "h": 32,
+          "shape": "direction",
+          "rocker": "diamond-dpad",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "diamond-dpad-down",
+          "label": "Next item",
+          "action": "down",
+          "layer": "body",
+          "x": 186,
+          "y": 554.5,
+          "w": 32,
+          "h": 33,
+          "shape": "direction",
+          "rocker": "diamond-dpad",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "diamond-dpad-left",
+          "label": "Previous page",
+          "action": "left",
+          "layer": "body",
+          "x": 153,
+          "y": 522.5,
+          "w": 33,
+          "h": 32,
+          "shape": "direction",
+          "rocker": "diamond-dpad",
+          "fill": "#e5e5d9"
+        },
+        {
+          "id": "green-round",
+          "label": "Open entry",
+          "action": "confirm",
+          "layer": "body",
+          "x": 735,
+          "y": 534,
+          "w": 88,
+          "h": 79,
+          "shape": "round",
+          "fill": "#65bb55"
+        },
+        {
+          "id": "silver-upper",
+          "label": "Back",
+          "action": "back",
+          "layer": "body",
+          "x": 650,
+          "y": 530,
+          "w": 26,
+          "h": 23,
+          "shape": "round",
+          "fill": "#e2e4df"
+        },
+        {
+          "id": "silver-lower",
+          "label": "Main menu",
+          "action": "menu",
+          "layer": "body",
+          "x": 650,
+          "y": 574,
+          "w": 26,
+          "h": 23,
+          "shape": "round",
+          "fill": "#e2e4df"
+        }
+      ],
+      "screens": [
+        {
+          "layer": "lid",
+          "x": 330,
+          "y": 108,
+          "w": 338,
+          "h": 228,
+          "role": "main"
+        },
+        {
+          "layer": "body",
+          "x": 332,
+          "y": 430,
+          "w": 290,
+          "h": 170,
+          "role": "side"
+        }
+      ]
+    },
+    {
+      "id": "heartgold",
+      "generation": "IV-r",
+      "region": "Johto",
+      "games": "HeartGold / SoulSilver",
+      "reference": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_HGSS_m.png",
+      "note": "Authored flat interpretation of the orange HGSS model. The source-visible round projection now clears the open top edge. The top leaf folds down across y=380; its exterior uses reflected closed coordinates. The relation between the open round projection and closed trapezoidal handle remains unresolved, so their mounting and hidden transition surfaces are reconstructed. Lamps, the blue lens and gold rails are inert; navigation belongs to labelled screen controls.",
+      "width": 940,
+      "height": 760,
+      "open": "heartgold-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "heartgold-body.svg",
+          "motion": null
+        },
+        {
+          "id": "lid",
+          "file": "heartgold-lid.svg",
+          "motion": {
+            "type": "hinge-x",
+            "origin": [
+              470,
+              380
+            ]
+          },
+          "outer": "heartgold-lid-outer.svg"
+        },
+        {
+          "id": "hinge",
+          "file": "heartgold-hinge.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "heartgold-controls.svg",
+      "controls": [],
+      "screens": [
+        {
+          "layer": "lid",
+          "x": 340,
+          "y": 117,
+          "w": 260,
+          "h": 201,
+          "role": "main"
+        },
+        {
+          "layer": "body",
+          "x": 341,
+          "y": 431,
+          "w": 258,
+          "h": 170,
+          "role": "side"
+        }
+      ]
+    },
+    {
+      "id": "black",
+      "generation": "V",
+      "region": "Unova",
+      "games": "Black / White",
+      "reference": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_BW_art.png",
+      "note": "Authored red-orange Unova slider. Revision 55 restores warm gray rails, charcoal screen surrounds, and a red-orange lower shell from the original BW artwork; color choices are an interpretation of that reference, not calibrated source measurements. Only the upper screen tray translates vertically, moving down 220 units to cover the lower screen. The source shows orange extended and pink compact; the orange compact state and hidden rails are reconstructed. The three lower dots now sit as a separate row left of the centre control, matching the source artwork without colliding with its well or diagonal band. The central white control opens an entry and the green side control toggles power as portfolio mappings. Bottom slots and dots are inert.",
+      "width": 940,
+      "height": 760,
+      "open": "black-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "black-body.svg",
+          "motion": null
+        },
+        {
+          "id": "tray",
+          "file": "black-tray.svg",
+          "motion": {
+            "type": "slide",
+            "closed": [
+              0,
+              220
+            ]
+          }
+        }
+      ],
+      "controlsFile": "black-controls.svg",
+      "controls": [
+        {
+          "id": "centre-round",
+          "label": "Open entry",
+          "action": "confirm",
+          "layer": "body",
+          "x": 429,
+          "y": 589.6,
+          "w": 83,
+          "h": 85.8,
+          "shape": "round",
+          "fill": "#f1f0e7"
+        },
+        {
+          "id": "green-side",
+          "label": "Toggle power",
+          "action": "power",
+          "layer": "body",
+          "x": 671,
+          "y": 378,
+          "w": 15,
+          "h": 34,
+          "shape": "rect",
+          "fill": "#199b59"
+        }
+      ],
+      "screens": [
+        {
+          "layer": "tray",
+          "x": 310,
+          "y": 102,
+          "w": 320,
+          "h": 180,
+          "role": "main"
+        },
+        {
+          "layer": "body",
+          "x": 309,
+          "y": 344,
+          "w": 323,
+          "h": 164,
+          "role": "side"
+        }
+      ]
+    },
+    {
+      "id": "x",
+      "generation": "VI",
+      "region": "Kalos",
+      "games": "X / Y",
+      "reference": "https://www.pokemon.co.jp/ex/xy/about/04.html",
+      "note": "Authored interpretation of the official X/Y card artwork, also archived at https://archives.bulbagarden.net/wiki/File:XY_Pok%C3%A9dex.png. The upper and lower red halves separate vertically around one transparent cyan display. Their semicircular rims retain a luminous centre and narrow seam when compact. The 126-unit travel per half and concealed screen construction are inferred from still artwork. No physical key functions are established, so navigation uses labelled screen controls.",
+      "width": 940,
+      "height": 760,
+      "open": "x-open.svg",
+      "layers": [
+        {
+          "id": "display",
+          "file": "x-display.svg",
+          "motion": null
+        },
+        {
+          "id": "upper-card",
+          "file": "x-upper-card.svg",
+          "motion": {
+            "type": "slide",
+            "closed": [
+              0,
+              126
+            ]
+          }
+        },
+        {
+          "id": "lower-card",
+          "file": "x-lower-card.svg",
+          "motion": {
+            "type": "slide",
+            "closed": [
+              0,
+              -126
+            ]
+          }
+        }
+      ],
+      "controlsFile": "x-controls.svg",
+      "controls": [],
+      "screens": [
+        {
+          "layer": "display",
+          "x": 274,
+          "y": 246,
+          "w": 392,
+          "h": 268,
+          "role": "main"
+        }
+      ]
+    },
+    {
+      "id": "sun-moon",
+      "generation": "VII",
+      "region": "Alola",
+      "games": "Sun / Moon",
+      "reference": "https://archives.bulbagarden.net/wiki/File:0479Rotom-Pok%C3%A9dex.png",
+      "note": "Authored flat Rotom Dex with separate front and rear. The SM concept sheet selected by the user supplies the rear camera module, zigzag arm recesses and round lower cover. The two visible zigzag arm assemblies themselves leave those rear recesses during the turn; no substitute rear side flaps are used. The front arms take over after the half-turn. The rear silhouette mirrors this study’s adapted front. No physical lid is invented. The enlarged screen contains only portfolio content. Fixed eye housings contain tracking irises and blinking lids; extended arms react and the body floats. Motion can be paused.",
+      "width": 940,
+      "height": 760,
+      "open": "sun-moon-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "sun-moon-body.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "sun-moon-controls.svg",
+      "controls": [],
+      "screens": [
+        {
+          "layer": "body",
+          "x": 264,
+          "y": 318,
+          "w": 412,
+          "h": 270,
+          "role": "main"
+        }
+      ],
+      "rear": "sun-moon-rear.svg"
+    },
+    {
+      "id": "sword-shield",
+      "generation": "VIII",
+      "region": "Galar",
+      "games": "Sword / Shield",
+      "reference": "https://archives.bulbagarden.net/wiki/File:Rotom_Phone_SwSh_concept_art.jpg",
+      "note": "Separate authored front and rear faces guided by the official Galar guide sheet. Camera and circular Rotom face belong on the rear; the screen has a small spike-root notch. Proportions are adapted for portfolio content. Flip is an inspection interaction, not a hinged casing.",
+      "width": 940,
+      "height": 760,
+      "open": "sword-shield-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "sword-shield-body.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "sword-shield-controls.svg",
+      "controls": [],
+      "screens": [
+        {
+          "layer": "body",
+          "x": 313,
+          "y": 204,
+          "w": 308,
+          "h": 433,
+          "role": "main"
+        }
+      ],
+      "rear": "sword-shield-rear.svg"
+    },
+    {
+      "id": "scarlet-violet",
+      "generation": "IX",
+      "region": "Paldea",
+      "games": "Scarlet / Violet",
+      "reference": "https://archives.bulbagarden.net/wiki/File:0479Rotom-Phone_SV.png",
+      "note": "Separate authored screen and rear faces. The dual camera and cyan-rimmed rear face follow SV artwork. The screen-side notch, proportions and concealed thickness remain reconstructed; this is not a verified canonical front. Flip is an inspection interaction.",
+      "width": 940,
+      "height": 760,
+      "open": "scarlet-violet-open.svg",
+      "layers": [
+        {
+          "id": "body",
+          "file": "scarlet-violet-body.svg",
+          "motion": null
+        }
+      ],
+      "controlsFile": "scarlet-violet-controls.svg",
+      "controls": [],
+      "screens": [
+        {
+          "layer": "body",
+          "x": 313,
+          "y": 204,
+          "w": 308,
+          "h": 433,
+          "role": "main"
+        }
+      ],
+      "rear": "scarlet-violet-rear.svg"
+    }
+  ]
+}

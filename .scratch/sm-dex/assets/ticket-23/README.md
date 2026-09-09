@@ -1,5 +1,8 @@
 # Ticket 23 — OG Kanto component masters
 
+> Rejected and removed on 2026-09-03 at the user's request. This is historical documentation,
+> not approval. See ticket 32 and `research/restart/removed-assets-manifest.json`.
+
 These are approval-only raster masters generated from the supplied illustrated Kanto Pokédex.
 They are not production assets and are not referenced by the site.
 

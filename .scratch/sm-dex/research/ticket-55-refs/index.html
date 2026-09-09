@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gen II + IV + V reference board | SM'S DEX</title>
+<style>
+  :root{color-scheme:dark;font:15px/1.5 system-ui,sans-serif;background:#101115;color:#ecece5}
+  *{box-sizing:border-box}body{margin:0;padding:32px;max-width:1500px;margin-inline:auto}
+  h1{font-size:30px;letter-spacing:-.02em;margin:0 0 8px}h2{font-size:24px;margin:36px 0 12px}
+  p{margin:8px 0;color:#b6bac4;max-width:85ch}a{color:#c5e3ee;text-underline-offset:3px}
+  nav{display:flex;gap:24px;flex-wrap:wrap;margin:20px 0}nav a{padding-block:8px}
+  .grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+  article{border:1px solid #373b45;background:#1b1d24;border-radius:6px;overflow:hidden}
+  .image{height:250px;display:flex;align-items:center;justify-content:center;background:#f0eee7;padding:10px}
+  img{display:block;max-width:100%;max-height:100%;object-fit:contain}
+  .copy{padding:16px}h3{font-size:16px;line-height:1.4;margin:5px 0 10px;color:#f1f1e7}
+  .kind{font-size:12px;letter-spacing:.03em;color:#e4cc90}
+  .copy p{font-size:14px;line-height:1.5}.links{display:flex;gap:16px;margin-top:14px;font-size:13px}
+  .limit{padding-top:10px;border-top:1px solid #373b45;color:#969dad}
+  :focus-visible{outline:3px solid #edcb75;outline-offset:3px}
+  @media(max-width:1050px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media(max-width:760px){body{padding:20px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.image{height:200px}}
+  @media(max-width:480px){.grid{grid-template-columns:1fr}.image{height:280px}}
+</style>
+<header>
+  <h1>Gen II + Gen IV + Gen V references</h1>
+  <p>60 additional anime episode captures, 20 per generation. Compare screen borders, control spacing, image placement and casing across distinct scan states. Each card links to its source and full image.</p>
+  <p>Anime devices are continuity-specific references. Most Gen V scans crop out the lower shell: use these views for the gray screen rails and the original Black/White artwork for the red-orange lower casing.</p>
+  <nav><a href="#gen2">Gen II · Gold / Silver / Crystal</a><a href="#gen4">Gen IV · Diamond / Pearl</a><a href="#gen5">Gen V · Black / White</a><a href="../../prototypes/ticket-45-all-generations/?gen=gold&open=1&v=55.1">Open device study</a></nav>
+</header>
+<main id="refs"></main>
+<script type="module">
+  const root=document.querySelector('#refs');
+  const text=(tag,value,className)=>{const el=document.createElement(tag);el.textContent=value;if(className)el.className=className;return el;};
+  for(const [id,title] of [['gen2','Generation II · Gold / Silver / Crystal'],['gen4','Generation IV · Diamond / Pearl'],['gen5','Generation V · Black / White']]){
+    const response=await fetch(`${id}.json`);
+    if(!response.ok)throw new Error(`Reference index unavailable: ${id}`);
+    const data=await response.json(),items=Array.isArray(data)?data:data.items;
+    const section=document.createElement('section');section.id=id;section.append(text('h2',`${title} · ${items.length} additional refs`));
+    const grid=document.createElement('div');grid.className='grid';section.append(grid);
+    for(const item of items){
+      const card=document.createElement('article'),link=document.createElement('a'),img=document.createElement('img');
+      const local=item.local;
+      link.className='image';link.href=local;link.target='_blank';link.rel='noreferrer';img.src=local;img.alt=item.title;img.loading='lazy';link.append(img);card.append(link);
+      const copy=document.createElement('div');copy.className='copy';copy.append(text('span',`${item.id} · ${item.kind}`,'kind'),text('h3',item.title),text('p',item.use),text('p',item.limit,'limit'));
+      const links=document.createElement('div');links.className='links';
+      for(const [label,href] of [['Source',item.source],['Full image',local]]){const a=text('a',label);a.href=href;a.target='_blank';a.rel='noreferrer';links.append(a);}
+      copy.append(links);card.append(copy);grid.append(card);
+    }
+    root.append(section);
+  }
+</script>
+</html>

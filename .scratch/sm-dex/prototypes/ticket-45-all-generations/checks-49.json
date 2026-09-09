@@ -1,0 +1,48 @@
+{
+  "revision": "49.0",
+  "date": "2026-09-08",
+  "command": "node .scratch/sm-dex/research/ticket-49-visual-regression.mjs",
+  "checks": [
+    {
+      "name": "RSE restores accepted sideways lid",
+      "passed": true,
+      "sideLid": true,
+      "topLid": false
+    },
+    {
+      "name": "DP uses one aligned game-art shell",
+      "passed": true,
+      "lidCenter": 502.5,
+      "bodyCenter": 503,
+      "difference": 0.5,
+      "rejectedAnimeClosedFaceRemoved": true
+    },
+    {
+      "name": "Every physical cap uses shared Gen I finish",
+      "passed": true,
+      "capCount": 31,
+      "finish": ["dark well", "cap gradient", "top glint", "lower shadow", "outline"]
+    },
+    {
+      "name": "Shared caps retain press depth and one action",
+      "passed": true,
+      "devices": ["red", "gold", "ruby", "diamond", "black"],
+      "heldDepth": 5.37911,
+      "acceptedActionsPerPress": 1
+    },
+    {
+      "name": "Directional rockers use Gen I depth cues",
+      "passed": true,
+      "devices": ["red", "gold", "ruby", "diamond"]
+    }
+  ],
+  "browserErrors": [],
+  "exports": { "svgCount": 53, "xmlParseFailures": 0 },
+  "captures": [
+    "../../research/ticket-49-gen1-buttons.png",
+    "../../research/ticket-49-rse-side-open.png",
+    "../../research/ticket-49-rse-side-closed.png",
+    "../../research/ticket-49-dp-open.png",
+    "../../research/ticket-49-dp-closed.png"
+  ]
+}

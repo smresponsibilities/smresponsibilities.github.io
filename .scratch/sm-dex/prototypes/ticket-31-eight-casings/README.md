@@ -1,4 +1,8 @@
-# Ticket 31: Kanto OG-geometry control prototype, revision 5
+# Ticket 31: rejected and removed
+
+The user rejected revision 5. Its imagery and previews have been removed; the route is retired.
+The rest of this document is historical and its approval/fidelity claims are withdrawn. Ticket 32
+and `../../research/restart/` own the new source study. Do not reuse this casing or control code.
 
 Revision 5 uses the illustrated ticket-23/26 pixel treatment but restores the Red/Green reference
 geometry. The 417 by 673 inner lid is no longer stretched to 420 by 816. It sits at its native

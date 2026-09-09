@@ -1,6 +1,6 @@
 # Four-way Kanto device comparison
 
-Tickets 35–42. Local-only, self-authored functional device UI. No version is approved final art.
+Tickets 35–44. Local-only, self-authored functional device UI. No version is approved final art.
 
 ## Open
 
@@ -314,3 +314,17 @@ check now fails if the mounting well no longer reaches the rail.
 Flat passes 60/60 checks, full Three.js 67/67, hybrid 62/62 and 3D / quiet caps 67/67. The
 settled flat and angled full-Three closed views were inspected in-browser; no warnings or errors
 were recorded.
+
+## Ticket 44, level flat exterior arrow
+
+The flat exterior arrow no longer inherits the slight upward perspective measured for the Three.js
+cover. Its yellow face is now `80,372 105,390.5 80,409`; its dark well is
+`75,368 111,390.5 75,413`. Both bases are vertical, both tips sit on the same horizontal centreline,
+and the well still meets the x=75 cover rail. Full Three.js and 3D / quiet keep ticket 42's
+source-measured geometry. Flat / 3D shares the flat casing, so it receives the level arrow too.
+
+The browser regression started red with a two-unit face-base lean, a 2.5-unit face-axis rise, a
+one-unit well-base lean and a 4.5-unit well-axis rise. It now reports zero for all four values.
+At 1280 and 375 pixels, flat passes 61/61 checks, full Three.js 67/67, flat / 3D 63/63 and
+3D / quiet 67/67. Both widths have no horizontal overflow. The closed flat before and after
+captures are `evidence/ticket44-flat-before.png` and `evidence/ticket44-flat-after.png`.

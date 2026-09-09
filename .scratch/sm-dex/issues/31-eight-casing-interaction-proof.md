@@ -1,8 +1,19 @@
 # 31: Eight-casing interaction and portfolio-content proof
 
-Status: claimed
+Status: rejected
+Superseded by: 32
 Priority: highest
 Blocked by: none
+
+## Rejection and correction, 2026-09-03
+
+The user rejected revision 5 and requested deletion of all generated assets and a complete
+reference-first restart. Earlier statements in this ticket that OG geometry or controls were
+accepted are withdrawn. Resizing ticket-26 assets did not reconstruct original geometry. The
+limited interaction checks did not establish visual correctness or all-control coverage.
+
+Generated masters, crops, previews, and screenshots have been removed from active folders.
+This prototype route is retired. Ticket 32 owns the restart; do not revive this implementation.
 
 ## What to prove
 

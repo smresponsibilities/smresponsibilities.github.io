@@ -1,5 +1,11 @@
 # Ticket 30 — eight source-locked casing packages
 
+> Historical source archive only. Ticket 31 was rejected and ticket 32 retired its assets.
+> The eight downloaded source copies remain unchanged, but that does not constitute visual
+> approval. The derived `all-eight-source-preview` files were removed. Current source study and
+> hybrid construction contract are in `../../research/restart/`. Do not execute the old prompts
+> or extraction plan as the replacement build.
+
 This directory replaces every ticket-23 and ticket-24 casing candidate. Nothing from those
 directories is treated as approved.
 

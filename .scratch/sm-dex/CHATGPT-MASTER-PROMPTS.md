@@ -1,5 +1,12 @@
 # Eight source-locked casing packages — prompts and validation
 
+> Retired by ticket 32 on 2026-09-03. Do not execute these historical prompts. They incorrectly
+> prescribe split moving D-pad arms, matching cap/base masks without travel clearance, and a
+> Kanto closed-face source whose original-art provenance is unverified. They also predate the
+> user's choice of coded pressable caps. Use `research/restart/REBUILD-PROMPT.md` and its source
+> catalogue instead. The eight-slot packaging limit remains; the eight-device selection does not
+> cover the new generation-I-through-IX study.
+
 These instructions supersede the seven prompts previously stored at this path. The prior file
 omitted Kanto, assumed an approval that never happened, and contradicted every attached device
 reference in at least one material way.
