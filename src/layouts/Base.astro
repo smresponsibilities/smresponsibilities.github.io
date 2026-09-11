@@ -23,31 +23,15 @@ const accentStyle = accentTypes?.length
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-sm-complete.svg?v=3" type="image/svg+xml" />
+    <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
+    <link rel="apple-touch-icon" href="/favicon-sm-complete.svg?v=3" />
+    <link rel="preload" href="/fonts/departure-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <meta name="theme-color" content="#0B0E12" />
+    <slot name="head" />
     <ClientRouter />
   </head>
   <body>
-    <header class="site-header">
-      <a href="/" class="wordmark">SM'S DEX</a>
-    </header>
     <slot />
   </body>
 </html>
-
-<style>
-  .site-header {
-    padding: var(--gap);
-  }
-
-  .wordmark {
-    display: inline-flex;
-    align-items: center;
-    min-height: var(--tap);
-    padding-inline: 4px;
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: var(--fs-head);
-    letter-spacing: var(--track-label);
-    text-decoration: none;
-  }
-</style>

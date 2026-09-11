@@ -13,7 +13,7 @@
   --panel:   #161B22;
   --border:  #30363D;
   --ink:     #E6EDF3;
-  --dim:     #8B949E;
+  --dim:     #F5F1DC;
   --screen:  #0D1117;   /* the "LCD" area */
   --stream:  #1F6FEB;   /* background animation colour */
   --line:    #1A1A1A;   /* ball outlines */
@@ -34,11 +34,11 @@
 
   /* typography */
   --font-display: "Departure Mono", ui-monospace, monospace;
-  --font-body: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Departure Mono", ui-monospace, monospace;
 
   /* type scale — FIVE sizes, real jumps. See BUILD.md §4.1. Do not add a sixth. */
   --fs-label: 12px;   /* uppercase + tracking. Nothing renders smaller than this. */
-  --fs-body:  15px;
+  --fs-body:  16px;
   --fs-head:  24px;
   --fs-name:  40px;
   --fs-mega:  72px;
