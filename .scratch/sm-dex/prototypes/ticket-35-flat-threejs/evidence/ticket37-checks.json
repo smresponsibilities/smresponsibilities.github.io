@@ -1,0 +1,26 @@
+{
+  "ticket": 37,
+  "date": "2026-09-03",
+  "browser": "Codex in-app browser",
+  "scripted": {
+    "views": ["flat/front", "hybrid/front", "hybrid/angle", "three/front", "three/angle"],
+    "widths": [375, 1280],
+    "passedPerCombination": 56,
+    "totalPerCombination": 56,
+    "horizontalOverflow": false
+  },
+  "nativeHybridAngle": {
+    "controls": 23,
+    "acceptedOnceEach": true,
+    "maximumTargetDriftCssPx": 0,
+    "capTravelModelUnits": 4,
+    "inertKeypadGapsAndDpadCentre": 14,
+    "dragOff": {"acceptedUnchanged": true, "cancelled": 1, "held": 0, "ripples": 0},
+    "reducedMotionTravel": 0,
+    "closedControlsDisabled": true
+  },
+  "threeScreenSampling": "nearest / nearest",
+  "visualLimit": "Fractional scaling, angled views and font rasterisation can still affect tiny text; no pixel-perfect or zero-blur claim.",
+  "hybridAngle": "Common CSS transform of casing, WebGL control canvas and HTML targets; not an independent mesh orbit.",
+  "viewportOverrideReset": true
+}

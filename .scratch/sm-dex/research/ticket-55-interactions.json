@@ -1,0 +1,116 @@
+{
+  "originalCapsMatch": true,
+  "results": [
+    {
+      "gen": "red",
+      "controls": 23,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "gold",
+      "controls": 8,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "ruby",
+      "controls": 7,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "diamond",
+      "controls": 7,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "heartgold",
+      "controls": 0,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "black",
+      "controls": 2,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "x",
+      "controls": 0,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "sun-moon",
+      "controls": 0,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "sword-shield",
+      "controls": 0,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    },
+    {
+      "gen": "scarlet-violet",
+      "controls": 0,
+      "viewports": [
+        1440,
+        768,
+        390,
+        320
+      ],
+      "passed": true
+    }
+  ],
+  "errors": []
+}

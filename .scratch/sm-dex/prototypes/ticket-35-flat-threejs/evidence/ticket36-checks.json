@@ -1,0 +1,29 @@
+{
+  "date": "2026-09-03",
+  "scope": "Ticket 36 local prototype",
+  "browser": "Codex in-app browser",
+  "scripted": {
+    "variants": ["flat", "three", "hybrid"],
+    "widths": [375, 768, 1280],
+    "passedPerCombination": 56,
+    "totalPerCombination": 56,
+    "failures": [],
+    "horizontalOverflow": false,
+    "threeRetestedAfterHingeChange": true
+  },
+  "nativeMouse": {
+    "variants": ["hybrid", "three"],
+    "controlsPerVariant": 23,
+    "acceptedOnceEach": true,
+    "maximumTargetOrNeighbourDriftCssPx": 0,
+    "capTravelModelUnits": 4,
+    "threeRetestedAfterHingeChange": true,
+    "keypadGapsPerVariant": 13,
+    "dpadCentreInert": true,
+    "gapClicksChangedAcceptedCount": false
+  },
+  "mobile": {"width": 375, "readableViewOnFreshLoad": true, "minimumAccessibleControlHeightCssPx": 44},
+  "rendering": {"threeDrawCalls": 100, "hybridDrawCalls": 49, "threeTriangles": 29018, "hybridTriangles": 12372},
+  "visualChecks": ["hybrid open", "hybrid closed without cap bleed-through", "three open", "three closed", "three half-open", "hybrid phone"],
+  "limitations": ["No physical touchscreen test", "No alternate browser engine test", "No canonical pixel-difference proof", "No final visual approval", "No physical collision simulation"]
+}

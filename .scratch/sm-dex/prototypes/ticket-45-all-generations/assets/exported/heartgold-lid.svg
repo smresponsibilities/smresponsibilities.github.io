@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><title>Johto · HeartGold / SoulSilver</title><desc>Authored flat interface asset. Authored flat interpretation of the orange HGSS model. The source-visible round projection now clears the open top edge. The top leaf folds down across y=380; its exterior uses reflected closed coordinates. The relation between the open round projection and closed trapezoidal handle remains unresolved, so their mounting and hidden transition surfaces are reconstructed. Lamps, the blue lens and gold rails are inert; navigation belongs to labelled screen controls.</desc><defs><mask id="export-heartgold-heartgold-lid-apertures"><rect width="100%" height="100%" fill="white"/><rect x="340" y="117" width="260" height="201" rx="3" fill="black"/></mask></defs><g id="export-heartgold-lid" mask="url(#export-heartgold-heartgold-lid-apertures)"><defs><linearGradient id="export-heartgold-hgss-shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f18b63"/><stop offset=".5" stop-color="#db6948"/><stop offset="1" stop-color="#ad4836"/></linearGradient></defs><g stroke="#533d35" stroke-width="3" stroke-linejoin="round">
+          <path d="M430 79Q432 39 470 33Q508 39 510 79Z" fill="#696965"/>
+          <path d="M446 79Q447 56 470 52Q493 56 494 79Z" fill="#e7dfd5"/>
+          <path d="M306 366V100Q306 78 328 78H612Q634 78 634 100V366Z" fill="url(#export-heartgold-hgss-shell)"/>
+          <path d="M317 354V101Q317 89 329 89H611" fill="none" stroke="#f19a75" stroke-width="2"/>
+          <path d="M350 79H590V366H350Z" fill="#575653"/>
+          <rect x="326" y="103" width="288" height="229" rx="7" fill="#e7dfd5"/>
+          <path d="M331 325V110H608" fill="none" stroke="#fff1df" stroke-width="3"/>
+          <rect x="338" y="115" width="264" height="205" rx="3" fill="#1e3032" stroke="#303e3e" stroke-width="2"/>
+          <circle cx="425" cy="348" r="7" fill="#78a65d" stroke="#293c29" stroke-width="2"/>
+          <circle cx="515" cy="348" r="7" fill="#78a65d" stroke="#293c29" stroke-width="2"/>
+          <circle cx="423" cy="346" r="2" fill="#d9edb8" stroke="none"/>
+          <circle cx="513" cy="346" r="2" fill="#d9edb8" stroke="none"/>
+        </g></g></svg>

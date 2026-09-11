@@ -1,35 +1,16 @@
-# Handoff — 2026-08-23, after ticket 30 (specs + prompts landed)
+# Handoff — 2026-09-10, after ticket 56
 
 ## State
-
-Resolved: 01, 02, 03, 18, 19, 22, 23, 24, 25, 26, 27, 28
-Open: 29 (gate unchanged, file list superseded — see note inside), 30 (specs+prompts done;
-master regeneration pending)
-Frontier: 04, 05, 06, 07, 08, 09, 11, 13, 17
-In flight: 20 (device casing, untouched), 21 (stack migration)
+Resolved: 01, 02, 03, 18, 19, 22, 23, 24, 25, 26, 27, 28, 30, 32, 34, 35, 36, 37, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 55, 56
+Frontier: user visual review of revision 56.2
+In flight: 20 and 21 retain their existing claimed status; neither was touched
+Open but superseded: 29 and 54. The latest user instruction authorizes the ticket-35 restoration and corrections across generations.
 
 ## Last session
-
-Executed ticket 30's build order. Specs rewritten to the per-skin model: BUILD.md casing section
-is now "Casings — eight shells, one per version skin" with the full skin→device→master table,
-stationary/hinged/slider motion contracts, and updated acceptance criteria; CANON.md §5 device-
-identity and lid-motion rows rewritten; DECISIONS.md §X amended (per-skin, X3 records why the
-clubbing died, X4 records deviations: anime-Kanto on Red/Blue, Johto single cover, HGSS pure)
-and §T marked historical. `CHATGPT-MASTER-PROMPTS.md` rewritten then extended: run/linking
-instructions, per-prompt Attach + Save-as lines, ordered parts grids (position encodes identity
-since sheets carry no text), researched zero-text verdict (game artwork has no legible hardware
-text; HANDY names are TCG-only), canon-vs-added controls inventory, and a rule-10 full-opacity
-requirement. Downloaded missing official refs into `ticket-24/references/` (gsc/rse/dp PNGs).
-Ticket 29 annotated; ticket 30 checkboxes ticked except regeneration.
+Ticket 56 fixes Gen II's two oval/two round keys and display strips, darkens its casing and matches its blue beads, tightens Gen IV's closed fit and dark rim, extends/reddens Gen V's lower section, and adds Gen VI's compact Poké Ball. The user rejected changes to Gen III; its accepted appearance and closing behavior are restored. Gen I was untouched. Both stage screenshots match pre-ticket captures. All 47 controls, 150 entry pages, responsive layouts and pressed states pass; 53 SVGs parse. See `research/ticket-56-findings.md`. Changes remain local and uncommitted.
 
 ## Not yet written down
-
-Nothing beyond ticket 30 and the research doc.
+Nothing. Gen I and Gen III are now explicit protected visual baselines. The 60-reference board from ticket 55 remains available; current generation JSON indexes are its final selection.
 
 ## Next
-
-User runs the seven prompts per the doc's "How to run" steps — contract + prompt + that
-prompt's attached references in one message — saving PNGs to `.scratch/sm-dex/assets/ticket-30/`
-under the given filenames, validating each. Then `_probe/audit.py`, then ticket 30's final
-checkbox (superseded notes in `assets/ticket-24/README.md`). Extraction stays blocked until
-masters pass.
+Review `prototypes/ticket-45-all-generations/?gen=gold&open=1&v=56.2`. Preserve Gen I and Gen III when making further generation-specific corrections. New preferences belong in a new ticket.

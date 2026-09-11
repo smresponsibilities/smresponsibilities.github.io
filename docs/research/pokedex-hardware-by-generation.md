@@ -24,14 +24,14 @@ HeartGold/SoulSilver · Black/White · Sun/Moon · Scarlet/Violet.
 
 | Skin | Device shown in that game | Bulbapedia console analogue | Physical form |
 |---|---|---|---|
-| Red/Blue | Kanto Pokédex, HANDY505 | "The Generation I Kanto Pokédex resembles a Game Boy" | Portrait single-screen red handheld; screen top, D-pad + buttons below. Artwork: `File:Gen_I_Pokédex.png`, `File:RG_Pokédex.png` |
-| Gold/Silver | Johto Pokédex, HANDY808 | "The Generation II Johto Pokédex resembles a Game Boy Color"; closed it resembles a cell phone | Folding covers top **and** right; light-blue lens visible open or closed; opens via black button inside a Poké Ball logo; GBC-style interior. Artwork: `File:Pokédex_GSC.png` |
-| Ruby/Sapphire | Hoenn Pokédex | "Both versions of the Hoenn Pokédex resemble a Game Boy Advance" | Landscape single-body handheld (GBA orientation) — **not hinged**. Artwork: `File:RSE_Pokédex.png`. Note: FRLG's redesigned *Kanto* dex is the GBA-SP-like clamshell (`File:Pokédex_FRLG.png`) |
-| Diamond/Pearl | Sinnoh Pokédex, HANDY910is | "The Sinnoh Pokédex resembles a Nintendo DS Lite" | Clamshell, two screens, stylus. Artwork: `File:DP_Pokédex.png` |
-| HeartGold/SoulSilver | Johto redesign | "the Generation IV Johto Pokédex is in similar appearance to a Nintendo DSi" | Clamshell, green LED, blue open-button, two side styluses; red (m) / pink (f). Artwork: `File:Pokédex_HGSS_m.png`, `File:Pokédex_HGSS_f.png` |
-| Black/White | Unova Pokédex | "The Unova Pokédex resembles an iPod Nano" | Two screens, top one slides/extends (early-2010s slider-phone move); single Poké Ball power button (red m / pink f); lower screen is touch; small green LED. Artwork: `File:Pokédex_BW_art.png` |
+| Red/Blue | Kanto Pokédex, HANDY505 | "The Generation I Kanto Pokédex resembles a Game Boy" | Red book-like device with a central vertical hinge, blue lens, three lamps, left screen/control field, and right display plus ten-key cyan pad. Artwork: `File:Gen_I_Pokédex.png`, `File:RG_Pokédex.png` |
+| Gold/Silver | Johto Pokédex, HANDY808 | "The Generation II Johto Pokédex resembles a Game Boy Color"; closed it resembles a cell phone | Coral shell with a stationary base, raised top display leaf, separate right-side leaf, dark D-pad, and two blue circular elements. Artwork: `File:Pokédex_GSC.png` |
+| Ruby/Sapphire | Hoenn Pokédex | "Both versions of the Hoenn Pokédex resemble a Game Boy Advance" | Orange **hinged clamshell** with a tall lid, broad cylindrical hinge, one lower screen, large circular left control, green oval control, and two white pills. Artwork: `File:RSE_Pokédex.png` |
+| Diamond/Pearl | Sinnoh Pokédex, HANDY910is | "The Sinnoh Pokédex resembles a Nintendo DS Lite" | Vertical dual-screen clamshell with a silver D-pad in the left pod, green circular control in the right pod, and two small silver controls. The artwork does not show a loose stylus. Artwork: `File:DP_Pokédex.png` |
+| HeartGold/SoulSilver | Johto redesign | "the Generation IV Johto Pokédex is in similar appearance to a Nintendo DSi" | Tall orange-red clamshell with loop, two screens, green indicators, blue closed element, and gold side rails. The artwork shows no D-pad or A/B/START/SELECT hardware. Artwork: `File:Pokédex_HGSS_m.png`, `File:Pokédex_HGSS_f.png` |
+| Black/White | Unova Pokédex | "The Unova Pokédex resembles an iPod Nano" | Grey vertical slider; extended form reveals a second screen, compact form retains the upper screen, and the lower plate carries a large white/silver centre control. Artwork: `File:Pokédex_BW_art.png` |
 | Sun/Moon | Rotom Pokédex | "The Alola Rotom Pokédex resembles a tablet computer" | Dedicated orange-red device inhabited by Rotom — antenna, flap arms, feet, its own personality. Artwork: `File:0479Rotom-Pokédex.png` |
-| Scarlet/Violet | Paldea dex — an app on the Rotom Phone | "The Galar, Paldea and Lumiose Rotom Phones resemble a smartphone" | Consumer smartphone + swappable case; dex is software, entries render as books on a shelf. Artwork: `File:0479Rotom-Phone_SV.png` |
+| Scarlet/Violet | Paldea dex — an app on the Rotom Phone | "The Galar, Paldea and Lumiose Rotom Phones resemble a smartphone" | Orange-red phone with jagged spike, pointed tail, cyan/white fins, rear glowing motif, and dual camera; the dex is software rendered as books on a shelf. Artwork: `File:0479Rotom-Phone_SV.png` |
 
 (X/Y's Kalos dex — a card that separates around a holographic centre — has no skin in the
 selector today. If it is ever added it is a genuinely unique seventh/eighth object.)
@@ -48,11 +48,9 @@ selected versions ships a physically distinct model:
 - Closest kinships, still distinct objects: D/P ↔ HGSS (same DS clamshell *category*, different
   designs) and S/M ↔ S/V (same Rotom era, dedicated device vs phone app).
 
-Ticket-23 device re-verified: it is a correct illustrated **Kanto** Pokédex (hinged, keypad —
-the iconic anime-style Kanto object). The drawing is right; its current Gen III slot is what
-contradicts canon. Under the all-separate model it moves to the Red/Blue skin (recorded as the
-anime-Kanto rendering vs the games' solid GB-like artwork), and Ruby/Sapphire regenerates as
-the Hoenn landscape body.
+Ticket 23 produced Kanto-like candidates but never recorded user approval. The user explicitly
+rejected the approval assumption on 2 September 2026. Red/Blue therefore receives a fresh source
+lock, and Ruby/Sapphire follows the orange hinged Hoenn reference.
 
 **Adopted direction: eight casings, one per skin** — supersedes Options A/B/C below.
 
@@ -65,9 +63,9 @@ Classic red = III, Dual-screen = IV–V, Modern Rotom = VI–IX.
    The Gen I dex is a *red* handheld whose silhouette merely resembles a Game Boy; the Gen II
    dex is a folding-cover device with a GBC-style interior and a phone-like closed form.
    The ticket-24 landscape dual-screen DMG adaptation is an invented object twice over.
-2. **Classic red on Gen III — right object, wrong generation.** The approved ticket-23 device
-   is the hinged, keypad-equipped *Kanto* dex language. Canon puts that lineage on Kanto games;
-   Ruby/Sapphire's Hoenn dex is a solid landscape GBA-shaped body with no hinge and no keypad.
+2. **Classic red on Gen III — wrong generation and unapproved output.** Ticket 23 used the
+   hinged, keypad-equipped Kanto language on the Hoenn slot, but its candidates were never
+   approved. Ruby/Sapphire's actual reference is an orange hinged clamshell with no keypad.
 3. **Dual-screen family (IV–V) — half right.** D/P (DS-Lite-like) and HGSS (DSi-like) belong
    together legitimately. Black/White does not: the Unova dex is a vertical sliding media-device
    (iPod-Nano-like), a different silhouette with different controls (one Poké Ball button,
@@ -101,11 +99,9 @@ variants (Rotom Dex device vs Rotom Phone+case) instead of two separate builds.
 
 ### Option C — keep four shells, fix their contents
 
-Keep the count at four but re-point what each shell imitates:
-I–II becomes the red GB/GB C-lineage *Pokédex* (not a DMG); III keeps the approved hinged
-device as a recorded deliberate deviation; IV/V stays clamshell but drops B/W-specific control
-language; modern splits internally into Dex vs Phone faces. Cheapest, but keeps two known
-canon deviations (III placement, V silhouette) on the books.
+Historical rejected option. It proposed retaining the ticket-23 hinged candidate as a deliberate
+Gen III deviation. The candidate was never approved, and the later eight-package decision makes
+this option inapplicable.
 
 ## Constraints that survive any option
 

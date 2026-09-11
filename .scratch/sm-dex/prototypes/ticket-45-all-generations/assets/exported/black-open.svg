@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><title>Unova · Black / White</title><desc>Authored flat interface asset. Authored red-orange Unova slider. Revision 55 restores warm gray rails, charcoal screen surrounds, and a red-orange lower shell from the original BW artwork; color choices are an interpretation of that reference, not calibrated source measurements. Only the upper screen tray translates vertically, moving down 220 units to cover the lower screen. The source shows orange extended and pink compact; the orange compact state and hidden rails are reconstructed. The three lower dots now sit as a separate row left of the centre control, matching the source artwork without colliding with its well or diagonal band. The central white control opens an entry and the green side control toggles power as portfolio mappings. Bottom slots and dots are inert.</desc><defs><mask id="export-black-black-body-apertures"><rect width="100%" height="100%" fill="white"/><rect x="309" y="344" width="323" height="164" rx="3" fill="black"/></mask><mask id="export-black-black-tray-apertures"><rect width="100%" height="100%" fill="white"/><rect x="310" y="102" width="320" height="180" rx="3" fill="black"/></mask></defs><g id="export-black-body" mask="url(#export-black-black-body-apertures)"><defs><linearGradient id="export-black-unova-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3beb7"/><stop offset=".5" stop-color="#9c9892"/><stop offset="1" stop-color="#686461"/></linearGradient><linearGradient id="export-black-unova-orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5482f"/><stop offset=".52" stop-color="#d43723"/><stop offset="1" stop-color="#a8261d"/></linearGradient></defs><g transform="translate(-117.5 0) scale(1.25 1)"><g stroke="#343636" stroke-width="3" stroke-linejoin="round">
+          <path d="M308 302H632V717Q632 739 615 739H325Q308 739 308 717Z" fill="#525354"/>
+          <path d="M309 302H631V705Q631 725 616 725H324Q309 725 309 705Z" fill="url(#export-black-unova-metal)"/>
+          <path d="M318 314V551M622 314V551" fill="none" stroke="#c9c3ba" stroke-width="4"/>
+          <path d="M323 316V545M617 316V545" fill="none" stroke="#4a4743" stroke-width="2"/>
+          <rect x="327" y="330" width="286" height="192" rx="3" fill="#4b4844"/>
+          <rect x="339" y="342" width="262" height="168" rx="2" fill="#1c302d" stroke="#222d2a" stroke-width="2"/>
+          <path d="M333 516V336H607" fill="none" stroke="#98938b" stroke-width="2"/>
+          <g data-part="bw-lower-panel" transform="translate(0 -160.5) scale(1 1.3)">
+          <path d="M310 668V615Q310 535 470 535Q630 535 630 615V668Z" fill="url(#export-black-unova-orange)"/>
+          <path d="M320 660V615Q320 549 455 545" fill="none" stroke="#fa866b" stroke-width="2"/>
+          <path data-part="bw-stripe-upper" d="M402 543 430 539 458 570 440 589Z" fill="#353332"/>
+          <path data-part="bw-stripe-lower" d="M494 631 511 612 548 667H517Z" fill="#353332"/>
+          <path d="M310 593 329 611 321 635H310M630 593 611 611 619 635H630" fill="#df4832" stroke-width="2"/>
+          <circle cx="470" cy="610" r="43" fill="#292826"/>
+          <circle cx="470" cy="610" r="37" fill="#b6b1a9" stroke="#252421" stroke-width="2"/>
+          <path d="M311 669H629" fill="none" stroke="#553b30" stroke-width="2"/>
+          <rect x="324" y="646" width="31" height="12" rx="1" fill="#292927" stroke-width="2"/>
+          <rect x="585" y="646" width="31" height="12" rx="1" fill="#292927" stroke-width="2"/>
+          <g fill="#292927" stroke="none">
+            <circle cx="382" cy="663" r="3"/>
+            <circle cx="408" cy="663" r="3"/>
+            <circle cx="434" cy="663" r="3"/>
+          </g>
+          <path d="M320 685H619" fill="none" stroke="#8c857e" stroke-width="2"/>
+          </g>
+          <rect x="629" y="376" width="16" height="38" rx="3" fill="#204431" stroke="#252e27" stroke-width="2"/>
+        </g></g><g id="export-black-centre-round"><g id="export-black-centre-round-base"><rect x="429" y="589.6" width="83" height="85.8" rx="41.5" fill="#26303a"/></g><g id="export-black-centre-round-face"><rect x="429" y="589.6" width="83" height="81.8" rx="41.5" fill="#e5e5d9" stroke="#233037" stroke-width="1.5"/></g></g><g id="export-black-green-side"><g id="export-black-green-side-base"><rect x="671" y="378" width="15" height="34" rx="5" fill="#26303a"/></g><g id="export-black-green-side-face"><rect x="671" y="378" width="15" height="30" rx="5" fill="#199b59" stroke="#233037" stroke-width="1.5"/></g></g></g><g id="export-black-tray" mask="url(#export-black-black-tray-apertures)"><defs><linearGradient id="export-black-unova-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3beb7"/><stop offset=".5" stop-color="#9c9892"/><stop offset="1" stop-color="#686461"/></linearGradient><linearGradient id="export-black-unova-orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5482f"/><stop offset=".52" stop-color="#d43723"/><stop offset="1" stop-color="#a8261d"/></linearGradient></defs><g transform="translate(-117.5 0) scale(1.25 1)"><g stroke="#343636" stroke-width="3" stroke-linejoin="round">
+          <path d="M307 82Q307 69 320 69H620Q633 69 633 82V315H307Z" fill="#615c58"/>
+          <path d="M307 80Q307 69 320 69H620Q629 69 629 80V308H307Z" fill="url(#export-black-unova-metal)"/>
+          <path d="M316 301V82Q316 78 323 78H617" fill="none" stroke="#e7e1d9" stroke-width="3"/>
+          <path d="M328 87H612V296H328Z" fill="#454340"/>
+          <path d="M335 290V94H605" fill="none" stroke="#807b74" stroke-width="2"/>
+          <rect x="340" y="100" width="260" height="184" rx="2" fill="#1c302d" stroke="#222d2a" stroke-width="2"/>
+          <path d="M308 309H632" fill="none" stroke="#3d3a37" stroke-width="2"/>
+        </g></g></g></svg>

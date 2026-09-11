@@ -1,0 +1,40 @@
+{
+  "revision": "50.0",
+  "date": "2026-09-08",
+  "commands": [
+    "node .scratch/sm-dex/research/ticket-50-closed-seam-regression.mjs",
+    "node .scratch/sm-dex/research/ticket-49-visual-regression.mjs",
+    "node .scratch/sm-dex/prototypes/ticket-45-all-generations/export-assets.mjs"
+  ],
+  "checks": [
+    {
+      "name": "RSE closed lid has zero seam gap or overhang",
+      "passed": true,
+      "matchedEdges": ["top", "right", "bottom"],
+      "hingeMatchedEdges": ["top", "bottom"]
+    },
+    {
+      "name": "DP closed lid exactly matches centre body",
+      "passed": true,
+      "matchedEdges": ["left", "top", "right", "bottom"]
+    },
+    {
+      "name": "GSC closed leaves cover final body strip",
+      "passed": true,
+      "previousMissingWidth": 22,
+      "previousOppositeOverhang": 4
+    },
+    {
+      "name": "Prior shared-button and action regression",
+      "passed": true,
+      "representativeDevices": ["red", "gold", "ruby", "diamond", "black"]
+    }
+  ],
+  "browserErrors": [],
+  "exports": { "svgCount": 53, "xmlParseFailures": 0 },
+  "captures": [
+    "../../research/ticket-50-rse-closed.png",
+    "../../research/ticket-50-dp-closed.png",
+    "../../research/ticket-50-gsc-closed.png"
+  ]
+}

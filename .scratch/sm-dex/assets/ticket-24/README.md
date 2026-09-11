@@ -1,5 +1,8 @@
 # Ticket 24 — clubbed-generation casing masters
 
+> Generated masters removed on 2026-09-03 at the user's request. Downloaded `references/` files
+> remain. This is historical documentation, not approval. Ticket 32 owns the restart.
+
 > **Superseded 2026-08-23 (ticket 30).** Generation clubbing was removed: casings are per-skin
 > now. The Game Boy master (invented object — no game shows a grey DMG) is retired outright;
 > the HGSS-based open/closed masters are being regenerated pure; the modern frame is being

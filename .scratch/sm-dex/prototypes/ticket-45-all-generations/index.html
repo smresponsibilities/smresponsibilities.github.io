@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Shivam Mahajan's portfolio, inside a different flat device for every generation.">
+  <link rel="icon" href="data:,">
+  <title>SM'S DEX | Every generation</title>
+  <link rel="stylesheet" href="style.css?v=56.2">
+</head>
+<body>
+  <header><a class="brand" href="#">SM'S DEX</a><span>SHIVAM MAHAJAN · #001</span><button id="assets-toggle" aria-expanded="false" aria-controls="asset-panel">Asset library</button></header>
+  <main>
+    <nav id="generations" aria-label="Device generation"></nav>
+    <div class="device-title"><div><h1 id="region">Kanto</h1><p id="games">Red / Blue</p></div><span id="edition">GEN I</span></div>
+    <section id="stage" aria-label="Interactive portfolio device"><div id="rig"></div><button id="cover-drag" aria-label="Drag cover to open" tabindex="-1"></button></section>
+    <div class="opening">
+      <div id="slide-track"><span id="slide-label">Slide right to open</span><button id="slide-handle" aria-label="Open device" aria-expanded="false" aria-controls="reader"><span aria-hidden="true">→</span></button></div>
+      <div class="opening-tools"><button id="toggle" aria-expanded="false" aria-controls="reader">Open device</button><button id="power">Power off</button><button id="reader-toggle" aria-expanded="false" aria-controls="reader">Readable view</button></div>
+    </div>
+    <p id="status" role="status" aria-live="polite">Device closed. Slide to open.</p>
+    <div id="effect-controls" class="effect-controls" aria-label="Device effects" hidden></div>
+    <section id="reader" aria-label="Readable portfolio" hidden><div id="reader-content"></div><nav id="reader-controls" aria-label="Portfolio controls"></nav></section>
+    <section id="asset-panel" hidden aria-label="Generation asset library">
+      <div class="asset-heading"><h2>Device assets</h2><p>Open shells, moving layers, individual controls.</p></div>
+      <div id="asset-grid"></div>
+      <div class="reference-detail"><a id="reference" target="_blank" rel="noreferrer">View source reference ↗</a><p id="source-note"></p><button id="download">Download selected SVG</button><label><input id="reduce-motion" type="checkbox"> Reduce motion</label></div>
+    </section>
+  </main>
+  <footer><span>FLAT DEVICE STUDY · I–IX + HGSS</span><a href="../ticket-35-flat-threejs/?variant=flat&v=50">Original Gen I ↗</a></footer>
+  <script type="module" src="app.js?v=56.2"></script>
+</body>
+</html>

@@ -1,0 +1,90 @@
+import {phones} from './phones.js?v=47.0';
+import {rotomRear} from './rotom-rear.js?v=48.0';
+
+export const devices = [
+  {
+    id: 'sun-moon',
+    generation: 'VII',
+    region: 'Alola',
+    games: 'Sun / Moon',
+    accent: '#f05a59',
+    width: 940,
+    height: 760,
+    reference: 'https://archives.bulbagarden.net/wiki/File:0479Rotom-Pok%C3%A9dex.png',
+    note: 'Authored flat Rotom Dex with separate front and rear. The SM concept sheet selected by the user supplies the rear camera module, zigzag arm recesses and round lower cover. The two visible zigzag arm assemblies themselves leave those rear recesses during the turn; no substitute rear side flaps are used. The front arms take over after the half-turn. The rear silhouette mirrors this study’s adapted front. No physical lid is invented. The enlarged screen contains only portfolio content. Fixed eye housings contain tracking irises and blinking lids; extended arms react and the body floats. Motion can be paused.',
+    gesture: 'Slide right to turn Rotom over and unlock',
+    rear: rotomRear,
+    layers: [
+      {
+        id: 'body',
+        motion: null,
+        svg: `
+          <defs>
+            <mask id="sun-moon-display-cutout" maskUnits="userSpaceOnUse" x="0" y="0" width="940" height="760" style="mask-type:luminance">
+              <rect width="940" height="760" fill="white"/>
+              <rect x="264" y="318" width="412" height="270" fill="black"/>
+            </mask>
+          </defs>
+          <g mask="url(#sun-moon-display-cutout)" fill="none" stroke="#56272e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+            <path data-part="antenna" d="M370 202C373 160 359 98 370 48Q374 35 384 49C409 79 438 139 461 194Z" fill="#f05a59"/>
+            <path d="M377 62C374 102 378 150 380 178" stroke="#ffa08a"/>
+            <path d="M390 72C417 116 437 163 449 193L437 196C424 155 407 110 390 72Z" fill="#cd3d4c" stroke="none"/>
+
+            <g data-motion="left-arm"><path data-part="left-arm" d="M252 384L197 383Q188 383 189 394L191 421L52 371Q42 367 42 380L45 504Q45 516 57 520C108 540 156 547 208 542L200 448L253 450Z" fill="#f05a59"/>
+            <path d="M50 387L52 500Q52 509 62 512C112 531 156 536 196 535" stroke="#f28c7e"/>
+            <path d="M204 398L211 433H244" stroke="#a34149"/>
+            <ellipse data-part="left-arm-oval" cx="102" cy="467" rx="34" ry="19" transform="rotate(15 102 467)" fill="#c84e52"/>
+            <ellipse cx="106" cy="466" rx="12" ry="7" transform="rotate(15 106 466)" fill="#8c9290"/>
+
+            </g><g data-motion="right-arm"><path data-part="right-arm" d="M684 348L730 309Q740 301 745 314L760 346L796 214Q799 202 808 211C844 242 870 278 892 315Q898 325 890 334C856 379 820 413 777 445Q768 452 763 440L722 343L693 369Z" fill="#f05a59"/>
+            <path d="M804 223C833 250 863 288 882 320" stroke="#ffa08a"/>
+            <path d="M883 333C846 379 811 412 776 437" stroke="#b5474c"/>
+            <ellipse data-part="right-arm-oval" cx="825" cy="308" rx="22" ry="36" transform="rotate(33 825 308)" fill="#c84e52"/>
+            <path d="M816 284Q803 299 806 314" stroke="#f08a7d"/>
+
+            </g><path data-part="left-foot" d="M310 599C309 622 327 658 346 666Q363 673 367 651L361 605Z" fill="#cd3d4c"/>
+            <path d="M317 616Q326 645 343 655" stroke="#e88076"/>
+            <path data-part="right-foot" d="M580 597C578 621 603 659 624 663Q641 666 639 645C637 624 621 601 607 589Z" fill="#f05a59"/>
+            <path d="M600 611Q612 638 628 651" stroke="#ffa08a"/>
+
+            <path data-part="shell" d="M235 270C276 221 342 190 424 184C533 176 653 193 721 237Q733 245 726 259L697 319L692 579Q692 612 658 620H284Q252 620 246 587L231 333L200 315Q190 310 198 296Z" fill="#f05a59"/>
+            <path d="M206 303C253 246 319 211 391 201M466 193C563 189 652 211 710 243" stroke="#ffa08a"/>
+            <path d="M242 338L257 582Q261 607 286 608H652Q678 605 680 579L686 333" stroke="#bc4b50" stroke-width="5"/>
+            <path data-part="eye-housing" d="M369 278C380 236 414 214 452 214C492 214 533 234 565 278L552 307H382Z" fill="#283335"/>
+
+            <rect data-part="display-bezel" x="253" y="306" width="434" height="294" rx="19" fill="#913e48"/>
+            <rect x="258" y="311" width="424" height="282" rx="12" fill="#273a40" stroke="#482c33" stroke-width="2"/>
+            <path d="M268 310H671M259 325V578" stroke="#f4aa94" stroke-width="2"/>
+
+            <g data-part="left-eye" transform="rotate(-18 371 268)">
+              <ellipse cx="371" cy="268" rx="38" ry="55" fill="#f4f5e8"/>
+              <g data-motion="left-eye">
+              <ellipse cx="371" cy="268" rx="24" ry="39" fill="#6499c4" stroke="#293e52" stroke-width="2"/>
+              <path d="M348 273Q371 266 394 273L393 286Q371 307 350 285Z" fill="#5577ac" stroke="none"/>
+              </g>
+              <path d="M337 268H347M395 268H405" stroke="#344651" stroke-width="2"/>
+              <g class="rotom-lid" opacity="0"><ellipse cx="371" cy="268" rx="38" ry="55" fill="#f4f5e8"/><path d="M334 268H408" stroke="#344651"/></g>
+            </g>
+            <g data-part="right-eye" transform="rotate(12 552 250)">
+              <ellipse cx="552" cy="250" rx="38" ry="57" fill="#f4f5e8"/>
+              <g data-motion="right-eye">
+              <ellipse cx="552" cy="250" rx="23" ry="41" fill="#6499c4" stroke="#293e52" stroke-width="2"/>
+              <path d="M530 255Q552 249 574 255L573 272Q552 293 531 271Z" fill="#5577ac" stroke="none"/>
+              </g>
+              <path d="M519 251H529M575 251H585" stroke="#344651" stroke-width="2"/>
+              <g class="rotom-lid" opacity="0"><ellipse cx="552" cy="250" rx="38" ry="57" fill="#f4f5e8"/><path d="M515 250H589" stroke="#344651"/></g>
+            </g>
+            <g data-part="facial-dots" fill="#303c3c" stroke="none">
+              <circle cx="269" cy="274" r="4"/>
+              <circle cx="278" cy="296" r="4"/>
+              <circle cx="656" cy="240" r="4"/>
+              <circle cx="650" cy="266" r="4"/>
+            </g>
+          </g>`,
+      },
+    ],
+    screens: [{ layer: 'body', x: 264, y: 318, w: 412, h: 270, role: 'main' }],
+    controls: [],
+  },
+  ...phones,
+];

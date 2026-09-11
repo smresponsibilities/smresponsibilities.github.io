@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><title>Kalos · X / Y</title><desc>Authored flat interface asset. Authored interpretation of the official X/Y card artwork, also archived at https://archives.bulbagarden.net/wiki/File:XY_Pok%C3%A9dex.png. The upper and lower red halves separate vertically around one transparent cyan display. Their semicircular rims retain a luminous centre and narrow seam when compact. The 126-unit travel per half and concealed screen construction are inferred from still artwork. No physical key functions are established, so navigation uses labelled screen controls.</desc><defs><mask id="export-x-x-lower-card-apertures"><rect width="100%" height="100%" fill="white"/></mask></defs><g id="export-x-lower-card" mask="url(#export-x-x-lower-card-apertures)"><g stroke="#552633" stroke-width="3" stroke-linejoin="round">
+          <path d="M252 526V660Q252 692 284 692H656Q688 692 688 660V526H608A138 138 0 0 1 332 526Z" fill="#c6334b"/>
+          <path d="M262 540V659Q262 681 284 681H654Q676 681 678 659V540" fill="none" stroke="#e66678" stroke-width="2"/>
+          <path d="M252 602Q332 608 344 692M252 654Q283 658 293 692M596 692Q608 608 688 602M647 692Q656 658 688 654" fill="none" stroke="#6c293b" stroke-width="4"/>
+          <path d="M332 526A138 138 0 0 0 608 526H550A80 80 0 0 1 390 526Z" fill="#454c50"/>
+          <path d="M252 526H332A138 138 0 0 0 608 526H688" fill="none" stroke="#dce7e0" stroke-width="5"/>
+          <path d="M342 531A129 129 0 0 0 598 531" fill="none" stroke="#677176" stroke-width="2"/>
+          <path d="M390 526A80 80 0 0 0 550 526Z" fill="#9bebff" fill-opacity=".82" stroke="none"/>
+          <path d="M390 526A80 80 0 0 0 550 526" fill="none" stroke="#b9faff" stroke-width="2"/>
+          <circle cx="470" cy="671" r="7" fill="#353c40" stroke-width="2"/>
+          <circle cx="469" cy="670" r="2" fill="#7f9299" stroke="none"/>
+        </g></g></svg>

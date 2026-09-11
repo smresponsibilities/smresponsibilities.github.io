@@ -115,7 +115,8 @@ session recognises them as decisions rather than errors.
 | **Evolution** | Species transformation | Career progression, final stage unrevealed | Direct analogue |
 | **Device identity** | Every game version ships its own physically distinct Pokédex hardware | Eight skins, eight distinct casings — each skin draws the real device its game shows; no clubbing | Matches the measured hardware lineage instead of inventing shared shells |
 | **Screen geometry** | Single-screen, stacked-screen, and app layouts vary by title | One shared two-screen DOM layout sits side by side on desktop and stacks on mobile | Content and responsive behaviour remain stable while chrome changes around it |
-| **Lid motion** | Hardware hinges and opening directions vary | Hinged casings (Kanto, Johto cover, Sinnoh, HGSS) rotate one leaf around a fixed hinge edge; the Unova slider translates its upper tray; solid bodies (Hoenn, Rotom Dex, Rotom Phone) do not move | Gives independently controllable, coherent parts across the shared layout |
+| **Lid motion** | Hardware hinges and opening directions vary | Kanto uses a central vertical book hinge; Gold/Silver keeps separate top and right leaves; Hoenn, Sinnoh, and HGSS use horizontal clamshell hinges; Unova translates its tray; both Rotom devices stay stationary | Preserves the topology visible in each locked reference instead of forcing one shared lid model |
+| **Casing fidelity** | Published art fixes only the visible view; unseen construction and button functions are undocumented | Source-visible resting pixels remain unchanged; hidden surfaces are labelled reconstructed; hardware artwork never supplies unverified software semantics | Separates measured appearance from application interaction and prevents generated approximations from being called pixel-exact |
 
 The PP inversion is the one most likely to be "corrected" by someone who knows the games. It is
 intentional.

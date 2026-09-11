@@ -23,6 +23,41 @@ body {
   line-height: var(--lh-body);
 }
 
+html {
+  color-scheme: dark;
+  scroll-behavior: smooth;
+  scrollbar-width: auto;
+  scrollbar-color: var(--time-accent, #ffd75e) var(--time-deep, #09131d);
+}
+
+html[data-time="dawn"] { --time-deep:#2d163c; --time-panel:#5d2451; --time-accent:#ffb36b; --time-soft:#ffd1bd; }
+html[data-time="day"] { --time-deep:#073c58; --time-panel:#0c6685; --time-accent:#ffd75e; --time-soft:#d8f6ff; }
+html[data-time="sunset"] { --time-deep:#35102d; --time-panel:#8b2348; --time-accent:#ffb347; --time-soft:#ffe0c2; }
+html[data-time="night"] { --time-deep:#0c1230; --time-panel:#22205c; --time-accent:#7ee8fa; --time-soft:#e0e4ff; }
+
+html::-webkit-scrollbar { width:16px; }
+html::-webkit-scrollbar-track { background:var(--time-deep,#09131d); border-left:3px solid #05070b; }
+html::-webkit-scrollbar-thumb { background:var(--time-accent,#ffd75e); border:3px solid var(--time-deep,#09131d); box-shadow:inset 0 0 0 2px #fff8; }
+html::-webkit-scrollbar-thumb:hover { background:var(--time-soft,#fff); }
+html::-webkit-scrollbar-button { display:none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (max-width: 760px) {
+  :root {
+    --fs-label: 14px;
+    --fs-body: 18px;
+    --fs-head: 28px;
+    --fs-name: 38px;
+    --fs-mega: 60px;
+    --tap: 48px;
+  }
+}
+
 h1 {
   margin: 0;
   font-family: var(--font-display);

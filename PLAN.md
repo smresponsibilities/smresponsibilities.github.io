@@ -373,7 +373,7 @@ along the way. Add ~40% if Astro is brand new to you.
 | 4 | Community | `/become` builder page, issue form YAML, validate Action, label-triggered commit, `/dex` roster, share links | 4 |
 | 5 | Polish | Mobile layout, focus rings + reduced-motion + alt text, per-entry OG images, optional select beep | 4 |
 | 5b | **Legibility** | Tooltips on every dex term (native Popover API), first-visit onboarding card, `VIEW AS PLAIN TEXT` mode | **3** |
-| 5c | Version skins | 4 skins at launch over one layout, merged with the flavour-text version selector and mapped to a casing family. Remaining 4 are additive. | **3** |
+| 5c | Version skins | 8 skins over one shared content layout, each mapped to its own source-locked casing package. | **3** |
 | 6 | Ship | Custom domain, favicon, meta, README | 1 |
 | | **Total** | | **~30 h** |
 
@@ -384,7 +384,7 @@ Phase 0 is now largely done — `SPEC.md` drafts your content from your resume. 
 corrections, not authoring from scratch.
 
 The phase-5c estimate covers version-token work only. Production casing components are separate
-work; tickets 23 and 24 provide approved visual masters, not shippable assets.
+work; tickets 23 and 24 are rejected history, and ticket 30 owns the source locks.
 
 ### Order matters
 
@@ -859,17 +859,17 @@ control does both jobs**: pick RED and you get the green Game Boy skin *and* Red
 entry about you. The feature you wanted and the joke that was already planned are the same
 component.
 
-Cost: **+3 h** on phase 5 for the first four token skins (roughly 45 min each after the first).
-That estimate does not include reconstructing the four casing families as controllable code.
+Cost: **+3 h** on phase 5 for the token skins (roughly 45 min each after the first).
+That estimate does not include extracting eight casing packages into controllable layers.
 The first skin is free — it's the site.
 
 Rules to keep it cheap:
 
-- Version skins may only change custom properties and select a casing-family key. They may not
+- Version skins may only change custom properties and select a casing-package key. They may not
   add per-version HTML or change shared screen content.
-- The four family masters under `.scratch/sm-dex/assets/ticket-23/` and `ticket-24/` are
-  approval references only. Production uses controllable CSS/SVG/DOM parts, transparent screen
-  openings, independent native buttons, and coherent moving lid faces.
+- Ticket 30's eight source masters lock visible pixels. Production uses pre-extracted raster
+  layers plus controllable CSS/SVG/DOM parts, transparent screen openings, independent native
+  buttons, and source-correct hinge or slider topology.
 - Every skin must pass the same contrast check. The Gen 1 green LCD is the risk here; if
   green-on-green fails WCAG AA for body text, darken the foreground rather than shipping it.
 - Default to the recruiter-safe skin on first load, not the most retro one.
