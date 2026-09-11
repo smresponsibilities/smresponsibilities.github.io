@@ -134,7 +134,7 @@ const projects = [
       form.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const github=String(data.get('github')||'');const fields=[['GitHub username',github],['Species',data.get('species')],['Primary type',data.get('primaryType')],['Secondary type',data.get('secondaryType')],['Status',data.get('status')],...(data.get('status')==='Caught'?[['Company',data.get('company')]]:[]),['Dex entry',data.get('entry')],['Fact / tip (optional)',data.get('fact')||'—']];const body=fields.map(([label,value])=>`### ${label}\n${value}`).join('\n\n');const params=new URLSearchParams({title:`[DEX] ${github}`,body});status.textContent='Opening GitHub issue…';window.open(`https://github.com/smresponsibilities/smresponsibilities.github.io/issues/new?${params}`,'_blank','noopener,noreferrer');dialog.close();});
     }
   </script>
-  <script is:inline type="module" src="/generation-device/app.js?v=80.0"></script>
+  <script is:inline type="module" src="/generation-device/app.js?v=81.0"></script>
   <script>
     const loader=document.querySelector('#page-loader');
     const extraFact=document.querySelector('#loader-extra-fact');

@@ -20,9 +20,9 @@ const reduced=()=>$('reduce-motion').checked||media.matches;
 const mobileFrames={
   black:{x:220,y:45,w:500,h:700},
   x:{x:210,y:80,w:520,h:600},
-  'sun-moon':{x:155,y:135,w:630,h:500},
-  'sword-shield':{x:245,y:125,w:450,h:570},
-  'scarlet-violet':{x:245,y:125,w:450,h:570}
+  'sun-moon':{x:0,y:35,w:940,h:710},
+  'sword-shield':{x:245,y:36,w:450,h:700},
+  'scarlet-violet':{x:245,y:36,w:450,h:700}
 };
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const isOpen=()=>progress===1&&!drag&&!frame;
