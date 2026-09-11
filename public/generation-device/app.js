@@ -17,7 +17,13 @@ let effects=null;
 const media=matchMedia('(prefers-reduced-motion:reduce)');
 $('reduce-motion').checked=media.matches;
 const reduced=()=>$('reduce-motion').checked||media.matches;
-const alwaysOn=()=>['x','sword-shield','scarlet-violet'].includes(device.id);
+const mobileFrames={
+  black:{x:220,y:45,w:500,h:700},
+  x:{x:210,y:80,w:520,h:600},
+  'sun-moon':{x:155,y:135,w:630,h:500},
+  'sword-shield':{x:245,y:125,w:450,h:570},
+  'scarlet-violet':{x:245,y:125,w:450,h:570}
+};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('"','&quot;');
 const isOpen=()=>progress===1&&!drag&&!frame;
 const item=()=>sections[state.section].items[state.item];
@@ -45,7 +51,6 @@ function handleContent(e){
 }
 function dispatch(action,label=action){
   if(!isOpen()||!effects.facingFront()||(action!=='power'&&!state.power))return;
-  if(action==='power'&&alwaysOn())return;
   state=reduce(state,action);accepted++;lastAction=label;renderContent();
   if(device.id==='sun-moon'&&action!=='power')effects.react();
 }
@@ -74,9 +79,7 @@ function syncAvailability(){
   $('reader').hidden=!frontOpen||!readerWanted;
   $('reader-toggle').setAttribute('aria-expanded',String(frontOpen&&readerWanted));
   for(const b of $('reader-controls').querySelectorAll('button'))b.disabled=!frontOpen||(!state.power&&b.dataset.action!=='power');
-  $('power').hidden=alwaysOn();$('power').disabled=!frontOpen||alwaysOn();
-  const readerPower=$('reader-controls').querySelector('[data-action="power"]');
-  if(readerPower)readerPower.hidden=alwaysOn();
+  $('power').hidden=false;$('power').disabled=!frontOpen;
   $('reader-toggle').disabled=!frontOpen;
   $('cover-drag').hidden=open;
   const text=open?(stationary()?'Lock screen':'Close device'):(stationary()?'Unlock screen':'Open device');
@@ -143,8 +146,12 @@ function resize(){
     const width=$('stage').clientWidth;
     if(width===lastStageWidth)return;
     lastStageWidth=width;
-    const scale=width/device.width;
-    $('rig').style.transform=`scale(${scale})`;
+    const mobile=matchMedia('(max-width:700px)').matches,mobileFrame=mobile?mobileFrames[device.id]:null;
+    const scale=width/(mobileFrame?.w||device.width);
+    const offsetX=mobileFrame?-mobileFrame.x*scale:0,offsetY=mobileFrame?-mobileFrame.y*scale:0;
+    $('stage').style.height=mobileFrame?`${mobileFrame.h*scale}px`:'';
+    $('stage').style.aspectRatio=mobileFrame?'auto':`${device.width}/${device.height}`;
+    $('rig').style.transform=`translate(${offsetX}px,${offsetY}px) scale(${scale})`;
     $('rig').style.setProperty('--press-travel',`${4/scale}px`);
     position(progress);
   });
@@ -156,7 +163,7 @@ function select(next){
   effects?.dispose();
   // A newly selected rear-first device starts with its casing, ready to slide open.
   if(changing&&next.rear&&matchMedia('(max-width:700px)').matches){settled=1;progress=1;}
-  device=next;if(alwaysOn())state={...state,power:true};document.documentElement.style.setProperty('--accent',device.accent);
+  device=next;document.documentElement.style.setProperty('--accent',device.accent);
   $('stage').style.aspectRatio=`${device.width}/${device.height}`;
   renderer=createDevice(device,$('rig'),dispatch);
   effects=createEffects(device,$('rig'),$('effect-controls'),()=>{syncAvailability();status();});
