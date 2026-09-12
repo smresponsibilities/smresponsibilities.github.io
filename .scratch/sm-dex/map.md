@@ -2,6 +2,9 @@
 
 ## Decisions so far
 
+- [Ticket 88](issues/88-cloudflare-web-analytics.md) installs the supplied Cloudflare Web
+  Analytics beacon globally and validates its URL and site token in rendered output.
+
 - Ticket 83 reconciles merged roster history into the active checkout: persistent SM loader fact,
   four SM fallbacks, owner-tagged roster facts, Riya as device entry 002, and build-time DEX
   generation. See [ticket 83](issues/83-restore-loader-mix-and-merged-roster-flow.md).

@@ -80,6 +80,14 @@ const accentStyle = accentTypes?.length
   <body>
     <noscript><div><img src="https://mc.yandex.ru/watch/112521507" class="metrika-pixel" width="1" height="1" alt="" /></div></noscript>
     <slot />
+    <!-- Cloudflare Web Analytics -->
+    <script
+      is:inline
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token":"7b1a4d20f6dd4752be6d955dcecc8ddc"}'
+    ></script>
+    <!-- End Cloudflare Web Analytics -->
   </body>
 </html>
 
