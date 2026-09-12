@@ -14,5 +14,20 @@
     "fact": "i love cheese, chocolates and the color pink.",
     "shiny": false,
     "issue": 4
+  },
+  {
+    "dexNo": 2,
+    "github": "test2",
+    "name": "test2",
+    "species": "test",
+    "types": [
+      "fire"
+    ],
+    "status": "RELEASED",
+    "company": null,
+    "entry": "test2",
+    "fact": "test2",
+    "shiny": false,
+    "issue": 16
   }
 ]
