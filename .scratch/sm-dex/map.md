@@ -2,6 +2,10 @@
 
 ## Decisions so far
 
+- [Ticket 89](issues/89-live-roster-refresh.md) publishes a standalone device-roster payload and
+  refreshes it client-side on startup, focus, visibility, and a 60-second interval using unique
+  cache-busting requests.
+
 - [Ticket 88](issues/88-cloudflare-web-analytics.md) installs the supplied Cloudflare Web
   Analytics beacon globally and validates its URL and site token in rendered output.
 

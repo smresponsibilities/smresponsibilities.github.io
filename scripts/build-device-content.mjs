@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 
 const contentPath = 'public/generation-device/content.js';
+const liveRosterPath = 'public/generation-device/roster.json';
 const rosterPath = 'src/data/roster.json';
 
 const roster = fs.existsSync(rosterPath) ? JSON.parse(fs.readFileSync(rosterPath, 'utf8')) : [];
@@ -52,3 +53,4 @@ if (start < 0 || end < 0) {
 
 const updated = `${content.slice(0, start)}${rendered}${content.slice(end)}`;
 fs.writeFileSync(contentPath, updated);
+fs.writeFileSync(liveRosterPath, `${JSON.stringify(dexItems)}\n`);
