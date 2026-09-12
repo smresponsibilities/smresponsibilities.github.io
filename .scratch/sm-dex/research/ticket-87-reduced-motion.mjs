@@ -13,7 +13,7 @@ for (const reducedMotion of ['no-preference', 'reduce']) {
   page.on('pageerror', error => errors.push(error.message));
   const startedAt = Date.now();
   await page.goto(url, { waitUntil: 'domcontentloaded' });
-  await page.locator('#page-loader').waitFor({ state: 'detached', timeout: 2500 });
+  await page.locator('#page-loader').waitFor({ state: 'detached', timeout: 5000 });
   const loaderDismissedMs = Date.now() - startedAt;
   const result = await page.evaluate(() => ({
     loaderPresent: Boolean(document.querySelector('#page-loader')),

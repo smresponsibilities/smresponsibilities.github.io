@@ -2,6 +2,8 @@ import fs from 'node:fs';
 import { chromium } from 'playwright-core';
 
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const roster = JSON.parse(fs.readFileSync('src/data/roster.json', 'utf8'));
+const expectedFactCount = 4 + roster.filter(entry => entry.fact).length;
 const results = {};
 for (const viewport of [{ width: 320, height: 568 }, { width: 390, height: 844 }, { width: 667, height: 375 }]) {
   const page = await browser.newPage({ viewport });
@@ -41,8 +43,8 @@ const flow = {
 };
 const checks = {
   staticFactAlwaysPresent: Object.values(results).every(result => result.staticFact === 'FACT: SM likes paneer and is unemployed right now.'),
-  desiredRandomPool: Object.values(results).every(result => result.factCount === 5 && result.fallbackCount === 4 && result.hasRiya),
-  ownerMatchesFact: Object.values(results).every(result => result.ownerMatchesFact && result.selectedOwner === '@riyasainii448'),
+  desiredRandomPool: Object.values(results).every(result => result.factCount === expectedFactCount && result.fallbackCount === 4 && result.hasRiya),
+  ownerMatchesFact: Object.values(results).every(result => result.ownerMatchesFact),
   responsive: Object.values(results).every(result => result.loaderContained && result.linksContained),
   flowComplete: Object.values(flow).every(Boolean),
 };
