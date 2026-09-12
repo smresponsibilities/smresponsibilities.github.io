@@ -2,6 +2,9 @@
 
 ## Decisions so far
 
+- [Ticket 86](issues/86-yandex-metrika.md) installs Yandex Metrika counter 112521507 once through
+  the shared layout, including the supplied Webvisor settings and no-JavaScript fallback.
+
 - [Ticket 85](issues/85-bing-meta-description-report.md) removes the non-HTML resume download from
   the sitemap after Bing attributed its sole missing-meta-description finding to the crawl set.
   The SEO gate now prevents PDF URLs from returning to the canonical-page sitemap.

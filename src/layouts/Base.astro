@@ -38,6 +38,18 @@ const accentStyle = accentTypes?.length
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Yandex.Metrika counter -->
+    <script is:inline>
+      (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);
+      })(window,document,'script','https://mc.yandex.ru/metrika/tag.js?id=112521507','ym');
+
+      ym(112521507,'init',{ssr:true,webvisor:true,clickmap:true,ecommerce:'dataLayer',referrer:document.referrer,url:location.href,accurateTrackBounce:true,trackLinks:true});
+    </script>
+    <!-- /Yandex.Metrika counter -->
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Shivam Mahajan" />
@@ -65,6 +77,14 @@ const accentStyle = accentTypes?.length
     <ClientRouter />
   </head>
   <body>
+    <noscript><div><img src="https://mc.yandex.ru/watch/112521507" class="metrika-pixel" width="1" height="1" alt="" /></div></noscript>
     <slot />
   </body>
 </html>
+
+<style is:global>
+  .metrika-pixel {
+    position: absolute;
+    left: -9999px;
+  }
+</style>
