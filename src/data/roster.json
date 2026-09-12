@@ -46,5 +46,21 @@
     "fact": "???????????????",
     "shiny": false,
     "issue": 20
+  },
+  {
+    "dexNo": 4,
+    "github": "anmol0127",
+    "name": "anmol0127",
+    "species": "Pessimist",
+    "types": [
+      "psychic",
+      "dark"
+    ],
+    "status": "RELEASED",
+    "company": null,
+    "entry": "It appears calm but quite vulnerable to abandonment, criticism, and its own thoughts. Its own mind is the place it fears most.",
+    "fact": "It doesn't need an enemy to hurt itself. Its mind has memorized exactly where every old wound is.",
+    "shiny": false,
+    "issue": 26
   }
 ]
