@@ -21,7 +21,7 @@ const checks = {
   h1: /<h1[^>]*id="device-heading"[^>]*>Shivam Mahajan — Software Developer<\/h1>/.test(html),
   answerFirst: html.includes('Shivam Mahajan is a software developer building production systems'),
   robots: robots.includes('User-agent: *') && robots.includes('Allow: /') && robots.includes('Sitemap: https://shivammahajan.com/sitemap.xml'),
-  sitemap: sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') && sitemap.includes('<loc>https://shivammahajan.com/</loc>') && sitemap.includes('<loc>https://shivammahajan.com/resume.pdf</loc>'),
+  sitemap: sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') && sitemap.includes('<loc>https://shivammahajan.com/</loc>') && !sitemap.includes('.pdf</loc>'),
   llms: llms.includes("SM'S DEX") && llms.includes('https://shivammahajan.com/') && llms.includes('public developer roster'),
 };
 

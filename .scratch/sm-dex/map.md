@@ -2,6 +2,10 @@
 
 ## Decisions so far
 
+- [Ticket 85](issues/85-bing-meta-description-report.md) removes the non-HTML resume download from
+  the sitemap after Bing attributed its sole missing-meta-description finding to the crawl set.
+  The SEO gate now prevents PDF URLs from returning to the canonical-page sitemap.
+
 - [Ticket 84](issues/84-seo-geo-foundation.md) adds the SEO/GEO/AEO foundation: canonical and
   social metadata, `WebSite`/`ProfilePage`/`Person` JSON-LD, root sitemap and robots discovery,
   `llms.txt`, answer-first homepage copy, and a rendered-output regression gate.
