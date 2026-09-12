@@ -14,5 +14,21 @@
     "fact": "i love cheese, chocolates and the color pink.",
     "shiny": false,
     "issue": 4
+  },
+  {
+    "dexNo": 2,
+    "github": "nitishmehan",
+    "name": "nitishmehan",
+    "species": "Dev Pokemon 😀",
+    "types": [
+      "steel",
+      "dragon"
+    ],
+    "status": "CAUGHT",
+    "company": "Playsimple",
+    "entry": "Builds weird tools. Keeps every system under stress on edge.",
+    "fact": "—",
+    "shiny": false,
+    "issue": 18
   }
 ]
