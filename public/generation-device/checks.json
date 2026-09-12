@@ -1,0 +1,33 @@
+{
+  "revision": "45.2",
+  "recorded": "2026-09-07",
+  "kind": "Session verification record, not an automated test runner",
+  "passed": {
+    "deviceCount": 10,
+    "physicalControlsActivatedExactlyOnce": 47,
+    "allDevicesCloseDisableAndKeyboardReopen": true,
+    "allDevicesDesktopNoHorizontalOverflow": true,
+    "shortThumbDragSnapsClosed": true,
+    "fullThumbDragSnapsOpen": true,
+    "kantoDragOffCancelsActivation": true,
+    "kantoDpadCenterKeypadGapAndBlankShellInert": true,
+    "explicitReducedMotionCloseAndKeyboardOpen": true,
+    "freshKanto390x844ReadableViewAnd44pxControls": true,
+    "freshKanto390x844NoHorizontalOverflow": true,
+    "paldeaPhoneVisualInspection": true,
+    "javascriptSyntax": true,
+    "exportRegeneration": true,
+    "svgXmlParsedCount": 50
+  },
+  "incomplete": [
+    "All-device mobile batch timed out before returning complete results"
+  ],
+  "notTested": [
+    "Physical touchscreen",
+    "Other browser engines",
+    "Screen reader",
+    "OS-level reduced-motion setting changes",
+    "Pixel diff against source artwork"
+  ],
+  "approval": "Visual approval pending, especially reconstructed phone fronts"
+}

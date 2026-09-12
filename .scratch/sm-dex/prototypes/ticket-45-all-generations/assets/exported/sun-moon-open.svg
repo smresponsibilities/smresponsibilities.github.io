@@ -6,9 +6,9 @@
             </mask>
           </defs>
           <g mask="url(#export-sun-moon-sun-moon-display-cutout)" fill="none" stroke="#56272e" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-            <path data-part="antenna" d="M370 202C373 160 359 98 370 48Q374 35 384 49C409 79 438 139 461 194Z" fill="#f05a59"/>
+            <g data-motion="antenna"><path data-part="antenna" d="M370 202C373 160 359 98 370 48Q374 35 384 49C409 79 438 139 461 194Z" fill="#f05a59"/>
             <path d="M377 62C374 102 378 150 380 178" stroke="#ffa08a"/>
-            <path d="M390 72C417 116 437 163 449 193L437 196C424 155 407 110 390 72Z" fill="#cd3d4c" stroke="none"/>
+            <path d="M390 72C417 116 437 163 449 193L437 196C424 155 407 110 390 72Z" fill="#cd3d4c" stroke="none"/></g>
 
             <g data-motion="left-arm"><path data-part="left-arm" d="M252 384L197 383Q188 383 189 394L191 421L52 371Q42 367 42 380L45 504Q45 516 57 520C108 540 156 547 208 542L200 448L253 450Z" fill="#f05a59"/>
             <path d="M50 387L52 500Q52 509 62 512C112 531 156 536 196 535" stroke="#f28c7e"/>
@@ -22,10 +22,10 @@
             <ellipse data-part="right-arm-oval" cx="825" cy="308" rx="22" ry="36" transform="rotate(33 825 308)" fill="#c84e52"/>
             <path d="M816 284Q803 299 806 314" stroke="#f08a7d"/>
 
-            </g><path data-part="left-foot" d="M310 599C309 622 327 658 346 666Q363 673 367 651L361 605Z" fill="#cd3d4c"/>
-            <path d="M317 616Q326 645 343 655" stroke="#e88076"/>
-            <path data-part="right-foot" d="M580 597C578 621 603 659 624 663Q641 666 639 645C637 624 621 601 607 589Z" fill="#f05a59"/>
-            <path d="M600 611Q612 638 628 651" stroke="#ffa08a"/>
+            </g><g data-motion="left-foot"><path data-part="left-foot" d="M310 599C309 622 327 658 346 666Q363 673 367 651L361 605Z" fill="#cd3d4c"/>
+            <path d="M317 616Q326 645 343 655" stroke="#e88076"/></g>
+            <g data-motion="right-foot"><path data-part="right-foot" d="M580 597C578 621 603 659 624 663Q641 666 639 645C637 624 621 601 607 589Z" fill="#f05a59"/>
+            <path d="M600 611Q612 638 628 651" stroke="#ffa08a"/></g>
 
             <path data-part="shell" d="M235 270C276 221 342 190 424 184C533 176 653 193 721 237Q733 245 726 259L697 319L692 579Q692 612 658 620H284Q252 620 246 587L231 333L200 315Q190 310 198 296Z" fill="#f05a59"/>
             <path d="M206 303C253 246 319 211 391 201M466 193C563 189 652 211 710 243" stroke="#ffa08a"/>

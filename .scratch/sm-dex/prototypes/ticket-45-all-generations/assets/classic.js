@@ -1,4 +1,4 @@
-import {hoenn} from './hoenn.js?v=56.2';
+import {hoenn} from './hoenn.js?v=58.0';
 // Ticket 45 extends the approved ticket-35 flat SVG treatment. These palettes and
 // widened apertures belong to the authored study, not the source-locked raster skins.
 // The host owns animation, reduced motion, screen DOM, buttons, and moving caps.

@@ -1,6 +1,8 @@
 const hgssDefs = `<defs><linearGradient id="hgss-shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f18b63"/><stop offset=".5" stop-color="#db6948"/><stop offset="1" stop-color="#ad4836"/></linearGradient></defs>`;
 const unovaDefs = `<defs><linearGradient id="unova-metal" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#c3beb7"/><stop offset=".5" stop-color="#9c9892"/><stop offset="1" stop-color="#686461"/></linearGradient><linearGradient id="unova-orange" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e5482f"/><stop offset=".52" stop-color="#d43723"/><stop offset="1" stop-color="#a8261d"/></linearGradient></defs>`;
 
+const unovaLowerScale=1.30;
+const unovaLowerY=y=>535+(y-535)*unovaLowerScale;
 export const devices = [
   {
     id: 'heartgold', generation: 'IV-r', region: 'Johto',
@@ -85,14 +87,14 @@ export const devices = [
       {
         id: 'body', motion: null,
         svg: `${unovaDefs}<g transform="translate(-117.5 0) scale(1.25 1)"><g stroke="#343636" stroke-width="3" stroke-linejoin="round">
-          <path d="M308 302H632V717Q632 739 615 739H325Q308 739 308 717Z" fill="#525354"/>
-          <path d="M309 302H631V705Q631 725 616 725H324Q309 725 309 705Z" fill="url(#unova-metal)"/>
+          <path d="M308 302H632V${unovaLowerY(675)}Q632 ${unovaLowerY(692)} 615 ${unovaLowerY(692)}H325Q308 ${unovaLowerY(692)} 308 ${unovaLowerY(675)}Z" fill="#525354"/>
+          <path d="M309 302H631V${unovaLowerY(666)}Q631 ${unovaLowerY(681)} 616 ${unovaLowerY(681)}H324Q309 ${unovaLowerY(681)} 309 ${unovaLowerY(666)}Z" fill="url(#unova-metal)"/>
           <path d="M318 314V551M622 314V551" fill="none" stroke="#c9c3ba" stroke-width="4"/>
           <path d="M323 316V545M617 316V545" fill="none" stroke="#4a4743" stroke-width="2"/>
           <rect x="327" y="330" width="286" height="192" rx="3" fill="#4b4844"/>
           <rect x="339" y="342" width="262" height="168" rx="2" fill="#1c302d" stroke="#222d2a" stroke-width="2"/>
           <path d="M333 516V336H607" fill="none" stroke="#98938b" stroke-width="2"/>
-          <g data-part="bw-lower-panel" transform="translate(0 -160.5) scale(1 1.3)">
+          <g data-part="bw-lower-panel" transform="translate(0 ${535*(1-unovaLowerScale)}) scale(1 ${unovaLowerScale})">
           <path d="M310 668V615Q310 535 470 535Q630 535 630 615V668Z" fill="url(#unova-orange)"/>
           <path d="M320 660V615Q320 549 455 545" fill="none" stroke="#fa866b" stroke-width="2"/>
           <path data-part="bw-stripe-upper" d="M402 543 430 539 458 570 440 589Z" fill="#353332"/>
@@ -131,7 +133,7 @@ export const devices = [
       { layer: 'body', x: 309, y: 344, w: 323, h: 164, role: 'side' }
     ],
     controls: [
-      { id: 'centre-round', label: 'Open entry', action: 'confirm', layer: 'body', x: 429, y: 589.6, w: 83, h: 85.8, shape: 'round', fill: '#f1f0e7' },
+      { id: 'centre-round', label: 'Open entry', action: 'confirm', layer: 'body', x: 429, y: unovaLowerY(577), w: 83, h: 66*unovaLowerScale, shape: 'round', fill: '#f1f0e7' },
       { id: 'green-side', label: 'Toggle power', action: 'power', layer: 'body', x: 671, y: 378, w: 15, h: 34, shape: 'rect', fill: '#199b59' }
     ]
   },

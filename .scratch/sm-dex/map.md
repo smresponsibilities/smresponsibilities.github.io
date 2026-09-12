@@ -2,6 +2,17 @@
 
 ## Decisions so far
 
+- Ticket 83 reconciles merged roster history into the active checkout: persistent SM loader fact,
+  four SM fallbacks, owner-tagged roster facts, Riya as device entry 002, and build-time DEX
+  generation. See [ticket 83](issues/83-restore-loader-mix-and-merged-roster-flow.md).
+
+- Ticket 82 removes SM-only loader fallbacks: each loader fact, username, and profile link now come
+  from one roster record. It also locks down profile-link containment at 320px. See
+  [ticket 82](issues/82-loader-fact-source-and-profile-link-containment.md).
+
+- Ticket 81 makes loader fact ownership roster-driven and verifies responsive behavior across six
+  viewport classes and all nine device generations. See [ticket 81](issues/81-loader-fact-ownership-and-responsive-audit.md).
+
 - Ticket 32 retired rejected casing imagery and assembled ninety source references. The user's
   current build contract is image casing/lid layers with coded pressable caps and live screens.
   See [ticket 32](issues/32-reference-first-asset-restart.md) and the
@@ -138,3 +149,44 @@
   and explicitly protected after user feedback. Correct key inventory, side strips, blue
   beads, dark casing, closed rim fit, longer red lower shell and compact Poké Ball are
   verified with screenshot comparisons, browser checks and SVG parsing.
+
+- [Ticket 57](issues/57-rotom-wake-and-motion.md) checkpoints all prior work at
+  `5a7c400`, improves Rotom's staged opening, expressions and smile, and trims Gen V.
+  Revision 57.1 preserves Gen I and III; new changes remain uncommitted for review.
+
+- [Ticket 59](issues/59-portfolio-generation-showcase.md) moves the accepted generation device
+  work onto the production homepage. It keeps Generations I through IX, removes the separate
+  HGSS variant, adds the roster issue form, and follows the device with themed About Me and
+  Projects sections. Browser verification covers desktop, phone, reduced motion, all selectors,
+  issue URL generation, resource loading and horizontal overflow.
+
+- [Ticket 61](issues/61-control-and-logo-rebuild.md) replaces ticket 60's improvised loader and
+  technology marks with the official Python logo plus downloaded MIT pixel icons. It replaces
+  bubble tooltips with keyboard- and pointer-driven diagram labels connected to their controls by
+  SVG elbow lines. Its regression gate covers tooltip completeness, connector visibility, primary
+  hitboxes, real image assets, and responsive viewport bounds.
+
+- [Ticket 60](issues/60-native-device-background-and-guidance.md) removes ticket 59's iframe and
+  mounts the complete device runtime in the homepage document. It adds action tooltips, responsive
+  Gen I/IX defaults, themed controls and form, floating pixel technology marks, the Python-snake
+  loader, Experience, and expanded credits. Desktop and phone reduced-motion checks pass.
+
+- [Ticket 77](issues/77-mobile-scale-tooltip-toggle-render-audit.md) increases the existing mobile
+  type scale and touch controls, adds a persisted accessible Tooltip switch to the header, and
+  removes duplicate generation/resize paints. Its focused gate covers phone and desktop overflow,
+  tooltip suppression, persistence, render count, and runtime errors.
+
+- [Ticket 78](issues/78-readable-spacing-selection-ring-and-query-name.md) spaces readable rows
+  and controls, moves the screen-row focus ring inside its scroll boundary, migrates generation
+  URLs to `pokedexgen`, and removes the Tips control's outer chrome. Its browser gate covers both
+  requested views at phone and desktop widths.
+
+- [Ticket 79](issues/79-custom-domain.md) moves production to `shivammahajan.com`. GitHub Pages
+  verifies the domain and its `www` alternate, reports both HTTPS-eligible, and enforces HTTPS.
+  Pull request 1 merged the production branch into `main` and deployed through Actions.
+### Ticket 84: reduced-motion loading and Lighthouse performance
+
+Resolved in `.scratch/sm-dex/issues/84-reduced-motion-load-and-lighthouse.md`. Loader dismissal
+now follows DOM readiness and skips delay under reduced motion; lossless WebP backgrounds,
+pre-paint time selection, compositor-safe cloud motion, and removal of the unused Astro router
+cut the production-build Lighthouse payload and main-thread cost.

@@ -1,0 +1,6 @@
+import {chromium} from 'playwright-core';
+const browser=await chromium.launch({channel:'chrome',headless:true});
+const page=await browser.newPage({viewport:{width:1280,height:900}});await page.goto('http://127.0.0.1:4321/',{waitUntil:'load'});await page.waitForTimeout(1400);
+for(let i=0;i<4;i++)await page.locator('#rig [data-action=down]').first().evaluate(el=>el.click());await page.locator('#rig [data-action=confirm]').first().evaluate(el=>el.click());await page.waitForTimeout(50);await page.locator('#rig [data-action=confirm]').first().evaluate(el=>el.click());await page.waitForURL('**/dex/smresponsibilities/');console.log(`dex=${page.url()}`);
+await page.goto('http://127.0.0.1:4321/',{waitUntil:'load'});await page.waitForTimeout(1400);await page.locator('#power').click();await page.screenshot({path:'.scratch/sm-dex/research/ticket-69-power-off.png'});
+const mobile=await browser.newPage({viewport:{width:390,height:844}});await mobile.goto('http://127.0.0.1:4321/',{waitUntil:'load'});await mobile.waitForTimeout(1400);const overflow=await mobile.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth);console.log(`mobileOverflow=${overflow}`);await mobile.screenshot({path:'.scratch/sm-dex/research/ticket-69-mobile-header.png'});await browser.close();if(overflow>1)process.exit(1);

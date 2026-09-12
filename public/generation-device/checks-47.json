@@ -1,0 +1,61 @@
+{
+  "revision": "47.1",
+  "date": "2026-09-08",
+  "scope": [
+    "generation II-V keyboard open and close",
+    "generation III narrow-viewport fit",
+    "generation VII rear-to-front arm reveal",
+    "generation VII reduced-motion endpoints",
+    "exported SVG parsing"
+  ],
+  "interaction": {
+    "devices": ["gold", "ruby", "diamond", "heartgold", "black"],
+    "open": {
+      "progress": 1,
+      "bodyOpen": true,
+      "readerToggleDisabled": false
+    },
+    "closed": {
+      "progress": 0,
+      "bodyOpen": false,
+      "readerToggleDisabled": true
+    }
+  },
+  "rotom": {
+    "rearEmergenceProgress": 0.3518817860593078,
+    "rearEmergenceFacing": "rear",
+    "rearEmergenceArmScale": 0.6831618275733109,
+    "rearEmergenceArmOpacity": 0.6766957424217458,
+    "midTurnProgress": 0.7037634080456149,
+    "midTurnFacing": "front",
+    "midTurnFrontLeftShift": "45.110902478618016px",
+    "midTurnRearArmScale": 1,
+    "midTurnRearArmOpacity": 1,
+    "reducedMotionClosed": { "progress": 0, "facing": "rear" },
+    "reducedMotionOpen": { "progress": 1, "facing": "front" }
+  },
+  "mobile": {
+    "viewport": "390x844",
+    "documentScrollWidth": 390,
+    "documentClientWidth": 390,
+    "stageWidth": 366,
+    "horizontalOverflow": false
+  },
+  "exports": {
+    "svgCount": 53,
+    "xmlParseFailures": 0
+  },
+  "browserErrors": [],
+  "evidence": {
+    "script": "../../research/ticket-47-audit.mjs",
+    "rotomRearEmergence": "../../research/ticket-47-rotom-emerge-35.png",
+    "rotomMidTurn": "../../research/ticket-47-rotom-emerge-70.png",
+    "closedScreenshots": [
+      "../../research/ticket-47-closed-gold.png",
+      "../../research/ticket-47-closed-ruby.png",
+      "../../research/ticket-47-closed-diamond.png",
+      "../../research/ticket-47-closed-heartgold.png",
+      "../../research/ticket-47-closed-black.png"
+    ]
+  }
+}

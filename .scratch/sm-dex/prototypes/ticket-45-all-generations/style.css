@@ -69,13 +69,36 @@ body{background:radial-gradient(ellipse at 50% 36%,#22141d 0,transparent 68%);mi
 .effect-controls{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin:0 auto 28px;max-width:600px}.effect-controls button{font-size:12px}.effect-status{flex-basis:100%;text-align:center;font-size:12px;color:var(--dim)}
 .phone-turn,.phone-front,.phone-back{position:absolute;inset:0}.phone-turn{transform-style:preserve-3d;transform-origin:50% 50%;transition:transform 500ms cubic-bezier(.22,.72,.22,1)}.phone-turn.back-facing{transform:rotateY(180deg)}.phone-front,.phone-back{backface-visibility:hidden;transform-style:flat}.phone-front{transform:translateZ(1px)}.phone-back{transform:rotateY(180deg) translateZ(1px)}.phone-back-hit{position:absolute;left:285px;top:147px;width:364px;height:526px;background:transparent!important;border:0;padding:0;border-radius:32px;cursor:grab}
 #rig[data-device=x] .glass{isolation:isolate}.glass.scanning:after{content:'';position:absolute;left:0;right:0;top:0;height:28%;background:linear-gradient(transparent,#a7ffff88);border-bottom:2px solid #e2ffff;box-shadow:0 4px 20px #80ffff99;pointer-events:none;animation:scan-pass 850ms ease-in-out both}.glass.scanning>*{animation:scan-reveal 700ms ease-out both}@keyframes scan-pass{from{transform:translateY(-110%)}to{transform:translateY(470%)}}@keyframes scan-reveal{from{clip-path:inset(0 0 100%)}to{clip-path:inset(0)}}
-#rig[data-device=sun-moon] [data-motion="left-arm"]{transform-origin:248px 417px;transform:translateX(var(--rotom-left-arm-shift,0px)) scaleX(var(--rotom-arm-scale,1))}
-#rig[data-device=sun-moon] [data-motion="right-arm"]{transform-origin:692px 356px;transform:translateX(var(--rotom-right-arm-shift,0px)) scaleX(var(--rotom-arm-scale,1))}
+#rig[data-device=sun-moon] [data-motion="left-arm"]{transform-origin:248px 417px;transform:translateX(var(--rotom-left-arm-shift,0px)) rotate(calc(var(--rotom-left-unfold,0deg) + var(--arm-look,0deg)))}
+#rig[data-device=sun-moon] [data-motion="right-arm"]{transform-origin:692px 356px;transform:translateX(var(--rotom-right-arm-shift,0px)) rotate(calc(var(--rotom-right-unfold,0deg) + var(--arm-look,0deg)))}
 #rig[data-device=sun-moon] [data-motion="rear-stowed-left-arm"]{transform-origin:366px 404px;transform:translateX(var(--rotom-rear-left-exit,0px)) rotate(var(--rotom-rear-left-turn,0deg))}
 #rig[data-device=sun-moon] [data-motion="rear-stowed-right-arm"]{transform-origin:574px 405px;transform:translateX(var(--rotom-rear-right-exit,0px)) rotate(var(--rotom-rear-right-turn,0deg))}
 .rotom-awake .device-layer{animation:rotom-float 5s ease-in-out infinite}.rotom-awake [data-motion$="eye"]{transform:translate(var(--look-x,0px),var(--look-y,0px));transition:transform 120ms ease-out}.rotom-awake [data-motion="left-arm"]{transform-origin:248px 417px;transform:rotate(var(--arm-look,0deg));transition:transform 160ms}.rotom-awake [data-motion="right-arm"]{transform-origin:692px 356px;transform:rotate(var(--arm-look,0deg));transition:transform 160ms}.rotom-awake.reacting [data-motion="left-arm"]{animation:rotom-left-wave 900ms ease-in-out}.rotom-awake.reacting [data-motion="right-arm"]{animation:rotom-right-wave 900ms ease-in-out}.rotom-awake.reacting .rotom-lid{animation:rotom-lid-blink 900ms ease}@keyframes rotom-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}@keyframes rotom-left-wave{0%,100%{transform:rotate(0)}30%,65%{transform:rotate(18deg)}45%,80%{transform:rotate(7deg)}}@keyframes rotom-right-wave{0%,100%{transform:rotate(0)}30%,65%{transform:rotate(-15deg)}45%,80%{transform:rotate(-4deg)}}@keyframes rotom-lid-blink{0%,15%,45%,100%{opacity:0}24%,30%{opacity:1}}
 .effects-reduced .phone-turn{transition:none}.effects-reduced .device-layer,.effects-reduced [data-motion],.effects-reduced .glass:after,.effects-reduced .glass>*{animation:none!important;transition:none!important}.effects-reduced .glass:after{display:none}
 .phone-turn.slide-turn{transition:none}
+#rig[data-device=sun-moon] [data-motion=antenna]{transform-origin:410px 195px}
+#rig[data-device=sun-moon] [data-motion=left-foot]{transform-origin:337px 605px}
+#rig[data-device=sun-moon] [data-motion=right-foot]{transform-origin:603px 605px}
+.rotom-awake [data-motion=antenna]{animation:rotom-antenna 4.8s ease-in-out infinite}
+.rotom-awake [data-motion=left-foot]{animation:rotom-toe 3.8s ease-in-out infinite}
+.rotom-awake [data-motion=right-foot]{animation:rotom-toe 3.8s ease-in-out -1.9s infinite reverse}
+.rotom-awake .rotom-lid{animation:rotom-idle-blink 6.4s linear infinite}
+#rig.rotom-awake[data-emotion=curious] .device-layer{animation:rotom-curious 1.5s ease-in-out}
+#rig.rotom-awake[data-emotion=surprised] .device-layer{animation:rotom-surprise 1.5s ease-out}
+#rig.rotom-awake[data-emotion=curious] [data-motion$=eye]{transform:translate(4px,-3px)}
+#rig.rotom-awake[data-emotion=surprised] [data-motion$=eye]{transform-box:fill-box;transform-origin:center;transform:scale(.78)}
+#rig.rotom-awake[data-emotion=surprised] [data-motion=antenna]{animation:rotom-antenna-jolt 1.5s ease-out}
+#rig.rotom-awake[data-emotion=curious] [data-motion=left-arm],#rig.rotom-awake[data-emotion=curious] [data-motion=right-arm]{animation:none;transform:rotate(-7deg)}
+#rig.rotom-awake[data-emotion=surprised] [data-motion=left-arm]{animation:rotom-startle-left 1.5s ease-out}
+#rig.rotom-awake[data-emotion=surprised] [data-motion=right-arm]{animation:rotom-startle-right 1.5s ease-out}
+@keyframes rotom-antenna{0%,100%{transform:rotate(-1deg)}50%{transform:rotate(2deg)}}
+@keyframes rotom-toe{0%,65%,100%{transform:rotate(0)}80%{transform:rotate(7deg)}}
+@keyframes rotom-idle-blink{0%,90%,96%,100%{opacity:0}92%,94%{opacity:1}}
+@keyframes rotom-curious{0%,100%{transform:translateY(0) rotate(0)}35%,70%{transform:translateY(-5px) rotate(-4deg)}}
+@keyframes rotom-surprise{0%,100%{transform:translateY(0)}18%{transform:translateY(-18px)}35%{transform:translateY(3px)}55%{transform:translateY(-5px)}}
+@keyframes rotom-antenna-jolt{0%,100%{transform:rotate(0)}18%{transform:rotate(8deg)}36%{transform:rotate(-5deg)}55%{transform:rotate(2deg)}}
+@keyframes rotom-startle-left{0%,100%{transform:rotate(0)}18%,45%{transform:rotate(22deg)}}
+@keyframes rotom-startle-right{0%,100%{transform:rotate(0)}18%,45%{transform:rotate(-20deg)}}
 /* X/Y uses the same cyan glass while compact and extended. Hidden content must
    not leave an opaque black rectangle across the compact card's luminous seam. */
 #rig[data-device=x]{--screen-ink:#123d52;--screen-dim:#235368;--screen-tag:#235368;--selected-ink:#123d52;--selected:#e0fcff99}

@@ -1,0 +1,2 @@
+import {chromium} from 'playwright-core';
+const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:1280,height:900}});await page.goto('http://127.0.0.1:4321/?gen=red',{waitUntil:'load'});await page.waitForSelector('#page-loader',{state:'hidden'});await page.waitForTimeout(500);await page.screenshot({path:'.scratch/sm-dex/research/ticket-74-clouds.png'});await page.locator('.opening').scrollIntoViewIfNeeded();await page.screenshot({path:'.scratch/sm-dex/research/ticket-74-slider.png'});await browser.close();

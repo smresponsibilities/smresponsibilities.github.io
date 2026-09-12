@@ -15,7 +15,7 @@ const controls=[
   {id:'ruby-disc-left',label:'Previous page',action:'left',x:28,y:355,w:47,h:50},
 ].map(c=>({...c,layer:'body',shape:'direction',rocker:'ruby-disc',fill:'#f5f7ee'}));
 controls.push(
-  {id:'centre-green',label:'Open entry',action:'confirm',layer:'body',x:142,y:459,w:46,h:46,shape:'round',fill:'#43d053'},
+  {id:'centre-green',label:'Open entry',action:'confirm',layer:'body',x:128,y:462,w:46,h:46,shape:'round',fill:'#43d053'},
   {id:'white-pill-left',label:'Back',action:'back',layer:'body',x:267,y:498,w:56,h:20,shape:'rect',fill:'#f6f8ee'},
   {id:'white-pill-right',label:'Main menu',action:'menu',layer:'body',x:345,y:498,w:56,h:20,shape:'rect',fill:'#f6f8ee'},
 );

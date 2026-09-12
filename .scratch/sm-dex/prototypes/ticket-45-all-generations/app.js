@@ -1,13 +1,13 @@
 import {kanto} from './assets/kanto.js?v=55.0';
-import {devices as classic} from './assets/classic.js?v=56.2';
-import {devices as middle} from './assets/middle.js?v=56.2';
-import {devices as rotom} from './assets/rotom.js?v=48.0';
+import {devices as classic} from './assets/classic.js?v=58.0';
+import {devices as middle} from './assets/middle.js?v=58.0';
+import {devices as rotom} from './assets/rotom.js?v=58.0';
 import {sections,initial,reduce} from './content.js?v=47.0';
 import {createDevice,exportAsset} from './renderer.js?v=56.2';
-import {createEffects} from './effects.js?v=48.0';
+import {createEffects} from './effects.js?v=58.0';
 
 const $=id=>document.getElementById(id);
-const catalog=[kanto,...classic,...middle,...rotom];
+const catalog=[kanto,...classic,...middle,...rotom].filter(device=>device.generation!=='IV-r');
 const order=['I','II','III','IV','IV-r','V','VI','VII','VIII','IX'];
 catalog.sort((a,b)=>order.indexOf(a.generation)-order.indexOf(b.generation));
 const params=new URLSearchParams(location.search);
@@ -93,7 +93,8 @@ function settle(target,animate=true){
   cancelAnimationFrame(frame);frame=0;renderer.cancel();
   if(reduced()||!animate||Math.abs(target-progress)<.001){settled=target;position(target);return;}
   const start=performance.now(),from=progress;
-  function tick(now){const t=Math.min(1,(now-start)/320);position(from+(target-from)*(1-(1-t)**3));if(t<1)frame=requestAnimationFrame(tick);else{frame=0;settled=target;position(target);}}
+  const rotomTurn=device.id==='sun-moon';
+  function tick(now){const t=Math.min(1,(now-start)/(rotomTurn?1050:320)),eased=rotomTurn?t*t*(3-2*t):1-(1-t)**3;position(from+(target-from)*eased);if(t<1)frame=requestAnimationFrame(tick);else{frame=0;settled=target;position(target);}}
   frame=requestAnimationFrame(tick);syncAvailability();
 }
 function cancelDrag(){if(!drag)return;const start=drag.start;drag=null;document.body.classList.remove('dragging');settle(start);}

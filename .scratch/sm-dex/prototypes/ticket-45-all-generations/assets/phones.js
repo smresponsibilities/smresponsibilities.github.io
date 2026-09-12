@@ -15,10 +15,18 @@ function phone(paldea){
     <circle cx="461" cy="176" r="2" fill="#63332e"/><circle cx="475" cy="176" r="2" fill="#63332e"/>
     <path d="M461 183Q468 188 475 183" fill="none" stroke="#63332e" stroke-width="2"/>`;
   const camera=paldea?
-    `<path d="M315 172Q331 169 343 181Q349 187 359 184C384 178 391 215 368 220Q355 223 345 213Q339 209 334 214C308 231 289 187 315 172Z" fill="#ffa17d"/><circle cx="321" cy="195" r="16" fill="#79b8dc"/><circle cx="368" cy="202" r="12" fill="#819d9e"/>`:
+    `<g data-part="paldea-cameras">
+      <path d="M334 173C350 173 356 187 362 187C369 187 371 181 382 181C411 181 411 223 382 223C371 223 369 217 362 217C356 217 350 231 334 231C296 231 296 173 334 173Z" fill="#f58c69"/>
+      <circle cx="334" cy="202" r="20" fill="#667c9c"/>
+      <circle cx="334" cy="202" r="15" fill="#648ac0" stroke="none"/>
+      <path d="M321 201Q328 185 345 194L323 210Z" fill="#a1bce2" stroke="none"/>
+      <circle cx="382" cy="202" r="14" fill="#565956"/>
+      <circle cx="382" cy="202" r="9" fill="#858986" stroke="none"/>
+      <path d="M375 201Q380 192 388 198" fill="none" stroke="#bfc3ba" stroke-width="3"/>
+    </g>`:
     `<circle cx="320" cy="194" r="22" fill="#e47b62"/><circle cx="320" cy="194" r="15" fill="#70b5d9"/><circle cx="320" cy="194" r="8" fill="#356c92"/>`;
   const rear=`${shell}<g stroke="#64342f" stroke-width="3" stroke-linejoin="round">
-    ${camera}<path d="M310 189 319 183" fill="none" stroke="#ddfaff"/>
+    ${camera}${paldea?'':'<path d="M310 189 319 183" fill="none" stroke="#ddfaff"/>'}
     <circle cx="467" cy="430" r="121" fill="${color}" stroke="${paldea?'#8ee2e3':'#783c34'}" stroke-width="${paldea?6:3}"/>
     ${paldea?'<circle cx="467" cy="430" r="121" fill="none" stroke="#e6ffff" stroke-width="2"/>':''}
     ${eye(383,-13)}${eye(551,13)}

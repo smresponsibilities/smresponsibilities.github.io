@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><defs><linearGradient id="hgss-shell" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f18b63"/><stop offset=".5" stop-color="#db6948"/><stop offset="1" stop-color="#ad4836"/></linearGradient></defs><g stroke="#533d35" stroke-width="3" stroke-linejoin="round">
+          <path d="M306 394V660Q306 682 328 682H612Q634 682 634 660V394Z" fill="url(#hgss-shell)"/>
+          <path d="M317 405V657Q317 672 331 672H609" fill="none" stroke="#f19a75" stroke-width="2"/>
+          <path d="M306 590H634" fill="none"/>
+          <circle cx="470" cy="590" r="59" fill="#dc6848"/>
+          <circle cx="470" cy="590" r="49" fill="#585b5b"/>
+          <circle cx="470" cy="590" r="30" fill="#202f34"/>
+          <circle cx="470" cy="590" r="23" fill="#588cae" stroke="#a4c7d6" stroke-width="2"/>
+          <path d="M453 585A19 19 0 0 1 470 573" fill="none" stroke="#b8dbe8" stroke-width="4" stroke-linecap="round"/>
+          <circle cx="478" cy="602" r="4" fill="#e1f5f5" stroke="none"/>
+          <rect x="457" y="440" width="26" height="63" rx="13" fill="#575653"/>
+          <rect x="464" y="447" width="12" height="49" rx="6" fill="#7ba658" stroke="#a7bf8a" stroke-width="2"/>
+          <path d="M468 452V478" fill="none" stroke="#d4e3b9" stroke-width="3" stroke-linecap="round"/>
+        </g></svg>
