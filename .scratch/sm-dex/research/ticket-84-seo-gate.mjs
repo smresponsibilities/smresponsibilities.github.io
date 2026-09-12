@@ -24,6 +24,7 @@ const checks = {
   sitemap: sitemap.includes('xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"') && sitemap.includes('<loc>https://shivammahajan.com/</loc>') && !sitemap.includes('.pdf</loc>'),
   llms: llms.includes("SM'S DEX") && llms.includes('https://shivammahajan.com/') && llms.includes('public developer roster'),
   metrika: (html.match(/112521507/g) ?? []).length === 3 && html.includes('https://mc.yandex.ru/metrika/tag.js?id=112521507') && html.includes('https://mc.yandex.ru/watch/112521507') && html.includes('webvisor:true'),
+  cloudflare: (html.match(/7b1a4d20f6dd4752be6d955dcecc8ddc/g) ?? []).length === 1 && (html.match(/https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js/g) ?? []).length === 1,
 };
 
 console.log(JSON.stringify({ title, descriptionLength: description.length, types, checks }, null, 2));
