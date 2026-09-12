@@ -1,7 +1,12 @@
 ---
 import Base from '../layouts/Base.astro';
+import roster from '../data/roster.json';
 
 const types = ['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
+const rosterFacts = roster.flatMap((entry) => [
+  `${entry.github} joined as ${entry.species}.`,
+  ...(entry.fact ? [`${entry.github}: ${entry.fact}`] : []),
+]);
 const projects = [
   { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Replaces push notifications with native phone calls as reminders.For quick adding tasks made a NLP pipeline of 80+ patterns cuts manual entry 75%.', stats:['425+ test suites','+significant% task completion'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
   { number:'002', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
@@ -135,10 +140,11 @@ const projects = [
     }
   </script>
   <script is:inline type="module" src="/generation-device/app.js?v=81.0"></script>
+  <script id="roster-facts" type="application/json" set:html={JSON.stringify(rosterFacts)}></script>
   <script>
     const loader=document.querySelector('#page-loader');
     const extraFact=document.querySelector('#loader-extra-fact');
-    const dexFacts=['425+ test suites shipped.','5 million events processed with zero row-count tolerance.','2,600+ algorithmic problems solved.','1,200+day coding streak completed.','Third place among 200+ HackIndia teams.'];
+    const dexFacts=['425+ test suites shipped.','5 million events processed with zero row-count tolerance.','2,600+ algorithmic problems solved.','1,200+day coding streak completed.','Third place among 200+ HackIndia teams.',...JSON.parse(document.querySelector('#roster-facts')?.textContent||'[]')];
     if(extraFact instanceof HTMLElement)extraFact.textContent=` · DEX FACT: ${dexFacts[Math.floor(Math.random()*dexFacts.length)]}`;
     window.addEventListener('load',()=>window.setTimeout(()=>{if(loader instanceof HTMLElement){loader.classList.add('loader-done');window.setTimeout(()=>loader.remove(),180);}},1200),{once:true});
   </script>
@@ -219,7 +225,7 @@ const projects = [
   .add-button,.submit-button{border-color:var(--time-accent,#ffd75e);background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a);box-shadow:3px 3px 0 #05070b}.add-button:hover,.submit-button:hover{background:var(--time-soft,#fff);filter:none}
   .header-actions{display:flex;align-items:center;gap:12px}.resume-button{display:grid;place-items:center;min-height:var(--tap);padding:10px 16px;border:2px solid var(--time-accent,#ffd75e);color:#fff;text-decoration:none;font-family:var(--font-display);background:var(--time-panel,#161b22)}.resume-button:hover{background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a)}.company-field{grid-column:1/-1}.project-link{display:inline-flex;margin-top:12px;padding:9px 12px;border:2px solid var(--time-accent,#ffd75e);color:#fff;text-decoration:none}.project-link:hover{background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a)}
   .content-section{background:#08101ab8;backdrop-filter:blur(10px) saturate(120%)}
-  @media(max-width:760px){.portfolio-header{grid-template-columns:1fr}.portfolio-header p,.header-actions{grid-column:1;grid-row:auto}.header-actions{flex-wrap:wrap}.header-actions>*{flex:1 1 auto}.add-button{min-width:130px}}
+  @media(max-width:760px){.portfolio-header{grid-template-columns:1fr}.portfolio-header p,.header-actions{grid-column:1;grid-row:auto}.header-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.header-actions>*{min-width:0}.tooltip-switch{grid-column:1/-1}.add-button,.resume-button{width:100%;min-width:0;padding-inline:10px}dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);padding:18px;box-shadow:6px 6px 0 #05070b}.dialog-heading{align-items:start}.dialog-heading h2{font-size:clamp(28px,9vw,40px);line-height:1.08}.field-grid{grid-template-columns:1fr}.form-actions{display:grid;grid-template-columns:1fr;gap:10px}.form-actions button{width:100%}input,select,textarea{font-size:16px}.field-hint{font-size:11px;line-height:1.45}}
   .site-footer{color:#fff;box-shadow:inset 0 3px var(--time-accent,#ffd75e)}
   dialog{border-color:var(--time-accent,#ffd75e);background:var(--time-deep,#0a111d);box-shadow:10px 10px 0 #05070b,inset 0 0 0 2px var(--time-soft,#ffffff22)}
   .close-button,.secondary-button{border-color:var(--time-accent,#ffd75e);background:var(--time-panel,#161b22);color:#fff}
