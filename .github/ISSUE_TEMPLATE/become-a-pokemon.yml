@@ -1,0 +1,65 @@
+name: Become a Pokémon
+description: Add yourself to SM'S DEX
+title: "[DEX] "
+labels: ["submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Your GitHub username and avatar will appear publicly on the site and in a public repository.
+        No email address, real name, or location is collected.
+  - type: input
+    id: github
+    attributes:
+      label: GitHub username
+      description: Your GitHub handle. No @ symbol.
+      placeholder: smresponsibilities
+    validations:
+      required: true
+  - type: input
+    id: species
+    attributes:
+      label: Species
+      description: A short role-like Pokémon species.
+      placeholder: Builder Pokémon
+    validations:
+      required: true
+  - type: dropdown
+    id: primaryType
+    attributes:
+      label: Primary type
+      options: [Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy]
+    validations:
+      required: true
+  - type: dropdown
+    id: secondaryType
+    attributes:
+      label: Secondary type
+      options: [None, Normal, Fire, Water, Electric, Grass, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy]
+  - type: dropdown
+    id: status
+    attributes:
+      label: Status
+      options: [Caught, Released, Uncaught]
+    validations:
+      required: true
+  - type: input
+    id: company
+    attributes:
+      label: Current employer
+      description: Required only when status is Caught.
+      placeholder: Company name
+  - type: textarea
+    id: entry
+    attributes:
+      label: Dex entry
+      description: Third person. Two short sentences. 150 characters max.
+      placeholder: Builds weird tools. Keeps every system on edge under stress.
+    validations:
+      required: true
+  - type: input
+    id: fact
+    attributes:
+      label: Fact / tip
+      description: Optional short fact about you.
+      placeholder: Likes paneer.
