@@ -24,7 +24,8 @@ export const sections = [
   ]},
   {name:'DEX',items:[
     {name:'001 · SHIVAM',tag:'OWNER ENTRY',copy:'Shivam Mahajan is the first registered developer in SM’s Dex.',facts:['@SMRESPONSIBILITIES','DRAGON / STEEL','SOFTWARE DEVELOPER']},
-    {name:'PUBLIC ROSTER',tag:'1 REGISTERED DEVELOPER',copy:'Approved developer entries live here inside every Pokédex. Add Pokémon submits the next entry for review.',facts:['001 · SHIVAM MAHAJAN','GITHUB-REVIEWED SUBMISSIONS']}
+    {name:'002 · RIYASAINII448',tag:'FAIRY / WATER',copy:'i code and i try to add whimsy to it, trying to turn my ideas into things that work.',facts:['@RIYASAINII448','AMAZING POKEMON','STATUS · UNCAUGHT']},
+    {name:'PUBLIC ROSTER',tag:'2 REGISTERED DEVELOPERS',copy:'Approved developer entries live here inside every Pokédex. Add Pokémon submits the next entry for review.',facts:['001 · SHIVAM MAHAJAN','002 · RIYASAINII448','GITHUB-REVIEWED SUBMISSIONS']}
   ]}
 ];
 export const initial = () => ({section:0,item:0,mode:'menu',page:0,power:true});
