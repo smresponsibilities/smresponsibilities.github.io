@@ -4,6 +4,11 @@ import '../styles/global.css';
 
 interface Props {
   title: string;
+  description: string;
+  canonicalPath?: string;
+  image?: string;
+  imageAlt?: string;
+  structuredData?: Record<string, unknown>;
   // The entry whose colours the page should wear — primary type drives
   // --accent, secondary drives --accent-2. Omit on pages with no single
   // entry (e.g. the roster grid); the site-wide fallback in tokens.css
@@ -11,7 +16,18 @@ interface Props {
   accentTypes?: readonly string[];
 }
 
-const { title, accentTypes } = Astro.props;
+const {
+  title,
+  description,
+  canonicalPath,
+  image = '/backgrounds/pixel-day.png',
+  imageAlt = "SM'S DEX portfolio",
+  structuredData,
+  accentTypes,
+} = Astro.props;
+const site = Astro.site ?? new URL(Astro.url.origin);
+const canonical = new URL(canonicalPath ?? Astro.url.pathname, site).href;
+const socialImage = new URL(image, site).href;
 const accentStyle = accentTypes?.length
   ? `--accent: var(--t-${accentTypes[0]}); --accent-2: var(--t-${accentTypes[1] ?? accentTypes[0]});`
   : undefined;
@@ -23,11 +39,28 @@ const accentStyle = accentTypes?.length
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Shivam Mahajan" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="SM'S DEX" />
+    <meta property="og:locale" content="en_IN" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content={imageAlt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <meta name="twitter:image:alt" content={imageAlt} />
     <link rel="icon" href="/favicon-sm-complete.svg?v=3" type="image/svg+xml" />
     <link rel="icon" href="/favicon.ico?v=3" sizes="any" />
     <link rel="apple-touch-icon" href="/favicon-sm-complete.svg?v=3" />
     <link rel="preload" href="/fonts/departure-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#0B0E12" />
+    {structuredData && <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <slot name="head" />
     <ClientRouter />
   </head>

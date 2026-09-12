@@ -13,6 +13,48 @@ const loaderFacts = [
     : []),
 ];
 const initialLoaderFact = loaderFacts[0];
+const description = 'Shivam Mahajan is a software developer building Python, Kotlin, data, blockchain and web projects. Explore his experience, work and public developer dex.';
+const homepage = new URL('/', Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${homepage}#website`,
+      url: homepage,
+      name: "SM'S DEX",
+      description,
+      inLanguage: 'en-IN',
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${homepage}#profile-page`,
+      url: homepage,
+      name: 'Shivam Mahajan — Software Developer',
+      description,
+      isPartOf: { '@id': `${homepage}#website` },
+      mainEntity: { '@id': `${homepage}#shivam-mahajan` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${homepage}#shivam-mahajan`,
+      name: 'Shivam Mahajan',
+      alternateName: 'smresponsibilities',
+      url: homepage,
+      jobTitle: 'Software Developer',
+      description: 'Software developer working with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity.',
+      sameAs: [
+        'https://github.com/smresponsibilities',
+        'https://www.linkedin.com/in/mahajanshivam/',
+      ],
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Chitkara University',
+      },
+      knowsAbout: ['Python', 'Kotlin', 'Kafka', 'PySpark', 'Snowflake', 'React', 'Solidity'],
+    },
+  ],
+};
 const projects = [
   { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Replaces push notifications with native phone calls as reminders.For quick adding tasks made a NLP pipeline of 80+ patterns cuts manual entry 75%.', stats:['425+ test suites','+significant% task completion'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
   { number:'002', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
@@ -20,7 +62,7 @@ const projects = [
 ];
 ---
 
-<Base title="Shivam Mahajan | Portfolio" accentTypes={['dragon', 'steel']}>
+<Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
   <Fragment slot="head"><link rel="stylesheet" href="/generation-device/style.css?v=80.0" /></Fragment>
   <div class="loader" id="page-loader" role="status" aria-live="polite" data-facts={JSON.stringify(loaderFacts)}>
     <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src="/logos/pixel-python.png" width="16" height="16" alt="" /></div>
@@ -44,14 +86,14 @@ const projects = [
   <a class="skip-link" href="#main">Skip to portfolio</a>
   <header class="portfolio-header">
     <a class="brand" href="#main" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
-    <p>This is my(Shivam Mahajan's) portfolio based on Pokédexes.<br> You can be added by clicking Add Pokémon button.</p>
+    <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. This interactive portfolio covers his experience, projects and public developer roster.</p>
     <nav class="header-actions" aria-label="Portfolio actions"><button class="tooltip-switch" id="tooltip-switch" type="button" role="switch" aria-checked="true"><span class="tooltip-switch-label">Tips</span><span class="tooltip-switch-track" aria-hidden="true"><span></span></span></button><a class="resume-button" data-resume href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a><button class="add-button" id="open-submission" type="button" data-tooltip="Open the form to join the public roster">Add Pokémon</button></nav>
   </header>
 
   <main id="main">
     <section class="device-section" aria-labelledby="device-heading">
       <div class="section-heading">
-        <div><span class="eyebrow">Choose a generation</span><h1 id="device-heading">Portfolio Dex</h1></div>
+        <div><span class="eyebrow">Portfolio Dex · Choose a generation</span><h1 id="device-heading">Shivam Mahajan — Software Developer</h1></div>
         <p>Generation I loads first.<br> Pick any generation to change the device.</p>
       </div>
       <div class="device-native">
@@ -74,9 +116,9 @@ const projects = [
       <div class="section-index" aria-hidden="true">ABOUT / 001</div>
       <div>
         <span class="eyebrow">Humanoid Pokémon · Dragon / Steel</span>
-        <h2 id="about-heading">About Me</h2>
-        <p class="lead">Building unique software and doing 2002 days of code.</p>
-        <p>Software developer working across Python, Kotlin, data platforms, smart contracts, web technologies and almost every other technology.</p>
+        <h2 id="about-heading">About Shivam Mahajan</h2>
+        <p class="lead">Building software across 2,002 days of code.</p>
+        <p>Shivam works across Python, Kotlin, data platforms, smart contracts and web software. His work includes 425+ test suites, 5 million processed events and 2,600+ solved algorithmic problems.</p>
         <nav class="profile-links" aria-label="Shivam's profiles">
           <a href="https://github.com/smresponsibilities" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>

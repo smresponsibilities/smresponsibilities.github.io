@@ -2,6 +2,10 @@
 
 ## Decisions so far
 
+- [Ticket 84](issues/84-seo-geo-foundation.md) adds the SEO/GEO/AEO foundation: canonical and
+  social metadata, `WebSite`/`ProfilePage`/`Person` JSON-LD, root sitemap and robots discovery,
+  `llms.txt`, answer-first homepage copy, and a rendered-output regression gate.
+
 - Ticket 32 retired rejected casing imagery and assembled ninety source references. The user's
   current build contract is image casing/lid layers with coded pressable caps and live screens.
   See [ticket 32](issues/32-reference-first-asset-restart.md) and the
