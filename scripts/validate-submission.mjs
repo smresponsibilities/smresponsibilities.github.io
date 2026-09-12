@@ -30,11 +30,41 @@ function field(payload, ...names) {
   return '';
 }
 
+function parseMarkdownIssueBody(body) {
+  const fields = {};
+  const text = String(body || '').replace(/\s+/g, ' ').trim();
+  const headings = [
+    'GitHub username',
+    'Species',
+    'Primary type',
+    'Secondary type',
+    'Status',
+    'Company',
+    'Current employer',
+    'Dex entry',
+    'Fact / tip',
+    'Fact / tip (optional)',
+  ];
+  const markers = headings
+    .map((heading) => ({ heading, index: text.indexOf(`### ${heading}`) }))
+    .filter((marker) => marker.index >= 0)
+    .sort((a, b) => a.index - b.index);
+  for (let i = 0; i < markers.length; i += 1) {
+    const start = markers[i].index + `### ${markers[i].heading}`.length;
+    const end = markers[i + 1]?.index ?? text.length;
+    fields[markers[i].heading] = text.slice(start, end).trim();
+  }
+  return fields;
+}
+
 let payload;
 try {
   payload = JSON.parse(process.env.PAYLOAD || '{}');
 } catch {
   fail('Issue form payload was not valid JSON.');
+}
+if (!payload || Object.keys(payload).length === 0) {
+  payload = parseMarkdownIssueBody(process.env.ISSUE_BODY);
 }
 
 const github = clean(field(payload, 'github', 'GitHub username'), 39).replace(/^@/, '');
@@ -66,7 +96,7 @@ const userResponse = await fetch(`https://api.github.com/users/${encodeURICompon
 if (!userResponse.ok) fail(`GitHub user "${github}" was not found.`);
 
 const rosterPath = 'src/data/roster.json';
-const roster = JSON.parse(fs.readFileSync(rosterPath, 'utf8'));
+const roster = fs.existsSync(rosterPath) ? JSON.parse(fs.readFileSync(rosterPath, 'utf8')) : [];
 const id = github.toLowerCase();
 if (roster.some((entry) => String(entry.github).toLowerCase() === id)) {
   fail(`GitHub user "${github}" is already in the roster.`);

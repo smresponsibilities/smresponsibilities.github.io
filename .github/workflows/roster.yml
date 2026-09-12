@@ -28,6 +28,7 @@ jobs:
         run: node scripts/validate-submission.mjs --write
         env:
           PAYLOAD: ${{ steps.parse.outputs.jsonString }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE: ${{ github.event.issue.number }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Create or update roster pull request
