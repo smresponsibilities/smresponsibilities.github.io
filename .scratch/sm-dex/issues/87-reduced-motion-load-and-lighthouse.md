@@ -1,4 +1,4 @@
-# Ticket 84: Reduced-motion loading and Lighthouse performance
+# Ticket 87: Reduced-motion loading and Lighthouse performance
 
 Status: resolved
 Type: task
@@ -38,7 +38,7 @@ inside this repository. A `_headers` file would have no effect and was not added
 - `npm run build`: passed.
 - `npx astro check`: 0 errors; one pre-existing unused-parameter hint in `classic.js`.
 - `node .scratch/sm-dex/research/ticket-83-regression.mjs`: passed all responsive and roster-flow checks.
-- `node .scratch/sm-dex/research/ticket-84-reduced-motion.mjs`: normal and reduced-motion loading passed; reduced-motion loader detached in 236 ms.
+- `node .scratch/sm-dex/research/ticket-87-reduced-motion.mjs`: normal and reduced-motion loading passed; reduced-motion loader detached in 236 ms.
 - Production-build Lighthouse, same local environment: performance 71 to 83, LCP 7.4 s to 4.1 s, main-thread work 2.1 s to 1.1 s, transfer size 1,529 KiB to 743 KiB, non-composited animations 12 to 0.
 
 ## Handoff

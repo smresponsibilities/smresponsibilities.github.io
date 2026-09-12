@@ -13,6 +13,17 @@
 - Ticket 81 makes loader fact ownership roster-driven and verifies responsive behavior across six
   viewport classes and all nine device generations. See [ticket 81](issues/81-loader-fact-ownership-and-responsive-audit.md).
 
+- [Ticket 86](issues/86-yandex-metrika.md) installs Yandex Metrika counter 112521507 once through
+  the shared layout, including the supplied Webvisor settings and no-JavaScript fallback.
+
+- [Ticket 85](issues/85-bing-meta-description-report.md) removes the non-HTML resume download from
+  the sitemap after Bing attributed its sole missing-meta-description finding to the crawl set.
+  The SEO gate now prevents PDF URLs from returning to the canonical-page sitemap.
+
+- [Ticket 84](issues/84-seo-geo-foundation.md) adds the SEO/GEO/AEO foundation: canonical and
+  social metadata, `WebSite`/`ProfilePage`/`Person` JSON-LD, root sitemap and robots discovery,
+  `llms.txt`, answer-first homepage copy, and a rendered-output regression gate.
+
 - Ticket 32 retired rejected casing imagery and assembled ninety source references. The user's
   current build contract is image casing/lid layers with coded pressable caps and live screens.
   See [ticket 32](issues/32-reference-first-asset-restart.md) and the
@@ -184,9 +195,9 @@
 - [Ticket 79](issues/79-custom-domain.md) moves production to `shivammahajan.com`. GitHub Pages
   verifies the domain and its `www` alternate, reports both HTTPS-eligible, and enforces HTTPS.
   Pull request 1 merged the production branch into `main` and deployed through Actions.
-### Ticket 84: reduced-motion loading and Lighthouse performance
+### Ticket 87: reduced-motion loading and Lighthouse performance
 
-Resolved in `.scratch/sm-dex/issues/84-reduced-motion-load-and-lighthouse.md`. Loader dismissal
+Resolved in `.scratch/sm-dex/issues/87-reduced-motion-load-and-lighthouse.md`. Loader dismissal
 now follows DOM readiness and skips delay under reduced motion; lossless WebP backgrounds,
 pre-paint time selection, compositor-safe cloud motion, and removal of the unused Astro router
 cut the production-build Lighthouse payload and main-thread cost.

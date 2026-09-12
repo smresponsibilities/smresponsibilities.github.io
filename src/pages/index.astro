@@ -3,24 +3,66 @@ import Base from '../layouts/Base.astro';
 import roster from '../data/roster.json';
 
 const types = ['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
-const projects = [
-  { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Replaces push notifications with native phone calls as reminders.For quick adding tasks made a NLP pipeline of 80+ patterns cuts manual entry 75%.', stats:['425+ test suites','+significant% task completion'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
-  { number:'002', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
-  { number:'003', name:'QuizDeck', stack:'React / WebSockets', copy:'Runs live multiplayer quizzes for at max 500 concurrent players with a 31 ms average response time.', stats:['Stress tested for 500 concurrent users','PP 1/10 · archived'], url:'https://github.com/smresponsibilities/QuizDeck', action:'View repository' },
-];
 const loaderFacts = [
   { github: 'smresponsibilities', fact: 'Shipped 425+ test suites.', source: 'fallback' },
   { github: 'smresponsibilities', fact: 'Processed 5 million events with zero row-count tolerance.', source: 'fallback' },
   { github: 'smresponsibilities', fact: 'Solved 2,600+ algorithmic problems.', source: 'fallback' },
   { github: 'smresponsibilities', fact: 'Placed third among 200+ HackIndia teams.', source: 'fallback' },
-  ...roster.flatMap(member => member.fact
-    ? [{ github: member.github, fact: member.fact, source: 'roster' }]
+  ...roster.flatMap((entry) => entry.fact
+    ? [{ github: entry.github, fact: entry.fact, source: 'roster' }]
     : []),
 ];
 const initialLoaderFact = loaderFacts[0];
+const description = 'Shivam Mahajan is a software developer building Python, Kotlin, data, blockchain and web projects. Explore his experience, work and public developer dex.';
+const homepage = new URL('/', Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${homepage}#website`,
+      url: homepage,
+      name: "SM'S DEX",
+      description,
+      inLanguage: 'en-IN',
+    },
+    {
+      '@type': 'ProfilePage',
+      '@id': `${homepage}#profile-page`,
+      url: homepage,
+      name: 'Shivam Mahajan — Software Developer',
+      description,
+      isPartOf: { '@id': `${homepage}#website` },
+      mainEntity: { '@id': `${homepage}#shivam-mahajan` },
+    },
+    {
+      '@type': 'Person',
+      '@id': `${homepage}#shivam-mahajan`,
+      name: 'Shivam Mahajan',
+      alternateName: 'smresponsibilities',
+      url: homepage,
+      jobTitle: 'Software Developer',
+      description: 'Software developer working with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity.',
+      sameAs: [
+        'https://github.com/smresponsibilities',
+        'https://www.linkedin.com/in/mahajanshivam/',
+      ],
+      alumniOf: {
+        '@type': 'CollegeOrUniversity',
+        name: 'Chitkara University',
+      },
+      knowsAbout: ['Python', 'Kotlin', 'Kafka', 'PySpark', 'Snowflake', 'React', 'Solidity'],
+    },
+  ],
+};
+const projects = [
+  { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Replaces push notifications with native phone calls as reminders.For quick adding tasks made a NLP pipeline of 80+ patterns cuts manual entry 75%.', stats:['425+ test suites','+significant% task completion'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
+  { number:'002', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
+  { number:'003', name:'QuizDeck', stack:'React / WebSockets', copy:'Runs live multiplayer quizzes for at max 500 concurrent players with a 31 ms average response time.', stats:['Stress tested for 500 concurrent users','PP 1/10 · archived'], url:'https://github.com/smresponsibilities/QuizDeck', action:'View repository' },
+];
 ---
 
-<Base title="Shivam Mahajan | Portfolio" accentTypes={['dragon', 'steel']}>
+<Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
   <Fragment slot="head"><link rel="stylesheet" href="/generation-device/style.css?v=80.0" /></Fragment>
   <div class="loader" id="page-loader" role="status" aria-live="polite" data-facts={JSON.stringify(loaderFacts)}>
     <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src="/logos/pixel-python.png" width="16" height="16" alt="" /></div>
@@ -44,14 +86,14 @@ const initialLoaderFact = loaderFacts[0];
   <a class="skip-link" href="#main">Skip to portfolio</a>
   <header class="portfolio-header">
     <a class="brand" href="#main" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
-    <p>This is my(Shivam Mahajan's) portfolio based on Pokédexes.<br> You can be added by clicking Add Pokémon button.</p>
+    <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. This interactive portfolio covers his experience, projects and public developer roster.</p>
     <nav class="header-actions" aria-label="Portfolio actions"><button class="tooltip-switch" id="tooltip-switch" type="button" role="switch" aria-checked="true"><span class="tooltip-switch-label">Tips</span><span class="tooltip-switch-track" aria-hidden="true"><span></span></span></button><a class="resume-button" data-resume href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a><button class="add-button" id="open-submission" type="button" data-tooltip="Open the form to join the public roster">Add Pokémon</button></nav>
   </header>
 
   <main id="main">
     <section class="device-section" aria-labelledby="device-heading">
       <div class="section-heading">
-        <div><span class="eyebrow">Choose a generation</span><h1 id="device-heading">Portfolio Dex</h1></div>
+        <div><span class="eyebrow">Portfolio Dex · Choose a generation</span><h1 id="device-heading">Shivam Mahajan — Software Developer</h1></div>
         <p>Generation I loads first.<br> Pick any generation to change the device.</p>
       </div>
       <div class="device-native">
@@ -74,9 +116,9 @@ const initialLoaderFact = loaderFacts[0];
       <div class="section-index" aria-hidden="true">ABOUT / 001</div>
       <div>
         <span class="eyebrow">Humanoid Pokémon · Dragon / Steel</span>
-        <h2 id="about-heading">About Me</h2>
-        <p class="lead">Building unique software and doing 2002 days of code.</p>
-        <p>Software developer working across Python, Kotlin, data platforms, smart contracts, web technologies and almost every other technology.</p>
+        <h2 id="about-heading">About Shivam Mahajan</h2>
+        <p class="lead">Building software across 2,002 days of code.</p>
+        <p>Shivam works across Python, Kotlin, data platforms, smart contracts and web software. His work includes 425+ test suites, 5 million processed events and 2,600+ solved algorithmic problems.</p>
         <nav class="profile-links" aria-label="Shivam's profiles">
           <a href="https://github.com/smresponsibilities" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
@@ -235,7 +277,7 @@ const initialLoaderFact = loaderFacts[0];
   .add-button,.submit-button{border-color:var(--time-accent,#ffd75e);background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a);box-shadow:3px 3px 0 #05070b}.add-button:hover,.submit-button:hover{background:var(--time-soft,#fff);filter:none}
   .header-actions{display:flex;align-items:center;gap:12px}.resume-button{display:grid;place-items:center;min-height:var(--tap);padding:10px 16px;border:2px solid var(--time-accent,#ffd75e);color:#fff;text-decoration:none;font-family:var(--font-display);background:var(--time-panel,#161b22)}.resume-button:hover{background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a)}.company-field{grid-column:1/-1}.project-link{display:inline-flex;align-items:center;min-height:var(--tap);margin-top:12px;padding:9px 12px;border:2px solid var(--time-accent,#ffd75e);color:#fff;text-decoration:none}.project-link:hover{background:var(--time-accent,#ffd75e);color:var(--time-deep,#08101a)}
   .content-section{background:#08101ab8;backdrop-filter:blur(10px) saturate(120%)}
-  @media(max-width:760px){.portfolio-header{grid-template-columns:1fr}.portfolio-header p,.header-actions{grid-column:1;grid-row:auto}.header-actions{flex-wrap:wrap}.header-actions>*{flex:1 1 auto}.add-button{min-width:130px}}
+  @media(max-width:760px){.portfolio-header{grid-template-columns:1fr}.portfolio-header p,.header-actions{grid-column:1;grid-row:auto}.header-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.header-actions>*{min-width:0}.tooltip-switch{grid-column:1/-1}.add-button,.resume-button{width:100%;min-width:0;padding-inline:10px}dialog{width:calc(100% - 16px);max-height:calc(100dvh - 16px);padding:18px;box-shadow:6px 6px 0 #05070b}.dialog-heading{align-items:start}.dialog-heading h2{font-size:clamp(28px,9vw,40px);line-height:1.08}.field-grid{grid-template-columns:1fr}.form-actions{display:grid;grid-template-columns:1fr;gap:10px}.form-actions button{width:100%}input,select,textarea{font-size:16px}.field-hint{font-size:11px;line-height:1.45}}
   .site-footer{color:#fff;box-shadow:inset 0 3px var(--time-accent,#ffd75e)}
   dialog{border-color:var(--time-accent,#ffd75e);background:var(--time-deep,#0a111d);box-shadow:10px 10px 0 #05070b,inset 0 0 0 2px var(--time-soft,#ffffff22)}
   .close-button,.secondary-button{border-color:var(--time-accent,#ffd75e);background:var(--time-panel,#161b22);color:#fff}

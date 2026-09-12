@@ -1,0 +1,24 @@
+# SM'S DEX
+
+> SM'S DEX is Shivam Mahajan's interactive software developer portfolio. It presents his work through nine generations of Pokédex-inspired interfaces and hosts a reviewed public developer roster.
+
+## Main pages
+
+- [Shivam Mahajan — Software Developer](https://shivammahajan.com/): Experience, selected projects, technical results, contact links, and the public developer dex.
+- [Shivam Mahajan's resume](https://shivammahajan.com/resume.pdf): Downloadable resume in PDF format.
+
+## Key facts
+
+- Shivam Mahajan works with Python, Kotlin, Kafka, PySpark, Snowflake, React, and Solidity.
+- His portfolio records 425+ test suites, 5 million processed events, and 2,600+ solved algorithmic problems.
+- He completed a technology apprenticeship at Morgan Stanley from August 2025 to August 2026.
+- He is currently available for software engineering roles.
+
+## Profiles
+
+- [GitHub](https://github.com/smresponsibilities)
+- [LinkedIn](https://www.linkedin.com/in/mahajanshivam/)
+
+## Public roster
+
+Visitors can submit a short developer dex entry through the Add Pokémon form. Each submission becomes a GitHub issue, passes automated validation, and reaches the site only after its generated pull request is reviewed and merged.

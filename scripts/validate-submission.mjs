@@ -96,7 +96,7 @@ const userResponse = await fetch(`https://api.github.com/users/${encodeURICompon
 if (!userResponse.ok) fail(`GitHub user "${github}" was not found.`);
 
 const rosterPath = 'src/data/roster.json';
-const roster = JSON.parse(fs.readFileSync(rosterPath, 'utf8'));
+const roster = fs.existsSync(rosterPath) ? JSON.parse(fs.readFileSync(rosterPath, 'utf8')) : [];
 const id = github.toLowerCase();
 if (roster.some((entry) => String(entry.github).toLowerCase() === id)) {
   fail(`GitHub user "${github}" is already in the roster.`);
