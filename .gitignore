@@ -8,3 +8,4 @@ dist/
 Thumbs.db
 *.log
 .scratch/tmp/
+.scratch/vendor/
