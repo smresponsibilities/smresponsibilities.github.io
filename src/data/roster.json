@@ -30,5 +30,21 @@
     "fact": "—",
     "shiny": false,
     "issue": 18
+  },
+  {
+    "dexNo": 3,
+    "github": "shivambajpai04",
+    "name": "shivambajpai04",
+    "species": "The GOD pokemon",
+    "types": [
+      "dragon",
+      "psychic"
+    ],
+    "status": "CAUGHT",
+    "company": "ClickPost",
+    "entry": "Converts caffeine to scalable code - Eats jira tickets - Builds cheat tools for obscure and niche games when left alone",
+    "fact": "???????????????",
+    "shiny": false,
+    "issue": 20
   }
 ]
