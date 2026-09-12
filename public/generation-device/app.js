@@ -2,7 +2,7 @@ import {kanto} from './assets/kanto.js?v=55.0';
 import {devices as classic} from './assets/classic.js?v=58.0';
 import {devices as middle} from './assets/middle.js?v=58.0';
 import {devices as rotom} from './assets/rotom.js?v=58.0';
-import {sections,initial,reduce} from './content.js?v=70.0';
+import {sections,initial,reduce} from './content.js?v=89.0';
 import {createDevice,exportAsset} from './renderer.js?v=64.0';
 import {createEffects} from './effects.js?v=58.0';
 
@@ -14,6 +14,7 @@ const params=new URLSearchParams(location.search);
 let device=catalog.find(d=>d.id===(params.get('pokedexgen')||params.get('gen')))||(matchMedia('(max-width:700px)').matches?catalog.find(d=>d.id==='scarlet-violet'):kanto);
 let state=initial(),progress=params.get('open')==='0'?0:1,settled=progress,renderer,frame=0,drag=null,readerWanted=matchMedia('(max-width:700px)').matches,lastAction='Ready',accepted=0;
 let effects=null;
+let rosterSnapshot='';
 const media=matchMedia('(prefers-reduced-motion:reduce)');
 $('reduce-motion').checked=media.matches;
 const reduced=()=>$('reduce-motion').checked||media.matches;
@@ -156,6 +157,20 @@ function resize(){
     position(progress);
   });
 }
+async function refreshRoster(){
+  try{
+    const response=await fetch(`/generation-device/roster.json?v=${Date.now()}`,{cache:'no-store'});
+    if(!response.ok)throw new Error(`Roster request failed: ${response.status}`);
+    const items=await response.json(),nextSnapshot=JSON.stringify(items);
+    if(!Array.isArray(items)||!items.length||nextSnapshot===rosterSnapshot)return;
+    rosterSnapshot=nextSnapshot;
+    const dex=sections.find(section=>section.name==='DEX');
+    if(!dex)return;
+    dex.items.splice(0,dex.items.length,...items);
+    if(sections[state.section]===dex)state.item=Math.min(state.item,dex.items.length-1);
+    renderContent();
+  }catch{}
+}
 new ResizeObserver(resize).observe($('stage'));
 function select(next){
   const changing=device.id!==next.id;
@@ -180,6 +195,10 @@ $('asset-grid').innerHTML=catalog.map(d=>`<button class="asset-card" data-gen="$
 $('asset-grid').addEventListener('click',e=>{const id=e.target.closest('[data-gen]')?.dataset.gen;if(id){hideTooltip();select(catalog.find(d=>d.id===id));$('stage').scrollIntoView({behavior:'instant',block:'center'});}});
 $('download').addEventListener('click',()=>{const blob=new Blob([exportAsset(device)],{type:'image/svg+xml'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`${device.id}-open.svg`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 select(device);
+refreshRoster();
+setInterval(refreshRoster,60000);
+addEventListener('focus',refreshRoster);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshRoster();});
 
 const tooltip=document.createElement('div');tooltip.id='button-tooltip';tooltip.className='button-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
 const callout=document.createElementNS('http://www.w3.org/2000/svg','svg');callout.classList.add('callout-line');callout.setAttribute('aria-hidden','true');callout.innerHTML='<polyline></polyline>';callout.hidden=true;document.body.append(callout);
