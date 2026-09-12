@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   pr:
-    if: contains(github.event.issue.labels.*.name, 'submission')
+    if: contains(github.event.issue.labels.*.name, 'submission') || startsWith(github.event.issue.title, '[DEX]')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
