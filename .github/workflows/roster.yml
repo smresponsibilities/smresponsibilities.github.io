@@ -1,0 +1,74 @@
+name: Roster submission
+
+on:
+  issues:
+    types: [opened, edited, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  pr:
+    if: contains(github.event.issue.labels.*.name, 'submission')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: stefanbuck/github-issue-parser@v3
+        id: parse
+        with:
+          issue-body: ${{ github.event.issue.body }}
+          template-path: .github/ISSUE_TEMPLATE/become-a-pokemon.yml
+      - name: Validate and write roster entry
+        id: validate
+        run: node scripts/validate-submission.mjs --write
+        env:
+          PAYLOAD: ${{ steps.parse.outputs.jsonString }}
+          ISSUE: ${{ github.event.issue.number }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create or update roster pull request
+        id: cpr
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: roster/issue-${{ github.event.issue.number }}
+          delete-branch: true
+          title: "dex: add roster entry from #${{ github.event.issue.number }}"
+          commit-message: "dex: add roster entry from #${{ github.event.issue.number }}"
+          body: |
+            Adds the roster entry submitted in #${{ github.event.issue.number }}.
+
+            Review the generated JSON, then merge to approve and publish.
+          labels: roster
+          add-paths: src/data/roster.json
+      - name: Comment with pull request
+        if: steps.cpr.outputs.pull-request-url != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Roster PR ready: ${process.env.PR_URL}`
+            })
+        env:
+          PR_URL: ${{ steps.cpr.outputs.pull-request-url }}
+      - name: Comment on validation failure
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const message = fs.existsSync('submission-error.txt')
+              ? fs.readFileSync('submission-error.txt', 'utf8').trim()
+              : 'Submission validation failed. Check the workflow log.';
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: `Submission could not be turned into a PR:\n\n${message}`
+            })
