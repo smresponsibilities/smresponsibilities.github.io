@@ -62,5 +62,21 @@
     "fact": "It doesn't need an enemy to hurt itself. Its mind has memorized exactly where every old wound is.",
     "shiny": true,
     "issue": 26
+  },
+  {
+    "dexNo": 5,
+    "github": "sanya0312",
+    "name": "sanya0312",
+    "species": "Entertainer Pokemon",
+    "types": [
+      "psychic",
+      "water"
+    ],
+    "status": "CAUGHT",
+    "company": "Google",
+    "entry": "Entertains everyone keeping the energy high. Can be dangerous when hungry.",
+    "fact": "Mitochondria is the powerhouse of the cell.",
+    "shiny": false,
+    "issue": 28
   }
 ]
