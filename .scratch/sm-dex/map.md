@@ -2,6 +2,10 @@
 
 ## Decisions so far
 
+- [Ticket 91](issues/91-agent-markdown-and-content-signals.md) publishes a static Markdown
+  homepage mirror, advertises it through an alternate link and `llms.txt`, and declares
+  reference-only AI use in `robots.txt` without adding a runtime service or dependency.
+
 - [Ticket 89](issues/89-live-roster-refresh.md) publishes a standalone device-roster payload and
   refreshes it client-side on startup, focus, visibility, and a 60-second interval using unique
   cache-busting requests.

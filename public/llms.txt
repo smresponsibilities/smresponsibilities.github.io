@@ -5,6 +5,7 @@
 ## Main pages
 
 - [Shivam Mahajan — Software Developer](https://shivammahajan.com/): Experience, selected projects, technical results, contact links, and the public developer dex.
+- [Homepage Markdown](https://shivammahajan.com/index.html.md): Clean text version of the homepage for AI agents and text-based clients.
 - [Shivam Mahajan's resume](https://shivammahajan.com/resume.pdf): Downloadable resume in PDF format.
 
 ## Key facts
