@@ -42,7 +42,7 @@
     ],
     "status": "CAUGHT",
     "company": "ClickPost",
-    "entry": "Converts caffeine to scalable code - Eats jira tickets - Builds cheat tools for obscure and niche games when left alone",
+    "entry": "Converts caffeine to scalable code. Eats jira tickets. Builds cheat tools for obscure and niche games when left alone.",
     "fact": "???????????????",
     "shiny": false,
     "issue": 20
@@ -78,5 +78,21 @@
     "fact": "Mitochondria is the powerhouse of the cell.",
     "shiny": false,
     "issue": 28
+  },
+  {
+    "dexNo": 6,
+    "github": "AbhinavGupta-012",
+    "name": "AbhinavGupta-012",
+    "species": "Inventor Pokemon",
+    "types": [
+      "flying",
+      "psychic"
+    ],
+    "status": "CAUGHT",
+    "company": "Morgan Stanley",
+    "entry": "Figuring Things Out... Master Form will be unlocked in 2-3 years. Has Headaches every few days",
+    "fact": "Mitochondria is the powerhouse of the cell.",
+    "shiny": false,
+    "issue": 32
   }
 ]
