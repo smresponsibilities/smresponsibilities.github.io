@@ -94,5 +94,21 @@
     "fact": "Mitochondria is the powerhouse of the cell.",
     "shiny": false,
     "issue": 32
+  },
+  {
+    "dexNo": 7,
+    "github": "pulkitgxrg",
+    "name": "pulkitgxrg",
+    "species": "Stackrunner",
+    "types": [
+      "steel",
+      "fire"
+    ],
+    "status": "CAUGHT",
+    "company": "Bajaj Finserv Health",
+    "entry": "Stackrunner is a software developer who loves building products end to end.",
+    "fact": "Likes weekends!",
+    "shiny": false,
+    "issue": 36
   }
 ]
