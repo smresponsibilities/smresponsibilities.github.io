@@ -110,5 +110,20 @@
     "fact": "Likes weekends!",
     "shiny": false,
     "issue": 36
+  },
+  {
+    "dexNo": 8,
+    "github": "mrjd-byte",
+    "name": "mrjd-byte",
+    "species": "Chill Pokemon",
+    "types": [
+      "psychic"
+    ],
+    "status": "UNCAUGHT",
+    "company": null,
+    "entry": "Whatever catches the imagination eventually becomes the next project.",
+    "fact": "I Look normal but I like Black Tea more than Black Coffeee.",
+    "shiny": false,
+    "issue": 34
   }
 ]
