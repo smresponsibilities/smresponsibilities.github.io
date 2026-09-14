@@ -125,5 +125,21 @@
     "fact": "I Look normal but I like Black Tea more than Black Coffeee.",
     "shiny": false,
     "issue": 34
+  },
+  {
+    "dexNo": 9,
+    "github": "JEYSAN-V",
+    "name": "JEYSAN-V",
+    "species": "Electivire",
+    "types": [
+      "electric",
+      "fire"
+    ],
+    "status": "UNCAUGHT",
+    "company": null,
+    "entry": "Dsa email service it is used to send every day potd of gfg and lc as email to keep practicing and maintaining consistency for problem solving",
+    "fact": "knight@leetcode",
+    "shiny": false,
+    "issue": 40
   }
 ]
