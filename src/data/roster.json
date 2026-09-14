@@ -125,5 +125,21 @@
     "fact": "I Look normal but I like Black Tea more than Black Coffeee.",
     "shiny": false,
     "issue": 34
+  },
+  {
+    "dexNo": 9,
+    "github": "Tharukesh288",
+    "name": "Tharukesh288",
+    "species": "Backend pokèmon",
+    "types": [
+      "electric",
+      "bug"
+    ],
+    "status": "RELEASED",
+    "company": null,
+    "entry": "Build break learn repeat",
+    "fact": "—",
+    "shiny": false,
+    "issue": 42
   }
 ]
