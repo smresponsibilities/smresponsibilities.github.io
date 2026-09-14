@@ -125,5 +125,21 @@
     "fact": "I Look normal but I like Black Tea more than Black Coffeee.",
     "shiny": false,
     "issue": 34
+  },
+  {
+    "dexNo": 9,
+    "github": "Mohit-jpg-dot",
+    "name": "Mohit-jpg-dot",
+    "species": "Gengar",
+    "types": [
+      "ghost",
+      "psychic"
+    ],
+    "status": "UNCAUGHT",
+    "company": null,
+    "entry": "It just flews away, and hates humans. Maybe someone has done something wrong with him.",
+    "fact": "Make sure u have more then 5 pokeballs to catch it.",
+    "shiny": false,
+    "issue": 38
   }
 ]
