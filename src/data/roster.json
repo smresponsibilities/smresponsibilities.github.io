@@ -141,5 +141,21 @@
     "fact": null,
     "shiny": false,
     "issue": 42
+  },
+  {
+    "dexNo": 10,
+    "github": "ShivaanjayNarula",
+    "name": "ShivaanjayNarula",
+    "species": "Living-Corpse",
+    "types": [
+      "ghost",
+      "poison"
+    ],
+    "status": "RELEASED",
+    "company": null,
+    "entry": "Hates both humans and machines passionately. Schrodinger's Self-Aware",
+    "fact": "Extreme Depression leads to Self-Cannabalism",
+    "shiny": true,
+    "issue": 44
   }
 ]
