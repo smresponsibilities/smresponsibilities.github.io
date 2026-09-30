@@ -141,5 +141,21 @@
     "fact": null,
     "shiny": false,
     "issue": 42
+  },
+  {
+    "dexNo": 10,
+    "github": "Mohit-jpg-dot",
+    "name": "Mohit-jpg-dot",
+    "species": "Human",
+    "types": [
+      "psychic",
+      "water"
+    ],
+    "status": "UNCAUGHT",
+    "company": null,
+    "entry": "\"I don't need Stress ,it needs me!!!\" \"I love making weird sites\"",
+    "fact": "Always with u for eating icecream",
+    "shiny": true,
+    "issue": 46
   }
 ]
