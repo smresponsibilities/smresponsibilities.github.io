@@ -1,104 +1,169 @@
 ---
 import Base from "../../layouts/Base.astro";
 ---
-<Base title="Alt 2: Trainer Card">
+<Base title="Alt 2: Trainer Card (Refined)">
   <div class="trainer-card">
     <header class="card-header">
       <div class="header-inner">
+        <span class="card-id">ID: 001-SM</span>
         <h1>Projects Hub</h1>
-        <p>Shipped software and side quests.</p>
+        <p class="subtitle">Shipped software and side quests.</p>
         <div class="badges">
-          <span class="badge">React</span>
-          <span class="badge">Astro</span>
-          <span class="badge">Python</span>
+          <span class="badge badge-blue">React</span>
+          <span class="badge badge-orange">Astro</span>
+          <span class="badge badge-yellow">Python</span>
         </div>
       </div>
+      <div class="header-decoration"></div>
     </header>
     <main class="card-body">
       <div class="strict-grid">
-        <div class="grid-item">
-          <h3>SM'S DEX</h3>
-          <p>A Pokédex-themed interactive portfolio built with Astro.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Productivity Caller</h3>
-          <p>Backend system for tracking daily metrics.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Data Pipeline</h3>
-          <p>PySpark and Snowflake data processing engine.</p>
-        </div>
-        <div class="grid-item">
-          <h3>Blockchain Auth</h3>
-          <p>Solidity smart contracts for identity.</p>
-        </div>
+        <a href="#" class="grid-item">
+          <div class="grid-content">
+            <h3>SM'S DEX</h3>
+            <p>A Pokédex-themed interactive portfolio built with Astro.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a href="#" class="grid-item">
+          <div class="grid-content">
+            <h3>Productivity Caller</h3>
+            <p>Backend system for tracking daily metrics.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a href="#" class="grid-item">
+          <div class="grid-content">
+            <h3>Data Pipeline</h3>
+            <p>PySpark and Snowflake data processing engine.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+        <a href="#" class="grid-item">
+          <div class="grid-content">
+            <h3>Blockchain Auth</h3>
+            <p>Solidity smart contracts for identity.</p>
+          </div>
+          <span class="arrow">→</span>
+        </a>
       </div>
     </main>
   </div>
 </Base>
 <style>
   body {
-    background: #f0f0f0;
+    background: #e2e8f0;
   }
   .trainer-card {
-    max-width: 800px;
-    margin: 3rem auto;
-    background: #fff;
-    border-radius: 12px;
+    max-width: 900px;
+    margin: 4rem auto;
+    background: #ffffff;
+    border-radius: 20px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+    border: 1px solid #cbd5e0;
   }
   .card-header {
-    background: #2b5cff;
+    background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
     color: white;
-    padding: 3rem 2rem;
+    padding: 4rem 3rem;
     position: relative;
-    border-bottom: 8px solid #ffcc00;
+    border-bottom: 12px solid #e53e3e;
   }
   .header-inner {
-    max-width: 600px;
+    position: relative;
+    z-index: 2;
+    max-width: 700px;
+  }
+  .card-id {
+    font-family: monospace;
+    color: #a0aec0;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    display: block;
+    margin-bottom: 1rem;
   }
   .card-header h1 {
-    font-size: 2.5rem;
+    font-size: 3.5rem;
+    font-weight: 800;
     margin: 0 0 0.5rem 0;
+    letter-spacing: -1px;
+    color: #f7fafc;
   }
-  .card-header p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin: 0 0 2rem 0;
+  .card-header .subtitle {
+    font-size: 1.4rem;
+    color: #e2e8f0;
+    margin: 0 0 2.5rem 0;
+    font-weight: 300;
   }
   .badges {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
   }
   .badge {
-    background: rgba(255,255,255,0.2);
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: bold;
-    border: 2px solid rgba(255,255,255,0.4);
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
   }
+  .badge-blue { background: #ebf8ff; color: #2b6cb0; border: 1px solid #90cdf4; }
+  .badge-orange { background: #fffaf0; color: #c05621; border: 1px solid #fbd38d; }
+  .badge-yellow { background: #fffff0; color: #b7791f; border: 1px solid #fef08a; }
+  
+  .header-decoration {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100px;
+    height: 100px;
+    border: 15px solid rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
   .card-body {
-    padding: 3rem 2rem;
-    background: #fafafa;
+    padding: 0;
+    background: #f7fafc;
   }
   .strict-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 3rem;
+    display: flex;
+    flex-direction: column;
   }
   .grid-item {
-    border-top: 3px solid #eee;
-    padding-top: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem 3rem;
+    border-bottom: 1px solid #e2e8f0;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    background: #fff;
   }
-  .grid-item h3 {
+  .grid-item:hover {
+    background: #ebf8ff;
+    padding-left: 3.5rem;
+  }
+  .grid-content h3 {
     margin: 0 0 0.5rem 0;
-    font-size: 1.4rem;
-    color: #111;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #2d3748;
   }
-  .grid-item p {
+  .grid-content p {
     margin: 0;
-    color: #555;
-    line-height: 1.6;
+    color: #718096;
+    font-size: 1.1rem;
+    font-weight: 400;
+  }
+  .arrow {
+    font-size: 2rem;
+    color: #cbd5e0;
+    transition: transform 0.2s;
+  }
+  .grid-item:hover .arrow {
+    color: #3182ce;
+    transform: translateX(10px);
   }
 </style>
