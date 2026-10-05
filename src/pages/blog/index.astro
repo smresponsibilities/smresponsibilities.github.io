@@ -2,31 +2,55 @@
 import EditorialShell from '../../components/EditorialShell.astro';
 import allPosts from '../../data/linkedin-posts.json';
 
+const posts = [...allPosts].sort((a, b) => b.day - a.day);
+const latest = posts[0];
+
+const groups = [];
+for (const p of posts) {
+  const lower = Math.floor((p.day - 1) / 100) * 100 + 1;
+  const upper = lower + 99;
+  const gName = `${lower}-${upper}`;
+  let g = groups.find(x => x.name === gName);
+  if (!g) {
+    g = { name: gName, posts: [] };
+    groups.push(g);
+  }
+  g.posts.push(p);
+}
+
 const postUrl = 'https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7511424129754025986';
 const embedUrl = 'https://www.linkedin.com/embed/feed/update/urn:li:share:7511424129754025986';
-const recentPosts = [
-  { day: 1237, date: '2026-10-01', title: '#day1237 of #2002daysofcode  Leetcode: 4066...', url: '/blog/day-1237/' },
-  { day: 1236, date: '2026-09-30', title: '#day1236 of #2002daysofcode  Leetcode: 1111...', url: '/blog/day-1236/' },
-  { day: 1235, date: '2026-09-29', title: '#day1235 of #2002daysofcode https://shivammahajan...', url: '/blog/day-1235/' },
-  { day: 1234, date: '2026-09-28', title: '#day1234 of #2002daysofcode  Leetcode: 4067...', url: '/blog/day-1234/' },
-  { day: 1233, date: '2026-09-27', title: '#day1233 of #2002daysofcode  Leetcode: 4065...', url: '/blog/day-1233/' },
-];
 ---
 <EditorialShell title="2002 Days of Code | Shivam Mahajan" description="Follow Shivam Mahajan's 2002 Days of Code progress and read selected software development notes." eyebrow="Field notes / Days of Code" heading="2002 Days of Code" intro="Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.">
-  <a slot="actions" href={recentPosts[0].url} target="_blank" rel="noopener noreferrer">Open day 1237 post on LinkedIn ↗</a>
-  <section><h2>Recent daily posts</h2><p>Verified from Shivam's LinkedIn activity on October 1, 2026. New posts appear here after this site is updated.</p><div class="grid">
-    {recentPosts.map((post) => <article class="card"><span class="eyebrow">{post.date} / Day {post.day}</span><h3><a href={post.url} target="_blank" rel="noopener noreferrer">{post.title} ↗</a></h3></article>)}
-  </div></section>
-  <section><h2>Read on this site</h2><div class="grid">
-    <article class="card"><span class="eyebrow">Profile</span><h3><a href="/blog/shivam-mahajan-software-developer/">Shivam Mahajan, software developer</a></h3><p>Experience, project focus, and where to find the resume.</p></article>
-    <article class="card"><span class="eyebrow">Sep 30, 2026 / Day 1236</span><h3><a href="/blog/day-1236-of-2002-days-of-code/">LeetCode 1111</a></h3><p>Problem named in the day 1236 update.</p></article>
-    <article class="card"><span class="eyebrow">Build notes</span><h3><a href="/blog/how-the-sm-dex-roster-works/">How the SM'S DEX roster works</a></h3><p>GitHub issue → validation → reviewed pull request.</p></article>
-  </div></section>
-  <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day 1237</span><h2 id="featured-post">LinkedIn post from 2026-10-01</h2><p>Read the original post or choose an embedded view. The post names LeetCode 1111.</p>
+  
+  <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day {latest.day}</span><h2 id="featured-post">LinkedIn post from {latest.date}</h2><p>Read the original post or choose an embedded view.</p>
     <div class="actions"><a href={postUrl} target="_blank" rel="noopener noreferrer">Read original post ↗</a><button type="button" class="embed-button" data-view="compact" aria-controls="post-embed">Show compact embed</button><button type="button" class="embed-button" data-view="full" aria-controls="post-embed">Show full embed</button></div>
     <div id="post-embed" class="post-embed" aria-live="polite"></div>
   </section>
-  <section><h2>About this journal</h2><p>Daily posts live on LinkedIn. This page highlights selected updates and original notes; it does not import the full daily archive yet.</p></section>
+
+  <section>
+    <h2>Archive</h2>
+    {groups.map((g) => (
+      <div style="margin-bottom: 3rem;">
+        <h3>Days {g.name}</h3>
+        <div class="grid" style="margin-bottom: 1rem;">
+          {g.posts.slice(0, 6).map((post) => (
+            <article class="card">
+              <span class="eyebrow">{post.date} / Day {post.day}</span>
+              <h4><a href={`/blog/day-${post.day}/`}>Day {post.day} ↗</a></h4>
+            </article>
+          ))}
+        </div>
+        <a href={`/blog/archive/${g.name}/`} style="font-weight: bold; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">View all in Days {g.name} →</a>
+      </div>
+    ))}
+  </section>
+
+  <section><h2>Read on this site</h2><div class="grid">
+    <article class="card"><span class="eyebrow">Profile</span><h3><a href="/blog/shivam-mahajan-software-developer/">Shivam Mahajan, software developer</a></h3><p>Experience, project focus, and where to find the resume.</p></article>
+    <article class="card"><span class="eyebrow">Build notes</span><h3><a href="/blog/how-the-sm-dex-roster-works/">How the SM'S DEX roster works</a></h3><p>GitHub issue → validation → reviewed pull request.</p></article>
+  </div></section>
+  <section><h2>About this journal</h2><p>Daily posts live on LinkedIn. This page highlights selected updates and original notes.</p></section>
 </EditorialShell>
 <script define:vars={{ embedUrl }}>
   document.querySelectorAll('[data-view]').forEach((button) => {

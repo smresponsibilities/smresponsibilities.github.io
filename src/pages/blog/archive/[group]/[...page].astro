@@ -1,0 +1,52 @@
+---
+import EditorialShell from '../../../../components/EditorialShell.astro';
+import allPosts from '../../../../data/linkedin-posts.json';
+
+export async function getStaticPaths({ paginate }) {
+  const posts = [...allPosts].sort((a, b) => b.day - a.day);
+  
+  const groups = {};
+  for (const p of posts) {
+    const lower = Math.floor((p.day - 1) / 100) * 100 + 1;
+    const upper = lower + 99;
+    const gName = `${lower}-${upper}`;
+    if (!groups[gName]) groups[gName] = [];
+    groups[gName].push(p);
+  }
+
+  return Object.keys(groups).flatMap((gName) => {
+    return paginate(groups[gName], {
+      params: { group: gName },
+      pageSize: 20,
+    });
+  });
+}
+
+const { page } = Astro.props;
+const { group } = Astro.params;
+---
+
+<EditorialShell 
+  title={`Days ${group} | 2002 Days of Code`} 
+  description={`Archive of days ${group} for the 2002 Days of Code challenge.`} 
+  eyebrow={`Archive / Days ${group}`} 
+  heading={`Days ${group}`} 
+  intro={`Page ${page.currentPage} of ${page.lastPage}`}
+>
+  <section>
+    <div class="grid">
+      {page.data.map((post) => (
+        <article class="card">
+          <span class="eyebrow">{post.date} / Day {post.day}</span>
+          <h3><a href={`/blog/day-${post.day}/`}>Day {post.day} ↗</a></h3>
+          <p>{post.content.substring(0, 80)}...</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <nav aria-label="Pagination" style="margin-top: 2rem; display: flex; gap: 1rem;">
+    {page.url.prev && <a href={page.url.prev} style="padding: 8px 16px; border: 2px solid var(--accent);">← Previous</a>}
+    {page.url.next && <a href={page.url.next} style="padding: 8px 16px; border: 2px solid var(--accent);">Next →</a>}
+  </nav>
+</EditorialShell>
