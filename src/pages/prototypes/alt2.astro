@@ -1,0 +1,104 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Alt 2: Trainer Card">
+  <div class="trainer-card">
+    <header class="card-header">
+      <div class="header-inner">
+        <h1>Projects Hub</h1>
+        <p>Shipped software and side quests.</p>
+        <div class="badges">
+          <span class="badge">React</span>
+          <span class="badge">Astro</span>
+          <span class="badge">Python</span>
+        </div>
+      </div>
+    </header>
+    <main class="card-body">
+      <div class="strict-grid">
+        <div class="grid-item">
+          <h3>SM'S DEX</h3>
+          <p>A Pokédex-themed interactive portfolio built with Astro.</p>
+        </div>
+        <div class="grid-item">
+          <h3>Productivity Caller</h3>
+          <p>Backend system for tracking daily metrics.</p>
+        </div>
+        <div class="grid-item">
+          <h3>Data Pipeline</h3>
+          <p>PySpark and Snowflake data processing engine.</p>
+        </div>
+        <div class="grid-item">
+          <h3>Blockchain Auth</h3>
+          <p>Solidity smart contracts for identity.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</Base>
+<style>
+  body {
+    background: #f0f0f0;
+  }
+  .trainer-card {
+    max-width: 800px;
+    margin: 3rem auto;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  }
+  .card-header {
+    background: #2b5cff;
+    color: white;
+    padding: 3rem 2rem;
+    position: relative;
+    border-bottom: 8px solid #ffcc00;
+  }
+  .header-inner {
+    max-width: 600px;
+  }
+  .card-header h1 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .card-header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    margin: 0 0 2rem 0;
+  }
+  .badges {
+    display: flex;
+    gap: 1rem;
+  }
+  .badge {
+    background: rgba(255,255,255,0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .card-body {
+    padding: 3rem 2rem;
+    background: #fafafa;
+  }
+  .strict-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  .grid-item {
+    border-top: 3px solid #eee;
+    padding-top: 1.5rem;
+  }
+  .grid-item h3 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.4rem;
+    color: #111;
+  }
+  .grid-item p {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+  }
+</style>

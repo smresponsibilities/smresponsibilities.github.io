@@ -1,0 +1,123 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Alt 5: Inventory Box">
+  <div class="inventory-container">
+    <header>
+      <h1>Box 1: Projects</h1>
+    </header>
+    <div class="bento-grid">
+      <button class="bento-cell" popovertarget="pop-1">
+        <div class="icon">📱</div>
+        <span class="name">SM'S DEX</span>
+      </button>
+      <button class="bento-cell" popovertarget="pop-2">
+        <div class="icon">⏱️</div>
+        <span class="name">Prod. Caller</span>
+      </button>
+      <button class="bento-cell">
+        <div class="icon">❄️</div>
+        <span class="name">Pipeline</span>
+      </button>
+      <button class="bento-cell">
+        <div class="icon">🔗</div>
+        <span class="name">Web3 Auth</span>
+      </button>
+      <!-- Empty slots -->
+      <div class="bento-cell empty"></div>
+      <div class="bento-cell empty"></div>
+      <div class="bento-cell empty"></div>
+      <div class="bento-cell empty"></div>
+    </div>
+    
+    <!-- Popovers using Native Popover API -->
+    <div id="pop-1" popover class="bento-popover">
+      <h2>SM'S DEX</h2>
+      <p>A Pokédex-themed interactive portfolio built with Astro.</p>
+      <button popovertarget="pop-1" popovertargetaction="hide">Close</button>
+    </div>
+    
+    <div id="pop-2" popover class="bento-popover">
+      <h2>Productivity Caller</h2>
+      <p>Backend system for tracking daily metrics via automated calling.</p>
+      <button popovertarget="pop-2" popovertargetaction="hide">Close</button>
+    </div>
+  </div>
+</Base>
+<style>
+  .inventory-container {
+    max-width: 800px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #f8f9fa;
+    border: 4px solid #dee2e6;
+    border-radius: 12px;
+  }
+  header {
+    background: #e9ecef;
+    padding: 1rem;
+    margin-bottom: 2rem;
+    border-radius: 4px;
+    text-align: center;
+  }
+  header h1 { margin: 0; font-size: 1.5rem; color: #495057; text-transform: uppercase; letter-spacing: 2px;}
+  .bento-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+  .bento-cell {
+    aspect-ratio: 1;
+    background: white;
+    border: 2px solid #dee2e6;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0;
+  }
+  .bento-cell:hover:not(.empty) {
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  .bento-cell.empty {
+    background: rgba(0,0,0,0.02);
+    border: 2px dashed #e9ecef;
+    cursor: default;
+  }
+  .bento-cell .icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+  }
+  .bento-cell .name {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: #495057;
+  }
+  
+  .bento-popover {
+    border: 4px solid #343a40;
+    border-radius: 12px;
+    padding: 2rem;
+    max-width: 400px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  }
+  .bento-popover::backdrop {
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(2px);
+  }
+  .bento-popover h2 { margin-top: 0; }
+  .bento-popover button {
+    margin-top: 1.5rem;
+    padding: 0.5rem 1rem;
+    background: #343a40;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+</style>

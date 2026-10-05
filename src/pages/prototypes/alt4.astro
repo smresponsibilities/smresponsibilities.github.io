@@ -1,0 +1,109 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Alt 4: Dual-Screen">
+  <div class="dual-screen">
+    <aside class="list-pane">
+      <h1>Resume / Experience</h1>
+      <nav class="sticky-nav">
+        <a href="#role1" class="active">Senior Engineer @ TechCorp</a>
+        <a href="#role2">Data Engineer @ DataCo</a>
+        <a href="#role3">Frontend Dev @ WebStudio</a>
+        <a href="#role4">Education</a>
+      </nav>
+    </aside>
+    <main class="reading-pane">
+      <section id="role1" class="detail-section">
+        <span class="date">2024 - Present</span>
+        <h2>Senior Engineer</h2>
+        <h3>TechCorp</h3>
+        <p>Built highly scalable data pipelines handling millions of records daily. Architected the migration from legacy monolithic architecture to microservices.</p>
+        <ul>
+          <li>Decreased latency by 40%</li>
+          <li>Implemented Kafka event streaming</li>
+          <li>Led a team of 4 engineers</li>
+        </ul>
+      </section>
+      
+      <section id="role2" class="detail-section">
+        <span class="date">2022 - 2024</span>
+        <h2>Data Engineer</h2>
+        <h3>DataCo</h3>
+        <p>Managed Snowflake data warehouse and built PySpark ETL pipelines.</p>
+      </section>
+    </main>
+  </div>
+</Base>
+<style>
+  .dual-screen {
+    display: flex;
+    min-height: 100vh;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .list-pane {
+    width: 40%;
+    padding: 4rem 2rem 4rem 0;
+    border-right: 1px solid #e2e8f0;
+  }
+  .list-pane h1 {
+    font-size: 2rem;
+    margin-bottom: 3rem;
+  }
+  .sticky-nav {
+    position: sticky;
+    top: 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .sticky-nav a {
+    padding: 1rem;
+    text-decoration: none;
+    color: #4a5568;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    transition: all 0.2s;
+  }
+  .sticky-nav a:hover {
+    background: #edf2f7;
+  }
+  .sticky-nav a.active {
+    background: #ebf4ff;
+    color: #2b6cb0;
+    font-weight: bold;
+  }
+  .reading-pane {
+    width: 60%;
+    padding: 4rem 0 4rem 4rem;
+  }
+  .detail-section {
+    margin-bottom: 6rem;
+  }
+  .detail-section .date {
+    display: block;
+    font-size: 0.9rem;
+    color: #718096;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 1rem;
+  }
+  .detail-section h2 {
+    font-size: 2.5rem;
+    margin: 0 0 0.5rem 0;
+  }
+  .detail-section h3 {
+    font-size: 1.5rem;
+    color: #4a5568;
+    margin: 0 0 2rem 0;
+  }
+  .detail-section p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .detail-section li {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+</style>

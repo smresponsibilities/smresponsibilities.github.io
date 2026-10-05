@@ -1,0 +1,93 @@
+---
+import Base from "../../layouts/Base.astro";
+---
+<Base title="Alt 3: Index / Roster">
+  <div class="roster-container">
+    <header class="roster-header">
+      <h1>The Roster</h1>
+      <p>A minimalist typographic index of all projects.</p>
+    </header>
+    
+    <div class="roster-list">
+      <a href="#" class="roster-row">
+        <span class="meta">001</span>
+        <h2>SM'S DEX</h2>
+        <span class="tags">Frontend / Astro</span>
+      </a>
+      <a href="#" class="roster-row">
+        <span class="meta">002</span>
+        <h2>Productivity Caller</h2>
+        <span class="tags">Backend / Python</span>
+      </a>
+      <a href="#" class="roster-row">
+        <span class="meta">003</span>
+        <h2>Data Pipeline Engine</h2>
+        <span class="tags">Data / PySpark</span>
+      </a>
+      <a href="#" class="roster-row">
+        <span class="meta">004</span>
+        <h2>Identity Contracts</h2>
+        <span class="tags">Web3 / Solidity</span>
+      </a>
+    </div>
+  </div>
+</Base>
+<style>
+  .roster-container {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+  }
+  .roster-header {
+    margin-bottom: 4rem;
+  }
+  .roster-header h1 {
+    font-size: 3rem;
+    letter-spacing: -1px;
+    margin: 0;
+  }
+  .roster-header p {
+    font-size: 1.2rem;
+    color: #4a5568;
+  }
+  .roster-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 2px solid #1a202c;
+  }
+  .roster-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 2rem 0;
+    border-bottom: 1px solid #e2e8f0;
+    text-decoration: none;
+    color: #1a202c;
+    transition: background-color 0.2s;
+  }
+  .roster-row:hover {
+    background-color: #f7fafc;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+  .roster-row .meta {
+    width: 10%;
+    font-family: monospace;
+    font-size: 1.1rem;
+    color: #718096;
+  }
+  .roster-row h2 {
+    width: 60%;
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+  .roster-row .tags {
+    width: 30%;
+    text-align: right;
+    font-size: 1rem;
+    color: #4a5568;
+  }
+</style>
