@@ -1,0 +1,23 @@
+﻿---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'Shivam Mahajan, software developer',
+  description: 'Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals.',
+  author: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan'
+  },
+  url: currentUrl,
+  datePublished: '2026-10-05T00:00:00Z'
+};
+---
+<EditorialShell title="Shivam Mahajan | Software Developer Profile" description="Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals." eyebrow="Profile" heading="Shivam Mahajan, software developer" intro="Shivam is a software engineer building distributed backend systems, data pipelines, and responsive frontend applications." structuredData={structuredData}>
+  <a slot="actions" href="/resume/">View resume</a><a slot="actions" href="/projects/">See projects</a>
+  <section><h2>Technology focus</h2><p>Shivam builds production systems with Python, Kotlin, Kafka, PySpark, Snowflake, and React. He tackles scalability challenges and zero-tolerance data tasks.</p></section>
+  <section><h2>Professional scope</h2><p>He builds reliable backend infrastructure, creates verifiable blockchain implementations with Solidity, and develops user interfaces. See the <a href="/resume/">resume</a> for professional experience and the <a href="/projects/">projects page</a> for selected implementations.</p></section>
+  <section><h2>Where to start</h2><p>The <a href="/blog/">Days of Code journal</a> shows a habit of deliberate practice. <a href="/projects/productivity-caller/">Productivity Caller</a> is an example of a practical, shipped solution. His <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub profile</a> hosts open code.</p></section>
+</EditorialShell>

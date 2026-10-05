@@ -1,0 +1,23 @@
+﻿---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: 'How the SM\\'S DEX roster works',
+  description: 'See how a GitHub issue becomes a reviewed roster entry in SM\\'S DEX, Shivam Mahajan\\'s interactive portfolio.',
+  author: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan'
+  },
+  url: currentUrl,
+  datePublished: '2026-10-05T00:00:00Z'
+};
+---
+<EditorialShell title="How the SM'S DEX Public Roster Works" description="See how a GitHub issue becomes a reviewed roster entry in SM'S DEX, Shivam Mahajan's interactive portfolio." eyebrow="Build notes / SM'S DEX" heading="How the SM'S DEX roster works" intro="Visitors submit a character through the site's form. A GitHub issue starts validation, then a pull request gives Shivam a review step before publication." structuredData={structuredData}>
+  <a slot="actions" href="/projects/sm-dex/">Explore SM'S DEX</a><a slot="actions" href="https://github.com/smresponsibilities/smresponsibilities.github.io">View repository ↗</a>
+  <section><h2>From form to issue</h2><p>The Add Pokémon form collects a GitHub username, species, types, status, and short dex entry. Submitting opens a prefilled issue in the site's GitHub repository. The issue is the public record of what a visitor entered.</p></section>
+  <section><h2>Validation and review</h2><p>A GitHub Actions workflow runs when a qualifying issue opens, changes, or receives a label. It parses the issue, runs the submission validator, writes a roster entry, and opens or updates a pull request. Validation errors are posted back to the issue. Shivam reviews the generated JSON before merging the pull request.</p></section>
+  <section><h2>Why use a pull request</h2><p>A public form should not publish arbitrary text instantly. Review keeps the roster intentional while leaving a visible path from submission to entry. The roster data lives in the repository, so the site can build from a checked-in copy.</p><p>Try the form on the <a href="/">homepage</a>, or read the broader <a href="/projects/sm-dex/">project overview</a>.</p></section>
+</EditorialShell>
