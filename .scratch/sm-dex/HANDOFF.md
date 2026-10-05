@@ -1,19 +1,19 @@
-# Handoff — 2026-10-05, after ticket 116
+# Handoff — 2026-10-05, after ticket 117
 
 ## State
 
-Resolved: 116.
-Frontier: Update `src/pages/blog/index.astro` to dynamically list posts from `linkedin-posts.json` instead of hardcoding `recentPosts`.
+Resolved: 116, 117.
+Frontier: Cleanup of untracked duplicate files in `src/pages/blog`.
 In flight: none.
 
 ## Last session
 
-Extracted 1243 posts from `Shares.csv` into `src/data/linkedin-posts.json`. Replaced static `day-1236...` blog page with a dynamic Astro route `[day].astro` to generate pages for all 1241 days. Added easter eggs for days with numbering drift (344/345, 691/692, 773/774). Pushed changes.
+Extracted 1243 posts from `Shares.csv` into `src/data/linkedin-posts.json`. Built dynamic route `[day].astro` replacing static posts. Added easter eggs for days with numbering drift. Wrote python script to rewrite `index.astro` to dynamically import `linkedin-posts.json` and generate `recentPosts` logic. Pushed changes.
 
 ## Not yet written down
 
-The `index.astro` blog page still has a hardcoded list of 5 recent posts. It needs to be updated to map over the imported JSON data.
+There are several untracked static files in `src/pages/blog` (e.g. `day-1236...astro`) from previous sessions that are no longer needed now that the dynamic route is live.
 
 ## Next
 
-Wire `src/pages/blog/index.astro` to `linkedin-posts.json` and optionally remove duplicate static files.
+Delete untracked static duplicates or expand the blog index to handle pagination for all 1200+ posts.
