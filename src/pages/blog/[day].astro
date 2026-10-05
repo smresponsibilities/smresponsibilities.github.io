@@ -1,0 +1,39 @@
+---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+export async function getStaticPaths() {
+  const allPosts = await import('../../data/linkedin-posts.json');
+  return allPosts.default.map((post) => ({
+    params: { day: `day-${post.day}` },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+---
+
+<EditorialShell 
+  title={`Day ${post.day} of 2002 Days of Code | Shivam Mahajan`} 
+  description={`Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`} 
+  eyebrow={`2002 Days of Code / ${post.date}`} 
+  heading={`Day ${post.day}`} 
+  intro={`Shivam's LinkedIn update for day ${post.day}.`}
+>
+  <a slot="actions" href={post.url} target="_blank" rel="noopener noreferrer">Read LinkedIn post ↗</a>
+  <section>
+    <h2>What the post says</h2>
+    <p>{post.content}</p>
+  </section>
+
+  {post.easterEgg && (
+    <section>
+      <h2>Wait a minute...</h2>
+      <p><em>{post.easterEgg}</em></p>
+    </section>
+  )}
+
+  <section>
+    <h2>Follow the challenge</h2>
+    <p>Browse the <a href="/blog/">Days of Code journal</a> for selected updates. Shivam's <a href="/projects/">projects</a> show where regular practice connects to shipped software.</p>
+  </section>
+</EditorialShell>
