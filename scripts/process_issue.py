@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from datetime import datetime
 
 body = os.environ.get('ISSUE_BODY', '')
-url_match = re.search(r'(https?://(?:www\.)?linkedin\.com/posts/[^\s]+|https?://lnkd\.in/[^\s]+)', body)
+url_match = re.search(r'(https?://(?:www\.)?linkedin\.com/(?:posts|feed/update)[^\s]+|https?://lnkd\.in/[^\s]+)', body)
 
 if not url_match:
     print("No LinkedIn URL found in issue body.")

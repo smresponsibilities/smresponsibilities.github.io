@@ -3,6 +3,7 @@ import re
 import json
 import urllib.parse
 import urllib.request
+from scrapling import StealthyFetcher
 from datetime import datetime
 
 # Find the latest day in the JSON
@@ -17,16 +18,16 @@ next_day = latest_day + 1
 query = f"+#day{next_day} 1001 days of code site:linkedin.com/posts/"
 url = "https://www.bing.com/search?q=" + urllib.parse.quote_plus(query)
 
-req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
 try:
-    with urllib.request.urlopen(req, timeout=15) as response:
-        html = response.read().decode('utf-8')
+    fetcher = StealthyFetcher()
+    page = fetcher.fetch(url)
+    html = page.body if isinstance(page.body, str) else page.body.decode('utf-8', errors='replace')
 except Exception as e:
     print(f"Bing search failed: {e}")
     exit(0)
 
 # Extract LinkedIn URL from Bing results
-links = re.findall(r'href="(https://[w\.]*linkedin\.com/posts/[^"]+)"', html)
+links = re.findall(r'href="(https://[w\.]*linkedin\.com/(?:posts|feed/update)[^"]+)"', html)
 if not links:
     print(f"No Bing results found for Day {next_day}. Post might not be indexed yet.")
     exit(0)

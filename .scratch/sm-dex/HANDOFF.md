@@ -1,16 +1,15 @@
-
-# Handoff - 2026-10-05, Pipeline Polish
+# Handoff - 2026-10-05, Pipelines Fixed
 
 ## State
-Resolved: 119 (Redesign - Abandoned), 121 (Search UI), 122 (Issue Pipeline - scaffolding live)
-Frontier: 120 (Bing search bot-block bypass)
-In flight: none
+Resolved: 119, 121, 122, 120
+Frontier: None
+In flight: None
 
 ## Last session
-- Scrapling `Fetcher` returns empty HTML for Bing searches. Playwright headless also gets blocked.
-- Need advanced Stealth / Browserless configuration to bypass Bing bot protection.
+Fixed `auto_fetch_bing.py` by implementing Scrapling `StealthyFetcher().fetch()` for Bing bot bypass. Updated regex in `auto_fetch_bing.py` and `process_issue.py` to support `/feed/update/` format links. Conducted full E2E dry-runs to ensure both pipelines work flawlessly, particularly testing older days like 1050 and 1080.
+
+## Not yet written down
+Nothing.
 
 ## Next
-1. Build Bing script using advanced stealth (Scrapling bypass or Playwright stealth).
-2. E2E test the Issue Pipeline.
-
+Move to next project phase or monitor pipelines in production.
