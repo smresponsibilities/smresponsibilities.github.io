@@ -1,0 +1,114 @@
+---
+import Base from "../../layouts/Base.astro";
+
+const allPosts = await import("../../data/linkedin-posts.json");
+const posts = allPosts.default;
+---
+
+<Base title="Days of Code Timeline | Shivam Mahajan" description="A complete timeline of the 2002 Days of Code challenge.">
+  <div class="timeline-container">
+    <header class="timeline-header">
+      <h1>The Complete Timeline</h1>
+      <p>A scrollable history of every day coded. Watch out for the glitches!</p>
+      <a href="/blog/" class="back-link">← Back to Blog</a>
+    </header>
+
+    <div class="timeline-scroll">
+      <div class="timeline">
+        {posts.map(post => (
+          <div class={`timeline-item ${post.easterEgg ? "has-egg" : ""}`} id={`day-${post.day}`}>
+            <div class="timeline-marker"></div>
+            <div class="timeline-content">
+              <span class="timeline-date">{post.date}</span>
+              <h3><a href={`/blog/day-${post.day}`}>Day {post.day}</a></h3>
+              {post.easterEgg && <p class="egg">🥚 {post.easterEgg}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .timeline-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  .timeline-header {
+    margin-bottom: 2rem;
+  }
+  .back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--color-primary, #0056b3);
+    text-decoration: none;
+  }
+  .timeline-scroll {
+    height: 70vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    background: #fafafa;
+    padding: 2rem;
+  }
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 7px;
+    width: 2px;
+    background: #ccc;
+  }
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .timeline-marker {
+    position: absolute;
+    left: -2rem;
+    top: 0.25rem;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 3px solid #fafafa;
+  }
+  .timeline-item.has-egg .timeline-marker {
+    background: #ffaa00;
+  }
+  .timeline-content h3 {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+  }
+  .timeline-content a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .timeline-content a:hover {
+    text-decoration: underline;
+  }
+  .timeline-date {
+    font-size: 0.85rem;
+    color: #666;
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+  .egg {
+    margin: 0.5rem 0 0 0;
+    padding: 0.75rem;
+    background: #fff3cd;
+    color: #856404;
+    border-left: 4px solid #ffaa00;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+</style>
