@@ -27,7 +27,7 @@ const structuredData = {
     '@type': 'WebPage',
     '@id': currentUrl
   },
-  datePublished: new Date(`${post.date}, 2026`).toISOString(),
+  datePublished: new Date(post.date).toISOString(),
   articleBody: post.content
 };
 ---

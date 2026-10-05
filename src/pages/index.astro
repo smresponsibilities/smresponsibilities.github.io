@@ -56,7 +56,7 @@ const structuredData = {
   ],
 };
 const projects = [
-  { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Replaces push notifications with native phone calls as reminders.For quick adding tasks made a NLP pipeline of 80+ patterns cuts manual entry 75%.', stats:['425+ test suites','+significant% task completion'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
+  { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Uses phone calls for reminders. A pattern-based parser helps enter tasks in natural language.', stats:['Kotlin app','Demo available'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
   { number:'002', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
   { number:'003', name:'QuizDeck', stack:'React / WebSockets', copy:'Runs live multiplayer quizzes for at max 500 concurrent players with a 31 ms average response time.', stats:['Stress tested for 500 concurrent users','PP 1/10 · archived'], url:'https://github.com/smresponsibilities/QuizDeck', action:'View repository' },
 ];
@@ -87,7 +87,7 @@ const projects = [
   <header class="portfolio-header">
     <a class="brand" href="#main" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
     <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. To be added as a pokemon click on the Add Pokemon Button.</p>
-    <nav class="header-actions" aria-label="Portfolio actions"><button class="tooltip-switch" id="tooltip-switch" type="button" role="switch" aria-checked="true"><span class="tooltip-switch-label">Tips</span><span class="tooltip-switch-track" aria-hidden="true"><span></span></span></button><a class="resume-button" data-resume href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a><button class="add-button" id="open-submission" type="button" data-tooltip="Open the form to join the public roster">Add Pokémon</button></nav>
+    <nav class="header-actions" aria-label="Portfolio actions"><button class="tooltip-switch" id="tooltip-switch" type="button" role="switch" aria-checked="true"><span class="tooltip-switch-label">Tips</span><span class="tooltip-switch-track" aria-hidden="true"><span></span></span></button><a class="resume-button" data-resume href="/resume/">Resume</a><button class="add-button" id="open-submission" type="button" data-tooltip="Open the form to join the public roster">Add Pokémon</button></nav>
   </header>
 
   <main id="main">
@@ -117,9 +117,11 @@ const projects = [
       <div>
         <span class="eyebrow">Humanoid Pokémon · Dragon / Steel</span>
         <h2 id="about-heading">About Shivam Mahajan</h2>
-        <p class="lead">Building software across 2,002 days of code.</p>
+        <p class="lead">Working toward 2,002 Days of Code.</p>
         <p>Shivam works across Python, Kotlin, data platforms, smart contracts and web software. His work includes 425+ test suites, 5 million processed events and 2,600+ solved algorithmic problems.</p>
         <nav class="profile-links" aria-label="Shivam's profiles">
+          <a href="/resume/">HTML resume <span aria-hidden="true">↗</span></a>
+          <a href="/blog/">Days of Code <span aria-hidden="true">↗</span></a>
           <a href="https://github.com/smresponsibilities" target="_blank" rel="noreferrer">GitHub <span aria-hidden="true">↗</span></a>
           <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noreferrer">LinkedIn <span aria-hidden="true">↗</span></a>
           <a href="mailto:shivammahajan.mail@gmail.com">Email <span aria-hidden="true">↗</span></a>
@@ -131,7 +133,7 @@ const projects = [
       <div class="section-index" aria-hidden="true">EXPERIENCE / 002</div>
       <div>
         <span class="eyebrow">Encounter History</span><h2 id="experience-heading">Experience</h2>
-        <article class="experience-card"><div><span class="project-number">AUG 2025 – AUG 2026</span><h3>Morgan Stanley</h3><p class="project-stack">Technology Apprentice</p></div><p>Intialized CIAM Data warehouse with infrastructure across Kafka, PySpark, Snowflake and used mTLS and RBAC. Processed more than 5 million events with zero row-count tolerance and enabled clients to see their events in real time.</p></article>
+        <article class="experience-card"><div><span class="project-number">AUG 2025 – AUG 2026</span><h3>Morgan Stanley</h3><p class="project-stack">Technology Apprentice</p></div><p>Worked on a CIAM data warehouse using Kafka, PySpark, and Snowflake, with mTLS and RBAC. Processed more than 5 million events with zero row-count tolerance and enabled clients to see their events in real time.</p></article>
         <p class="availability"><span aria-hidden="true"></span><strong>RELEASED</strong> · Available for software engineering and other relevant roles now.</p>
       </div>
     </section>
@@ -139,14 +141,14 @@ const projects = [
     <section class="projects-section content-section" aria-labelledby="projects-heading">
       <div class="section-index" aria-hidden="true">MOVES / 003</div>
       <div class="projects-content">
-        <span class="eyebrow">Selected Work</span><h2 id="projects-heading">Projects</h2>
+        <span class="eyebrow">Selected Work</span><h2 id="projects-heading">Projects</h2><p><a href="/projects/">View all projects →</a></p>
         <div class="project-grid">
           {projects.map((project) => (
             <article class="project-card">
               <div class="project-number">MOVE {project.number}</div><h3>{project.name}</h3>
               <p class="project-stack">{project.stack}</p><p>{project.copy}</p>
               <ul>{project.stats.map((stat) => <li>{stat}</li>)}</ul>
-              <a class="project-link" href={project.url} target={project.url.startsWith('http')?'_blank':undefined} rel={project.url.startsWith('http')?'noreferrer':undefined}>{project.action} <span aria-hidden="true">↗</span></a>
+              <a class="project-link" href={project.number === '001' ? '/projects/productivity-caller/' : project.url} target={project.number !== '001' && project.url.startsWith('http')?'_blank':undefined} rel={project.number !== '001' && project.url.startsWith('http')?'noreferrer':undefined}>{project.number === '001' ? 'Project details' : project.action} <span aria-hidden="true">↗</span></a>
             </article>
           ))}
         </div>

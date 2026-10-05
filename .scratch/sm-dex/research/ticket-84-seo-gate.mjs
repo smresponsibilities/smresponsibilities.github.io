@@ -25,6 +25,7 @@ const checks = {
   llms: llms.includes("SM'S DEX") && llms.includes('https://shivammahajan.com/') && llms.includes('public developer roster'),
   metrika: (html.match(/112521507/g) ?? []).length === 3 && html.includes('https://mc.yandex.ru/metrika/tag.js?id=112521507') && html.includes('https://mc.yandex.ru/watch/112521507') && html.includes('webvisor:true'),
   cloudflare: (html.match(/7b1a4d20f6dd4752be6d955dcecc8ddc/g) ?? []).length === 1 && (html.match(/https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js/g) ?? []).length === 1,
+  clarity: (html.match(/yhlv223s2p/g) ?? []).length === 1 && (html.match(/https:\/\/www\.clarity\.ms\/tag\//g) ?? []).length === 1,
 };
 
 console.log(JSON.stringify({ title, descriptionLength: description.length, types, checks }, null, 2));

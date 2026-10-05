@@ -2,6 +2,16 @@
 
 ## Decisions so far
 
+- [Ticket 115](issues/115-monthly-linkedin-discovery-and-export.md) adds monthly Bing discovery as a review artifact and confirms LinkedIn's larger archive includes Shares; CSV diff waits for actual archive schema.
+
+- [Ticket 114](issues/114-bing-day-1132-correction.md) corrects false negative: repeat Bing search found Day 1132 and public LinkedIn page verified text.
+
+- [Ticket 113](issues/113-bing-day-search-proof.md) verified Bing day-number search can recover an older post's direct URL and full public description; search coverage remains incomplete.
+
+- [Ticket 112](issues/112-free-linkedin-import-research.md) identifies signed-in browser CSV export as the concrete free backfill option; no verified free unattended personal-post feed found.
+
+- [Ticket 111](issues/111-linkedin-autoblog-options.md) documents a scheduled Apify scraping example as a technical LinkedIn-first option; validate known posts, cost, and policy risk before building an importer.
+
 - [Ticket 91](issues/91-agent-markdown-and-content-signals.md) publishes a static Markdown
   homepage mirror, advertises it through an alternate link and `llms.txt`, and declares
   reference-only AI use in `robots.txt` without adding a runtime service or dependency.
@@ -212,3 +222,66 @@ Resolved in `.scratch/sm-dex/issues/87-reduced-motion-load-and-lighthouse.md`. L
 now follows DOM readiness and skips delay under reduced motion; lossless WebP backgrounds,
 pre-paint time selection, compositor-safe cloud motion, and removal of the unused Astro router
 cut the production-build Lighthouse payload and main-thread cost.
+
+### Ticket 92: LinkedIn walkthrough video
+
+Ticket 92 produced a verified one-minute production-site walkthrough for LinkedIn.
+See [the recording ticket](issues/92-linkedin-walkthrough-video.md) for the MP4 and capture script.
+
+### Ticket 93: Revised LinkedIn walkthrough
+
+[Ticket 93](issues/93-planned-linkedin-walkthrough.md) records the user's expanded sequence
+with a visible cursor, native tooltips, consistent pacing, and a verified 4:02 MP4.
+
+### Ticket 94: Loader and scroll revision
+
+[Ticket 94](issues/94-loader-scroll-and-cursor-video.md) produces the current v3 recording
+with the requested Riya loader fact, a verified full first frame, slower scrolling, and no cursor click flash.
+
+### Ticket 96: GitHub profile Dex preview
+
+[Ticket 96](issues/96-github-dex-preview.md) published a nine-generation animated preview with a verified reduced-motion fallback and live portfolio links in the separate profile repository.
+
+
+### Ticket 97: Sharper profile preview
+
+[Ticket 97](issues/97-sharp-github-preview.md) replaces 1× captures with 3× renders, preserving animation and the static fallback.
+
+
+### Ticket 98: Resume-based GitHub profile
+
+[Ticket 98](issues/98-profile-resume-content.md) publishes experience, projects, skills, achievements, and education, preserving the Dex preview. Text now survives image regeneration.
+
+
+### Ticket 99: Concise profile and badges
+
+[Ticket 99](issues/99-concise-profile-and-badges.md) shortens the profile, adds live views and tech icons, and retains the Dex preview.
+
+
+### Ticket 100: Profile Dex placement
+
+[Ticket 100](issues/100-profile-dex-position.md) places the Dex directly below the introductory paragraph.
+
+
+### Ticket 101: GitHub visibility and contributors
+
+[Ticket 101](issues/101-github-discovery-research.md) records a primary-source discovery plan, live repository blockers, and real traffic metrics. No promotion or repository changes were made.
+
+### Ticket 102: Employer search growth
+
+[Ticket 102](issues/102-employer-search-growth-plan.md) turns the requested SEO growth model into
+an identity-first, evidence-led twelve-week plan. It prioritizes an HTML resume and proof pages,
+rejects bulk content and backlinks, and uses Search Console plus employer actions as the feedback
+loop.
+
+### Ticket 103: LinkedIn recruiter discovery
+
+[Ticket 103](issues/103-linkedin-recruiter-discovery.md) supplies ready-to-paste LinkedIn headline,
+About, experience, skills, Featured, project, posting, and measurement guidance. Publication waits
+for factual approval, LinkedIn sign-in, and action-time confirmation.
+
+### Ticket 104: Revised portfolio and LinkedIn briefs
+
+[Ticket 104](issues/104-recruiter-discovery-revision.md) completes both revised research briefs.
+The v2 deliverables supersede tickets 102 and 103, correct unsupported platform and identity
+claims, and provide copy plus implementation work packages. No public edits were requested.
