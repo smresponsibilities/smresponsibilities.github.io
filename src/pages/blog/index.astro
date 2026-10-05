@@ -48,7 +48,13 @@ const structuredData = {
     <div id="post-embed" class="post-embed" aria-live="polite"></div>
   </section>
 
-  <section>
+  <section class="search-section">
+    <h2>Search Posts</h2>
+    <input type="text" id="post-search" placeholder="Search keyword, date, or day..." aria-label="Search posts" />
+    <div id="search-results" class="grid" style="margin-top: 1rem; display: none;"></div>
+  </section>
+
+  <section id="archive-section">
     <h2>Archive</h2>
     <p><a href="/blog/timeline/" style="font-weight: bold; border-bottom: 1px solid var(--accent);">View the complete scrollable timeline (with glitches highlighted) +'</a></p>
     <br/>
@@ -93,4 +99,59 @@ const structuredData = {
   .embed-button{min-height:48px;padding:12px 16px;border:2px solid var(--accent);background:var(--panel);color:var(--ink);font:inherit;cursor:pointer}
   .embed-button:hover{background:var(--accent);color:var(--bg)}
   .post-embed{margin-top:24px;max-width:504px}.post-embed :global(iframe){display:block;width:100%;max-width:504px;border:0}
+</style>
+<script>
+  const searchInput = document.getElementById('post-search');
+  const searchResults = document.getElementById('search-results');
+  const archiveSection = document.getElementById('archive-section');
+  let allPosts = [];
+
+  if (searchInput) {
+    searchInput.addEventListener('focus', async () => {
+      if (allPosts.length === 0) {
+        const res = await fetch('/api/posts.json');
+        allPosts = await res.json();
+      }
+    });
+
+    searchInput.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase();
+      if (!q) {
+        searchResults.style.display = 'none';
+        archiveSection.style.display = 'block';
+        return;
+      }
+      
+      const hits = allPosts.filter(p => 
+        p.content.toLowerCase().includes(q) || 
+        p.date.includes(q) || 
+        p.day.toString() === q
+      ).slice(0, 12);
+      
+      archiveSection.style.display = 'none';
+      searchResults.style.display = 'grid';
+      
+      if (hits.length === 0) {
+        searchResults.innerHTML = '<p>No posts found.</p>';
+      } else {
+        searchResults.innerHTML = hits.map(p => 
+          <article class="card">
+            <span class="eyebrow"> + p.date +  / Day  + p.day + </span>
+            <h4><a href="/blog/day- + p.day + /">Day  + p.day +  ?</a></h4>
+          </article>
+        ).join('');
+      }
+    });
+  }
+</script>
+<style>
+  #post-search {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid var(--accent);
+    background: var(--panel);
+    color: var(--ink);
+    border-radius: 4px;
+  }
 </style>
