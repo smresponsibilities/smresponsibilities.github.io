@@ -1,15 +1,19 @@
-# Handoff - 2026-10-05, un-ticketed "Days of Code" audit
+# Handoff - 2026-10-05, Ticket 119 & 120
 
 ## State
-Resolved: 116, 117, 118
-Frontier: Cleanup of untracked duplicate files in src/pages/blog
+Resolved: 121 (Search UI), 122 (Issue Pipeline - scaffolding & GitHub action live)
+Frontier: 119 (Redesign secondary pages), 120 (Bing search automated fallback)
 In flight: none
 
 ## Last session
-Audited the entire 3.5 year history of the "1001/2002 Days of Code" LinkedIn posts. Proven mathematically that the user coded for 1242 calendar days straight with zero missed days. Identified 11 duplicate numbering typos and 5 skipped numbers, plus a LinkedIn export glitch hiding Day 1000. Injected unique one-liner Easter Eggs into the JSON data for every single duplicate and skip. Built a fast, CSS-based, scrollable `timeline.astro` component to highlight these Easter Eggs and linked it from the blog archive.
+- Built Search UI (Ticket 121) and Issue Pipeline (Ticket 122).
+- The Issue Pipeline works via `read_url_content` scraping LinkedIn OpenGraph tags when an issue is closed with a URL.
+- Generated 5 throwaway layout prototypes for Ticket 119 (Redesign `/projects` and `/resume`). User rejected all 5. Deleted prototypes. Waiting on user to provide a reference UI/link.
+- User strongly prefers a Bing search strategy (`+#dayX 1001 days of code site:linkedin.com/posts/`) for Ticket 120 over GitHub actions/pipeline focus.
 
 ## Not yet written down
-The user's numbering is currently 1 day behind reality (Day 1241 instead of 1242) due to typing "1101" twice on May 17 and May 18, 2026. They need to post Day 1242 today (Oct 5) to catch up.
+Bing search API strategy for finding old posts (Ticket 120) needs to be prioritized next session using exact queries, bypassing my focus on the GitHub actions pipeline.
 
 ## Next
-The user needs to post Day 1242 on LinkedIn. After that, resume deleting untracked static duplicates or implement additional SEO fixes.
+1. Execute Bing search fallback script (Ticket 120) using exact search syntax.
+2. Redesign `/projects` and `/resume` (Ticket 119) based on user's new reference.
