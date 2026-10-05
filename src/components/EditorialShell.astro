@@ -1,0 +1,19 @@
+﻿---
+import Base from '../layouts/Base.astro';
+import '../styles/editorial.css';
+interface Props { 
+  title: string; 
+  description: string; 
+  eyebrow: string; 
+  heading: string; 
+  intro: string;
+  structuredData?: Record<string, unknown>;
+}
+const { title, description, eyebrow, heading, intro, structuredData } = Astro.props;
+---
+<Base title={title} description={description} structuredData={structuredData} accentTypes={['dragon','steel']}>
+  <div class="editorial">
+    <header><a class="brand" href="/">SM'S DEX</a><nav aria-label="Site"><a href="/">Home</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a><a href="mailto:shivammahajan.mail@gmail.com">Contact</a></nav></header>
+    <main><div class="hero"><span class="eyebrow">{eyebrow}</span><h1>{heading}</h1><p class="lead">{intro}</p><div class="actions"><slot name="actions" /></div></div><slot /></main>
+  </div>
+</Base>

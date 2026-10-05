@@ -18,10 +18,30 @@ for (const p of posts) {
   g.posts.push(p);
 }
 
-const postUrl = 'https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7511424129754025986';
-const embedUrl = 'https://www.linkedin.com/embed/feed/update/urn:li:share:7511424129754025986';
+const postUrl = latest.url;
+const embedUrl = latest.url.replace('%3A', ':').replace('linkedin.com/feed/update', 'linkedin.com/embed/feed/update');
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: '2002 Days of Code',
+  description: 'Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.',
+  url: currentUrl,
+  author: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan'
+  }
+};
 ---
-<EditorialShell title="2002 Days of Code | Shivam Mahajan" description="Follow Shivam Mahajan's 2002 Days of Code progress and read selected software development notes." eyebrow="Field notes / Days of Code" heading="2002 Days of Code" intro="Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.">
+<EditorialShell 
+  title="2002 Days of Code | Shivam Mahajan" 
+  description="Follow Shivam Mahajan's 2002 Days of Code progress and read selected software development notes." 
+  eyebrow="Field notes / Days of Code" 
+  heading="2002 Days of Code" 
+  intro="Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site."
+  structuredData={structuredData}
+>
   
   <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day {latest.day}</span><h2 id="featured-post">LinkedIn post from {latest.date}</h2><p>Read the original post or choose an embedded view.</p>
     <div class="actions"><a href={postUrl} target="_blank" rel="noopener noreferrer">Read original post ↗</a><button type="button" class="embed-button" data-view="compact" aria-controls="post-embed">Show compact embed</button><button type="button" class="embed-button" data-view="full" aria-controls="post-embed">Show full embed</button></div>

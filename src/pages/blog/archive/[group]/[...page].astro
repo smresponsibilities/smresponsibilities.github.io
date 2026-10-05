@@ -24,6 +24,15 @@ export async function getStaticPaths({ paginate }) {
 
 const { page } = Astro.props;
 const { group } = Astro.params;
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: `Days ${group} | 2002 Days of Code`,
+  description: `Archive of days ${group} for the 2002 Days of Code challenge.`,
+  url: currentUrl
+};
 ---
 
 <EditorialShell 
@@ -32,6 +41,7 @@ const { group } = Astro.params;
   eyebrow={`Archive / Days ${group}`} 
   heading={`Days ${group}`} 
   intro={`Page ${page.currentPage} of ${page.lastPage}`}
+  structuredData={structuredData}
 >
   <section>
     <div class="grid">

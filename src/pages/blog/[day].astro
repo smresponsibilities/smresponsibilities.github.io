@@ -10,6 +10,26 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: `Day ${post.day} of 2002 Days of Code`,
+  description: `Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`,
+  author: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan',
+    url: 'https://shivammahajan.com/'
+  },
+  url: currentUrl,
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': currentUrl
+  },
+  datePublished: new Date(`${post.date}, 2026`).toISOString(),
+  articleBody: post.content
+};
 ---
 
 <EditorialShell 
@@ -18,6 +38,7 @@ const { post } = Astro.props;
   eyebrow={`2002 Days of Code / ${post.date}`} 
   heading={`Day ${post.day}`} 
   intro={`Shivam's LinkedIn update for day ${post.day}.`}
+  structuredData={structuredData}
 >
   <a slot="actions" href={post.url} target="_blank" rel="noopener noreferrer">Read LinkedIn post ↗</a>
   <section>
