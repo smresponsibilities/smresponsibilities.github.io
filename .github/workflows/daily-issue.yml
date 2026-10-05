@@ -2,7 +2,9 @@ name: Daily LinkedIn Post Prompt
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # Midnight UTC
+    - cron: '0 0 * * *'
+permissions:
+  issues: write
 jobs:
   create_issue:
     runs-on: ubuntu-latest
@@ -10,8 +12,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Create Issue
         env:
-          GH_TOKEN: $\{{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue create --title "Day X LinkedIn Post" --body "Paste your LinkedIn URL here and close this issue to trigger the auto-fetch pipeline." --label "daily-post"
-
 
