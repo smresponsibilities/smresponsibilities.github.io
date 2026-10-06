@@ -1,0 +1,110 @@
+{
+  "raw": null,
+  "scenes": [
+    {
+      "label": "Loader",
+      "seconds": 3.986
+    },
+    {
+      "label": "Homepage",
+      "seconds": 4.958
+    },
+    {
+      "label": "Generation I closed",
+      "seconds": 6.854
+    },
+    {
+      "label": "Generation I open",
+      "seconds": 8.189
+    },
+    {
+      "label": "Profile",
+      "seconds": 9.976
+    },
+    {
+      "label": "Profile facts",
+      "seconds": 10.936
+    },
+    {
+      "label": "Moves",
+      "seconds": 12.545
+    },
+    {
+      "label": "Encounters",
+      "seconds": 14.136
+    },
+    {
+      "label": "Ribbons",
+      "seconds": 15.676
+    },
+    {
+      "label": "Dex",
+      "seconds": 16.841
+    },
+    {
+      "label": "Johto · Gold / Silver",
+      "seconds": 18.635
+    },
+    {
+      "label": "Hoenn · Ruby / Sapphire",
+      "seconds": 20.127
+    },
+    {
+      "label": "Sinnoh · Diamond / Pearl",
+      "seconds": 21.668
+    },
+    {
+      "label": "Unova · Black / White",
+      "seconds": 23.25
+    },
+    {
+      "label": "Kalos · X / Y",
+      "seconds": 25.858
+    },
+    {
+      "label": "Alola · Sun / Moon",
+      "seconds": 27.048
+    },
+    {
+      "label": "Galar · Sword / Shield",
+      "seconds": 28.576
+    },
+    {
+      "label": "Paldea · Scarlet / Violet",
+      "seconds": 29.35
+    },
+    {
+      "label": "Power off",
+      "seconds": 30.333
+    },
+    {
+      "label": "Readable profile",
+      "seconds": 32.107
+    },
+    {
+      "label": "About",
+      "seconds": 32.454
+    },
+    {
+      "label": "Experience",
+      "seconds": 32.806
+    },
+    {
+      "label": "Projects",
+      "seconds": 33.14
+    },
+    {
+      "label": "Add Pokémon form",
+      "seconds": 34.88
+    },
+    {
+      "label": "Submission actions",
+      "seconds": 37.711
+    },
+    {
+      "label": "Homepage ending",
+      "seconds": 40.386
+    }
+  ],
+  "seconds": 42.512
+}

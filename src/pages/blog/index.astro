@@ -1,5 +1,6 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+import DaysTimeline from '../../components/DaysTimeline.astro';
 import allPosts from '../../data/linkedin-posts.json';
 
 const posts = [...allPosts].sort((a, b) => b.day - a.day);
@@ -25,7 +26,7 @@ const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammaha
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'Blog',
-  name: '2002 Days of Code',
+  name: 'Days of Code',
   description: 'Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.',
   url: currentUrl,
   author: {
@@ -35,10 +36,10 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="2002 Days of Code | Shivam Mahajan" 
-  description="Follow Shivam Mahajan's 2002 Days of Code progress and read selected software development notes." 
+  title="Days of Code | Shivam Mahajan" 
+  description="Follow Shivam Mahajan's Days of Code progress and read selected software development notes." 
   eyebrow="Field notes / Days of Code" 
-  heading="2002 Days of Code" 
+  heading="Days of Code" 
   intro="Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site."
   structuredData={structuredData}
 >
@@ -54,9 +55,11 @@ const structuredData = {
     <div id="search-results" class="grid" style="margin-top: 1rem; display: none;"></div>
   </section>
 
+      <section aria-labelledby="recent-days"><h2 id="recent-days">Recent days</h2><DaysTimeline variant={1} limit={10} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
+
       <section id="archive-section">
     <h2>Complete History (Zoomed Out)</h2>
-    <p>Every single day of the 1200+ day streak.</p>
+    <p>Every single day of the streak.</p>
     
     <div class="heatmap-container">
       <div class="heatmap">

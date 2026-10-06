@@ -1,0 +1,130 @@
+---
+import posts from '../data/linkedin-posts.json';
+interface Props { variant?: number; limit?: number }
+const { variant = 1, limit } = Astro.props;
+const all = [...posts].sort((a, b) => b.day - a.day);
+const items = (limit ? all.slice(0, limit) : all).map((p: any) => {
+  const t = String(p.content ?? p.text ?? '').replace(/\s+/g, ' ').trim();
+  return {
+    day: p.day,
+    date: p.date ?? '',
+    egg: !!p.easterEgg,
+    ms: p.day % 100 === 0 || p.day === 1,
+    ex: t.length > 140 ? t.slice(0, 140) + '…' : t,
+  };
+});
+const group = (keyFn: (i: any) => string) => {
+  const out: { name: string; items: any[] }[] = [];
+  for (const it of items) {
+    const k = keyFn(it);
+    let g = out.find((x) => x.name === k);
+    if (!g) out.push((g = { name: k, items: [] }));
+    g.items.push(it);
+  }
+  return out;
+};
+const chapters = variant === 3 ? group((i) => { const lo = Math.floor((i.day - 1) / 100) * 100 + 1; return `Days ${lo}-${lo + 99}`; }) : [];
+const years = variant === 9 ? group((i) => (i.date || 'Unknown').slice(0, 4)) : [];
+const href = (d: number) => `/blog/day-${d}/`;
+---
+<div class={`tl tl-v${variant}`}>
+  {variant === 1 && (
+    <ol class="spine">
+      {items.map((i) => (
+        <li class:list={['node', { ms: i.ms, egg: i.egg }]}>
+          <a href={href(i.day)}><small>{i.date}</small><b>Day {i.day}</b><span>{i.ex}</span></a>
+        </li>
+      ))}
+    </ol>
+  )}
+  {(variant === 2 || variant === 8) && (
+    <div class="cells">
+      {items.map((i) => (
+        <a href={href(i.day)} title={`Day ${i.day}: ${i.date}`} class:list={['cell', { ms: i.ms, egg: i.egg }]}></a>
+      ))}
+    </div>
+  )}
+  {variant === 3 && chapters.map((c, n) => (
+    <details open={n === 0}>
+      <summary>{c.name} <small>{c.items.length} days</small></summary>
+      <ul>{c.items.map((i) => <li><a href={href(i.day)}>Day {i.day} <small>{i.date}</small></a></li>)}</ul>
+    </details>
+  ))}
+  {variant === 4 && (
+    <ol class="hscroll">
+      {items.map((i) => (
+        <li class:list={{ ms: i.ms, egg: i.egg }}><a href={href(i.day)}><b>{i.day}</b><small>{i.date}</small></a></li>
+      ))}
+    </ol>
+  )}
+  {variant === 5 && (
+    <pre class="term">{items.map((i) => (
+      <a href={href(i.day)}>{`${i.date.padEnd(10)}  day-${String(i.day).padEnd(5)} ${i.ex.slice(0, 70)}`}\n</a>
+    ))}</pre>
+  )}
+  {variant === 6 && (
+    <div class="cards">
+      {items.map((i) => (
+        <a class:list={['card', { ms: i.ms, egg: i.egg }]} href={href(i.day)}><small>{i.date}</small><b>Day {i.day}</b><p>{i.ex}</p></a>
+      ))}
+    </div>
+  )}
+  {variant === 7 && (
+    <table class="ledger">
+      <thead><tr><th>Day</th><th>Date</th><th>Note</th></tr></thead>
+      <tbody>{items.map((i) => <tr class:list={{ ms: i.ms }}><td><a href={href(i.day)}>{i.day}</a></td><td>{i.date}</td><td>{i.ex}</td></tr>)}</tbody>
+    </table>
+  )}
+  {variant === 9 && years.map((y, n) => (
+    <details open={n === 0}>
+      <summary>{y.name} <small>{y.items.length} days</small></summary>
+      <ul>{y.items.map((i) => <li><a href={href(i.day)}>Day {i.day} <small>{i.date}</small></a></li>)}</ul>
+    </details>
+  ))}
+  {variant === 10 && (
+    <ol class="miles">
+      {items.filter((i) => i.ms || i.egg).map((i) => (
+        <li><a href={href(i.day)}><b>Day {i.day}</b> <small>{i.date}</small> {i.egg ? <em>glitch</em> : null}</a></li>
+      ))}
+    </ol>
+  )}
+</div>
+<style>
+  .tl { --a: var(--accent, #4ade80); color: var(--ink, inherit); }
+  .tl a { color: inherit; text-decoration: none; }
+  .tl small { opacity: .65; margin-right: .5rem; }
+  ol, ul { list-style: none; margin: 0; padding: 0; }
+  .spine { position: relative; padding-left: 1.75rem; }
+  .spine::before { content: ""; position: absolute; left: 6px; top: 0; bottom: 0; width: 2px; background: var(--a); opacity: .5; }
+  .node { position: relative; margin-bottom: 1rem; }
+  .node::before { content: ""; position: absolute; left: -1.75rem; top: .4rem; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--a); background: var(--panel, #111); }
+  .node.ms::before { background: var(--a); transform: scale(1.35); }
+  .node.egg::before { border-color: #f59e0b; }
+  .node a { display: block; padding: .5rem .75rem; border: 1px solid transparent; }
+  .node a:hover, .node a:focus-visible { border-color: var(--a); }
+  .node small, .node b, .node span { display: block; }
+  .node span { opacity: .85; font-size: .9rem; }
+  .cells { display: flex; flex-wrap: wrap; gap: 3px; max-width: 800px; }
+  .cell { width: 10px; height: 10px; background: var(--a); border-radius: 2px; }
+  .cell.ms { outline: 2px solid var(--ink, #fff); }
+  .cell.egg { background: #f59e0b; }
+  .tl-v8 .cells { gap: 1px; } .tl-v8 .cell { width: 4px; height: 14px; }
+  details { border-top: 1px solid color-mix(in srgb, currentColor 20%, transparent); padding: .5rem 0; }
+  summary { cursor: pointer; font-weight: 700; }
+  details ul { display: flex; flex-wrap: wrap; gap: .25rem .75rem; padding-top: .5rem; }
+  .hscroll { display: flex; gap: .5rem; overflow-x: auto; padding-bottom: .75rem; scroll-snap-type: x proximity; }
+  .hscroll li { flex: 0 0 90px; scroll-snap-align: start; border: 2px solid var(--a); padding: .5rem; }
+  .hscroll li.ms { background: var(--a); color: var(--bg, #000); }
+  .hscroll b, .hscroll small { display: block; }
+  .term { font: .85rem/1.5 ui-monospace, monospace; background: #0b0f0b; color: #4ade80; padding: 1rem; overflow-x: auto; max-height: 28rem; }
+  .term a { display: inline; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: .75rem; }
+  .card { border: 1px solid var(--a); padding: .75rem; display: block; }
+  .card.ms { border-width: 3px; }
+  .card p { margin: .35rem 0 0; font-size: .9rem; opacity: .85; }
+  .ledger { width: 100%; border-collapse: collapse; font-size: .9rem; }
+  .ledger th, .ledger td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent); vertical-align: top; }
+  .ledger tr.ms td { font-weight: 700; }
+  .miles li { padding: .4rem 0; border-bottom: 1px dashed color-mix(in srgb, currentColor 25%, transparent); }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>

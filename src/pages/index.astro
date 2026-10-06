@@ -1,4 +1,5 @@
 ---
+import DaysTimeline from '../components/DaysTimeline.astro';
 import Base from '../layouts/Base.astro';
 import roster from '../data/roster.json';
 
@@ -154,7 +155,8 @@ const projects = [
         </div>
       </div>
     </section>
-  </main>
+  <section aria-label="Days of Code"><h2>Days of Code</h2><DaysTimeline variant={1} limit={8} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
+</main>
 
   <footer class="site-footer">Pokémon © Nintendo / Creatures / GAME FREAK · Tested by my friends.</footer>
 
