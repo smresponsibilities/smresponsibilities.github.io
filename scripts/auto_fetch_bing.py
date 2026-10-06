@@ -15,7 +15,8 @@ latest_day = max([p['day'] for p in posts])
 next_day = latest_day + 1
 
 # 1. Search Bing
-query = f"+#day{next_day} 1001 days of code site:linkedin.com/posts/"
+hashtag = "2002 days of code" if next_day > 1001 else "1001 days of code"
+query = f"+#day{next_day} {hashtag} site:linkedin.com/posts/"
 url = "https://www.bing.com/search?q=" + urllib.parse.quote_plus(query)
 
 try:
