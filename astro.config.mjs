@@ -6,4 +6,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://shivammahajan.com',
   integrations: [sitemap()],
+  build: {
+    inlineStylesheets: 'always',
+  },
 });
