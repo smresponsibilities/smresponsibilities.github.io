@@ -3,7 +3,7 @@ const SITE = 'https://shivammahajan.com';
 export function GET() {
   const months = [...new Set((posts as any[]).map((p) => String(p.date ?? '').slice(0, 7)).filter((m) => /^\d{4}-\d{2}$/.test(m)))];
   const urls = [
-    '/', '/resume/', '/projects/', '/projects/productivity-caller/', '/projects/sm-dex/', '/timelines/', '/blog/', '/blog/timeline/', '/blog/milestones/',
+    '/', '/resume/', '/projects/', '/projects/productivity-caller/', '/projects/sm-dex/', '/timelines/', '/blog/', '/blog/timeline/', '/blog/milestones/', '/blog/shivam-mahajan/',
     ...months.map((m) => `/blog/month/${m}/`),
     ...(posts as any[]).map((p) => `/blog/day-${p.day}/`),
   ];
