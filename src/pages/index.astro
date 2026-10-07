@@ -64,7 +64,14 @@ const projects = [
 ---
 
 <Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
-  <Fragment slot="head"><link rel="stylesheet" href="/generation-device/style.css?v=80.0" /></Fragment>
+  <Fragment slot="head">
+    <link rel="stylesheet" href="/generation-device/style.css?v=80.0" />
+    <style is:inline>
+      .snake-loader{position:relative;width:232px;height:232px;margin:auto}
+      .snake-loader img{position:absolute;inset:50% auto auto 50%;width:138px;height:138px;transform:translate(-50%,-50%);image-rendering:pixelated;display:block;max-width:none}
+      @media(max-height:560px){.snake-loader{width:132px;height:132px}.snake-loader img{width:92px;height:92px}}
+    </style>
+  </Fragment>
   <div class="loader" id="page-loader" role="status" aria-live="polite" data-facts={JSON.stringify(loaderFacts)}>
     <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src="/logos/pixel-python.png" width="16" height="16" alt="" /></div>
     <p>Loading SM'S DEX…</p>
