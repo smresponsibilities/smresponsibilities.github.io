@@ -1,0 +1,62 @@
+{
+  "rows": [
+    {
+      "gen": "red",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "beads": []
+    },
+    {
+      "gen": "gold",
+      "offset": {
+        "x": 0,
+        "y": -4
+      },
+      "beads": [
+        [
+          "#d2faff",
+          "#36baf3",
+          "#164d89"
+        ],
+        [
+          "#d9f4ff",
+          "#496f91",
+          "#111b33"
+        ],
+        [
+          "#d2faff",
+          "#36baf3",
+          "#164d89"
+        ]
+      ]
+    },
+    {
+      "gen": "ruby",
+      "offset": {
+        "x": 0,
+        "y": -5
+      },
+      "beads": []
+    },
+    {
+      "gen": "diamond",
+      "offset": {
+        "x": 0,
+        "y": -4
+      },
+      "beads": []
+    },
+    {
+      "gen": "black",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "beads": []
+    }
+  ],
+  "errors": [],
+  "redScreenshotHash": "50c30844e4e85e3843ec14429cc4e99e36f25fd793d37f3395c731a81eeee10a"
+}

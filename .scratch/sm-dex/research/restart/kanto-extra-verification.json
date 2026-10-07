@@ -1,0 +1,148 @@
+{
+  "checkedAt": "2026-09-03T11:19:11.912Z",
+  "count": 20,
+  "uniqueHashes": 20,
+  "failures": [],
+  "items": [
+    {
+      "id": "k1-01",
+      "local": "references/k1-01.png",
+      "bytes": 309221,
+      "sha1": "867b089bf74e0738e5400b0ebad3cf56a1643638",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-02",
+      "local": "references/k1-02.png",
+      "bytes": 52249,
+      "sha1": "2f6096635a4dab87152b44d93146bfb2a8ab3c5c",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-03",
+      "local": "references/k1-03.png",
+      "bytes": 44149,
+      "sha1": "e7a865b473c776cee83c9a5d2b5c1201389121c6",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-04",
+      "local": "references/k1-04.jpg",
+      "bytes": 16702,
+      "sha1": "33c850d585a5e1cef6d014b53ef8219becef96a7",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-05",
+      "local": "references/k1-05.png",
+      "bytes": 43698,
+      "sha1": "52ee66fb583c6a8d93f05214936d62c0189a3f18",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-06",
+      "local": "references/k1-06.png",
+      "bytes": 336508,
+      "sha1": "5bd55cda43c0e5b0cbf19a1c8232f212dcfe423b",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-07",
+      "local": "references/k1-07.png",
+      "bytes": 166336,
+      "sha1": "fe84bc321293360b07a58f0571b1e0b85e0dee51",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-08",
+      "local": "references/k1-08.png",
+      "bytes": 179757,
+      "sha1": "e27baa8a0ce7d827df2bedc606146388b2bc4835",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-09",
+      "local": "references/k1-09.png",
+      "bytes": 167492,
+      "sha1": "fddc51b9cb23cf787488b2586c312494d3177a09",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-10",
+      "local": "references/k1-10.png",
+      "bytes": 180099,
+      "sha1": "954953f14ba98634707a71720dd43eecea047244",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-11",
+      "local": "references/k1-11.png",
+      "bytes": 152725,
+      "sha1": "32e6abcab695e418533d13a884dcdccaa7197d18",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-12",
+      "local": "references/k1-12.png",
+      "bytes": 373645,
+      "sha1": "b4b692dd5acfef9fb89bd89dd89356f41f1cddee",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-13",
+      "local": "references/k1-13.png",
+      "bytes": 14126,
+      "sha1": "2ee9a469b55a038839c6de77689e13945d016e54",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-14",
+      "local": "references/k1-14.png",
+      "bytes": 361257,
+      "sha1": "10ba1b67c533f0c71a47cb0fb1c7955e7bbb11b5",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-15",
+      "local": "references/k1-15.png",
+      "bytes": 328031,
+      "sha1": "e796722c2987c68052a4005d54cf1dc6c18ebf45",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-16",
+      "local": "references/k1-16.png",
+      "bytes": 340164,
+      "sha1": "d0289b3ad2a30af6f86ca096b7027bbe3b5074b2",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-17",
+      "local": "references/k1-17.png",
+      "bytes": 311811,
+      "sha1": "64a46dcec1bab810847c708948e042e7022c273d",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-18",
+      "local": "references/k1-18.png",
+      "bytes": 351031,
+      "sha1": "4e12c2e4dbf542c6489d8476c642ace955e442dd",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-19",
+      "local": "references/k1-19.png",
+      "bytes": 281115,
+      "sha1": "f690848d23eed8356be2ce0a1695160b3d4c447d",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "k1-20",
+      "local": "references/k1-20.png",
+      "bytes": 354678,
+      "sha1": "ba59c9708f9322b0ab7955d677985c534d7f8867",
+      "archiveHashMatched": true
+    }
+  ]
+}

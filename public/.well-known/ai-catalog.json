@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "catalog_version": "1.0",
+  "resources": [
+    {
+      "type": "website",
+      "name": "SM'S DEX",
+      "description": "Portfolio and resume of Shivam Mahajan, software developer."
+    }
+  ]
+}

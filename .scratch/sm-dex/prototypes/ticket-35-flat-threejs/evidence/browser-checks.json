@@ -1,0 +1,746 @@
+{
+  "date": "2026-09-03",
+  "nativeFlat": [
+    {
+      "content": "MAIN MENU. Selected: PROFILE. MOVES. ENCOUNTERS. RIBBONS. DEX",
+      "control": "control-back",
+      "drift": "0",
+      "state": {
+        "accepted": "1",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. Selected: PROFILE. MOVES. ENCOUNTERS. RIBBONS. DEX",
+      "control": "control-menu",
+      "drift": "0",
+      "state": {
+        "accepted": "2",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-entry",
+      "drift": "0",
+      "state": {
+        "accepted": "3",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MOVES. Selected: SM'S DEX. SAMPLE PROJECT",
+      "control": "control-bezel",
+      "drift": "0",
+      "state": {
+        "accepted": "4",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MOVES. SM'S DEX. Selected: SAMPLE PROJECT",
+      "control": "control-up",
+      "drift": "0",
+      "state": {
+        "accepted": "5",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-left",
+      "drift": "0",
+      "state": {
+        "accepted": "6",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MOVES. Selected: SM'S DEX. SAMPLE PROJECT",
+      "control": "control-right",
+      "drift": "0",
+      "state": {
+        "accepted": "7",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MOVES. SM'S DEX. Selected: SAMPLE PROJECT",
+      "control": "control-down",
+      "drift": "0",
+      "state": {
+        "accepted": "8",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-key-1",
+      "drift": "0",
+      "state": {
+        "accepted": "9",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MOVES. Selected: SM'S DEX. SAMPLE PROJECT",
+      "control": "control-key-2",
+      "drift": "0",
+      "state": {
+        "accepted": "10",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "ENCOUNTERS. Selected: CAREER HISTORY",
+      "control": "control-key-3",
+      "drift": "0",
+      "state": {
+        "accepted": "11",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "RIBBONS. Selected: ACHIEVEMENTS",
+      "control": "control-key-4",
+      "drift": "0",
+      "state": {
+        "accepted": "12",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-key-5",
+      "drift": "0",
+      "state": {
+        "accepted": "13",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-6",
+      "drift": "0",
+      "state": {
+        "accepted": "14",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-key-7",
+      "drift": "0",
+      "state": {
+        "accepted": "15",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-8",
+      "drift": "0",
+      "state": {
+        "accepted": "16",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-key-9",
+      "drift": "0",
+      "state": {
+        "accepted": "17",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-10",
+      "drift": "0",
+      "state": {
+        "accepted": "18",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-white-left",
+      "drift": "0",
+      "state": {
+        "accepted": "19",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-white-right",
+      "drift": "0",
+      "state": {
+        "accepted": "20",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-aux-left",
+      "drift": "0",
+      "state": {
+        "accepted": "21",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-aux-right",
+      "drift": "0",
+      "state": {
+        "accepted": "22",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "flat"
+      }
+    },
+    {
+      "content": "",
+      "control": "control-power",
+      "drift": "0",
+      "state": {
+        "accepted": "23",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "false",
+        "variant": "flat"
+      }
+    }
+  ],
+  "nativeThree": [
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-back",
+      "drift": "0",
+      "state": {
+        "accepted": "25",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-menu",
+      "drift": "0",
+      "state": {
+        "accepted": "26",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-entry",
+      "drift": "0",
+      "state": {
+        "accepted": "27",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-bezel",
+      "drift": "0",
+      "state": {
+        "accepted": "28",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "PROFILE. SHIVAM MAHAJAN. Selected: APPROACH",
+      "control": "control-up",
+      "drift": "0",
+      "state": {
+        "accepted": "29",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-left",
+      "drift": "0",
+      "state": {
+        "accepted": "30",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-right",
+      "drift": "0",
+      "state": {
+        "accepted": "31",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "PROFILE. SHIVAM MAHAJAN. Selected: APPROACH",
+      "control": "control-down",
+      "drift": "0",
+      "state": {
+        "accepted": "32",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "PROFILE. Selected: SHIVAM MAHAJAN. APPROACH",
+      "control": "control-key-1",
+      "drift": "0",
+      "state": {
+        "accepted": "33",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MOVES. Selected: SM'S DEX. SAMPLE PROJECT",
+      "control": "control-key-2",
+      "drift": "0",
+      "state": {
+        "accepted": "34",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "ENCOUNTERS. Selected: CAREER HISTORY",
+      "control": "control-key-3",
+      "drift": "0",
+      "state": {
+        "accepted": "35",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "RIBBONS. Selected: ACHIEVEMENTS",
+      "control": "control-key-4",
+      "drift": "0",
+      "state": {
+        "accepted": "36",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-key-5",
+      "drift": "0",
+      "state": {
+        "accepted": "37",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-6",
+      "drift": "0",
+      "state": {
+        "accepted": "38",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-key-7",
+      "drift": "0",
+      "state": {
+        "accepted": "39",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-8",
+      "drift": "0",
+      "state": {
+        "accepted": "40",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "DEX. Selected: 001 SHIVAM. JOIN THE DEX",
+      "control": "control-key-9",
+      "drift": "0",
+      "state": {
+        "accepted": "41",
+        "cancelled": "0",
+        "mode": "list",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-key-10",
+      "drift": "0",
+      "state": {
+        "accepted": "42",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-white-left",
+      "drift": "0",
+      "state": {
+        "accepted": "43",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-white-right",
+      "drift": "0",
+      "state": {
+        "accepted": "44",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. Selected: RIBBONS. DEX",
+      "control": "control-aux-left",
+      "drift": "0",
+      "state": {
+        "accepted": "45",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "MAIN MENU. PROFILE. MOVES. ENCOUNTERS. RIBBONS. Selected: DEX",
+      "control": "control-aux-right",
+      "drift": "0",
+      "state": {
+        "accepted": "46",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "true",
+        "variant": "three"
+      }
+    },
+    {
+      "content": "",
+      "control": "control-power",
+      "drift": "0",
+      "state": {
+        "accepted": "47",
+        "cancelled": "0",
+        "mode": "menu",
+        "moving": "false",
+        "open": "true",
+        "power": "false",
+        "variant": "three"
+      }
+    }
+  ],
+  "responsive": [
+    {
+      "client": 360,
+      "failures": [],
+      "passed": "56",
+      "scroll": 360,
+      "total": "56",
+      "variant": "flat",
+      "width": 375
+    },
+    {
+      "client": 360,
+      "failures": [],
+      "passed": "56",
+      "scroll": 360,
+      "total": "56",
+      "variant": "three",
+      "width": 375
+    },
+    {
+      "client": 753,
+      "failures": [],
+      "passed": "56",
+      "scroll": 753,
+      "total": "56",
+      "variant": "flat",
+      "width": 768
+    },
+    {
+      "client": 753,
+      "failures": [],
+      "passed": "56",
+      "scroll": 753,
+      "total": "56",
+      "variant": "three",
+      "width": 768
+    },
+    {
+      "client": 1265,
+      "failures": [],
+      "passed": "56",
+      "scroll": 1265,
+      "total": "56",
+      "variant": "flat",
+      "width": 1280
+    },
+    {
+      "client": 1265,
+      "failures": [],
+      "passed": "56",
+      "scroll": 1265,
+      "total": "56",
+      "variant": "three",
+      "width": 1280
+    }
+  ],
+  "gapCheck": {
+    "before": "50",
+    "after": "50",
+    "probes": 14
+  },
+  "closing": {
+    "before": {
+      "content": "MOVES / ENTRY. SM'S DEX. An interactive device for browsing projects, experience and a public developer roster.",
+      "metrics": "Browser mouse · Open selected entry\nTarget / neighbour drift: 0.000px\nCap travel: 4.000 model units into casing\nAccepted: 1; cancelled: 0"
+    },
+    "closed": {
+      "content": "",
+      "enabled": 0,
+      "moving": "false",
+      "open": "false"
+    },
+    "resumedContent": "MOVES / ENTRY. SM'S DEX. An interactive device for browsing projects, experience and a public developer roster.",
+    "matches": true
+  },
+  "finalFlatChecks": {
+    "failures": [],
+    "passed": "56",
+    "total": "56"
+  },
+  "finalThreeChecks": {
+    "failures": [],
+    "passed": "56",
+    "renderer": {
+      "drawCalls": "87",
+      "renderer": "Three.js r182",
+      "triangles": "17070"
+    },
+    "total": "56"
+  },
+  "limits": [
+    "Touch events in scripted checks are synthetic, not a physical touchscreen test.",
+    "No pixel-identical source comparison or canonical hinge sequence claim.",
+    "Reduced-motion checkbox tested, not OS preference switching."
+  ]
+}

@@ -171,7 +171,7 @@ const projects = [
   <dialog id="submission-dialog" aria-labelledby="submission-heading">
     <div class="dialog-heading"><div><span class="eyebrow">Public Roster</span><h2 id="submission-heading">Add Your Pokémon</h2></div><button class="close-button" id="close-submission" type="button" aria-label="Close submission form" data-tooltip="Close the roster form">×</button></div>
     <p class="dialog-copy">Fill your dex entry. Please don't use AI as I will be stringent in reviewing. Submitting opens a GitHub issue. After review, the roster workflow creates the pull request.</p>
-    <form id="submission-form">
+    <form id="submission-form" toolname="submitRosterEntry" tooldescription="Submit a GitHub user to the public developer roster as a custom Pokemon. Requires github username, species role, primary and secondary types, and status.">
       <div class="field-grid">
         <label>GitHub Username <input name="github" required maxlength="39" autocomplete="off" spellcheck="false" placeholder="SM" pattern="[A-Za-z0-9](?:[A-Za-z0-9\-]{0,37}[A-Za-z0-9])?" /><span class="field-hint">Your GitHub handle. No @ symbol.</span></label>
         <label>Species <input name="species" required maxlength="24" autocomplete="off" placeholder="Builder Pokémon" /><span class="field-hint">A short role-like Pokémon species.</span></label>

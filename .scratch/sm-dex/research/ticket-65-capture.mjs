@@ -1,0 +1,12 @@
+import { chromium } from 'playwright-core';
+const browser = await chromium.launch({ channel: 'chrome', headless: true });
+const page = await browser.newPage({ viewport: { width: 1440, height: 1000 } });
+await page.goto('http://127.0.0.1:4321/', { waitUntil: 'domcontentloaded' });
+await page.screenshot({ path: '.scratch/sm-dex/research/ticket-65-loader.png' });
+await page.waitForTimeout(1500);
+await page.screenshot({ path: '.scratch/sm-dex/research/ticket-65-page.png', fullPage: true });
+await page.locator('#generations [data-gen="sun-moon"]').evaluate((button) => button.click());
+await page.waitForTimeout(100);
+await page.locator('#effect-controls').screenshot({ path: '.scratch/sm-dex/research/ticket-65-rotom-controls.png' });
+await page.locator('.opening').screenshot({ path: '.scratch/sm-dex/research/ticket-65-slider.png' });
+await browser.close();

@@ -1,0 +1,337 @@
+{
+  "date": "2026-09-03",
+  "scope": "Scratch study only. Native browser mouse/keyboard distinguished from synthetic touch and reduced-motion preview.",
+  "nativeClicks": [
+    {
+      "accepted": 1,
+      "drift": "0",
+      "id": "key-1",
+      "input": "Browser mouse",
+      "page": "Profile",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 2,
+      "drift": "0",
+      "id": "key-2",
+      "input": "Browser mouse",
+      "page": "Moves",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 3,
+      "drift": "0",
+      "id": "key-3",
+      "input": "Browser mouse",
+      "page": "Encounters",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 4,
+      "drift": "0",
+      "id": "key-4",
+      "input": "Browser mouse",
+      "page": "Ribbons",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 5,
+      "drift": "0",
+      "id": "key-5",
+      "input": "Browser mouse",
+      "page": "Evolution",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 6,
+      "drift": "0",
+      "id": "key-6",
+      "input": "Browser mouse",
+      "page": "Dex",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 7,
+      "drift": "0",
+      "id": "key-7",
+      "input": "Browser mouse",
+      "page": "Join",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 8,
+      "drift": "0",
+      "id": "key-8",
+      "input": "Browser mouse",
+      "page": "Resume",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 9,
+      "drift": "0",
+      "id": "key-9",
+      "input": "Browser mouse",
+      "page": "Join",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 10,
+      "drift": "0",
+      "id": "key-10",
+      "input": "Browser mouse",
+      "page": "Resume",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 11,
+      "drift": "0",
+      "id": "white-left",
+      "input": "Browser mouse",
+      "page": "Join",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 12,
+      "drift": "0",
+      "id": "white-right",
+      "input": "Browser mouse",
+      "page": "Resume",
+      "power": "On",
+      "travel": "4"
+    },
+    {
+      "accepted": 13,
+      "drift": "0",
+      "id": "yellow-round",
+      "input": "Browser mouse",
+      "page": "Resume",
+      "power": "Off",
+      "travel": "4"
+    }
+  ],
+  "nativeKeyboardTextFit": [
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "SHIVAM MAHAJAN",
+      "title": "SHIVAM MAHAJAN",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "MOVE LIST",
+      "title": "MOVE LIST",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "ENCOUNTERS",
+      "title": "ENCOUNTERS",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "RIBBONS",
+      "title": "RIBBONS",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "EVOLUTION",
+      "title": "EVOLUTION",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "DEX ROSTER",
+      "title": "DEX ROSTER",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "ADD AN ENTRY",
+      "title": "ADD AN ENTRY",
+      "travel": "4"
+    },
+    {
+      "drift": "0",
+      "input": "Browser Space",
+      "lcd": [
+        [
+          160,
+          144,
+          160,
+          144
+        ],
+        [
+          160,
+          144,
+          160,
+          144
+        ]
+      ],
+      "projected": "RESUME",
+      "title": "RESUME",
+      "travel": "4"
+    }
+  ],
+  "scriptedAtViewports": [
+    {
+      "client": 360,
+      "failures": [],
+      "passed": "65",
+      "scroll": 360,
+      "total": "65",
+      "width": 375
+    },
+    {
+      "client": 753,
+      "failures": [],
+      "passed": "65",
+      "scroll": 753,
+      "total": "65",
+      "width": 768
+    },
+    {
+      "client": 1265,
+      "failures": [],
+      "passed": "65",
+      "scroll": 1265,
+      "total": "65",
+      "width": 1280
+    }
+  ],
+  "referenceBoard": {
+    "articles": 110,
+    "broken": [],
+    "dimensionMismatches": [],
+    "images": 110,
+    "loaded": 110,
+    "selected": [
+      "g1-01 · 1150 × 945",
+      "g1-05 · 640 × 480",
+      "g1-06 · 640 × 480"
+    ]
+  },
+  "limitations": [
+    "No physical touchscreen test",
+    "No OS-level reduced-motion preference test",
+    "No moving lid",
+    "No source-exact button geometry comparison"
+  ]
+}

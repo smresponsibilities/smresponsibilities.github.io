@@ -1,0 +1,23 @@
+{
+  "count": 60,
+  "broken": [],
+  "layouts": [
+    {
+      "width": 1400,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

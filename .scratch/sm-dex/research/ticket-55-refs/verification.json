@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-09-09T13:16:26.240Z",
+  "results": [
+    {
+      "generation": "gen2",
+      "count": 20
+    },
+    {
+      "generation": "gen4",
+      "count": 20
+    },
+    {
+      "generation": "gen5",
+      "count": 20
+    }
+  ],
+  "uniqueImages": 60,
+  "failures": []
+}

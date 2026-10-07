@@ -1,0 +1,95 @@
+import json
+import re
+
+json_path = r'd:\portfolio\src\data\linkedin-posts.json'
+astro_path = r'd:\portfolio\src\pages\blog\index.astro'
+
+with open(json_path, 'r', encoding='utf-8') as f:
+    posts = json.load(f)
+
+posts.sort(key=lambda x: x['day'], reverse=True)
+latest = posts[0]
+
+embed_url = latest['url'].replace('%3A', ':').replace('linkedin.com/feed/update', 'linkedin.com/embed/feed/update')
+
+new_frontmatter = f"""---
+import EditorialShell from '../../components/EditorialShell.astro';
+import allPosts from '../../data/linkedin-posts.json';
+
+const posts = [...allPosts].sort((a, b) => b.day - a.day);
+const latest = posts[0];
+
+const groups = [];
+for (const p of posts) {{
+  const lower = Math.floor((p.day - 1) / 100) * 100 + 1;
+  const upper = lower + 99;
+  const gName = `${{lower}}-${{upper}}`;
+  let g = groups.find(x => x.name === gName);
+  if (!g) {{
+    g = {{ name: gName, posts: [] }};
+    groups.push(g);
+  }}
+  g.posts.push(p);
+}}
+
+const postUrl = '{latest['url']}';
+const embedUrl = '{embed_url}';
+---"""
+
+new_body_content = """<EditorialShell title="2002 Days of Code | Shivam Mahajan" description="Follow Shivam Mahajan's 2002 Days of Code progress and read selected software development notes." eyebrow="Field notes / Days of Code" heading="2002 Days of Code" intro="Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.">
+  
+  <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day {latest.day}</span><h2 id="featured-post">LinkedIn post from {latest.date}</h2><p>Read the original post or choose an embedded view.</p>
+    <div class="actions"><a href={postUrl} target="_blank" rel="noopener noreferrer">Read original post ↗</a><button type="button" class="embed-button" data-view="compact" aria-controls="post-embed">Show compact embed</button><button type="button" class="embed-button" data-view="full" aria-controls="post-embed">Show full embed</button></div>
+    <div id="post-embed" class="post-embed" aria-live="polite"></div>
+  </section>
+
+  <section>
+    <h2>Archive</h2>
+    {groups.map((g) => (
+      <div style="margin-bottom: 3rem;">
+        <h3>Days {g.name}</h3>
+        <div class="grid" style="margin-bottom: 1rem;">
+          {g.posts.slice(0, 6).map((post) => (
+            <article class="card">
+              <span class="eyebrow">{post.date} / Day {post.day}</span>
+              <h4><a href={`/blog/day-${post.day}/`}>Day {post.day} ↗</a></h4>
+            </article>
+          ))}
+        </div>
+        <a href={`/blog/archive/${g.name}/`} style="font-weight: bold; border-bottom: 1px solid var(--accent); padding-bottom: 2px;">View all in Days {g.name} →</a>
+      </div>
+    ))}
+  </section>
+
+  <section><h2>Read on this site</h2><div class="grid">
+    <article class="card"><span class="eyebrow">Profile</span><h3><a href="/blog/shivam-mahajan-software-developer/">Shivam Mahajan, software developer</a></h3><p>Experience, project focus, and where to find the resume.</p></article>
+    <article class="card"><span class="eyebrow">Build notes</span><h3><a href="/blog/how-the-sm-dex-roster-works/">How the SM'S DEX roster works</a></h3><p>GitHub issue → validation → reviewed pull request.</p></article>
+  </div></section>
+  <section><h2>About this journal</h2><p>Daily posts live on LinkedIn. This page highlights selected updates and original notes.</p></section>
+</EditorialShell>
+<script define:vars={{ embedUrl }}>
+  document.querySelectorAll('[data-view]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const compact = button.dataset.view === 'compact';
+      const frame = document.createElement('iframe');
+      frame.src = compact ? `${embedUrl}?collapsed=1` : embedUrl;
+      frame.title = compact ? 'Compact LinkedIn post' : 'Full LinkedIn post';
+      frame.width = '504';
+      frame.height = compact ? '443' : '611';
+      frame.loading = 'lazy';
+      frame.allowFullscreen = true;
+      document.getElementById('post-embed').replaceChildren(frame);
+    });
+  });
+</script>
+<style>
+  .embed-button{min-height:48px;padding:12px 16px;border:2px solid var(--accent);background:var(--panel);color:var(--ink);font:inherit;cursor:pointer}
+  .embed-button:hover{background:var(--accent);color:var(--bg)}
+  .post-embed{margin-top:24px;max-width:504px}.post-embed :global(iframe){display:block;width:100%;max-width:504px;border:0}
+</style>
+"""
+
+with open(astro_path, 'w', encoding='utf-8') as f:
+    f.write(new_frontmatter + '\n' + new_body_content)
+
+print('Updated index.astro fully')

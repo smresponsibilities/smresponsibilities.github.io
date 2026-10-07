@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SM'S DEX — corrected CSS lid</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #171014;
+      --red: #ed0a3f;
+      --red-hi: #ff2451;
+      --red-mid: #c90836;
+      --red-deep: #7e0828;
+      --screen: #242525;
+      --cream: #e9e9e5;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; background: #121212; }
+    body { overflow: hidden; }
+    button { font: inherit; }
+    .stage {
+      width: 100vw;
+      height: 100vh;
+      display: grid;
+      place-items: center;
+      perspective: 1700px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 45%, #292929, #181818 48%, #0e0e0e);
+    }
+    .device {
+      position: relative;
+      width: min(92vw, 1040px);
+      aspect-ratio: 1.405 / 1;
+      transform-style: preserve-3d;
+      transition: transform 760ms cubic-bezier(.45,.05,.2,1);
+    }
+    .device.closed { transform: translateX(25%); }
+
+    /* Stationary left half. Placeholder only while lid awaits approval. */
+    .base {
+      position: absolute;
+      z-index: 1;
+      left: 0;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      border: 4px solid var(--ink);
+      border-radius: 42px 15px 35px 43px;
+      background: var(--red);
+      box-shadow: inset 11px 0 rgba(255,255,255,.07), inset -13px 0 var(--red-mid), 0 20px 34px rgba(0,0,0,.38);
+    }
+    .base::before {
+      content: "";
+      position: absolute;
+      inset: 25% 13% 27% 12%;
+      border: 4px solid var(--ink);
+      border-radius: 14px 27px 22px 17px;
+      background: var(--cream);
+      box-shadow: 7px 8px 0 #5d5d5d;
+    }
+    .base::after {
+      content: "";
+      position: absolute;
+      left: 23%;
+      top: 33%;
+      width: 55%;
+      height: 26%;
+      border: 4px solid var(--ink);
+      border-radius: 11px;
+      background: #073d35;
+    }
+
+    /* Hinge stays on closed device's RIGHT edge. */
+    .hinge {
+      position: absolute;
+      z-index: 5;
+      left: calc(50% - 18px);
+      top: 5%;
+      width: 36px;
+      height: 90%;
+      border: 4px solid var(--ink);
+      border-radius: 19px;
+      background: linear-gradient(90deg, #420a1b, var(--red-mid) 25%, var(--red-hi) 50%, #770720 82%, #2b1218);
+      box-shadow: inset 0 18px rgba(0,0,0,.12), inset 0 -18px rgba(0,0,0,.15);
+    }
+    .hinge::before, .hinge::after {
+      content: "";
+      position: absolute;
+      left: -4px;
+      width: 36px;
+      height: 14%;
+      border: 4px solid var(--ink);
+      border-radius: 10px;
+      background: var(--red-deep);
+    }
+    .hinge::before { top: 7%; }
+    .hinge::after { bottom: 7%; }
+
+    .lid {
+      position: absolute;
+      z-index: 4;
+      left: 50%;
+      top: 0;
+      width: 50%;
+      height: 100%;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform 760ms cubic-bezier(.45,.05,.2,1);
+    }
+    .device.closed .lid { transform: rotateY(-180deg); }
+
+    .lid-face {
+      appearance: none;
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
+      outline: none;
+    }
+    .lid-face:focus-visible { filter: drop-shadow(0 0 8px #fff); }
+    .lid-inside { transform: rotateY(0deg) translateZ(1px); pointer-events: auto; }
+    .lid-outside { transform: rotateY(180deg) translateZ(1px); pointer-events: none; }
+    .device.closed .lid-inside { pointer-events: none; }
+    .device.closed .lid-outside { pointer-events: auto; }
+
+    .inside-shell, .outside-shell {
+      position: absolute;
+      inset: 0;
+      border: 4px solid var(--ink);
+      background: var(--red);
+      overflow: hidden;
+      box-shadow: inset 11px 0 rgba(255,255,255,.07), inset -13px 0 var(--red-mid), 0 20px 34px rgba(0,0,0,.4);
+    }
+
+    /* Open lid interior. Buttons intentionally deferred until lid approval. */
+    .inside-shell { border-radius: 15px 39px 43px 15px; }
+    .inside-header-line {
+      position: absolute;
+      z-index: 2;
+      left: 5%;
+      top: 17%;
+      width: 83%;
+      height: 11%;
+      border-bottom: 4px solid var(--ink);
+      border-radius: 0 0 54% 0;
+      transform: skewY(-5deg);
+    }
+    .screen-frame {
+      position: absolute;
+      z-index: 2;
+      left: 14%;
+      top: 25%;
+      width: 69%;
+      height: 23%;
+      border: 4px solid var(--ink);
+      border-radius: 11px;
+      background: #073d35;
+      box-shadow: none;
+    }
+    .screen-frame::before, .screen-frame::after { content: none; }
+    .lower-disc {
+      position: absolute;
+      z-index: 2;
+      left: 12%;
+      top: 77%;
+      width: 9%;
+      aspect-ratio: 1;
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      background: #242424;
+      box-shadow: 0 5px #111;
+    }
+    .lower-green {
+      position: absolute;
+      z-index: 2;
+      left: 27%;
+      top: 86%;
+      width: 32%;
+      height: 9%;
+      border: 4px solid var(--ink);
+      border-radius: 4px;
+      background: #5dc578;
+      box-shadow: 0 5px #224e34;
+    }
+    .dpad-mark {
+      position: absolute;
+      z-index: 2;
+      right: 9%;
+      top: 78%;
+      width: 22%;
+      aspect-ratio: 1;
+    }
+    .dpad-mark::before, .dpad-mark::after {
+      content: "";
+      position: absolute;
+      border: 4px solid var(--ink);
+      border-radius: 4px;
+      background: #242424;
+      box-shadow: 0 5px #111;
+    }
+    .dpad-mark::before { left: 34%; top: 0; width: 32%; height: 100%; }
+    .dpad-mark::after { left: 0; top: 34%; width: 100%; height: 32%; }
+    .lid-inside .lens,
+    .lid-inside .lights,
+    .lid-inside .inside-header-line,
+    .lid-inside .lower-disc,
+    .lid-inside .lower-green,
+    .lid-inside .dpad-mark { display: none; }
+
+    /* Shared optical cluster. */
+    .lens {
+      position: absolute;
+      z-index: 3;
+      left: 7.5%;
+      top: 4.5%;
+      width: 18%;
+      aspect-ratio: 1;
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      background: #eff2ed;
+      box-shadow: inset 0 0 0 4px #cbd0cc;
+    }
+    .lens::before {
+      content: "";
+      position: absolute;
+      inset: 14%;
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 27%, #d9f3ff 0 8%, #72b8df 9% 22%, #1c82bd 23% 60%, #243f91 61% 100%);
+    }
+    .lights {
+      position: absolute;
+      z-index: 3;
+      left: 31%;
+      top: 6.5%;
+      display: flex;
+      gap: 10px;
+    }
+    .light {
+      width: clamp(11px, 1.6vw, 20px);
+      aspect-ratio: 1;
+      border: 3px solid var(--ink);
+      border-radius: 50%;
+      box-shadow: inset 3px 3px rgba(255,255,255,.48);
+    }
+    .light.r { background: #ef2c42; }
+    .light.y { background: #f1df25; }
+    .light.g { background: #35b96d; }
+
+    /* Closed lid exterior, based on attached product photo. */
+    .outside-shell { border-radius: 44px 12px 36px 44px; }
+    .outside-shell::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 4.5%;
+      height: 100%;
+      border-left: 4px solid var(--ink);
+      background: var(--red-deep);
+    }
+    .top-seam-flat {
+      position: absolute;
+      z-index: 2;
+      left: 0;
+      top: 23%;
+      width: 36%;
+      border-top: 4px solid var(--ink);
+    }
+    .top-seam-rise {
+      position: absolute;
+      z-index: 2;
+      left: 34%;
+      top: 13%;
+      width: 43%;
+      height: 11%;
+      border-bottom: 4px solid var(--ink);
+      border-radius: 0 0 0 95%;
+      transform: skewY(-13deg);
+      transform-origin: left bottom;
+    }
+    .top-seam-end {
+      position: absolute;
+      z-index: 2;
+      left: 76%;
+      top: 12.7%;
+      width: 19%;
+      border-top: 4px solid var(--ink);
+    }
+    .screw {
+      position: absolute;
+      z-index: 3;
+      left: 5.5%;
+      width: 6.8%;
+      aspect-ratio: 1;
+      border: 4px solid var(--ink);
+      border-radius: 50%;
+      background: radial-gradient(circle, #252525 0 35%, #070707 36% 100%);
+      box-shadow: inset 2px 2px #555;
+    }
+    .screw.one { top: 43%; }
+    .screw.two { top: 65%; }
+    .yellow-tab {
+      position: absolute;
+      z-index: 4;
+      left: 14%;
+      top: 51%;
+      width: 13%;
+      height: 12%;
+      filter: drop-shadow(3px 3px 0 var(--ink));
+    }
+    .yellow-tab::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+      background: #ffdc18;
+    }
+    .bottom-slot {
+      position: absolute;
+      z-index: 3;
+      left: 30%;
+      bottom: 8%;
+      width: 43%;
+      height: 3.5%;
+      border: 4px solid var(--ink);
+      border-radius: 999px;
+      background: var(--red-mid);
+    }
+
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 720px) { .device { width: 118vw; } }
+    @media (prefers-reduced-motion: reduce) { .device, .lid { transition-duration: .01ms; } }
+  </style>
+</head>
+<body>
+  <main class="stage" aria-label="Corrected CSS Pokédex lid prototype">
+    <div class="device" id="device" data-state="open">
+      <div class="base" data-css-part="stationary-base-placeholder" aria-hidden="true"></div>
+      <div class="hinge" data-css-part="right-edge-hinge" aria-hidden="true"></div>
+
+      <section class="lid" aria-label="Left hinged lid">
+        <button class="lid-face lid-inside" id="closeLid" type="button" aria-label="Close lid">
+          <span class="inside-shell" data-css-part="lid-inside-shell"></span>
+          <span class="inside-header-line" data-css-part="inside-header-seam"></span>
+          <span class="lens" data-css-part="inside-lens"></span>
+          <span class="lights" data-css-part="inside-lights"><span class="light r"></span><span class="light y"></span><span class="light g"></span></span>
+          <span class="screen-frame" data-css-part="inside-screen-frame"></span>
+          <span class="lower-disc" data-css-part="inside-disc"></span>
+          <span class="lower-green" data-css-part="inside-green-control"></span>
+          <span class="dpad-mark" data-css-part="inside-dpad-placeholder"></span>
+        </button>
+
+        <button class="lid-face lid-outside" id="openLid" type="button" aria-label="Open lid">
+          <span class="outside-shell" data-css-part="lid-outside-shell"></span>
+          <span class="lens" data-css-part="outside-lens"></span>
+          <span class="lights" data-css-part="outside-lights"><span class="light r"></span><span class="light y"></span><span class="light g"></span></span>
+          <span class="top-seam-flat" data-css-part="outside-seam-flat"></span>
+          <span class="top-seam-rise" data-css-part="outside-seam-rise"></span>
+          <span class="top-seam-end" data-css-part="outside-seam-end"></span>
+          <span class="screw one" data-css-part="outside-screw-one"></span>
+          <span class="screw two" data-css-part="outside-screw-two"></span>
+          <span class="yellow-tab" data-css-part="outside-open-tab"></span>
+          <span class="bottom-slot" data-css-part="outside-speaker-slot"></span>
+        </button>
+      </section>
+      <output id="stateOutput" class="sr-only" aria-live="polite">Lid open</output>
+    </div>
+  </main>
+  <script>
+    const device = document.getElementById('device');
+    const closeLid = document.getElementById('closeLid');
+    const openLid = document.getElementById('openLid');
+    const stateOutput = document.getElementById('stateOutput');
+
+    function setClosed(closed) {
+      device.classList.toggle('closed', closed);
+      device.dataset.state = closed ? 'closed' : 'open';
+      closeLid.inert = closed;
+      openLid.inert = !closed;
+      stateOutput.value = closed ? 'Lid closed' : 'Lid open';
+    }
+    closeLid.addEventListener('click', () => setClosed(true));
+    openLid.addEventListener('click', () => setClosed(false));
+    setClosed(false);
+  </script>
+</body>
+</html>

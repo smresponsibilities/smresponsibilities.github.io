@@ -1,0 +1,212 @@
+{
+  "schemaVersion": 1,
+  "packageCount": 8,
+  "sheetContract": {
+    "width": 1536,
+    "height": 1024,
+    "mode": "RGBA",
+    "columns": 4,
+    "rows": 2,
+    "slotWidth": 384,
+    "slotHeight": 512,
+    "maxOccupiedSlots": 8,
+    "backgroundAlpha": 0,
+    "slotOrder": "left-to-right-then-top-to-bottom"
+  },
+  "fidelityPolicy": {
+    "visibleRestingPixels": "exact-source-copy",
+    "generatedPixels": "hidden-support-only",
+    "generatedSupportStatus": "none-accepted",
+    "runtimeScreenContent": "accessible-portfolio-dom",
+    "reassemblyToleranceOutsideMasks": 0
+  },
+  "packages": [
+    {
+      "id": "red-blue",
+      "prefix": "rb-kanto",
+      "sourceMaster": "rb-kanto-source-master.png",
+      "reference": "references/kanto-gen1.png",
+      "secondaryReference": "references/kanto-rg-open.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:Gen_I_Pok%C3%A9dex.png",
+      "width": 1224,
+      "height": 650,
+      "sha256": "54aa8fac64042e469bf4bbf1bbe790ce898116c73fa51c2bb0b166c2be5efd8e",
+      "sourceViews": ["closed", "open"],
+      "motion": "central-vertical-book-hinge",
+      "stateCoverage": "source-exact",
+      "physicalControlIds": [
+        "dpad-up", "dpad-right", "dpad-down", "dpad-left",
+        "keypad-01", "keypad-02", "keypad-03", "keypad-04", "keypad-05",
+        "keypad-06", "keypad-07", "keypad-08", "keypad-09", "keypad-10",
+        "white-left", "white-right", "black-pill-left", "black-pill-right",
+        "yellow-round", "dark-green-left", "dark-green-right", "lower-black-round",
+        "lower-red-pill", "lower-cyan-pill"
+      ],
+      "nonInteractiveIds": ["blue-lens", "lamp-red", "lamp-yellow", "lamp-green", "left-screen", "right-screen"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["stationary-body", "right-leaf-inner", "right-leaf-outer", "hinge", "left-screen-mask", "right-screen-mask", "dpad-housing", "keypad-housing"]},
+        {"id": "controls-01", "slots": ["dpad-up-face", "dpad-up-base", "dpad-right-face", "dpad-right-base", "dpad-down-face", "dpad-down-base", "dpad-left-face", "dpad-left-base"]},
+        {"id": "controls-02", "slots": ["keypad-01-face", "keypad-01-base", "keypad-02-face", "keypad-02-base", "keypad-03-face", "keypad-03-base", "keypad-04-face", "keypad-04-base"]},
+        {"id": "controls-03", "slots": ["keypad-05-face", "keypad-05-base", "keypad-06-face", "keypad-06-base", "keypad-07-face", "keypad-07-base", "keypad-08-face", "keypad-08-base"]},
+        {"id": "controls-04", "slots": ["keypad-09-face", "keypad-09-base", "keypad-10-face", "keypad-10-base", "white-left-face", "white-left-base", "white-right-face", "white-right-base"]},
+        {"id": "controls-05", "slots": ["black-pill-left-face", "black-pill-left-base", "black-pill-right-face", "black-pill-right-base", "yellow-round-face", "yellow-round-base", "dark-green-left-face", "dark-green-left-base"]},
+        {"id": "controls-06", "slots": ["dark-green-right-face", "dark-green-right-base", "lower-black-round-face", "lower-black-round-base", "lower-red-pill-face", "lower-red-pill-base", "lower-cyan-pill-face", "lower-cyan-pill-base"]}
+      ]
+    },
+    {
+      "id": "gold-silver",
+      "prefix": "gs-johto",
+      "sourceMaster": "gs-johto-source-master.png",
+      "reference": "references/johto-gsc.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_GSC.png",
+      "width": 440,
+      "height": 261,
+      "sha256": "864e0e0fdabc4fb4a04aed19e11fbf9230e4eaed37f11693f77e7613ac97d264",
+      "sourceViews": ["closed", "open-compound"],
+      "motion": "top-leaf-plus-right-leaf",
+      "stateCoverage": "source-exact-low-resolution",
+      "physicalControlIds": ["dpad-up", "dpad-right", "dpad-down", "dpad-left", "small-oval", "round-left", "round-middle", "round-right"],
+      "nonInteractiveIds": ["large-blue-orb", "small-blue-orb", "top-screen", "base-screen", "antenna"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["stationary-base", "top-leaf-inner", "top-leaf-outer", "right-leaf-inner", "right-leaf-outer", "top-hinge", "right-hinge", "screen-masks"]},
+        {"id": "controls-01", "slots": ["dpad-up-face", "dpad-up-base", "dpad-right-face", "dpad-right-base", "dpad-down-face", "dpad-down-base", "dpad-left-face", "dpad-left-base"]},
+        {"id": "controls-02", "slots": ["small-oval-face", "small-oval-base", "round-left-face", "round-left-base", "round-middle-face", "round-middle-base", "round-right-face", "round-right-base"]}
+      ]
+    },
+    {
+      "id": "ruby-sapphire",
+      "prefix": "rs-hoenn",
+      "sourceMaster": "rs-hoenn-source-master.png",
+      "reference": "references/hoenn-rse.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:RSE_Pok%C3%A9dex.png",
+      "width": 668,
+      "height": 768,
+      "sha256": "1ad366865c2ec97ca847fc821e38f6297f84aad61edca5a836136ce5b09909fc",
+      "sourceViews": ["open"],
+      "motion": "horizontal-clamshell-hinge",
+      "stateCoverage": "open-source-exact-closed-unresolved",
+      "physicalControlIds": ["disc-up", "disc-right", "disc-down", "disc-left", "centre-green", "white-pill-left", "white-pill-right"],
+      "nonInteractiveIds": ["lid-green-glass", "red-lamp", "screen", "right-hinge-drum"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["stationary-body", "lid-inner", "lid-outer-reconstructed", "hinge", "right-hinge-drum", "screen-mask", "disc-housing", "control-field"]},
+        {"id": "controls-01", "slots": ["disc-up-face", "disc-up-base", "disc-right-face", "disc-right-base", "disc-down-face", "disc-down-base", "disc-left-face", "disc-left-base"]},
+        {"id": "controls-02", "slots": ["centre-green-face", "centre-green-base", "white-pill-left-face", "white-pill-left-base", "white-pill-right-face", "white-pill-right-base"]}
+      ]
+    },
+    {
+      "id": "diamond-pearl",
+      "prefix": "dp-sinnoh",
+      "sourceMaster": "dp-sinnoh-source-master.png",
+      "reference": "references/sinnoh-dp.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:DP_Pok%C3%A9dex.png",
+      "width": 1049,
+      "height": 866,
+      "sha256": "b40197eb67ff18d6b5456274fbec85c2f6c9fe932258936fdbb59bdbb58dbd5b",
+      "sourceViews": ["open"],
+      "motion": "horizontal-clamshell-hinge",
+      "stateCoverage": "open-source-exact-outer-face-reconstructed",
+      "physicalControlIds": ["dpad-up", "dpad-right", "dpad-down", "dpad-left", "green-round", "silver-upper", "silver-lower"],
+      "nonInteractiveIds": ["green-indicator", "speaker-holes", "right-lid-dot", "top-screen", "lower-screen"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["stationary-lower-body", "upper-lid-inner", "upper-lid-outer-reconstructed", "hinge", "left-pod", "right-pod", "top-screen-mask", "lower-screen-mask"]},
+        {"id": "controls-01", "slots": ["dpad-up-face", "dpad-up-base", "dpad-right-face", "dpad-right-base", "dpad-down-face", "dpad-down-base", "dpad-left-face", "dpad-left-base"]},
+        {"id": "controls-02", "slots": ["green-round-face", "green-round-base", "silver-upper-face", "silver-upper-base", "silver-lower-face", "silver-lower-base"]}
+      ]
+    },
+    {
+      "id": "heartgold-soulsilver",
+      "prefix": "hgss-johto",
+      "sourceMaster": "hgss-johto-source-master.png",
+      "reference": "references/johto-hgss-m.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_HGSS_m.png",
+      "width": 1167,
+      "height": 1024,
+      "sha256": "4494a6f0d5de6eed961874ba8362313ccd90d5ca6bb8dbec98460b4de14f267d",
+      "sourceViews": ["closed", "open"],
+      "motion": "horizontal-clamshell-hinge",
+      "stateCoverage": "source-exact",
+      "physicalControlIds": [],
+      "nonInteractiveIds": ["carry-loop", "closed-green-indicator", "closed-blue-circle", "bridge-green-left", "bridge-green-right", "gold-left-rail", "gold-right-rail", "top-screen", "lower-screen"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["stationary-lower-body", "upper-lid-inner", "upper-lid-outer", "hinge", "carry-loop", "left-rail", "right-rail", "screen-masks"]}
+      ]
+    },
+    {
+      "id": "black-white",
+      "prefix": "bw-unova",
+      "sourceMaster": "bw-unova-source-master.png",
+      "reference": "references/unova-bw.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_BW_art.png",
+      "width": 776,
+      "height": 526,
+      "sha256": "185ead724a88fd2c0d906b45030724dc18fb062543270c48d2364996ddec718d",
+      "sourceViews": ["extended-orange", "compact-pink"],
+      "motion": "long-axis-slider",
+      "stateCoverage": "source-exact-colour-and-state-confounded",
+      "physicalControlIds": ["centre-round", "green-side"],
+      "nonInteractiveIds": ["bottom-slot-left", "bottom-slot-right", "bottom-dot-01", "bottom-dot-02", "bottom-dot-03", "upper-screen", "lower-screen"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["fixed-body", "sliding-tray", "slider-track", "lower-plate", "upper-screen-mask", "lower-screen-mask", "compact-reference", "extended-reference"]},
+        {"id": "controls-01", "slots": ["centre-round-face", "centre-round-base", "green-side-face", "green-side-base"]}
+      ]
+    },
+    {
+      "id": "sun-moon",
+      "prefix": "sm-rotom-dex",
+      "sourceMaster": "sm-rotom-dex-source-master.png",
+      "reference": "references/alola-rotom-dex.png",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:0479Rotom-Pok%C3%A9dex.png",
+      "width": 516,
+      "height": 516,
+      "sha256": "d939a1bf000bfc884a328c5e9a41b8a115d8dafd43bead2f013350e123f7e745",
+      "sourceViews": ["front"],
+      "motion": "stationary",
+      "stateCoverage": "source-exact",
+      "physicalControlIds": [],
+      "nonInteractiveIds": ["horn", "left-arm", "right-arm", "left-arm-pad", "right-arm-pad", "left-foot", "right-foot", "left-eye-housing", "right-eye-housing"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["body-shell", "left-arm", "right-arm", "left-foot", "right-foot", "eye-housings", "screen-mask", "dom-expression-mask"]}
+      ]
+    },
+    {
+      "id": "scarlet-violet",
+      "prefix": "sv-rotom-phone",
+      "sourceMaster": "sv-rotom-phone-source-master.png",
+      "reference": "references/paldea-rotom-phone.png",
+      "secondaryReference": "references/paldea-phone-official-01.jpg",
+      "sourceUrl": "https://archives.bulbagarden.net/wiki/File:0479Rotom-Phone_SV.png",
+      "width": 1816,
+      "height": 1816,
+      "sha256": "0d3a0bd29aec666e9cfbca3c9de2007053849b0fd084fc2206fbd0f472414c2a",
+      "sourceViews": ["rear"],
+      "motion": "stationary",
+      "stateCoverage": "rear-source-exact-front-unresolved",
+      "physicalControlIds": [],
+      "nonInteractiveIds": ["top-spike", "bottom-tail", "left-fin", "right-fin", "cyan-rear-ring", "dual-camera"],
+      "componentSheets": [
+        {"id": "structure-01", "slots": ["rear-body", "top-spike", "bottom-tail", "left-fin", "right-fin", "dual-camera", "rear-motif", "front-unresolved"]}
+      ]
+    }
+  ],
+  "softwareReferenceFiles": [
+    "references/ui/pok-dex-rby.png",
+    "references/ui/pok-dex-entry-rby.png",
+    "references/ui/pok-dex-interface-gsc.png",
+    "references/ui/pok-dex-entry-gsc.png",
+    "references/ui/a-to-z-pok-dex-gsc.png",
+    "references/ui/old-pok-dex-gsc.png",
+    "references/ui/unown-dex.png",
+    "references/ui/pok-dex-rs.png",
+    "references/ui/pok-dex-entry-rs.png",
+    "references/ui/pok-dex-dp.png",
+    "references/ui/pok-dex-entry-dp.png",
+    "references/ui/dp-cry-screen.png",
+    "references/ui/pok-dex-hgss.png",
+    "references/ui/pok-dex-entry-hgss.png",
+    "references/ui/location-list-hgss-pok-dex.png",
+    "references/ui/pok-dex-bw.png",
+    "references/ui/pok-dex-entry-bw.png",
+    "references/ui/pok-dex-sm.png",
+    "references/ui/pok-dex-sv.png"
+  ]
+}

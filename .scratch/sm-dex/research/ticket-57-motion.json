@@ -1,0 +1,298 @@
+{
+  "samples": [
+    {
+      "elapsed": 0.7000000011175871,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 7.700000001117587,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 21.40000000037253,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 37.20000000111759,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 53.70000000111759,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 73.09999999962747,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 92.20000000111759,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 111,
+      "p": 0,
+      "shift": 150,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 125.30000000074506,
+      "p": 0.00006553659262253521,
+      "shift": 149.99999161200384,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 137.30000000074506,
+      "p": 0.00036345293848977494,
+      "shift": 149.99974212625787,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 158.80000000074506,
+      "p": 0.0021401344354226243,
+      "shift": 149.9910809350637,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 197.80000000074506,
+      "p": 0.0053293543260532214,
+      "shift": 149.94493791176083,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 207.40000000037253,
+      "p": 0.01585332566719777,
+      "shift": 149.51993345976254,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 249.7000000011176,
+      "p": 0.02302955689570644,
+      "shift": 148.9972721726165,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 263.40000000037253,
+      "p": 0.04114280455692219,
+      "shift": 146.88280656072766,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 276.2000000011176,
+      "p": 0.05194385055533536,
+      "shift": 145.11033856279195,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 288.30000000074506,
+      "p": 0.06384347199916804,
+      "shift": 142.74499040828834,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 311.30000000074506,
+      "p": 0.07687399999909894,
+      "shift": 139.69014472851399,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 322.59999999962747,
+      "p": 0.09065889212731415,
+      "shift": 135.96848845097801,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 345.2000000011176,
+      "p": 0.10565099400480256,
+      "shift": 131.39798983513953,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 361,
+      "p": 0.12126759971902999,
+      "shift": 126.11529584946626,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 475.90000000037253,
+      "p": 0.13782371821676084,
+      "shift": 120.00146991811938,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 571.0999999996275,
+      "p": 0.2743668424008901,
+      "shift": 59.00065000656763,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 605.0999999996275,
+      "p": 0.4098688523538958,
+      "shift": 8.670520241762864,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 628.9000000003725,
+      "p": 0.4571895043715866,
+      "shift": 0.9840514976876824,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 657.4000000003725,
+      "p": 0.48086129982174963,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 670.8000000007451,
+      "p": 0.528557607168258,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 689.8000000007451,
+      "p": 0.5523431709510084,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 801.8000000007451,
+      "p": 0.576164011876187,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 812,
+      "p": 0.7127757279985396,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 846,
+      "p": 0.7343690746125432,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 867,
+      "p": 0.7759116597554725,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 882.5,
+      "p": 0.7957716460861469,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 888.7000000011176,
+      "p": 0.8151173499246538,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 905.0999999996275,
+      "p": 0.8337790459989911,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 921.2000000011176,
+      "p": 0.8516033679305821,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1021.3000000007451,
+      "p": 0.8687570277133811,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1037.7000000011176,
+      "p": 0.9523933879703301,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1054,
+      "p": 0.9628123676710872,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1071.0999999996275,
+      "p": 0.9719485496610164,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1090.5999999996275,
+      "p": 0.9798853002910523,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1110.7000000011176,
+      "p": 0.9866480078829757,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1128.800000000745,
+      "p": 0.9920561494435876,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1144.800000000745,
+      "p": 0.9960854181688713,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1161.300000000745,
+      "p": 0.9987478599648859,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1208.5999999996275,
+      "p": 0.9999294536676077,
+      "shift": 0,
+      "frontAvailable": false
+    },
+    {
+      "elapsed": 1227.0999999996275,
+      "p": 1,
+      "shift": 0,
+      "frontAvailable": true
+    },
+    {
+      "elapsed": 1238,
+      "p": 1,
+      "shift": 0,
+      "frontAvailable": true
+    }
+  ],
+  "pauseStopsAnimations": true,
+  "normalCloseLocksScreen": true,
+  "reducedMotionStatic": true,
+  "redUnchanged": true,
+  "rubyUnchanged": true,
+  "errors": []
+}

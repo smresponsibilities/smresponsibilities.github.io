@@ -1,0 +1,35 @@
+{
+  "results": [
+    {
+      "gen": "red",
+      "entries": 15,
+      "pages": 30,
+      "issues": []
+    },
+    {
+      "gen": "gold",
+      "entries": 15,
+      "pages": 30,
+      "issues": []
+    },
+    {
+      "gen": "ruby",
+      "entries": 15,
+      "pages": 30,
+      "issues": []
+    },
+    {
+      "gen": "diamond",
+      "entries": 15,
+      "pages": 30,
+      "issues": []
+    },
+    {
+      "gen": "black",
+      "entries": 15,
+      "pages": 30,
+      "issues": []
+    }
+  ],
+  "errors": []
+}
