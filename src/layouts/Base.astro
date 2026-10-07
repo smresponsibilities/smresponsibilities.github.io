@@ -94,7 +94,7 @@ const accentStyle = accentTypes?.length
     <link rel="preload" href="/fonts/departure-mono-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#0B0E12" />
     <script is:inline>
-      {const hour=new Date().getHours();document.documentElement.dataset.time=hour>=5&&hour<8?'dawn':hour>=8&&hour<17?'day':hour>=17&&hour<20?'sunset':'night';}
+      {const hour=new Date().getHours(),time=hour>=5&&hour<8?'dawn':hour>=8&&hour<17?'day':hour>=17&&hour<20?'sunset':'night';document.documentElement.dataset.time=time;const link=document.createElement('link');link.rel='preload';link.as='image';link.href=`/backgrounds/pixel-${time}.webp`;link.fetchPriority='high';document.head.appendChild(link);}
     </script>
     {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
     <slot name="head" />
