@@ -15,6 +15,7 @@ let device=catalog.find(d=>d.id===(params.get('pokedexgen')||params.get('gen')))
 let state=initial(),progress=params.get('open')==='0'?0:1,settled=progress,renderer,frame=0,drag=null,readerWanted=matchMedia('(max-width:700px)').matches,lastAction='Ready',accepted=0;
 let effects=null;
 let rosterSnapshot='';
+let slideTravel=0;
 const media=matchMedia('(prefers-reduced-motion:reduce)');
 $('reduce-motion').checked=media.matches;
 const reduced=()=>$('reduce-motion').checked||media.matches;
@@ -58,7 +59,8 @@ function dispatch(action,label=action){
 function renderContent(sync=true){
   const active=document.activeElement,owner=active.closest('.glass,#reader-content');
   const previous=owner?{owner,action:active.dataset.action,row:active.dataset.row}:null;
-  for(const glass of renderer.glasses){glass.innerHTML=screenHTML(glass.dataset.screen==='side');const row=glass.querySelector('.screen-row[aria-current=true]');if(row)glass.querySelector('.screen-content').scrollTop=Math.max(0,row.offsetTop-90);}
+  for(const glass of renderer.glasses){glass.innerHTML=screenHTML(glass.dataset.screen==='side');}
+  requestAnimationFrame(()=>{for(const glass of renderer.glasses){const row=glass.querySelector('.screen-row[aria-current=true]');if(row)glass.querySelector('.screen-content').scrollTop=Math.max(0,row.offsetTop-90);}});
   for(const label of $('rig').querySelectorAll('[data-readout=section]'))label.textContent=sections[state.section].name;
   for(const label of $('rig').querySelectorAll('[data-readout]'))label.style.visibility=state.power?'visible':'hidden';
   $('reader-content').innerHTML=screenHTML(false,true);
@@ -95,9 +97,9 @@ function position(value){
   // With reduced motion, drag still moves the thumb but the device changes at release.
   renderer.pose(reduced()&&drag?settled:progress);
   effects?.pose(reduced()&&drag?settled:progress);
-  const handle=$('slide-handle'),track=$('slide-track');
-  const travel=Math.max(0,track.clientWidth-handle.offsetWidth-(handle.offsetLeft*2));
-  handle.style.transform=`translateX(${progress*travel}px) rotate(${progress*720}deg)`;
+  const handle=$('slide-handle');
+  if(!slideTravel){const track=$('slide-track');slideTravel=Math.max(0,track.clientWidth-handle.offsetWidth-(handle.offsetLeft*2));}
+  handle.style.transform=`translateX(${progress*slideTravel}px) rotate(${progress*720}deg)`;
   syncAvailability();status();
 }
 function settle(target,animate=true){
@@ -140,11 +142,11 @@ document.addEventListener('keydown',e=>{
   if(action){e.preventDefault();dispatch(action);}
 });
 let resizeFrame=0,lastStageWidth=0;
-function resize(){
+function resize(entries){
   cancelAnimationFrame(resizeFrame);
   resizeFrame=requestAnimationFrame(()=>{
     resizeFrame=0;
-    const width=$('stage').clientWidth;
+    const width=entries?.[0]?.contentRect?.width ?? $('stage').clientWidth;
     if(width===lastStageWidth)return;
     lastStageWidth=width;
     const mobile=matchMedia('(max-width:700px)').matches,mobileFrame=mobile?mobileFrames[device.id]:null;
@@ -154,6 +156,7 @@ function resize(){
     $('stage').style.aspectRatio=mobileFrame?'auto':`${device.width}/${device.height}`;
     $('rig').style.transform=`translate(${offsetX}px,${offsetY}px) scale(${scale})`;
     $('rig').style.setProperty('--press-travel',`${4/scale}px`);
+    slideTravel=0;
     position(progress);
   });
 }
