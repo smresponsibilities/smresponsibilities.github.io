@@ -119,7 +119,8 @@ function beginDrag(e){
 }
 for(const el of [$('slide-handle'),$('cover-drag')]){
   el.addEventListener('pointerdown',beginDrag);
-  el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const delta=e.clientX-drag.x;drag.moved ||= Math.abs(delta)>4;position(drag.progress+delta/Math.max(140,$('slide-track').clientWidth-56));});
+  let dragFrame=0;
+  el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const delta=e.clientX-drag.x;drag.moved ||= Math.abs(delta)>4;cancelAnimationFrame(dragFrame);dragFrame=requestAnimationFrame(()=>{if(drag)position(drag.progress+delta/Math.max(140,$('slide-track').clientWidth-56));});});
   el.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.id)return;const moved=drag.moved,start=drag.start;drag=null;document.body.classList.remove('dragging');settle(moved?(progress>=.55?1:0):start);});
   el.addEventListener('pointercancel',cancelDrag);el.addEventListener('lostpointercapture',cancelDrag);
 }
