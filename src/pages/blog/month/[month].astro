@@ -1,0 +1,14 @@
+---
+import EditorialShell from '../../../components/EditorialShell.astro';
+import posts from '../../../data/linkedin-posts.json';
+export function getStaticPaths() {
+  const months = [...new Set((posts as any[]).map((p) => String(p.date ?? '').slice(0, 7)).filter((m) => /^\d{4}-\d{2}$/.test(m)))];
+  return months.map((month) => ({ params: { month } }));
+}
+const { month } = Astro.params;
+const list = (posts as any[]).filter((p) => String(p.date ?? '').startsWith(month!)).sort((a, b) => a.day - b.day);
+const name = new Date(`${month}-01T00:00:00Z`).toLocaleString('en', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+<EditorialShell title={`Days of Code, ${name} | Shivam Mahajan`} description={`Daily software development notes from ${name}: days ${list[0]?.day} to ${list.at(-1)?.day}.`} eyebrow="Field notes / Archive" heading={name} intro={`${list.length} days logged.`}>
+  <ul>{list.map((p) => <li><a href={`/blog/day-${p.day}/`}>Day {p.day}</a> <small>{p.date}</small></li>)}</ul>
+</EditorialShell>

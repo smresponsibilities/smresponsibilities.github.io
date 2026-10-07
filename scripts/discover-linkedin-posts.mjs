@@ -15,8 +15,8 @@ const numberArg = (name, fallback) => {
   if (!Number.isSafeInteger(value) || value < 1) throw new Error(`${name} needs a positive integer`);
   return value;
 };
-const from = numberArg('--from-day', Math.max(1, currentDay - 45));
-const to = numberArg('--to-day', currentDay - 7);
+const from = numberArg('--from-day', Math.max(1, currentDay - 60));
+const to = numberArg('--to-day', currentDay - 30);
 if (from > to) throw new Error('--from-day must be <= --to-day');
 if (to - from > 60) throw new Error('Limit one run to 61 days');
 
@@ -55,7 +55,7 @@ function post(markup, url, day) {
 async function main() {
   const existing = JSON.parse(await readFile(output, 'utf8').catch((e) => e.code === 'ENOENT' ? '[]' : Promise.reject(e)));
   if (!Array.isArray(existing)) throw new Error('Existing post data must be an array');
-  const byId = new Map(existing.map((item) => [item.activityId, item]));
+  const byId = new Map(existing.map((item) => [item.activityId ?? 'day-' + item.day, item]));
   let added = 0;
   let noResult = 0;
   for (let day = from; day <= to; day++) {

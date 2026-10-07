@@ -1,18 +1,22 @@
-name: Daily LinkedIn Post Prompt
+name: Daily day-number issue
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '30 18 * * *'
 permissions:
   issues: write
 jobs:
   create_issue:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Create Issue
-        env:
+      - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
-          gh issue create --title "Day X LinkedIn Post" --body "Paste your LinkedIn URL here and close this issue to trigger the auto-fetch pipeline." --label "daily-post"
-
+          TODAY=$(TZ=Asia/Kolkata date +%F)
+          DAY=$(( 1237 + ( $(date -u -d "$TODAY" +%s) - $(date -u -d 2026-10-01 +%s) ) / 86400 ))
+          gh label create daily-post --color 0e8a16 2>/dev/null || true
+          gh label create needs-manual --color d93f0b 2>/dev/null || true
+          if gh issue list --state all --label daily-post --search "\"Day $DAY\" in:title" --json title -q '.[].title' | grep -qx "Day $DAY"; then exit 0; fi
+          printf 'Date: %s\n\nPaste the LinkedIn post URL here, or add a block starting with MANUAL: followed by the post text. Then close this issue.\n' "$TODAY" > body.md
+          gh issue create --label daily-post --title "Day $DAY" --body-file body.md
