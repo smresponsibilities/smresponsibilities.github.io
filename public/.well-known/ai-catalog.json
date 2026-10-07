@@ -1,11 +1,12 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "catalog_version": "1.0",
-  "resources": [
+  "specVersion": "1.0",
+  "entries": [
     {
-      "type": "website",
-      "name": "SM'S DEX",
-      "description": "Portfolio and resume of Shivam Mahajan, software developer."
+      "identifier": "urn:ai:shivammahajan.com:roster-form",
+      "displayName": "SM'S DEX Roster Form",
+      "type": "text/html",
+      "url": "https://shivammahajan.com",
+      "description": "Portfolio of Shivam Mahajan. Contains an WebMCP form to submit a new custom Pokemon to the developer roster."
     }
   ]
 }
