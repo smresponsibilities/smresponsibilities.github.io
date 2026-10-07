@@ -907,3 +907,6 @@ become casing pixels.
 - Hardware art does not prove button semantics. Neutral component IDs map to application actions
   later; touch-led casings use labelled screen-DOM controls rather than invented hardware.
 - Reduced motion removes the animated sweep, not the open/closed state change.
+|   A I   D i s c o v e r y   |   * * a i - c a t a l o g . j s o n * *   |   A R D   s p e c   f o r m a t .   U s e d   f o r   W e b M C P   t o o l   d i s c o v e r y   |  
+ |   A s s e t   P e r f o r m a n c e   |   * * P r e f e t c h * *   |   L o c a l   a s s e t s   ( e . g .   r e s u m e . p d f )   p r e f e t c h e d ,   n o   p r e c o n n e c t   u s e d   f o r   d o m a i n s   |  
+ 
