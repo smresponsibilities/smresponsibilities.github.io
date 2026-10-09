@@ -183,17 +183,23 @@ const projects = [
   <dialog id="submission-dialog" aria-labelledby="submission-heading">
     <div class="dialog-heading"><div><span class="eyebrow">Public Roster</span><h2 id="submission-heading">Add Your Pokémon</h2></div><button class="close-button" id="close-submission" type="button" aria-label="Close submission form" data-tooltip="Close the roster form">×</button></div>
     <p class="dialog-copy">Fill your dex entry. Please don't use AI as I will be stringent in reviewing. Submitting opens a GitHub issue. After review, the roster workflow creates the pull request.</p>
-    <form id="submission-form" toolname="submitRosterEntry" tooldescription="Submit a GitHub user to the public developer roster as a custom Pokemon. Requires github username, species role, primary and secondary types, and status.">
+    <form
+      id="submission-form"
+      toolname="submitRosterEntry"
+      tooldescription="Submit a GitHub user to the public developer roster as a custom Pokémon entry. Opens a prefilled GitHub issue for review."
+      action="https://github.com/smresponsibilities/smresponsibilities.github.io/issues/new"
+      method="GET"
+    >
       <div class="field-grid">
-        <label>GitHub Username <input name="github" required maxlength="39" autocomplete="off" spellcheck="false" placeholder="SM" pattern="[A-Za-z0-9](?:[A-Za-z0-9\-]{0,37}[A-Za-z0-9])?" /><span class="field-hint">Your GitHub handle. No @ symbol.</span></label>
-        <label>Species <input name="species" required maxlength="24" autocomplete="off" placeholder="Builder Pokémon" /><span class="field-hint">A short role-like Pokémon species.</span></label>
-        <label>Primary Type <select name="primaryType" required><option value="">Choose type…</option>{types.map((type) => <option>{type}</option>)}</select><span class="field-hint">Your strongest working style or skill.</span></label>
-        <label>Secondary Type <select name="secondaryType"><option value="None">None</option>{types.map((type) => <option>{type}</option>)}</select><span class="field-hint">Optional second strength. Choose None if not needed.</span></label>
-        <label>Status <select name="status" required><option value="Caught">Caught</option><option value="Released">Released</option><option value="Uncaught">Uncaught</option></select><span class="field-hint">Caught means employed. Released means available. Uncaught means student or exploring.</span></label>
-        <label class="company-field" data-company-field>Current Employer <input name="company" maxlength="80" autocomplete="organization" placeholder="Company name" /><span class="field-hint">Required only when status is Caught.</span></label>
+        <label for="submission-github">GitHub Username <input id="submission-github" name="github" type="text" required maxlength="39" autocomplete="off" spellcheck="false" placeholder="SM" pattern="[A-Za-z0-9](?:[A-Za-z0-9\-]{0,37}[A-Za-z0-9])?" toolparamdescription="GitHub username without @ symbol (required)" /><span class="field-hint">Your GitHub handle. No @ symbol.</span></label>
+        <label for="submission-species">Species <input id="submission-species" name="species" type="text" required maxlength="24" autocomplete="off" placeholder="Builder Pokémon" toolparamdescription="Role-like Pokémon species title (max 24 characters, required)" /><span class="field-hint">A short role-like Pokémon species.</span></label>
+        <label for="submission-primary-type">Primary Type <select id="submission-primary-type" name="primaryType" required toolparamdescription="Primary Pokémon type representing strongest skill or style (required)"><option value="" disabled selected>Choose type…</option>{types.map((type) => <option value={type}>{type}</option>)}</select><span class="field-hint">Your strongest working style or skill.</span></label>
+        <label for="submission-secondary-type">Secondary Type <select id="submission-secondary-type" name="secondaryType" toolparamdescription="Optional secondary Pokémon type, or None"><option value="None">None</option>{types.map((type) => <option value={type}>{type}</option>)}</select><span class="field-hint">Optional second strength. Choose None if not needed.</span></label>
+        <label for="submission-status-select">Status <select id="submission-status-select" name="status" required toolparamdescription="Status: Caught (employed), Released (available for hire), Uncaught (student or exploring)"><option value="Caught">Caught</option><option value="Released">Released</option><option value="Uncaught">Uncaught</option></select><span class="field-hint">Caught means employed. Released means available. Uncaught means student or exploring.</span></label>
+        <label for="submission-company" class="company-field" data-company-field>Current Employer <input id="submission-company" name="company" type="text" maxlength="80" autocomplete="organization" placeholder="Company name" toolparamdescription="Current employer company name (required if status is Caught, max 80 characters)" /><span class="field-hint">Required only when status is Caught.</span></label>
       </div>
-      <label>Dex Entry <textarea name="entry" required maxlength="150" rows="4" autocomplete="off" placeholder="Builds weird tools. Keeps every system on edge under stress."></textarea><span class="field-hint">Third person. 2 short sentences. 150 characters max.</span></label>
-      <label>Fact / Tip <input name="fact" maxlength="100" autocomplete="off" placeholder="Optional short fact about you like I like paneer" /><span class="field-hint">Optional. 100 characters max.</span></label>
+      <label for="submission-entry">Dex Entry <textarea id="submission-entry" name="entry" required maxlength="150" rows="4" autocomplete="off" placeholder="Builds weird tools. Keeps every system on edge under stress." toolparamdescription="Third-person dex flavour text, two short sentences, 150 characters max (required)"></textarea><span class="field-hint">Third person. 2 short sentences. 150 characters max.</span></label>
+      <label for="submission-fact">Fact / Tip <input id="submission-fact" name="fact" type="text" maxlength="100" autocomplete="off" placeholder="Optional short fact about you like I like paneer" toolparamdescription="Optional short personal fact or tip, 100 characters max" /><span class="field-hint">Optional. 100 characters max.</span></label>
       <div class="form-actions"><button class="secondary-button" id="cancel-submission" type="button" data-tooltip="Close without opening an issue">Cancel</button><button class="submit-button" type="submit" data-tooltip="Open a prefilled GitHub issue for review">Open GitHub Issue</button></div>
       <p id="submission-status" class="form-status" aria-live="polite"></p>
     </form>
@@ -208,7 +214,67 @@ const projects = [
       const employment=form.querySelector('[name="status"]');const company=form.querySelector('[name="company"]');const companyField=form.querySelector('[data-company-field]');
       const syncCompany=()=>{const caught=employment instanceof HTMLSelectElement&&employment.value==='Caught';if(companyField instanceof HTMLElement)companyField.hidden=!caught;if(company instanceof HTMLInputElement){company.required=caught;if(!caught)company.value='';}};
       employment?.addEventListener('change',syncCompany);syncCompany();
-      form.addEventListener('submit',event=>{event.preventDefault();const data=new FormData(form);const github=String(data.get('github')||'').trim();const fields=[['GitHub username',github],['Species',data.get('species')],['Primary type',data.get('primaryType')],['Secondary type',data.get('secondaryType')||'None'],['Status',data.get('status')],...(data.get('status')==='Caught'?[['Company',data.get('company')]]:[]),['Dex entry',data.get('entry')],['Fact / tip (optional)',data.get('fact')||'—']];const body=fields.map(([label,value])=>`### ${label}\n${value}`).join('\n\n');const params=new URLSearchParams({title:`[DEX] ${github}`,body});status.textContent='Opening GitHub issue…';window.open(`https://github.com/smresponsibilities/smresponsibilities.github.io/issues/new?${params}`,'_blank','noopener,noreferrer');dialog.close();});
+      form.addEventListener('submit',event=>{
+        event.preventDefault();
+        const data=new FormData(form);
+        const github=String(data.get('github')||'').trim();
+        const fields=[['GitHub username',github],['Species',data.get('species')],['Primary type',data.get('primaryType')],['Secondary type',data.get('secondaryType')||'None'],['Status',data.get('status')],...(data.get('status')==='Caught'?[['Company',data.get('company')]]:[]),['Dex entry',data.get('entry')],['Fact / tip (optional)',data.get('fact')||'—']];
+        const body=fields.map(([label,value])=>`### ${label}\n${value}`).join('\n\n');
+        const params=new URLSearchParams({title:`[DEX] ${github}`,body});
+        const issueUrl=`https://github.com/smresponsibilities/smresponsibilities.github.io/issues/new?${params}`;
+        const submitEvent=event as SubmitEvent & { agentInvoked?: boolean; respondWith?: (promise: Promise<unknown>) => void };
+        if(submitEvent.agentInvoked && typeof submitEvent.respondWith==='function'){
+          submitEvent.respondWith(Promise.resolve({ success: true, url: issueUrl }));
+        }
+        status.textContent='Opening GitHub issue…';
+        window.open(issueUrl,'_blank','noopener,noreferrer');
+        dialog.close();
+      });
+
+      // WebMCP Imperative API registration (Chrome / Chromium AI Agent model context)
+      const mc=(document as unknown as { modelContext?: { registerTool?: (tool: unknown) => Promise<unknown> } }).modelContext || (navigator as unknown as { modelContext?: { registerTool?: (tool: unknown) => Promise<unknown> } }).modelContext;
+      if(mc && typeof mc.registerTool==='function'){
+        try{
+          mc.registerTool({
+            name:'submitRosterEntry',
+            description:'Submit a GitHub user to the public developer roster as a custom Pokémon entry. Opens a prefilled GitHub issue for review.',
+            inputSchema:{
+              type:'object',
+              properties:{
+                github:{ type:'string', description:'GitHub username without @ symbol' },
+                species:{ type:'string', description:'Role-like Pokémon species title (max 24 characters)' },
+                primaryType:{
+                  type:'string',
+                  enum:['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'],
+                  description:'Primary Pokémon type representing strongest skill or style'
+                },
+                secondaryType:{
+                  type:'string',
+                  enum:['None','Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'],
+                  description:'Optional secondary Pokémon type, or None'
+                },
+                status:{
+                  type:'string',
+                  enum:['Caught','Released','Uncaught'],
+                  description:'Status: Caught (employed), Released (available for hire), Uncaught (student or exploring)'
+                },
+                company:{ type:'string', description:'Current employer company name (required if status is Caught, max 80 characters)' },
+                entry:{ type:'string', description:'Third-person dex flavour text, two short sentences, 150 characters max' },
+                fact:{ type:'string', description:'Optional short personal fact or tip, 100 characters max' }
+              },
+              required:['github','species','primaryType','status','entry']
+            },
+            execute: async (args: Record<string, unknown>)=>{
+              Object.entries(args||{}).forEach(([k,v])=>{
+                const el=form.querySelector(`[name="${k}"]`);
+                if(el && 'value' in el) (el as HTMLInputElement).value=String(v);
+              });
+              form.dispatchEvent(new Event('submit',{ cancelable: true }));
+              return { success: true };
+            }
+          });
+        }catch{}
+      }
     }
   </script>
   <script is:inline type="module">window.addEventListener('load', () => import('/generation-device/app.js?v=89.0'));</script>
