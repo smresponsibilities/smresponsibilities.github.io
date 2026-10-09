@@ -11,8 +11,7 @@ def fetch_html(url):
     # Try scrapling first if available, otherwise urllib
     try:
         from scrapling import StealthyFetcher
-        fetcher = StealthyFetcher()
-        page = fetcher.fetch(url)
+        page = StealthyFetcher.fetch(url)
         return page.body if isinstance(page.body, str) else page.body.decode('utf-8', errors='replace')
     except Exception as e:
         req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
