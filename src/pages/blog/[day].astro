@@ -49,7 +49,12 @@ const structuredData = {
   {post.milestone && (
     <section>
       <h2>🎉 Milestone</h2>
-      <p><strong>{post.milestone}</strong></p>
+      <p>
+        <strong>{post.milestone}</strong>
+        {post.milestoneUrl && (
+          <span> — <a href={post.milestoneUrl} target="_blank" rel="noopener noreferrer">View announcement post ↗</a></span>
+        )}
+      </p>
     </section>
   )}
 
