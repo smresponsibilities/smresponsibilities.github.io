@@ -1,0 +1,6 @@
+[submodule ".agents/skills/SlopMonster"]
+	path = .agents/skills/SlopMonster
+	url = https://github.com/ItsssssJack/SlopMonster
+[submodule ".agents/skills/claude-seo"]
+	path = .agents/skills/claude-seo
+	url = https://github.com/AgriciDaniel/claude-seo
