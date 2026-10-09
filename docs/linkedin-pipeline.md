@@ -28,13 +28,12 @@ When you have published your daily LinkedIn post:
      https://www.linkedin.com/posts/mahajanshivam_...
      ```
      *(or short link `https://lnkd.in/...`)*
-   - **Alternative (no URL / private post)**:
+   - **Alternative (Glitch / Skipped day)**:
+     If a day was skipped to realign numbering, write:
      ```text
-     MANUAL:
-     #day1245 of #2002daysofcode
-     Leetcode: 123. Problem Name
-     ...
+     GLITCH: Skipped to match numbering
      ```
+     *(or simply `GLITCH`)*
    - Click **Update comment**.
 3. **Close the issue**: Click **Close issue** at the bottom.
 
@@ -45,8 +44,8 @@ When you have published your daily LinkedIn post:
 Closing the issue triggers the ingestion pipeline:
 1. Filters for `daily-post` label.
 2. Runs `scripts/process_issue.py`:
-   - Extracts URL or `MANUAL:` block.
-   - Fetches OpenGraph description (`og:description`).
+   - If `GLITCH` is present: marks entry with `easterEgg` and `content: "Glitch: ..."` for timeline glitch badge rendering.
+   - Otherwise extracts URL or `MANUAL:` block and fetches OpenGraph description (`og:description`).
    - Appends/updates the entry in `src/data/linkedin-posts.json`.
 3. Commits and pushes changes as `github-actions[bot]`.
 4. Triggers `deploy.yml` on `main` to redeploy the site.
@@ -54,7 +53,7 @@ Closing the issue triggers the ingestion pipeline:
 
 ---
 
-## 4. Background Discovery Crons
+## 4. Background Discovery & Auto-Closing
 
-- **`bing-cron.yml`**: Runs daily at `12:00 UTC`. Uses `scripts/auto_fetch_bing.py` with `scrapling` to scan Bing for unindexed posts between latest day and current day. Decodes Bing `/ck/a?!...&u=a1<base64>` redirects.
+- **`bing-cron.yml`**: Runs daily at `12:00 UTC`. Uses `scripts/auto_fetch_bing.py` with `scrapling` to scan Bing for unindexed posts between latest day and current day. Decodes Bing `/ck/a?!...&u=a1<base64>` redirects. When a post is found, it automatically closes the corresponding open issue with an auto-closed note!
 - **`linkedin-discovery.yml`**: Runs daily at `03:17 UTC`. Uses `scripts/discover-linkedin-posts.mjs` to backfill missing posts in a 30–60 day discovery window.

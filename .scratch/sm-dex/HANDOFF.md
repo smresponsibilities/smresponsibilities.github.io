@@ -6,13 +6,16 @@ Frontier: None
 In flight: None
 
 ## Last session
-- Verified closed issue #54 auto-processed and deployed Day 1245 post (LeetCode 1377).
-- Aligned pipeline anchor day across workflows and scripts (`1237` → `1238`) so today (Oct 9) is Day 1246.
-- Created issue #55 for `Day 1246`.
-- Documented full pipeline in `docs/linkedin-pipeline.md` and `DECISIONS.md` §Y.
+- Closed outdated template issues #48, #50, #52 (`Day X LinkedIn Post`).
+- Added `GLITCH` / `SKIPPED` support to `scripts/process_issue.py` mapping to `easterEgg` metadata.
+- Tested and verified on issue #53 (`Day 1244`), auto-marking it as Glitch and redeploying.
+- Backfilled 1238 (glitch), 1239 (post), 1241 (glitch) to complete the timeline sequence.
+- Added auto-closing of open issues when posts are discovered by `auto_fetch_bing.py`.
+- Realigned anchor so today (Oct 9) is Day 1246, with open issue #55 ready for today's link.
+- Updated `docs/linkedin-pipeline.md`.
 
 ## Not yet written down
 None.
 
 ## Next
-Add Day 1246 link into issue #55 and close it to trigger auto-ingest and redeploy.
+Post Day 1246 to LinkedIn, drop link into issue #55, and close it.
