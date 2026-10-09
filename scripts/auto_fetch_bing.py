@@ -4,6 +4,7 @@ import json
 import base64
 import urllib.parse
 import urllib.request
+import subprocess
 from datetime import date, timedelta, datetime
 
 def fetch_html(url):
@@ -111,6 +112,14 @@ def main():
             existing_days.add(day)
             added += 1
             print(f"Successfully scraped Day {day}: {post_url}")
+            try:
+                res = subprocess.run(['gh', 'issue', 'list', '--state', 'open', '--label', 'daily-post', '--search', f'"Day {day}" in:title', '--json', 'number', '-q', '.[0].number'], capture_output=True, text=True)
+                num = res.stdout.strip()
+                if num:
+                    subprocess.run(['gh', 'issue', 'close', num, '--comment', f'Auto-closed: Day {day} discovered on LinkedIn and ingested.'])
+                    print(f"Auto-closed issue #{num} for Day {day}")
+            except Exception as e:
+                print(f"Could not auto-close issue for Day {day}: {e}")
             break
 
     if added > 0:

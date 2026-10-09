@@ -18,5 +18,5 @@ jobs:
           gh label create daily-post --color 0e8a16 2>/dev/null || true
           gh label create needs-manual --color d93f0b 2>/dev/null || true
           if gh issue list --state all --label daily-post --search "\"Day $DAY\" in:title" --json title -q '.[].title' | grep -qx "Day $DAY"; then exit 0; fi
-          printf 'Date: %s\n\nPaste the LinkedIn post URL here, or add a block starting with MANUAL: followed by the post text. Then close this issue.\n' "$TODAY" > body.md
+          printf 'Date: %s\n\nPaste the LinkedIn post URL here, or add a block starting with MANUAL: followed by the post text, or write GLITCH if this day was skipped. Then close this issue.\n' "$TODAY" > body.md
           gh issue create --label daily-post --title "Day $DAY" --body-file body.md
