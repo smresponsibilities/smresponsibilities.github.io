@@ -9,6 +9,7 @@ const items = (limit ? all.slice(0, limit) : all).map((p: any) => {
     day: p.day,
     date: p.date ?? '',
     egg: !!p.easterEgg,
+    milestone: p.milestone ?? '',
     ms: p.day % 100 === 0 || p.day === 1 || !!p.milestone,
     ex: t.length > 140 ? t.slice(0, 140) + '…' : t,
   };
@@ -84,7 +85,13 @@ const href = (d: number) => `/blog/day-${d}/`;
   {variant === 10 && (
     <ol class="miles">
       {items.filter((i) => i.ms || i.egg).map((i) => (
-        <li><a href={href(i.day)}><b>Day {i.day}</b> <small>{i.date}</small> {i.egg ? <em>glitch</em> : null}</a></li>
+        <li>
+          <a href={href(i.day)}>
+            <b>Day {i.day}</b> <small>{i.date}</small>
+            {i.milestone ? <span class="ms-note">— {i.milestone}</span> : null}
+            {i.egg ? <em>glitch</em> : null}
+          </a>
+        </li>
       ))}
     </ol>
   )}
@@ -126,5 +133,6 @@ const href = (d: number) => `/blog/day-${d}/`;
   .ledger th, .ledger td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid color-mix(in srgb, currentColor 15%, transparent); vertical-align: top; }
   .ledger tr.ms td { font-weight: 700; }
   .miles li { padding: .4rem 0; border-bottom: 1px dashed color-mix(in srgb, currentColor 25%, transparent); }
+  .ms-note { font-weight: normal; opacity: .85; margin-left: .25rem; }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
 </style>
