@@ -63,7 +63,7 @@ def main():
     existing_days = {p['day'] for p in posts}
     latest_day = max(existing_days)
 
-    anchor_day = 1237
+    anchor_day = 1238
     anchor_date = date(2026, 10, 1)
     current_day = anchor_day + (date.today() - anchor_date).days
 

@@ -4,7 +4,7 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const output = path.join(root, 'src/data/linkedin-posts.json');
-const anchorDay = 1237;
+const anchorDay = 1238;
 const anchorDate = Date.UTC(2026, 9, 1);
 const today = new Date();
 const currentDay = anchorDay + Math.floor((Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()) - anchorDate) / 86400000);

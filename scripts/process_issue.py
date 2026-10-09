@@ -17,7 +17,7 @@ m = re.search(r'Day\s+(\d+)', title)
 if not m:
     say('Issue title must look like "Day 1243".', True)
 day = int(m.group(1))
-d = (date(2026, 10, 1) + timedelta(days=day - 1237)).isoformat()
+d = (date(2026, 10, 1) + timedelta(days=day - 1238)).isoformat()
 
 content, url = None, None
 man = re.search(r'MANUAL:\s*\n([\s\S]+)', body)

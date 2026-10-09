@@ -14,7 +14,7 @@ jobs:
           GH_REPO: ${{ github.repository }}
         run: |
           TODAY=$(TZ=Asia/Kolkata date +%F)
-          DAY=$(( 1237 + ( $(date -u -d "$TODAY" +%s) - $(date -u -d 2026-10-01 +%s) ) / 86400 ))
+          DAY=$(( 1238 + ( $(date -u -d "$TODAY" +%s) - $(date -u -d 2026-10-01 +%s) ) / 86400 ))
           gh label create daily-post --color 0e8a16 2>/dev/null || true
           gh label create needs-manual --color d93f0b 2>/dev/null || true
           if gh issue list --state all --label daily-post --search "\"Day $DAY\" in:title" --json title -q '.[].title' | grep -qx "Day $DAY"; then exit 0; fi
