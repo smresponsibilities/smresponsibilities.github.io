@@ -46,6 +46,13 @@ const structuredData = {
     <p>{post.content}</p>
   </section>
 
+  {post.milestone && (
+    <section>
+      <h2>🎉 Milestone</h2>
+      <p><strong>{post.milestone}</strong></p>
+    </section>
+  )}
+
   {post.easterEgg && (
     <section>
       <h2>Wait a minute...</h2>

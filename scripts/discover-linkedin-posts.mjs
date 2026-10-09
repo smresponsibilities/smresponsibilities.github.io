@@ -1,4 +1,5 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { execSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 
@@ -73,6 +74,13 @@ async function main() {
             added++;
             foundDay = true;
             console.log(`FOUND day ${day}: ${url}`);
+            try {
+              const num = execSync(`gh issue list --state open --label daily-post --search '"Day ${day}" in:title' --json number -q '.[0].number'`, { encoding: 'utf8' }).trim();
+              if (num) {
+                execSync(`gh issue close ${num} --comment 'Auto-closed: Day ${day} discovered on LinkedIn and ingested.'`);
+                console.log(`Auto-closed issue #${num} for day ${day}`);
+              }
+            } catch { /* ignore if gh cli not available */ }
             break;
           }
         } catch (error) { console.warn(`Post failed, day ${day}: ${error.message}`); }

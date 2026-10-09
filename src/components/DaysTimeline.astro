@@ -9,7 +9,7 @@ const items = (limit ? all.slice(0, limit) : all).map((p: any) => {
     day: p.day,
     date: p.date ?? '',
     egg: !!p.easterEgg,
-    ms: p.day % 100 === 0 || p.day === 1,
+    ms: p.day % 100 === 0 || p.day === 1 || !!p.milestone,
     ex: t.length > 140 ? t.slice(0, 140) + '…' : t,
   };
 });
