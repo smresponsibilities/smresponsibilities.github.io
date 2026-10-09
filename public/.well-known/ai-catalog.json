@@ -6,11 +6,11 @@
       "displayName": "SM'S DEX Roster Form",
       "type": "application/agent-card+json",
       "url": "https://shivammahajan.com",
-      "description": "Portfolio of Shivam Mahajan. Contains an WebMCP form to submit a new custom Pokemon to the developer roster.",
+      "description": "Portfolio of Shivam Mahajan. Exposes public roster submission via WebMCP and GitHub Issues API.",
       "representativeQueries": [
         "submit pokemon to developer roster",
         "join developer dex public roster",
-        "register pokemon in shivam mahajan roster"
+        "api submit custom pokemon entry"
       ]
     }
   ]

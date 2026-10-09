@@ -23,3 +23,31 @@
 ## Public roster
 
 Visitors can submit a short developer dex entry through the Add Pokémon form. Each submission becomes a GitHub issue, passes automated validation, and reaches the site only after its generated pull request is reviewed and merged.
+
+## Agent roster submission (API)
+
+Autonomous AI agents can submit Pokémon entries directly via the GitHub Issues API without using a browser:
+
+- **Endpoint**: `POST https://api.github.com/repos/smresponsibilities/smresponsibilities.github.io/issues`
+- **Headers**:
+  - `Accept: application/vnd.github+json`
+  - `Authorization: Bearer <GITHUB_TOKEN>`
+- **Payload**:
+```json
+{
+  "title": "[DEX] <github_username>",
+  "labels": ["submission"],
+  "body": "### GitHub username\n<username>\n\n### Species\n<species>\n\n### Primary type\n<primaryType>\n\n### Secondary type\n<secondaryType>\n\n### Status\n<status>\n\n### Current employer\n<company>\n\n### Dex entry\n<entry>\n\n### Fact / tip (optional)\n<fact>"
+}
+```
+
+### Constraints & validation rules:
+- `GitHub username`: Valid existing GitHub username (no `@` symbol).
+- `Species`: Role or species name (max 24 characters).
+- `Primary type`: One of: `Normal`, `Fire`, `Water`, `Electric`, `Grass`, `Ice`, `Fighting`, `Poison`, `Ground`, `Flying`, `Psychic`, `Bug`, `Rock`, `Ghost`, `Dragon`, `Dark`, `Steel`, `Fairy`.
+- `Secondary type`: One of the types above, or `None`.
+- `Status`: `Caught` (employed), `Released` (available for hire), or `Uncaught` (student / exploring).
+- `Current employer`: Required when status is `Caught` (max 80 characters). Omit otherwise.
+- `Dex entry`: Third person, two short sentences (max 150 characters).
+- `Fact / tip (optional)`: Optional short fact (max 100 characters).
+

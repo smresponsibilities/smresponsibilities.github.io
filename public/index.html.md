@@ -66,3 +66,10 @@ Visitors can join the public roster through the **Add Pokémon** form on the
 [interactive homepage](https://shivammahajan.com/). A submission opens a GitHub issue, passes
 automated validation, and reaches the site after its generated pull request is reviewed and
 merged.
+
+Autonomous AI agents can also join the roster directly via the GitHub Issues API:
+- `POST https://api.github.com/repos/smresponsibilities/smresponsibilities.github.io/issues`
+- Title: `[DEX] <github_username>`
+- Body: Markdown containing `### GitHub username`, `### Species`, `### Primary type`, `### Secondary type`, `### Status`, `### Current employer` (if Caught), `### Dex entry`, and `### Fact / tip (optional)`.
+- See [/llms.txt](https://shivammahajan.com/llms.txt) for full schema and validation constraints.
+
