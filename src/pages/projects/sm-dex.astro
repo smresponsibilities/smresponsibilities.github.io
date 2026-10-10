@@ -3,20 +3,46 @@ import EditorialShell from '../../components/EditorialShell.astro';
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'TechArticle',
-  headline: "Building an Open-Roster Pokédex Developer Portfolio with Astro",
-  description: "Architecture breakdown of SM'S DEX: an open-source Pokédex developer portfolio featuring Astro islands, Web Audio synthesizers, and automated GitHub CI roster workflows.",
-  author: {
-    '@type': 'Person',
-    name: 'Shivam Mahajan',
-    url: 'https://shivammahajan.com/'
-  },
-  url: 'https://shivammahajan.com/projects/sm-dex/',
-  about: [
-    { '@type': 'Thing', name: 'Software Development Portfolio' },
-    { '@type': 'Thing', name: 'Astro Framework' },
-    { '@type': 'Thing', name: 'Web Audio API' },
-    { '@type': 'Thing', name: 'GitHub Actions Automation' }
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://shivammahajan.com/projects/sm-dex/#article',
+      headline: "Building an Open-Roster Pokédex Developer Portfolio with Astro",
+      description: "Architecture breakdown of SM'S DEX: an open-source Pokédex developer portfolio featuring Astro islands, Web Audio synthesizers, and automated GitHub CI roster workflows.",
+      author: {
+        '@type': 'Person',
+        name: 'Shivam Mahajan',
+        jobTitle: 'Software Developer',
+        url: 'https://shivammahajan.com/resume/',
+        sameAs: [
+          'https://github.com/smresponsibilities',
+          'https://www.linkedin.com/in/mahajanshivam/',
+          'https://peerlist.io/shivammahajan',
+          'https://www.producthunt.com/@shivammahajan'
+        ]
+      },
+      publisher: {
+        '@type': 'Person',
+        name: 'Shivam Mahajan',
+        url: 'https://shivammahajan.com/'
+      },
+      url: 'https://shivammahajan.com/projects/sm-dex/',
+      about: [
+        { '@type': 'Thing', name: 'Software Development Portfolio' },
+        { '@type': 'Thing', name: 'Astro Framework' },
+        { '@type': 'Thing', name: 'Web Audio API' },
+        { '@type': 'Thing', name: 'GitHub Actions Automation' }
+      ]
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/sm-dex/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' },
+        { '@type': 'ListItem', position: 3, name: "SM'S DEX", item: 'https://shivammahajan.com/projects/sm-dex/' }
+      ]
+    }
   ]
 };
 ---
@@ -26,12 +52,53 @@ const structuredData = {
   description="Technical breakdown of SM'S DEX, an open-source Pokédex developer portfolio built with Astro, custom Web Audio synthesizers, and automated GitHub Actions roster workflows." 
   eyebrow="Move 002 / Case Study" 
   heading="Building an Open-Roster Pokédex Developer Portfolio" 
-  intro="How SM'S DEX avoids standard PokeAPI tutorial cliches: combining Astro islands, a zero-library Web Audio chiptune synthesizer, and an open roster powered by automated GitHub CI pull requests."
+  intro="How SM'S DEX avoids standard PokeAPI tutorial cliches: combining Astro islands, a zero-library Web Audio chiptune synthesizer, and an open roster powered by automated GitHub CI pull requests." 
   structuredData={structuredData}
 >
   <a slot="actions" href="/">Launch Pokédex Device</a>
   <a slot="actions" href="https://github.com/smresponsibilities/smresponsibilities.github.io" target="_blank" rel="noopener noreferrer">View GitHub Source ↗</a>
   <a slot="actions" href="https://www.producthunt.com/products/sm-s-dex/launches" target="_blank" rel="noopener noreferrer">Product Hunt Launch ↗</a>
+
+  <!-- Top-of-page Breadcrumbs (Tactic #88 & Tactic #98) -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/">Projects</a> <span>/</span>
+    <a href="https://shivammahajan.com/projects/sm-dex/" aria-current="page">SM'S DEX</a>
+  </nav>
+
+  <!-- Author Byline linked to profile (Tactic #60) -->
+  <div class="byline-bar">
+    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <span>·</span>
+    <time datetime="2026-10-10">October 2026</time>
+    <span>·</span>
+    <span>Architecture Case Study</span>
+  </div>
+
+  <!-- Direct Answer Executive Summary (Tactic #2) -->
+  <div class="direct-answer">
+    <p><strong>Executive Summary:</strong> SM'S DEX is an open-source Pokédex developer portfolio built on Astro, native Web Audio API, and GitHub Actions CI. It replaces typical PokeAPI tutorial SPA clones with zero-client-JS HTML, synthesized chiptune audio (0KB assets), and automated community roster pull requests with strict JSON Schema validation.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics (Tactic #3 & Tactic #69) -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">Test Suites</span>
+      <span class="metric-value">425+ Passing</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Audio Assets</span>
+      <span class="metric-value">0 KB (Web Audio)</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Token Themes</span>
+      <span class="metric-value">9 Generations</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Roster Automation</span>
+      <span class="metric-value">100% GitHub CI</span>
+    </div>
+  </div>
 
   <section>
     <h2>The Problem with Standard PokeAPI Portfolio Projects</h2>
@@ -47,7 +114,7 @@ const structuredData = {
 
   <section>
     <h2>System Architecture: Astro Islands & Semantic Performance</h2>
-    <p>Rather than shipping a heavy client-side JavaScript runtime, SM'S DEX is built on <strong>Astro</strong> with zero default client runtime overhead. Every page renders to pure, semantic HTML and CSS during the static build step, guaranteeing instant Largest Contentful Paint (LCP) and zero layout shift across devices.</p>
+    <p>Rather than shipping a heavy client-side JavaScript runtime, SM'S DEX is built on <a href="https://astro.build/" target="_blank" rel="noopener noreferrer">Astro</a> with zero default client runtime overhead. Every page renders to pure, semantic HTML and CSS during the static build step, guaranteeing instant Largest Contentful Paint (LCP) and zero layout shift across devices.</p>
     <div class="grid">
       <article class="card">
         <h3>Dual-View Responsive Engine</h3>
@@ -63,7 +130,7 @@ const structuredData = {
   <section>
     <h2>Native Web Audio Engine: Pure Browser Chiptunes</h2>
     <p>Audio in retro-themed applications is frequently handled through external sound libraries or large MP3 audio files that inflate network bandwidth and trigger harsh mobile autoplay violations.</p>
-    <p>SM'S DEX uses a custom-built sound synthesizer written directly with the browser's native <strong>Web Audio API</strong>:</p>
+    <p>SM'S DEX uses a custom-built sound synthesizer written directly with the browser's native <a href="https://www.w3.org/TR/webaudio/" target="_blank" rel="noopener noreferrer">Web Audio API</a>:</p>
     <ul>
       <li><strong>Zero sound assets:</strong> 8-bit retro sound frequencies, square waves, and noise bursts are synthesized mathematically on the fly in real-time.</li>
       <li><strong>Strict no-autoplay enforcement:</strong> Audio remains completely silent until explicit user interaction, fully honoring browser security policies and user consent.</li>
@@ -77,7 +144,7 @@ const structuredData = {
     <p>The entire onboarding pipeline is fully automated without requiring a separate database or server runtime:</p>
     <ol>
       <li><strong>Prefilled Form Templates:</strong> Visitors click "Add Pokémon" to open a GitHub issue with structured form inputs for sprite choice, typing, stats, moves, and flavor text.</li>
-      <li><strong>Automated CI Validation:</strong> A GitHub Actions workflow intercepts new issue submissions and validates every parameter against strict JSON Schema definitions (preventing invalid types, malicious inputs, or stat overflow).</li>
+      <li><strong>Automated CI Validation:</strong> A <a href="https://docs.github.com/en/actions" target="_blank" rel="noopener noreferrer">GitHub Actions CI workflow</a> intercepts new issue submissions and validates every parameter against strict <a href="https://json-schema.org/" target="_blank" rel="noopener noreferrer">JSON Schema</a> definitions (preventing invalid types, malicious inputs, or stat overflow).</li>
       <li><strong>Automated Pull Request Creation:</strong> Once validated, the automation generates a clean Git branch and opens a Pull Request updating the site's data records.</li>
       <li><strong>Production Build & Deploy:</strong> Upon maintainer merge, GitHub Pages builds and redeploys the site with the new Pokémon entry live on the roster.</li>
     </ol>
@@ -105,4 +172,76 @@ const structuredData = {
     <p><a href="/">Visit the Interactive Pokédex →</a> · <a href="/resume/">View Shivam's Engineering Resume →</a> · <a href="https://github.com/smresponsibilities/smresponsibilities.github.io" target="_blank" rel="noopener noreferrer">Inspect GitHub Architecture ↗</a></p>
   </section>
 </EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-nav a {
+    color: var(--time-accent, #ffd75e);
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    text-decoration: underline;
+  }
+  .byline-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border, #333);
+    font-size: 14px;
+    color: var(--dim, #aaa);
+    flex-wrap: wrap;
+  }
+  .byline-bar a {
+    color: var(--time-accent, #ffd75e);
+    font-weight: 500;
+  }
+  .direct-answer {
+    padding: 16px 20px;
+    background: var(--panel, #161b22);
+    border-left: 4px solid var(--time-accent, #ffd75e);
+    border-radius: 4px;
+    margin: 18px 0;
+  }
+  .direct-answer p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+  .metric-pill {
+    padding: 10px 14px;
+    background: var(--panel, #161b22);
+    border: 1px solid var(--border, #333);
+    border-radius: 4px;
+  }
+  .metric-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dim, #888);
+  }
+  .metric-value {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink, #fff);
+    margin-top: 2px;
+  }
+</style>
 

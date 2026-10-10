@@ -3,27 +3,40 @@ import EditorialShell from '../components/EditorialShell.astro';
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'ProfilePage',
-  mainEntity: {
-    '@type': 'Person',
-    name: 'Shivam Mahajan',
-    jobTitle: 'Software Developer',
-    description: 'Software developer building production data platforms with Python, Kotlin, Kafka, PySpark, and Snowflake.',
-    url: 'https://shivammahajan.com/resume/',
-    sameAs: [
-      'https://github.com/smresponsibilities',
-      'https://www.linkedin.com/in/mahajanshivam/',
-      'https://peerlist.io/shivammahajan',
-      'https://www.producthunt.com/@shivammahajan'
-    ],
-    knowsAbout: [
-      'Python', 'Kotlin', 'Apache Kafka', 'PySpark', 'Snowflake', 'Distributed Systems', 'Data Engineering', 'React', 'Astro', 'Solidity'
-    ],
-    alumniOf: {
-      '@type': 'CollegeOrUniversity',
-      name: 'Chitkara University'
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': 'https://shivammahajan.com/resume/#profile',
+      mainEntity: {
+        '@type': 'Person',
+        name: 'Shivam Mahajan',
+        jobTitle: 'Software Developer',
+        description: 'Software developer building production data platforms with Python, Kotlin, Kafka, PySpark, and Snowflake.',
+        url: 'https://shivammahajan.com/resume/',
+        sameAs: [
+          'https://github.com/smresponsibilities',
+          'https://www.linkedin.com/in/mahajanshivam/',
+          'https://peerlist.io/shivammahajan',
+          'https://www.producthunt.com/@shivammahajan'
+        ],
+        knowsAbout: [
+          'Python', 'Kotlin', 'Apache Kafka', 'PySpark', 'Snowflake', 'Distributed Systems', 'Data Engineering', 'React', 'Astro', 'Solidity'
+        ],
+        alumniOf: {
+          '@type': 'CollegeOrUniversity',
+          name: 'Chitkara University'
+        }
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/resume/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Resume', item: 'https://shivammahajan.com/resume/' }
+      ]
     }
-  }
+  ]
 };
 ---
 <EditorialShell 
@@ -35,6 +48,38 @@ const structuredData = {
   structuredData={structuredData}
 >
   <a slot="actions" href="/resume.pdf" download>Download PDF</a><a slot="actions" href="mailto:shivammahajan.mail@gmail.com">Email Shivam</a>
+
+  <!-- Top-of-page Breadcrumbs (Tactic #88 & Tactic #98) -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/resume/" aria-current="page">Resume</a>
+  </nav>
+
+  <!-- Direct Answer Executive Summary (Tactic #2) -->
+  <div class="direct-answer">
+    <p><strong>Profile Summary:</strong> Shivam Mahajan is a Software Developer specializing in distributed data pipelines, backend APIs, and native mobile apps. Proven experience at Morgan Stanley scaling CIAM Kafka/Snowflake systems processing 5M+ daily events with zero row-count tolerance, alongside 2,600+ solved algorithmic problems.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics (Tactic #3 & Tactic #69) -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">Pipeline Scale</span>
+      <span class="metric-value">5M+ Events</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">LeetCode Solved</span>
+      <span class="metric-value">2,600+ Problems</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Daily Streak</span>
+      <span class="metric-value">1,246+ Days</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Test Suites</span>
+      <span class="metric-value">425+ Passing</span>
+    </div>
+  </div>
+
   <section><h2>Experience</h2><article class="card"><p class="meta">Aug 2025 – Aug 2026</p><h3>Morgan Stanley · Technology Apprentice</h3><p>Worked on a CIAM data warehouse using Kafka, PySpark, and Snowflake. The robust data ingestion system securely processed more than 5 million events with strict zero row-count tolerance to maintain data integrity. Work also included developing resilient Python ETL pipelines and maintaining a high-performance Java API to serve real-time analytics to clients.</p></article></section>
   <section><h2>Selected projects</h2><div class="grid">
     <article class="card"><h3><a href="/projects/productivity-caller/">Productivity Caller</a></h3><p class="meta">Kotlin / Jetpack Compose</p><p>A native Android reminder application utilizing scheduled phone calls instead of easily ignored push notifications. Demonstrates background service execution and natural language task parsing.</p></article>
@@ -46,3 +91,60 @@ const structuredData = {
   <section><h2>Education</h2><p><strong>Chitkara University</strong><br>Bachelor of Engineering in Computer Science & Engineering<br><em>Aug 2022 – Aug 2026</em><br>Relevant Coursework: Data Structures & Algorithms, Distributed Systems, Database Management Systems, Computer Networks.</p></section>
   <section><h2>Contact & Links</h2><p><a href="mailto:shivammahajan.mail@gmail.com">Email</a> · <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://peerlist.io/shivammahajan" target="_blank" rel="noopener noreferrer">Peerlist</a> · <a href="https://www.producthunt.com/@shivammahajan" target="_blank" rel="noopener noreferrer">Product Hunt</a></p></section>
 </EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-nav a {
+    color: var(--time-accent, #ffd75e);
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    text-decoration: underline;
+  }
+  .direct-answer {
+    padding: 16px 20px;
+    background: var(--panel, #161b22);
+    border-left: 4px solid var(--time-accent, #ffd75e);
+    border-radius: 4px;
+    margin: 18px 0;
+  }
+  .direct-answer p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+  .metric-pill {
+    padding: 10px 14px;
+    background: var(--panel, #161b22);
+    border: 1px solid var(--border, #333);
+    border-radius: 4px;
+  }
+  .metric-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dim, #888);
+  }
+  .metric-value {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink, #fff);
+    margin-top: 2px;
+  }
+</style>

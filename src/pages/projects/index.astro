@@ -3,24 +3,37 @@ import EditorialShell from '../../components/EditorialShell.astro';
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: "Software Projects | Shivam Mahajan",
-  description: "Comprehensive catalog of Shivam Mahajan's software engineering projects across Android, distributed data systems, web applications, and low-level tools.",
-  url: 'https://shivammahajan.com/projects/',
-  mainEntity: {
-    '@type': 'ItemList',
-    itemListElement: [
-      { '@type': 'ListItem', position: 1, name: 'Productivity Caller', url: 'https://shivammahajan.com/projects/productivity-caller/' },
-      { '@type': 'ListItem', position: 2, name: "SM'S DEX", url: 'https://shivammahajan.com/projects/sm-dex/' },
-      { '@type': 'ListItem', position: 3, name: 'Chaincode', url: 'https://github.com/smresponsibilities/Chain-Code' },
-      { '@type': 'ListItem', position: 4, name: 'QuizDeck', url: 'https://github.com/smresponsibilities/QuizDeck' },
-      { '@type': 'ListItem', position: 5, name: 'ClickHouse Data Ingestion Tool', url: 'https://github.com/smresponsibilities/Ingestion-Tool' },
-      { '@type': 'ListItem', position: 6, name: 'Flight Sun Tracker', url: 'https://github.com/smresponsibilities/flight-sun-tracker' },
-      { '@type': 'ListItem', position: 7, name: 'JobScraper Hourly', url: 'https://github.com/smresponsibilities/jobscraper_hourly' },
-      { '@type': 'ListItem', position: 8, name: 'Clickless', url: 'https://github.com/smresponsibilities/clickless' },
-      { '@type': 'ListItem', position: 9, name: 'Terminal Wordle in C', url: 'https://github.com/smresponsibilities/Wordle' }
-    ]
-  }
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': 'https://shivammahajan.com/projects/#collection',
+      name: "Software Projects | Shivam Mahajan",
+      description: "Comprehensive catalog of Shivam Mahajan's software engineering projects across Android, distributed data systems, web applications, and low-level tools.",
+      url: 'https://shivammahajan.com/projects/',
+      mainEntity: {
+        '@type': 'ItemList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Productivity Caller', url: 'https://shivammahajan.com/projects/productivity-caller/' },
+          { '@type': 'ListItem', position: 2, name: "SM'S DEX", url: 'https://shivammahajan.com/projects/sm-dex/' },
+          { '@type': 'ListItem', position: 3, name: 'Chaincode', url: 'https://github.com/smresponsibilities/Chain-Code' },
+          { '@type': 'ListItem', position: 4, name: 'QuizDeck', url: 'https://github.com/smresponsibilities/QuizDeck' },
+          { '@type': 'ListItem', position: 5, name: 'ClickHouse Data Ingestion Tool', url: 'https://github.com/smresponsibilities/Ingestion-Tool' },
+          { '@type': 'ListItem', position: 6, name: 'Flight Sun Tracker', url: 'https://github.com/smresponsibilities/flight-sun-tracker' },
+          { '@type': 'ListItem', position: 7, name: 'JobScraper Hourly', url: 'https://github.com/smresponsibilities/jobscraper_hourly' },
+          { '@type': 'ListItem', position: 8, name: 'Clickless', url: 'https://github.com/smresponsibilities/clickless' },
+          { '@type': 'ListItem', position: 9, name: 'Terminal Wordle in C', url: 'https://github.com/smresponsibilities/Wordle' }
+        ]
+      }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' }
+      ]
+    }
+  ]
 };
 ---
 
@@ -34,6 +47,12 @@ const structuredData = {
 >
   <a slot="actions" href="/resume/">View Resume</a>
   <a slot="actions" href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">Visit GitHub Profile ↗</a>
+
+  <!-- Top-of-page Breadcrumbs (Tactic #88 & Tactic #98) -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/" aria-current="page">Projects</a>
+  </nav>
 
   <section>
     <h2>Flagship & Case Studies</h2>
@@ -120,3 +139,22 @@ const structuredData = {
     </div>
   </section>
 </EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-nav a {
+    color: var(--time-accent, #ffd75e);
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    text-decoration: underline;
+  }
+</style>

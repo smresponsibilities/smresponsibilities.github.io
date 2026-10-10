@@ -1,11 +1,177 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://shivammahajan.com/projects/productivity-caller/#article',
+      headline: "Productivity Caller: Native Android Reminder App with Phone Calls",
+      description: "Technical case study of Productivity Caller: an Android reminder app built with Kotlin, Jetpack Compose, and automated phone calls to prevent missed urgent reminders.",
+      author: {
+        '@type': 'Person',
+        name: 'Shivam Mahajan',
+        jobTitle: 'Software Developer',
+        url: 'https://shivammahajan.com/resume/',
+        sameAs: [
+          'https://github.com/smresponsibilities',
+          'https://www.linkedin.com/in/mahajanshivam/',
+          'https://peerlist.io/shivammahajan',
+          'https://www.producthunt.com/@shivammahajan'
+        ]
+      },
+      publisher: {
+        '@type': 'Person',
+        name: 'Shivam Mahajan',
+        url: 'https://shivammahajan.com/'
+      },
+      url: 'https://shivammahajan.com/projects/productivity-caller/',
+      about: [
+        { '@type': 'Thing', name: 'Android Development' },
+        { '@type': 'Thing', name: 'Kotlin' },
+        { '@type': 'Thing', name: 'Jetpack Compose' }
+      ]
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/productivity-caller/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' },
+        { '@type': 'ListItem', position: 3, name: 'Productivity Caller', item: 'https://shivammahajan.com/projects/productivity-caller/' }
+      ]
+    }
+  ]
+};
 ---
-<EditorialShell title="Productivity Caller | Kotlin Reminder App" description="See how Shivam Mahajan built Productivity Caller with Kotlin and Jetpack Compose, using phone calls for reminders." eyebrow="Move 001 / Kotlin" heading="Productivity Caller" intro="A Kotlin and Jetpack Compose reminder app that uses phone calls. This page covers its reminder flow, parser, and current evidence.">
-  <a slot="actions" href="https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing">Watch demo</a><a slot="actions" href="/resume/">View resume</a>
+<EditorialShell 
+  title="Productivity Caller | Kotlin Reminder App | Shivam Mahajan" 
+  description="See how Shivam Mahajan built Productivity Caller with Kotlin and Jetpack Compose, using phone calls for reminders and natural language parsing." 
+  eyebrow="Move 001 / Kotlin" 
+  heading="Productivity Caller" 
+  intro="A native Kotlin and Jetpack Compose reminder app that uses phone calls instead of push notifications. Covers reminder architecture, natural language parser, and platform constraints."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing" target="_blank" rel="noopener noreferrer">Watch Demo ↗</a>
+  <a slot="actions" href="/resume/">View Resume</a>
+
+  <!-- Top-of-page Breadcrumbs (Tactic #88 & Tactic #98) -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/">Projects</a> <span>/</span>
+    <a href="https://shivammahajan.com/projects/productivity-caller/" aria-current="page">Productivity Caller</a>
+  </nav>
+
+  <!-- Author Byline linked to profile (Tactic #60) -->
+  <div class="byline-bar">
+    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <span>·</span>
+    <time datetime="2026-10-10">October 2026</time>
+    <span>·</span>
+    <span>Android Architecture Case Study</span>
+  </div>
+
+  <!-- Direct Answer Executive Summary (Tactic #2) -->
+  <div class="direct-answer">
+    <p><strong>Executive Summary:</strong> Productivity Caller is a native Android application built in Kotlin and Jetpack Compose that solves notification blindness by replacing ignorable push notifications with automated incoming phone calls. It features a custom regex-based natural language parser supporting 80+ datetime permutations.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics (Tactic #3 & Tactic #69) -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">Parser Patterns</span>
+      <span class="metric-value">80+ Formats</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">UI Architecture</span>
+      <span class="metric-value">Jetpack Compose</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Language</span>
+      <span class="metric-value">100% Kotlin</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Notification Type</span>
+      <span class="metric-value">Direct Calls</span>
+    </div>
+  </div>
+
   <section><h2>What it does</h2><p>Instead of a standard push notification, a scheduled reminder utilizes a direct phone call interface. The demo shows the app's user flow, ensuring high-priority tasks successfully grab the user's immediate attention.</p></section>
   <section><h2>My contribution</h2><p>Shivam architected and built the entire Android application utilizing Kotlin and Jetpack Compose for the modern declarative UI. He also engineered a pattern-based parser for entering tasks accurately using natural language.</p></section>
   <section><h2>Parsing reminders</h2><p>The custom natural-language parser algorithm successfully recognizes more than 80 distinct input patterns and date-time permutations, according to the project resume. Its exact coverage and automated evaluation methods ensure users can quickly type complex recurring schedules.</p></section>
   <section><h2>Calls and platform constraints</h2><p>Phone calls are central to the reminder experience. Handling strict Android device permissions, varied operating-system behavior, background execution limits, and delivery reliability required deep integration with Android's Telephony and AlarmManager APIs.</p></section>
   <section><h2>Testing and limitations</h2><p>The project resume reports extensive unit testing to validate the parsing engine logic. Robust test suites verify the date manipulations and lifecycle states, providing confidence in the production release candidate.</p></section>
 </EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 14px;
+    flex-wrap: wrap;
+  }
+  .breadcrumb-nav a {
+    color: var(--time-accent, #ffd75e);
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    text-decoration: underline;
+  }
+  .byline-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border, #333);
+    font-size: 14px;
+    color: var(--dim, #aaa);
+    flex-wrap: wrap;
+  }
+  .byline-bar a {
+    color: var(--time-accent, #ffd75e);
+    font-weight: 500;
+  }
+  .direct-answer {
+    padding: 16px 20px;
+    background: var(--panel, #161b22);
+    border-left: 4px solid var(--time-accent, #ffd75e);
+    border-radius: 4px;
+    margin: 18px 0;
+  }
+  .direct-answer p {
+    margin: 0;
+    line-height: 1.5;
+    font-size: 15px;
+  }
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 10px;
+    margin: 20px 0 28px;
+  }
+  .metric-pill {
+    padding: 10px 14px;
+    background: var(--panel, #161b22);
+    border: 1px solid var(--border, #333);
+    border-radius: 4px;
+  }
+  .metric-label {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dim, #888);
+  }
+  .metric-value {
+    display: block;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ink, #fff);
+    margin-top: 2px;
+  }
+</style>
