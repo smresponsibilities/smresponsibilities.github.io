@@ -12,11 +12,23 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 
+// Extract LeetCode problem if present in post content
+const leetcodeMatch = typeof post.content === 'string' ? post.content.match(/Leetcode:\s*(\d+)\.\s*([^\n#]+)/i) : null;
+const problemTitle = leetcodeMatch ? `LeetCode ${leetcodeMatch[1]}: ${leetcodeMatch[2].trim()}` : null;
+const leetcodeTag = problemTitle 
+  ? problemTitle 
+  : (typeof post.content === 'string' && /leetcode/i.test(post.content) ? 'LeetCode' : '2002 Days of Code');
+const pageTitle = `Day ${post.day} | Shivam Mahajan | ${leetcodeTag}`;
+const pageHeading = problemTitle ? `Day ${post.day}: ${problemTitle}` : `Day ${post.day}`;
+const pageDesc = problemTitle
+  ? `Day ${post.day} of 2002 Days of Code: Walkthrough and solution for ${problemTitle} in Python/DSA by Shivam Mahajan.`
+  : `Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`;
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
-  headline: `Day ${post.day} of 2002 Days of Code`,
-  description: `Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`,
+  headline: problemTitle ? `${problemTitle} (Day ${post.day})` : `Day ${post.day} of 2002 Days of Code`,
+  description: pageDesc,
   author: {
     '@type': 'Person',
     name: 'Shivam Mahajan',
@@ -33,10 +45,10 @@ const structuredData = {
 ---
 
 <EditorialShell 
-  title={`Day ${post.day} of 2002 Days of Code | Shivam Mahajan`} 
-  description={`Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`} 
+  title={pageTitle} 
+  description={pageDesc} 
   eyebrow={`2002 Days of Code / ${post.date}`} 
-  heading={`Day ${post.day}`} 
+  heading={pageHeading} 
   intro={`Shivam's LinkedIn update for day ${post.day}.`}
   structuredData={structuredData}
 >

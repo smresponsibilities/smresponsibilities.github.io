@@ -1,12 +1,122 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: "Software Projects | Shivam Mahajan",
+  description: "Comprehensive catalog of Shivam Mahajan's software engineering projects across Android, distributed data systems, web applications, and low-level tools.",
+  url: 'https://shivammahajan.com/projects/',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Productivity Caller', url: 'https://shivammahajan.com/projects/productivity-caller/' },
+      { '@type': 'ListItem', position: 2, name: "SM'S DEX", url: 'https://shivammahajan.com/projects/sm-dex/' },
+      { '@type': 'ListItem', position: 3, name: 'Chaincode', url: 'https://github.com/smresponsibilities/Chain-Code' },
+      { '@type': 'ListItem', position: 4, name: 'QuizDeck', url: 'https://github.com/smresponsibilities/QuizDeck' },
+      { '@type': 'ListItem', position: 5, name: 'ClickHouse Data Ingestion Tool', url: 'https://github.com/smresponsibilities/Ingestion-Tool' },
+      { '@type': 'ListItem', position: 6, name: 'Flight Sun Tracker', url: 'https://github.com/smresponsibilities/flight-sun-tracker' },
+      { '@type': 'ListItem', position: 7, name: 'JobScraper Hourly', url: 'https://github.com/smresponsibilities/jobscraper_hourly' },
+      { '@type': 'ListItem', position: 8, name: 'Clickless', url: 'https://github.com/smresponsibilities/clickless' },
+      { '@type': 'ListItem', position: 9, name: 'Terminal Wordle in C', url: 'https://github.com/smresponsibilities/Wordle' }
+    ]
+  }
+};
 ---
-<EditorialShell title="Software Projects | Shivam Mahajan" description="Explore Shivam Mahajan's Kotlin reminder app, interactive Astro portfolio, blockchain coding project, and WebSocket quiz app." eyebrow="Move list / Projects" heading="Projects" intro="Selected software projects. Open a case study for details or follow the source and demo links.">
-  <a slot="actions" href="/resume/">View resume</a>
-  <section><div class="grid">
-    <article class="card"><span class="eyebrow">Kotlin / Jetpack Compose</span><h2><a href="/projects/productivity-caller/">Productivity Caller</a></h2><p>A native Android reminder application built with Kotlin and Jetpack Compose that uses scheduled phone calls to ensure critical tasks are never missed. Features a pattern-based parser for entering tasks in natural language. Read about the system architecture, background service execution, and user flow.</p></article>
-    <article class="card"><span class="eyebrow">Astro / GitHub Actions</span><h2><a href="/projects/sm-dex/">SM'S DEX</a></h2><p>An interactive developer portfolio built with Astro and plain CSS. It features nine faithful device generation themes, extensive accessibility support, and a fully automated public roster system driven by GitHub Actions and issue templates.</p></article>
-    <article class="card"><span class="eyebrow">Solidity / MERN</span><h2>Chaincode</h2><p>A web3 coding platform that validates code originality using Gemini AI achieving over 95% accuracy. Validated code submissions are securely minted as non-fungible tokens (NFTs) on the blockchain. <a href="https://github.com/smresponsibilities/Chain-Code">View repository</a>.</p></article>
-    <article class="card"><span class="eyebrow">React / WebSockets</span><h2>QuizDeck</h2><p>A highly scalable multiplayer quiz application leveraging React and WebSockets. The system architecture was stress-tested to support up to 500 concurrent players with an average response time of just 31 milliseconds. <a href="https://github.com/smresponsibilities/QuizDeck">View repository</a>.</p></article>
-  </div></section>
+
+<EditorialShell 
+  title="Software Engineering Projects | Shivam Mahajan" 
+  description="Explore Shivam Mahajan's complete project portfolio: Kotlin mobile apps, Astro Pokédex architecture, ClickHouse data pipelines, WebSockets, Rust tools, and smart contracts." 
+  eyebrow="Move list / Projects" 
+  heading="Projects & Technical Portfolio" 
+  intro="Complete engineering portfolio by Shivam Mahajan. Spans native Android, distributed data tools, real-time WebSocket apps, AI code validation, and systems utilities."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="/resume/">View Resume</a>
+  <a slot="actions" href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">Visit GitHub Profile ↗</a>
+
+  <section>
+    <h2>Flagship & Case Studies</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="eyebrow">Kotlin / Jetpack Compose</span>
+        <h3><a href="/projects/productivity-caller/">Productivity Caller</a></h3>
+        <p>A native Android reminder application built with Kotlin and Jetpack Compose that uses automated phone calls to ensure urgent tasks are never ignored. Includes a pattern-based natural language parser for entering tasks.</p>
+        <p><a href="/projects/productivity-caller/">Read Case Study →</a> · <a href="https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing" target="_blank" rel="noopener noreferrer">Watch Demo ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">Astro / Web Audio / CI</span>
+        <h3><a href="/projects/sm-dex/">SM'S DEX</a></h3>
+        <p>An open-source Pokédex developer portfolio built with Astro and zero-library Web Audio chiptune synthesis. Features 9 game-inspired device themes and a public community roster automated via GitHub Actions.</p>
+        <p><a href="/projects/sm-dex/">Read Case Study →</a> · <a href="https://github.com/smresponsibilities/smresponsibilities.github.io" target="_blank" rel="noopener noreferrer">View Source ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">Solidity / MERN / Gemini AI</span>
+        <h3>Chaincode</h3>
+        <p>Web3 coding platform that validates code originality using Google Gemini AI with 95%+ accuracy and mints validated solutions as NFTs on blockchain. Placed 3rd out of 200+ competing engineering teams.</p>
+        <p><a href="https://github.com/smresponsibilities/Chain-Code" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">React / WebSockets</span>
+        <h3>QuizDeck</h3>
+        <p>High-concurrency multiplayer quiz engine built with React and WebSockets. Stress-tested to support up to 500 concurrent players with an average response latency of 31 milliseconds.</p>
+        <p><a href="https://github.com/smresponsibilities/QuizDeck" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Data Platforms & Automated Tools</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="eyebrow">TypeScript / ClickHouse / SQL</span>
+        <h3>ClickHouse Data Ingestion Tool</h3>
+        <p>A web-based data engineering tool facilitating bidirectional data pipelines between ClickHouse OLAP databases and flat CSV files with real-time schema mapping and batch export.</p>
+        <p><a href="https://github.com/smresponsibilities/Ingestion-Tool" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">TypeScript / Node.js / ATS Scraping</span>
+        <h3>JobScraper Hourly</h3>
+        <p>Automated crawler delivering hourly email alerts for entry-level and remote software engineering roles pulled directly from company ATS boards without paid proxies or database overhead.</p>
+        <p><a href="https://github.com/smresponsibilities/jobscraper_hourly" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Web Applications, Systems & Algorithms</h2>
+    <div class="grid">
+      <article class="card">
+        <span class="eyebrow">TypeScript / Canvas / Aviation Math</span>
+        <h3>Flight Sun Tracker</h3>
+        <p>A specialized interactive web tool visualizing aircraft flight paths and computing solar elevation relative to passenger seating, enabling travelers to pick shade or direct sunlight.</p>
+        <p><a href="https://github.com/smresponsibilities/flight-sun-tracker" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">Rust / Low-Level OS Hooks</span>
+        <h3>Clickless</h3>
+        <p>Keyboard-driven pointer navigation tool written in Rust. Utilizes an on-screen target grid and keyboard modifier taps for mouseless cursor movement, clicking, and scrolling.</p>
+        <p><a href="https://github.com/smresponsibilities/clickless" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">C / Terminal ANSI</span>
+        <h3>Terminal Wordle</h3>
+        <p>Low-level C recreation of Wordle designed for terminal execution with dictionary parsing, color-coded ANSI character feedback, and algorithmic guess evaluation.</p>
+        <p><a href="https://github.com/smresponsibilities/Wordle" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+
+      <article class="card">
+        <span class="eyebrow">Python / DSA / LeetCode</span>
+        <h3>2002 Days of Code Challenge</h3>
+        <p>Ongoing multi-year algorithmic consistency challenge. Over 1,246+ consecutive days, 2,600+ solved algorithmic problems, and 425+ test suites across Python, Kotlin, and Java.</p>
+        <p><a href="/blog/">Explore Daily Journal →</a> · <a href="https://github.com/smresponsibilities/1001daysofcode" target="_blank" rel="noopener noreferrer">View Repository ↗</a></p>
+      </article>
+    </div>
+  </section>
 </EditorialShell>

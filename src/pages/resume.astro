@@ -1,11 +1,48 @@
 ---
 import EditorialShell from '../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan',
+    jobTitle: 'Software Developer',
+    description: 'Software developer building production data platforms with Python, Kotlin, Kafka, PySpark, and Snowflake.',
+    url: 'https://shivammahajan.com/resume/',
+    sameAs: [
+      'https://github.com/smresponsibilities',
+      'https://www.linkedin.com/in/mahajanshivam/',
+      'https://peerlist.io/shivammahajan',
+      'https://www.producthunt.com/@shivammahajan'
+    ],
+    knowsAbout: [
+      'Python', 'Kotlin', 'Apache Kafka', 'PySpark', 'Snowflake', 'Distributed Systems', 'Data Engineering', 'React', 'Astro', 'Solidity'
+    ],
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Chitkara University'
+    }
+  }
+};
 ---
-<EditorialShell title="Shivam Mahajan Resume / CV | Python, Data Engineer" description="Read Shivam Mahajan's resume and CV. Experience at Morgan Stanley, technical skills (Python, Snowflake, Data Engineering), education, and projects." eyebrow="Trainer record / Resume" heading="Shivam Mahajan's resume / CV" intro="Software developer based in Bengaluru. Works across Python data pipelines, Snowflake, Java APIs, and Kotlin applications.">
+<EditorialShell 
+  title="Shivam Mahajan Resume / CV | Python, Kotlin, Data Engineer" 
+  description="Read Shivam Mahajan's resume and CV. Experience at Morgan Stanley, technical skills (Python, Snowflake, Kafka, PySpark), education, and projects." 
+  eyebrow="Trainer record / Resume" 
+  heading="Shivam Mahajan's resume / CV" 
+  intro="Software developer based in Bengaluru. Works across Python data pipelines, Snowflake, Java APIs, and Kotlin applications."
+  structuredData={structuredData}
+>
   <a slot="actions" href="/resume.pdf" download>Download PDF</a><a slot="actions" href="mailto:shivammahajan.mail@gmail.com">Email Shivam</a>
   <section><h2>Experience</h2><article class="card"><p class="meta">Aug 2025 – Aug 2026</p><h3>Morgan Stanley · Technology Apprentice</h3><p>Worked on a CIAM data warehouse using Kafka, PySpark, and Snowflake. The robust data ingestion system securely processed more than 5 million events with strict zero row-count tolerance to maintain data integrity. Work also included developing resilient Python ETL pipelines and maintaining a high-performance Java API to serve real-time analytics to clients.</p></article></section>
-  <section><h2>Selected projects</h2><div class="grid"><article class="card"><h3><a href="/projects/productivity-caller/">Productivity Caller</a></h3><p>A native Kotlin and Jetpack Compose reminder application that utilizes automated phone calls instead of easily ignored push notifications. Showcases expertise in background services and Android permissions.</p></article><article class="card"><h3><a href="/projects/sm-dex/">SM'S DEX</a></h3><p>An interactive, performant Astro-based portfolio with intricate game-inspired device CSS styling. Incorporates a public GitHub-submitted roster utilizing GitHub Actions for automated pull requests.</p></article></div></section>
+  <section><h2>Selected projects</h2><div class="grid">
+    <article class="card"><h3><a href="/projects/productivity-caller/">Productivity Caller</a></h3><p class="meta">Kotlin / Jetpack Compose</p><p>A native Android reminder application utilizing scheduled phone calls instead of easily ignored push notifications. Demonstrates background service execution and natural language task parsing.</p></article>
+    <article class="card"><h3><a href="/projects/sm-dex/">SM'S DEX</a></h3><p class="meta">Astro / Web Audio / CI/CD</p><p>High-performance developer portfolio with Web Audio chiptune synthesis and automated community roster driven by GitHub Actions and JSON schema validation.</p></article>
+    <article class="card"><h3><a href="https://github.com/smresponsibilities/Ingestion-Tool" target="_blank" rel="noopener noreferrer">ClickHouse Ingestion Tool ↗</a></h3><p class="meta">TypeScript / ClickHouse / SQL</p><p>Bidirectional data engineering tool connecting ClickHouse OLAP databases and CSV flat files with real-time schema mapping and batch export.</p></article>
+    <article class="card"><h3><a href="https://github.com/smresponsibilities/Chain-Code" target="_blank" rel="noopener noreferrer">Chaincode ↗</a></h3><p class="meta">Solidity / MERN / Gemini AI</p><p>Web3 coding platform validating code originality with Google Gemini AI at 95%+ accuracy and minting solutions as NFTs on blockchain. 3rd of 200+ teams.</p></article>
+  </div></section>
   <section><h2>Skills & Technologies</h2><p><strong>Programming Languages:</strong> Python, Kotlin, Java, JavaScript, TypeScript, Solidity<br><strong>Data & Cloud:</strong> Kafka, PySpark, Snowflake, Docker, Cloud Platforms<br><strong>Frontend & Web:</strong> React, Astro, Next.js, HTML5, CSS3</p></section>
   <section><h2>Education</h2><p><strong>Chitkara University</strong><br>Bachelor of Engineering in Computer Science & Engineering<br><em>Aug 2022 – Aug 2026</em><br>Relevant Coursework: Data Structures & Algorithms, Distributed Systems, Database Management Systems, Computer Networks.</p></section>
-  <section><h2>Contact & Links</h2><p><a href="mailto:shivammahajan.mail@gmail.com">Email</a> · <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a></p></section>
+  <section><h2>Contact & Links</h2><p><a href="mailto:shivammahajan.mail@gmail.com">Email</a> · <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://peerlist.io/shivammahajan" target="_blank" rel="noopener noreferrer">Peerlist</a> · <a href="https://www.producthunt.com/@shivammahajan" target="_blank" rel="noopener noreferrer">Product Hunt</a></p></section>
 </EditorialShell>

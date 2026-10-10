@@ -1,10 +1,108 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: "Building an Open-Roster Pokédex Developer Portfolio with Astro",
+  description: "Architecture breakdown of SM'S DEX: an open-source Pokédex developer portfolio featuring Astro islands, Web Audio synthesizers, and automated GitHub CI roster workflows.",
+  author: {
+    '@type': 'Person',
+    name: 'Shivam Mahajan',
+    url: 'https://shivammahajan.com/'
+  },
+  url: 'https://shivammahajan.com/projects/sm-dex/',
+  about: [
+    { '@type': 'Thing', name: 'Software Development Portfolio' },
+    { '@type': 'Thing', name: 'Astro Framework' },
+    { '@type': 'Thing', name: 'Web Audio API' },
+    { '@type': 'Thing', name: 'GitHub Actions Automation' }
+  ]
+};
 ---
-<EditorialShell title="SM'S DEX | Interactive Portfolio by Shivam Mahajan" description="Explore SM'S DEX, Shivam Mahajan's interactive Astro portfolio, accessible device controls, and public roster." eyebrow="Move 002 / Astro" heading="Building SM'S DEX" intro="An interactive portfolio inspired by nine game generations. Visitors can submit a public roster entry through GitHub for review.">
-  <a slot="actions" href="/">Explore devices</a><a slot="actions" href="https://github.com/smresponsibilities/smresponsibilities.github.io">View source</a>
-  <section><h2>Why this interface</h2><p>The device format gives each generation a distinct way to explore the same portfolio. The readable view keeps the content accessible when the device presentation is inconvenient. This dual-view approach ensures that visually engaging experiences do not compromise foundational accessibility, keyboard navigation, or screen reader support.</p></section>
-  <section><h2>Device controls</h2><p>Visitors can switch generations, open or close the device, turn its screen off, and choose a readable view. Sound starts off by default to respect visitor environments. Reduced-motion system preferences are strictly respected across all animations and transitions.</p></section>
-  <section><h2>Public roster</h2><p>The Add Pokémon form opens a prefilled GitHub issue using custom templates. A continuous integration workflow then rigorously validates the submission against JSON schema constraints and creates a pull request for review before the entry officially joins the dynamic site roster.</p></section>
-  <section><h2>Tradeoffs and Architecture</h2><p>Animated interactive devices take more effort to navigate than a plain document. The site therefore includes an HTML <a href="/resume/">resume</a> and direct links to project evidence for quick scanning. The frontend is built entirely using Astro and semantic HTML/CSS without relying on heavy client-side UI frameworks.</p></section>
+
+<EditorialShell 
+  title="Pokédex Developer Portfolio: Architecture & Open Roster | Shivam Mahajan" 
+  description="Technical breakdown of SM'S DEX, an open-source Pokédex developer portfolio built with Astro, custom Web Audio synthesizers, and automated GitHub Actions roster workflows." 
+  eyebrow="Move 002 / Case Study" 
+  heading="Building an Open-Roster Pokédex Developer Portfolio" 
+  intro="How SM'S DEX avoids standard PokeAPI tutorial cliches: combining Astro islands, a zero-library Web Audio chiptune synthesizer, and an open roster powered by automated GitHub CI pull requests."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="/">Launch Pokédex Device</a>
+  <a slot="actions" href="https://github.com/smresponsibilities/smresponsibilities.github.io" target="_blank" rel="noopener noreferrer">View GitHub Source ↗</a>
+  <a slot="actions" href="https://www.producthunt.com/products/sm-s-dex/launches" target="_blank" rel="noopener noreferrer">Product Hunt Launch ↗</a>
+
+  <section>
+    <h2>The Problem with Standard PokeAPI Portfolio Projects</h2>
+    <p>A Pokédex is one of the most common projects developers build when learning frontend engineering. Hundreds of junior portfolios feature the exact same pattern: fetch 151 entries from the public PokeAPI, render static cards in a React grid, and attach a debounced search input.</p>
+    <p>While effective for understanding basic asynchronous HTTP calls and component state, standard Pokédex clones fail to impress technical recruiters and engineering managers for three critical reasons:</p>
+    <ul>
+      <li><strong>Zero architectural differentiation:</strong> Most rely on bloated client-side single-page application (SPA) bundles that deliver poor Core Web Vitals, empty initial HTML shells, and sluggish mobile performance.</li>
+      <li><strong>Passive consumption:</strong> Visitors browse static, pre-packaged data without any opportunity for real interaction, personal customization, or collaborative community contribution.</li>
+      <li><strong>No production systems integration:</strong> They demonstrate isolated UI components without integrating backend CI/CD pipelines, automated testing, or schema-driven data validation.</li>
+    </ul>
+    <p>SM'S DEX was built to invert this dynamic: treating the Pokédex theme not as a superficial skin, but as a robust platform demonstrating production-grade software engineering, strict accessibility compliance, and community participation.</p>
+  </section>
+
+  <section>
+    <h2>System Architecture: Astro Islands & Semantic Performance</h2>
+    <p>Rather than shipping a heavy client-side JavaScript runtime, SM'S DEX is built on <strong>Astro</strong> with zero default client runtime overhead. Every page renders to pure, semantic HTML and CSS during the static build step, guaranteeing instant Largest Contentful Paint (LCP) and zero layout shift across devices.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Dual-View Responsive Engine</h3>
+        <p>The site offers both an authentic game-inspired handheld device presentation and an instant readable document view. Visitors on smaller screens or using assistive technology get clean semantic markup without forced horizontal scrollbars or spatial disorientation.</p>
+      </article>
+      <article class="card">
+        <h3>Design System Tokens</h3>
+        <p>Color styling dynamically adapts across nine distinct Pokémon generations using strict CSS custom properties. Each Pokémon entry drives contextual primary and secondary accents without runtime CSS-in-JS computation.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Native Web Audio Engine: Pure Browser Chiptunes</h2>
+    <p>Audio in retro-themed applications is frequently handled through external sound libraries or large MP3 audio files that inflate network bandwidth and trigger harsh mobile autoplay violations.</p>
+    <p>SM'S DEX uses a custom-built sound synthesizer written directly with the browser's native <strong>Web Audio API</strong>:</p>
+    <ul>
+      <li><strong>Zero sound assets:</strong> 8-bit retro sound frequencies, square waves, and noise bursts are synthesized mathematically on the fly in real-time.</li>
+      <li><strong>Strict no-autoplay enforcement:</strong> Audio remains completely silent until explicit user interaction, fully honoring browser security policies and user consent.</li>
+      <li><strong>Motion and sensory respect:</strong> The system actively queries <code>prefers-reduced-motion</code> to disable flashing screen animations and visual shake effects.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The Open Roster: Turning GitHub Issues into Production PRs</h2>
+    <p>The standout feature of SM'S DEX is its public community roster. Anyone can become an entry on the site simply by submitting a formatted GitHub issue.</p>
+    <p>The entire onboarding pipeline is fully automated without requiring a separate database or server runtime:</p>
+    <ol>
+      <li><strong>Prefilled Form Templates:</strong> Visitors click "Add Pokémon" to open a GitHub issue with structured form inputs for sprite choice, typing, stats, moves, and flavor text.</li>
+      <li><strong>Automated CI Validation:</strong> A GitHub Actions workflow intercepts new issue submissions and validates every parameter against strict JSON Schema definitions (preventing invalid types, malicious inputs, or stat overflow).</li>
+      <li><strong>Automated Pull Request Creation:</strong> Once validated, the automation generates a clean Git branch and opens a Pull Request updating the site's data records.</li>
+      <li><strong>Production Build & Deploy:</strong> Upon maintainer merge, GitHub Pages builds and redeploys the site with the new Pokémon entry live on the roster.</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Comparison: SM'S DEX vs Typical Developer Clones</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Standard PokeAPI Clone</h3>
+        <p class="meta">Generic Tutorial Pattern</p>
+        <p>Heavy client-side React/Vue bundle. Static PokeAPI mirror. Unstyled mobile layouts. Audio absent or loud uncompressed MP3s. No automated testing or community contribution.</p>
+      </article>
+      <article class="card">
+        <h3>SM'S DEX Architecture</h3>
+        <p class="meta">Engineered Production System</p>
+        <p>Zero-JS default Astro architecture. Automated GitHub CI/CD roster pipeline. Synthesized Web Audio engine. 425+ automated test suites. Strict accessibility and reduced-motion standards.</p>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Join the Roster & Technical Evidence</h2>
+    <p>Explore the live interactive application or submit your own custom developer entry to the roster:</p>
+    <p><a href="/">Visit the Interactive Pokédex →</a> · <a href="/resume/">View Shivam's Engineering Resume →</a> · <a href="https://github.com/smresponsibilities/smresponsibilities.github.io" target="_blank" rel="noopener noreferrer">Inspect GitHub Architecture ↗</a></p>
+  </section>
 </EditorialShell>
+
