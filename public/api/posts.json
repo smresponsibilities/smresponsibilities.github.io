@@ -16099,5 +16099,18 @@
         "title": "Minimum Insertions to Balance a Parentheses String"
       }
     ]
+  },
+  {
+    "day": 1247,
+    "date": "2026-10-10",
+    "content": "#day1247 of #2002daysofcode\n\nLeetcode:\n2333. Minimum Sum of Squared Difference\n\n#2002DaysOfCode #100DaysOfCode #1001DaysOfCode #Dsa #Python #Java #Coding #GeeksForGeeks #Notion #Programming #Daily #Cpp #Learning #Leetcode #Codeforces",
+    "url": "https://lnkd.in/p/gPH4aYqN",
+    "easterEgg": "Where did Day 1247 go? Skipped to align challenge count!",
+    "questions": [
+      {
+        "number": 2333,
+        "title": "Minimum Sum of Squared Difference"
+      }
+    ]
   }
 ]
