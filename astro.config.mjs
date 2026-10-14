@@ -15,6 +15,7 @@ export default defineConfig({
         if (page.includes('/timelines')) return false;
         if (page.includes('/casing-proto')) return false;
         if (page.includes('/generation-device')) return false;
+        if (page.includes('/productivity-caller-simulator')) return false;
         return true;
       },
     }),

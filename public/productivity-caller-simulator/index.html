@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Productivity Caller vs Traditional Reminder Apps (TickTick, Todoist, Google Tasks)</title>
+<meta name="description" content="Compare Android call-based task reminders with TickTick, Todoist and Google Tasks. Try an interactive simulator and explore offline use, parsing and technical specs.">
+<link rel="canonical" href="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/">
+<meta name="author" content="Shivam Mahajan">
+<meta property="og:title" content="Productivity Caller vs Traditional Reminder Apps">
+<meta property="og:description" content="Compare Android phone call reminders vs push notification blindness. Built by Shivam Mahajan.">
+<meta property="og:url" content="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/">
+<style>
+:root {
+  --bg: #e9eddd;
+  --paper: #fcf7e9;
+  --ink: #313b30;
+  --muted: #6d725e;
+  --line: #dfdfca;
+  --green: #526b47;
+  --green-shadow: #354c2d;
+  --sage: #e8edd8;
+  --yellow: #f4d378;
+  --bad: #c84236;
+  --call-bg: #101419;
+  box-sizing: border-box;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 Inter, system-ui, -apple-system, sans-serif;
+}
+
+main { max-width: 1140px; margin: 0 auto; padding: 32px 20px 64px; }
+
+h1 {
+  font: normal clamp(32px, 4.5vw, 48px)/1.08 Georgia, serif;
+  letter-spacing: -1.5px;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+h2 {
+  font: normal 25px/1.2 Georgia, serif;
+  letter-spacing: -0.6px;
+  margin: 0 0 10px;
+}
+p.lead {
+  font-size: 17.5px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 66ch;
+  margin: 0 0 20px;
+}
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 16px;
+  max-width: 62ch;
+}
+
+a.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: #fffdf0;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 3px 0 var(--green-shadow);
+  transition: transform 0.12s;
+}
+a.cta:hover { transform: translateY(-1px); }
+
+.top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.top-tag { font-size: 12px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
+
+nav.anchors { display: flex; flex-wrap: wrap; gap: 14px 22px; margin: 18px 0 22px; }
+nav.anchors a { color: var(--green); text-decoration: none; font-weight: 600; font-size: 14px; }
+nav.anchors a:hover { text-decoration: underline; }
+
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0 26px; }
+.badges span {
+  background: var(--sage);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+}
+
+.section-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+  display: block;
+}
+
+/* TOP SPLIT: THE CORE PROBLEM & THE SIMULATOR SIDE-BY-SIDE */
+.top-side-by-side {
+  display: grid;
+  grid-template-columns: minmax(320px, 400px) minmax(0, 1fr);
+  gap: 36px;
+  align-items: start;
+  margin: 28px 0 48px;
+}
+@media (max-width: 990px) {
+  .top-side-by-side {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
+
+.core-problem-col {
+  display: flex;
+  flex-direction: column;
+}
+.core-problem-col h2 {
+  font-size: 28px;
+  line-height: 1.15;
+  margin: 6px 0 12px;
+}
+.prob-lead {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 12px;
+}
+.prob-body {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin: 0 0 16px;
+}
+
+/* Prominent Prompt Box */
+.sim-prompt-box {
+  background: var(--paper);
+  border: 1.5px solid var(--green);
+  border-radius: 14px;
+  padding: 16px 18px;
+  margin: 8px 0 18px;
+  box-shadow: 0 4px 16px rgba(82, 107, 71, 0.1);
+}
+.prompt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--green);
+  color: #fffdf0;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+}
+.sim-prompt-box p {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.sim-prompt-box em {
+  font-style: normal;
+  font-weight: 700;
+  color: var(--green);
+}
+
+.note {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--green);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin: 6px 0;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+/* Simulator Column */
+.simulator-col {
+  background: rgba(252, 247, 233, 0.6);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 22px 20px 24px;
+  box-shadow: 0 6px 22px rgba(49, 59, 48, 0.04);
+}
+.sim-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+}
+.sim-top-header h3 {
+  font: normal 23px/1.2 Georgia, serif;
+  margin: 4px 0 0;
+  color: var(--ink);
+}
+.sim-top-desc {
+  font-size: 13.5px;
+  color: var(--muted);
+  margin: 4px 0 14px;
+}
+
+/* Simulator Grid */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0 16px; }
+.chip {
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] {
+  background: var(--green);
+  color: #fffdf0;
+  border-color: var(--green);
+  box-shadow: 0 2px 0 var(--green-shadow);
+}
+
+.sim-grid {
+  display: grid;
+  grid-template-columns: 290px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 680px) {
+  .sim-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Phone Mockup Frame */
+.phone {
+  width: 100%;
+  max-width: 290px;
+  height: 560px;
+  margin: 0 auto;
+  border: 9px solid #232a22;
+  border-radius: 38px;
+  background: #141913;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 18px 44px rgba(35, 42, 34, 0.28);
+}
+
+/* Native Android Status Bar */
+.phone-status-bar, .call-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.9;
+  padding: 8px 12px 0;
+  letter-spacing: -0.2px;
+  z-index: 5;
+}
+.status-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+}
+.status-net {
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.4px;
+}
+.status-battery {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.battery-pct {
+  font-size: 11px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.status-icon, .battery-icon {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* Lockscreen Header */
+.phone-lock {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 20%, #202b1f 0%, #0d120d 100%);
+  display: flex;
+  flex-direction: column;
+}
+.phone-lock .time {
+  text-align: center;
+  padding-top: 44px;
+  font-size: 54px;
+  font-weight: 200;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.phone-lock .date {
+  text-align: center;
+  font-size: 13.5px;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+
+/* Push Notification Banner (TickTick / Todoist / Google Tasks) */
+.banner {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: -140px;
+  background: rgba(255, 255, 255, 0.96);
+  color: #111;
+  border-radius: 18px;
+  padding: 12px 14px;
+  font-size: 13px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.4);
+  transition: top 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  z-index: 10;
+}
+.banner.show { top: 115px; }
+.banner .b-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; }
+.banner .b-app { font-weight: 700; font-size: 12px; color: #333; }
+.banner .b-time { font-size: 11px; opacity: 0.6; }
+.banner .b-text { font-weight: 600; font-size: 13px; color: #111; line-height: 1.35; }
+.banner .b-sub { font-size: 11.5px; opacity: 0.75; margin-top: 2px; }
+
+/* 1-to-1 DEFAULT Native Android Incoming Call Screen */
+.call-screen {
+  position: absolute;
+  inset: 0;
+  background: var(--call-bg);
+  color: #fff;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6px 14px 24px;
+  z-index: 20;
+}
+.call-screen.show { display: flex; }
+
+.call-header { text-align: center; margin-top: 6px; }
+.call-header small {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--yellow);
+  font-weight: 600;
+}
+
+/* Default Android Caller Contact Avatar */
+.call-mid { text-align: center; margin: auto 0; }
+.default-avatar-wrap {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 12px;
+}
+.default-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: #f4d378;
+  color: #313b30;
+  display: grid;
+  place-items: center;
+  font-size: 30px;
+  font-weight: 700;
+  font-family: Georgia, serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  position: relative;
+  z-index: 2;
+}
+.call-ring-wave {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--yellow);
+  opacity: 0;
+  pointer-events: none;
+}
+.call-screen.ringing .call-ring-wave { animation: callPulse 1.8s infinite ease-out; }
+.call-screen.ringing .call-ring-wave:nth-child(2) { animation-delay: 0.6s; }
+
+@keyframes callPulse {
+  0% { transform: scale(0.9); opacity: 0.85; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+.caller-name { font-size: 22px; font-weight: 400; line-height: 1.2; }
+.caller-sub { font-size: 12.5px; opacity: 0.75; margin-top: 3px; }
+.caller-task-pill {
+  font-size: 12px;
+  margin: 12px auto 0;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Android Native Call Action Buttons */
+.call-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.call-btn-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  opacity: 0.9;
+  font-weight: 600;
+}
+.call-circle-btn {
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s;
+}
+.call-circle-btn:hover { transform: scale(1.08); }
+.call-circle-btn svg { width: 25px; height: 25px; fill: #fff; }
+.call-circle-btn.decline { background: var(--bad); }
+.call-circle-btn.decline svg { transform: rotate(135deg); }
+.call-circle-btn.answer { background: #3da849; }
+.call-screen.ringing .call-circle-btn.answer { animation: wiggleAnswer 0.8s infinite ease-in-out; }
+
+@keyframes wiggleAnswer {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-7deg) scale(1.06); }
+  75% { transform: rotate(7deg) scale(1.06); }
+}
+
+/* AFTER CALL: AUTHENTIC SUNROOM CAT COMPANION VIEW */
+.after-call-screen {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  color: var(--ink);
+  display: none;
+  flex-direction: column;
+  z-index: 25;
+  overflow: hidden;
+  animation: fadeInSunroom 0.35s ease;
+}
+.after-call-screen.show { display: flex; }
+
+@keyframes fadeInSunroom {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.sunroom-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px 8px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  z-index: 5;
+}
+.sunroom-brand {
+  font: bold italic 18px Georgia, serif;
+  letter-spacing: -0.8px;
+  color: var(--ink);
+}
+.sunroom-brand span {
+  font-style: normal;
+  color: #b3973e;
+  font-size: 15px;
+  margin-left: 4px;
+}
+.sunroom-day {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+/* Sunroom Scene with Cat Sprite Asset */
+.sunroom-scene {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #d8e8c8;
+  overflow: hidden;
+}
+.sunroom-window {
+  position: absolute;
+  right: 12px;
+  top: 10px;
+  width: 140px;
+  height: 140px;
+  background: #d9e9ed;
+  border: 5px solid #fffbf3;
+  border-bottom-width: 8px;
+  border-radius: 70px 70px 2px 2px;
+  box-shadow: 2px 2px 0 rgba(195, 182, 211, 0.25);
+}
+.sunroom-window:before {
+  content: ''; position: absolute; top: 0; bottom: 0; left: 49%; width: 4px; background: #fffbf3;
+}
+.sunroom-window:after {
+  content: ''; position: absolute; top: 48%; left: 0; right: 0; height: 4px; background: #fffbf3;
+}
+.sunroom-sun {
+  position: absolute;
+  top: 12px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  background: #fff0ad;
+  border-radius: 50%;
+}
+
+/* Cat Sprite Button & Asset */
+.cat-target-btn {
+  position: absolute;
+  right: 8px;
+  bottom: 0;
+  width: 185px;
+  height: 185px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+.cat-sprite {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/cat-states.png');
+  background-size: 200% 200%;
+  background-position: 0 0;
+  pointer-events: none;
+  transition: transform 0.12s;
+}
+.cat-sprite.blink { background-position: 100% 0; }
+.cat-sprite.look { background-position: 0 100%; }
+.cat-sprite.ack { background-position: 100% 100%; }
+
+/* Sunroom Speech Bubble */
+.sunroom-speech {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  max-width: 125px;
+  padding: 9px 11px;
+  background: #fffaf0;
+  color: #45523d;
+  border-radius: 14px 14px 3px 14px;
+  font-size: 11px;
+  line-height: 1.4;
+  box-shadow: 0 3px 0 rgba(174, 171, 140, 0.18);
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 0.2s, transform 0.2s;
+  pointer-events: none;
+  z-index: 6;
+  font-weight: 500;
+}
+.sunroom-speech.show {
+  opacity: 1;
+  transform: none;
+}
+
+.scene-note {
+  position: absolute;
+  left: 12px;
+  bottom: 12px;
+  font-size: 9.5px;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  font-style: italic;
+  font-family: Georgia, serif;
+}
+
+/* After-Call Task Card */
+.after-call-body {
+  padding: 14px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.ack-task-card {
+  background: #fffdf6;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 6px rgba(49, 59, 48, 0.04);
+}
+.ack-check-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #e3ebd4;
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+.ack-check-circle svg { width: 17px; height: 17px; stroke: currentColor; stroke-width: 2.2; fill: none; }
+.ack-info strong { display: block; font-size: 13.5px; font-weight: 600; color: var(--ink); }
+.ack-info small { font-size: 11px; color: var(--muted); }
+
+.sunroom-reset-btn {
+  background: var(--green);
+  color: #fffdf0;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 12.5px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 2px 0 var(--green-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+}
+.sunroom-reset-btn:hover { filter: brightness(1.05); }
+
+/* Control Panel */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 18px;
+  box-shadow: 0 4px 18px rgba(49, 59, 48, 0.05);
+}
+.panel .task-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 4px;
+}
+.panel .task-title {
+  font-size: 16.5px;
+  font-weight: 700;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+button.act {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 9px 16px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-size: 13.5px;
+}
+button.act:hover { border-color: var(--ink); }
+button.act.primary {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fffdf0;
+  box-shadow: 0 2px 0 var(--green-shadow);
+}
+button.act.danger { background: var(--bad); border-color: var(--bad); color: #fff; }
+button.act:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.log {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 0;
+  font-size: 13.5px;
+  max-height: 200px;
+  overflow: auto;
+  border-top: 1px solid var(--line);
+}
+.log li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.log time { font-family: monospace; color: var(--muted); font-size: 11.5px; }
+
+.verdict {
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 13.5px;
+  display: none;
+}
+.verdict.show { display: block; }
+.verdict.good { background: rgba(82, 107, 71, 0.15); color: var(--green); }
+.verdict.bad { background: rgba(200, 66, 54, 0.15); color: var(--bad); }
+.verdict.warn { background: rgba(244, 211, 120, 0.3); color: #8a6a12; }
+
+/* Comparison Table */
+.scroll {
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  margin-top: 16px;
+}
+table { border-collapse: collapse; width: 100%; min-width: 660px; }
+th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+th { font-weight: 700; }
+th.pc, td.pc { background: rgba(244, 211, 120, 0.2); }
+tr.hl td, tr.hl th { background: rgba(244, 211, 120, 0.15); }
+tr.dim { opacity: 0.55; }
+
+/* Metrics Grid */
+.specs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+.spec-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+.spec-box .val {
+  font: normal 26px Georgia, serif;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.spec-box .lbl {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+details {
+  border-bottom: 1px solid var(--line);
+  padding: 14px 0;
+}
+details summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--ink);
+}
+details p { margin: 10px 0 0; color: var(--muted); font-size: 13.5px; }
+
+footer {
+  margin-top: 50px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+footer a { color: var(--green); text-decoration: none; font-weight: 600; }
+footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top-bar">
+    <div class="top-tag">Interactive Comparison &amp; Simulator</div>
+  </div>
+
+  <h1>Productivity Caller vs Traditional Reminder Apps (TickTick, Todoist, Google Tasks)</h1>
+  <p class="lead">Push notifications get swiped away alongside spam. Productivity Caller makes your phone ring with a real incoming call on the native Android call screen, using the OS Telecom framework. Everything runs locally on your device: no cloud, no account, no AI service.</p>
+
+  <a class="cta" href="https://shivammahajan.com/projects/productivity-caller/" target="_blank" rel="noopener">See Official Case Study &rarr;</a>
+
+  <nav class="anchors" aria-label="On this page">
+    <a href="#problem">The Core Problem &amp; Simulator</a>
+    <a href="#comparison">Feature Matrix</a>
+    <a href="#technical">Technical Specs</a>
+    <a href="#author">Author &amp; Sources</a>
+  </nav>
+
+  <div class="badges">
+    <span>Real Android Call</span>
+    <span>100% Local</span>
+    <span>Zero Cloud</span>
+    <span>Offline-First</span>
+    <span>Android Telecom API</span>
+  </div>
+
+  <!-- TOP SECTION: THE CORE PROBLEM & INTERACTIVE SIMULATOR SIDE-BY-SIDE -->
+  <div class="top-side-by-side">
+    <!-- Left Column: The Problem & Prompt -->
+    <div class="core-problem-col">
+      <span class="section-tag">The Core Problem</span>
+      <h2 id="problem">Notification Blindness</h2>
+      <p class="prob-lead">Task reminders compete with email, chat pings and spam. A push banner gets swiped away in half a second, and the task is forgotten.</p>
+      <p class="prob-body">Productivity Caller uses the native Android Telecom API (<code>ConnectionService</code> and <code>TelecomManager.addNewIncomingCall()</code>) to make your phone ring with a real full-screen incoming call locally. The call requires answering or declining—breaking through banner numbness.</p>
+
+      <!-- Prominent User Prompt to use the simulator -->
+      <div class="sim-prompt-box">
+        <div class="prompt-badge">👉 Test It Live</div>
+        <p><strong>Experience the difference:</strong> Pick an app on the right and tap <em>Fire reminder</em> to see how phone calls cut through push notification blindness.</p>
+      </div>
+
+      <aside class="note">
+        <strong>100% On-Device Telecom:</strong> Calls are registered locally via <code>TelecomManager.addNewIncomingCall()</code>. No cellular carrier charges, zero cloud latency.
+      </aside>
+    </div>
+
+    <!-- Right Column: Interactive Simulator -->
+    <div class="simulator-col" id="simulator">
+      <div class="sim-top-header">
+        <div>
+          <span class="section-tag">Interactive Simulator</span>
+          <h3>Try the Reminder Simulator</h3>
+        </div>
+      </div>
+      <p class="sim-top-desc">Select an app below, fire the reminder, and test your reaction:</p>
+
+      <div class="chips" id="apps" role="group" aria-label="Select app to test"></div>
+
+      <div class="sim-grid">
+        <!-- Simulated Phone Frame -->
+        <div class="phone" id="phone" aria-hidden="true">
+          <!-- 1. Lockscreen Base -->
+          <div class="phone-lock">
+            <div class="phone-status-bar">
+              <span>4:58</span>
+              <div class="status-right">
+                <span class="status-net">5G</span>
+                <svg class="status-icon" viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
+                  <path d="M1 14h13V1L1 14z"/>
+                </svg>
+                <div class="status-battery">
+                  <span class="battery-pct">82%</span>
+                  <svg class="battery-icon" viewBox="0 0 22 11" width="20" height="10">
+                    <rect x="0.75" y="0.75" width="18" height="9.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="2.5" y="2.5" width="12" height="6" rx="1.2" fill="currentColor"/>
+                    <path d="M20 3.75C20.6 4.1 21 4.7 21 5.5C21 6.3 20.6 6.9 20 7.25V3.75Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+            <div class="time">4:58</div>
+            <div class="date">Wednesday, Sep 21</div>
+          </div>
+
+          <!-- 2. Push Notification Banner (Competitors) -->
+          <div class="banner" id="banner">
+            <div class="b-head">
+              <span class="b-app" id="bApp">TickTick</span>
+              <span class="b-time">Just now</span>
+            </div>
+            <div class="b-text" id="bText">Reminder: Send invoice to client</div>
+            <div class="b-sub">Due at 5:00 PM · High priority</div>
+          </div>
+
+          <!-- 3. Default Native Android Call Screen (1-to-1) -->
+          <div class="call-screen" id="callScreen">
+            <div class="call-top-bar">
+              <span>4:58</span>
+              <div class="status-right">
+                <span class="status-net">5G</span>
+                <svg class="status-icon" viewBox="0 0 16 16" width="13" height="13" fill="currentColor">
+                  <path d="M1 14h13V1L1 14z"/>
+                </svg>
+                <div class="status-battery">
+                  <span class="battery-pct">82%</span>
+                  <svg class="battery-icon" viewBox="0 0 22 11" width="20" height="10">
+                    <rect x="0.75" y="0.75" width="18" height="9.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="2.5" y="2.5" width="12" height="6" rx="1.2" fill="currentColor"/>
+                    <path d="M20 3.75C20.6 4.1 21 4.7 21 5.5C21 6.3 20.6 6.9 20 7.25V3.75Z" fill="currentColor"/>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <div class="call-header">
+              <small id="callSub">Incoming call...</small>
+            </div>
+
+            <div class="call-mid">
+              <div class="default-avatar-wrap">
+                <div class="call-ring-wave"></div>
+                <div class="call-ring-wave"></div>
+                <div class="default-avatar">PC</div>
+              </div>
+              <div class="caller-name">Productivity Caller</div>
+              <div class="caller-sub">Incoming call · High priority</div>
+              <div class="caller-task-pill">Send invoice to client (due 5:00 PM)</div>
+            </div>
+
+            <div class="call-actions">
+              <div class="call-btn-wrap">
+                <button type="button" class="call-circle-btn decline" id="btnDec" aria-label="Decline">
+                  <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </button>
+                <span>Decline</span>
+              </div>
+
+              <div class="call-btn-wrap">
+                <button type="button" class="call-circle-btn answer" id="btnAns" aria-label="Answer">
+                  <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                </button>
+                <span>Answer</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. Sunroom Cat Mascot Companion Screen (After Call is Answered) -->
+          <div class="after-call-screen" id="afterCallScreen">
+            <div class="sunroom-header">
+              <div class="sunroom-brand">cat caller<span>✳</span></div>
+              <div class="sunroom-day">Wednesday, 5:00 PM</div>
+            </div>
+
+            <div class="sunroom-scene">
+              <div class="sunroom-window">
+                <div class="sunroom-sun"></div>
+              </div>
+              <div class="sunroom-speech" id="catSpeech">Yes, I'm on it.</div>
+              <button type="button" class="cat-target-btn" id="catBtn" aria-label="Tap cat companion">
+                <span class="cat-sprite" id="catSprite"></span>
+              </button>
+              <span class="scene-note">Tap cat to interact</span>
+            </div>
+
+            <div class="after-call-body">
+              <div class="ack-task-card">
+                <div class="ack-check-circle">
+                  <svg viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>
+                </div>
+                <div class="ack-info">
+                  <strong>Send invoice to client</strong>
+                  <small>5:00 PM · Call acknowledged</small>
+                </div>
+              </div>
+
+              <button type="button" class="sunroom-reset-btn" id="btnRestart">
+                <span>&#8634;</span> Test Another Reminder
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulator Control Panel -->
+        <div class="panel">
+          <div class="task-label">Active Scenario</div>
+          <div class="task-title">Task: Send invoice to client (Due 5:00 PM)</div>
+          <div class="btns" id="ctrl"></div>
+          <div class="verdict" id="verdict" aria-live="polite"></div>
+          <ul class="log" id="log" aria-live="polite"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h2 id="comparison">Feature Comparison Matrix</h2>
+  <p class="sub">Select a priority to highlight relevant rows. Capabilities are based on architectural specifications and published platform documentation.</p>
+  <div class="chips" id="prefs" role="group" aria-label="Filter feature comparison"></div>
+
+  <div class="scroll" role="region" aria-label="Feature comparison matrix" tabindex="0">
+    <table id="tbl"></table>
+  </div>
+
+  <h2 id="technical">Under the Hood &amp; Technical Metrics</h2>
+  <p class="sub">Author-supplied implementation snapshot. Everything runs locally on device without cloud servers.</p>
+
+  <div class="specs-grid">
+    <div class="spec-box"><div class="val">25,310</div><div class="lbl">Lines of 100% Kotlin · 76 files · 2 modules</div></div>
+    <div class="spec-box"><div class="val">101</div><div class="lbl">Jetpack Compose functions</div></div>
+    <div class="spec-box"><div class="val">425+</div><div class="lbl">Unit &amp; integration tests across 15 files</div></div>
+    <div class="spec-box"><div class="val">&lt;3 ms</div><div class="lbl">Deterministic regex NLP parse latency</div></div>
+  </div>
+
+  <details>
+    <summary>See parsing examples and scheduling architecture</summary>
+    <p>Quick add parsing examples: "Call dentist tomorrow at 4:30 pm", "Review PR in 45m", "#work call mum !!!". Parsing runs strictly on-device through 55 compiled regex patterns without cloud AI roundtrips.</p>
+    <p>Exact alarms support scheduled reminders when Android grants alarms permission. Reboot receivers automatically reschedule pending alarms via Room DB persistence.</p>
+  </details>
+
+  <h2 id="author">Canonical Source &amp; Author Credit</h2>
+  <p class="sub">Created by <strong><a href="https://shivammahajan.com/">Shivam Mahajan</a></strong>, Software Engineer.</p>
+  <ul style="line-height:1.8; color:var(--muted); font-size:14px;">
+    <li><a href="https://shivammahajan.com/projects/productivity-caller/" style="color:var(--green); font-weight:600;">Official Case Study</a></li>
+    <li><a href="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/" style="color:var(--green); font-weight:600;">Interactive Alternatives Matrix</a></li>
+    <li><a href="https://github.com/smresponsibilities/productivity-caller-simulator" style="color:var(--green); font-weight:600;">Simulator Source Repository</a></li>
+  </ul>
+
+  <footer>
+    <p>Independent comparison by the Productivity Caller creator. Simulator behavior is illustrative. Other apps may offer custom recurring alerts. Acknowledging a call registers that you responded to the prompt.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var APPS = [
+    {id:"pc", n:"Productivity Caller"},
+    {id:"tt", n:"TickTick"},
+    {id:"td", n:"Todoist"},
+    {id:"gt", n:"Google Tasks"}
+  ];
+
+  var ROWS = [
+    {k:'alert', l:'Alert Type', v:['Incoming phone call via Android Telecom', 'Push banner; additional reminder modes available', 'Push banner', 'Push banner'], g:'call'},
+    {k:'wake', l:'Lockscreen Wake', v:['Call / full-screen presentation when permitted', 'Notification / alert settings dependent', 'Notification settings dependent', 'Notification settings dependent'], g:'call'},
+    {k:'offline', l:'100% Offline / No Account', v:['Yes, author-reported; local storage and parsing', 'Offline use available; account-free scope varies', 'Offline use with a Todoist account', 'Google account required'], g:'priv'},
+    {k:'nlp', l:'Natural Language Parsing (80+ Regex Patterns)', v:['Reported 80+ forms; 55 compiled regex patterns', 'Natural-language date input', 'Natural-language date input', 'No comparable free-text date parser'], g:'fast'},
+    {k:'cost', l:'Subscription Cost', v:['Current pricing: see official case study', 'Free tier; optional Premium subscription', 'Free tier; optional paid subscriptions', 'Free with Google account'], g:'cost'},
+    {k:'org', l:'Best-fit workflow', v:['Android call-based task reminders', 'Tasks, habits and planning', 'Projects and collaborative task management', 'Simple tasks within Google tools'], g:'org'}
+  ];
+
+  var PREFS = [
+    {g:"call", l:"Call-based reminders"},
+    {g:"priv", l:"Privacy & offline-first"},
+    {g:"fast", l:"Fast capture"},
+    {g:"org", l:"Deep organization"}
+  ];
+
+  var cur = "pc", timers = [], attempts = 0, t0 = 0, active = {}, catTaps = 0, speechTimer, poseTimer;
+  var $ = function(id) { return document.getElementById(id); };
+
+  /* Robust Asset URL Fallback for Remote / Standalone Pages */
+  var testImg = new Image();
+  testImg.onerror = function() {
+    var sprite = $("catSprite");
+    if (sprite) {
+      sprite.style.backgroundImage = "url('https://shivammahajan.com/productivity-caller-simulator/assets/cat-states.png')";
+    }
+  };
+  testImg.src = "assets/cat-states.png";
+
+  function clr() { timers.forEach(clearTimeout); timers = []; }
+  function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
+
+  function log(msg) {
+    var li = document.createElement("li"), t = document.createElement("time");
+    var elapsed = Math.round((Date.now() - t0) / 1000);
+    t.textContent = "+" + elapsed + "s";
+    li.appendChild(t);
+    li.appendChild(document.createTextNode(msg));
+    var list = $("log");
+    list.insertBefore(li, list.firstChild);
+  }
+
+  function btn(label, fn, pri, danger) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "act" + (pri ? " primary" : "") + (danger ? " danger" : "");
+    b.textContent = label;
+    b.onclick = fn;
+    return b;
+  }
+
+  function setCtrl(list) {
+    var c = $("ctrl");
+    c.textContent = "";
+    list.forEach(function(x) {
+      c.appendChild(btn(x[0], x[1], x[2], x[3]));
+    });
+  }
+
+  function name() {
+    return APPS.filter(function(a) { return a.id === cur; })[0].n;
+  }
+
+  function reset() {
+    clr();
+    attempts = 0;
+    $("log").textContent = "";
+    $("verdict").textContent = "";
+    $("verdict").className = "verdict";
+    $("banner").classList.remove("show");
+    $("callScreen").classList.remove("show", "ringing");
+    $("afterCallScreen").classList.remove("show");
+    setCtrl([["Fire reminder", start, true]]);
+  }
+
+  function start() {
+    clr();
+    attempts = 0;
+    t0 = Date.now();
+    $("log").textContent = "";
+    $("verdict").textContent = "";
+    $("verdict").className = "verdict";
+    $("afterCallScreen").classList.remove("show");
+    if (cur === "pc") {
+      ring();
+    } else {
+      push();
+    }
+  }
+
+  /* Push Notification Flow for Competitors */
+  function push() {
+    $("bApp").textContent = name();
+    $("bText").textContent = "Reminder: Send invoice to client";
+    $("banner").classList.add("show");
+    log(name() + " sends a push notification banner.");
+
+    setCtrl([
+      ["Open task", function() { end("Opened immediately. You saw it because you were looking at your phone.", "good", true); }, true],
+      ["Swipe away", function() { end("Notification swiped away. The task is still uncompleted, but out of sight.", "bad", true); }, false, true],
+      ["Ignore & keep scrolling", waitBanner]
+    ]);
+  }
+
+  function waitBanner() {
+    setCtrl([]);
+    log("You keep scrolling through your feed...");
+    later(function() {
+      $("banner").classList.remove("show");
+      log("Notification collapses into the status bar shade.");
+      later(function() {
+        end("Ignored and forgotten in notification shade. Notification blindness in action.", "bad", true);
+      }, 2000);
+    }, 2800);
+  }
+
+  /* 1-to-1 Native Android Incoming Call Flow (Productivity Caller) */
+  function ring() {
+    attempts++;
+    $("callScreen").classList.add("show", "ringing");
+    $("callSub").textContent = "Incoming call... (attempt " + attempts + " of 3)";
+    log("Productivity Caller triggers native Android Telecom call screen locally. (Attempt " + attempts + "/3)");
+
+    var answerAction = function() {
+      $("callScreen").classList.remove("show", "ringing");
+      log("Call answered on attempt " + attempts + "! Task acknowledged.");
+      showCatCompanion();
+    };
+
+    setCtrl([
+      ["Answer call", answerAction, true],
+      ["Decline call", declineCall, false, true]
+    ]);
+
+    $("btnAns").onclick = answerAction;
+    $("btnDec").onclick = declineCall;
+
+    later(function() {
+      log("No answer within ring window.");
+      declineCall();
+    }, 6500);
+  }
+
+  function declineCall() {
+    clr();
+    $("callScreen").classList.remove("show", "ringing");
+    if (attempts >= 3) {
+      end("Three missed calls logged. Even declined, full-screen calls break through notification blindness.", "warn", false);
+      return;
+    }
+    log("Call declined or missed. Retry scheduled in a moment...");
+    setCtrl([]);
+    later(ring, 2200);
+  }
+
+  /* AFTER CALL: Show the Sunroom Cat Companion */
+  function showCatCompanion() {
+    clr();
+    $("callScreen").classList.remove("show", "ringing");
+    $("afterCallScreen").classList.add("show");
+
+    var v = $("verdict");
+    v.textContent = "Call answered. Task acknowledged in Sunroom companion.";
+    v.className = "verdict show good";
+
+    catReact("Yes, I'm on it.", "ack");
+
+    setCtrl([
+      ["Say hello to cat", function() { $("catBtn").click(); }, false],
+      ["Reset simulator", reset, true]
+    ]);
+
+    // Natural blinks periodically
+    setInterval(function() {
+      if (!$("afterCallScreen").classList.contains("show")) return;
+      var sprite = $("catSprite");
+      if (sprite && !sprite.classList.contains("ack") && !sprite.classList.contains("look")) {
+        sprite.classList.add("blink");
+        setTimeout(function() { sprite.classList.remove("blink"); }, 200);
+      }
+    }, 4500);
+  }
+
+  function catReact(text, pose) {
+    var sprite = $("catSprite"), bubble = $("catSpeech");
+    if (!sprite || !bubble) return;
+    clearTimeout(speechTimer);
+    clearTimeout(poseTimer);
+
+    sprite.className = "cat-sprite " + (pose || "look");
+    if (text) {
+      bubble.textContent = text;
+      bubble.classList.add("show");
+    }
+    speechTimer = setTimeout(function() { bubble.classList.remove("show"); }, 2800);
+    poseTimer = setTimeout(function() { sprite.className = "cat-sprite"; }, 2000);
+  }
+
+  $("catBtn").onclick = function() {
+    var phrases = [
+      "Yes, I'm on it.",
+      "Task acknowledged!",
+      "Phone's right here.",
+      "One thing at a time.",
+      "I'll call you again when due."
+    ];
+    var phrase = phrases[catTaps++ % phrases.length];
+    catReact(phrase, catTaps % 2 === 0 ? "ack" : "look");
+    log("Cat companion: \"" + phrase + "\"");
+  };
+
+  $("btnRestart").onclick = reset;
+
+  function end(msg, kind, hideBanner) {
+    clr();
+    if (hideBanner) $("banner").classList.remove("show");
+    $("callScreen").classList.remove("show", "ringing");
+    log(msg);
+    var v = $("verdict");
+    v.textContent = msg;
+    v.className = "verdict show " + kind;
+    setCtrl([["Run again", reset, true]]);
+  }
+
+  /* Draw App Tabs */
+  function drawApps() {
+    var a = $("apps");
+    a.textContent = "";
+    APPS.forEach(function(x) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = x.n;
+      b.setAttribute("aria-pressed", x.id === cur);
+      b.onclick = function() {
+        cur = x.id;
+        drawApps();
+        reset();
+      };
+      a.appendChild(b);
+    });
+  }
+
+  /* Draw Feature Table */
+  function drawTable() {
+    var h = '<caption>Productivity Caller vs Traditional Reminder Apps</caption><thead><tr><th scope="col">Feature</th>' +
+      APPS.map(function(a) {
+        return '<th scope="col"' + (a.id === "pc" ? ' class="pc"' : '') + '>' + a.n + '</th>';
+      }).join("") + '</tr></thead><tbody>';
+
+    var any = Object.keys(active).some(function(k) { return active[k]; });
+    ROWS.forEach(function(r) {
+      var on = active[r.g];
+      h += '<tr class="' + (on ? 'hl' : (any && r.g ? 'dim' : '')) + '"><th scope="row">' + r.l + '</th>' +
+        r.v.map(function(v, i) {
+          return '<td' + (i === 0 ? ' class="pc"' : '') + '>' + v + '</td>';
+        }).join("") + '</tr>';
+    });
+    $("tbl").innerHTML = h + '</tbody>';
+  }
+
+  /* Draw Preference Filter Chips */
+  function drawPrefs() {
+    var p = $("prefs");
+    p.textContent = "";
+    PREFS.forEach(function(x) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = x.l;
+      b.setAttribute("aria-pressed", !!active[x.g]);
+      b.onclick = function() {
+        active[x.g] = !active[x.g];
+        drawPrefs();
+        drawTable();
+      };
+      p.appendChild(b);
+    });
+  }
+
+  drawApps();
+  drawPrefs();
+  drawTable();
+  reset();
+})();
+</script>
+</body>
+</html>

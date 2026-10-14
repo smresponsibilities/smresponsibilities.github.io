@@ -56,7 +56,7 @@ const missingDesc = [];
 
 for (const [route, { file, html }] of pagesByRoute.entries()) {
   // Ignore raw prototype files
-  if (route.includes('/casing-proto') || route.includes('/generation-device')) {
+  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/productivity-caller-simulator')) {
     continue;
   }
 
@@ -166,7 +166,7 @@ if (!missingDesc.length && !shortDesc.length && !longDesc.length) {
 console.log('\n--- 2. Internal Link / Orphan Audit ---');
 const publicOrphans = [];
 for (const [route] of pagesByRoute.entries()) {
-  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines')) {
+  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines') || route.includes('/productivity-caller-simulator')) {
     continue;
   }
   if (!visited.has(route)) {
