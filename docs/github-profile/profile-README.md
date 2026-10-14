@@ -1,8 +1,6 @@
-# Shivam Mahajan
+# Shivam Mahajan [![Profile views](https://hits.sh/github.com/smresponsibilities.svg?style=flat-square&label=Profile%20views&color=dc4056&extraCount=1974)](https://github.com/smresponsibilities)
 
-Backend Developer · Data Systems · Android
-
-![Profile views](https://komarev.com/ghpvc/?username=smresponsibilities&color=dc4056&style=flat-square)
+Backend Developer · AI · Data Systems · Android
 
 I work mostly on backend systems, data pipelines, and Android apps using Python, Java, Kotlin, and JavaScript.
 
