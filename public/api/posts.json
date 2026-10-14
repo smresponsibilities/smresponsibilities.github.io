@@ -16112,5 +16112,18 @@
         "title": "Minimum Sum of Squared Difference"
       }
     ]
+  },
+  {
+    "day": 1251,
+    "date": "2026-10-14",
+    "content": "#day1251 of #2002daysofcode\n\nLeetcode:\n987. Vertical Order Traversal of a Binary Tree\n\n#2002DaysOfCode #100DaysOfCode #1001DaysOfCode #Dsa #Python #Java #Coding #GeeksForGeeks #Notion #Programming #Daily #Cpp #Learning #Leetcode #Codeforces",
+    "url": "https://lnkd.in/p/gxVgPxHn",
+    "easterEgg": "Where did Day 1251 go? Skipped to align challenge count!",
+    "questions": [
+      {
+        "number": 987,
+        "title": "Vertical Order Traversal of a Binary Tree"
+      }
+    ]
   }
 ]

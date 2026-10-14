@@ -1,0 +1,257 @@
+---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#software',
+      name: 'Flight Sun Tracker',
+      operatingSystem: 'Web Browser',
+      applicationCategory: 'TravelApplication',
+      programmingLanguage: ['TypeScript', 'HTML5 Canvas', 'Aviation Mathematics'],
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      description: 'Interactive web application computing solar elevation and seat shade along aircraft flight paths using aviation mathematics and HTML5 Canvas.',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      }
+    },
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#article',
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      headline: "Flight Sun Tracker: Computing Aircraft Seat Shade with Solar Math",
+      description: "Technical case study of Flight Sun Tracker: calculating real-time solar elevation and flight trajectory shading in TypeScript and HTML5 Canvas.",
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      url: 'https://shivammahajan.com/projects/flight-sun-tracker/',
+      about: [
+        { '@type': 'Thing', name: 'Aviation Mathematics' },
+        { '@type': 'Thing', name: 'TypeScript' },
+        { '@type': 'Thing', name: 'HTML5 Canvas' },
+        { '@type': 'Thing', name: 'Solar Positioning' }
+      ]
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' },
+        { '@type': 'ListItem', position: 3, name: 'Flight Sun Tracker', item: 'https://shivammahajan.com/projects/flight-sun-tracker/' }
+      ]
+    }
+  ]
+};
+---
+<EditorialShell 
+  title="Flight Sun Tracker | Aircraft Solar Position Tool | Shivam Mahajan" 
+  description="Explore Flight Sun Tracker by Shivam Mahajan: a TypeScript canvas tool calculating solar angles along flight paths to optimize window seat sun and shade." 
+  eyebrow="Move 006 / Aviation Math" 
+  heading="Flight Sun Tracker" 
+  intro="An interactive TypeScript and Canvas visualization tool computing solar elevation relative to aircraft passenger seating, helping travelers choose direct sunlight or cool shade."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="https://github.com/smresponsibilities/flight-sun-tracker" target="_blank" rel="noopener noreferrer">View GitHub Repo ↗</a>
+  <a slot="actions" href="/projects/">Back to Projects</a>
+  <a slot="actions" href="/resume/">View Resume</a>
+
+  <!-- Top-of-page Breadcrumbs -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/">Projects</a> <span>/</span>
+    <a href="https://shivammahajan.com/projects/flight-sun-tracker/" aria-current="page">Flight Sun Tracker</a>
+  </nav>
+
+  <!-- Author Byline linked to profile -->
+  <div class="byline-bar">
+    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <span>·</span>
+    <time datetime="2026-10-15">October 2026</time>
+    <span>·</span>
+    <span>Systems & Visualization Case Study</span>
+  </div>
+
+  <!-- Direct Answer Executive Summary -->
+  <div class="direct-answer">
+    <p><strong>Executive Summary:</strong> Flight Sun Tracker is an open-source TypeScript and HTML5 Canvas application that calculates the sun's azimuth and altitude relative to an aircraft's heading along great-circle routes. It solves the traveler dilemma of window seat glare versus shade by delivering instant seat-specific solar exposure breakdowns.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">Language</span>
+      <span class="metric-value">TypeScript</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Renderer</span>
+      <span class="metric-value">HTML5 Canvas</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Calculations</span>
+      <span class="metric-value">Sub-Solar Math</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Dependencies</span>
+      <span class="metric-value">0 External APIs</span>
+    </div>
+  </div>
+
+  <section>
+    <h2>Problem: Window Seat Sun Glare vs Scenic Shade</h2>
+    <p>Selecting a window seat on a long-haul commercial flight is typically guesswork. On morning eastbound flights, passengers on the right side face blinding solar glare and overheating cabins, while the left side stays comfortably shaded. On transatlantic or transpacific routes, seasonal variations in solar declination can flip sunlight exposure mid-flight.</p>
+    <p>Flight Sun Tracker eliminates guesswork by modeling solar positions deterministically across the entire route duration, calculating exact sun angles relative to the airplane's longitudinal axis.</p>
+  </section>
+
+  <section>
+    <h2>Technical Architecture & Solar Calculations</h2>
+    <p>The core engine computes astronomical and geodesic coordinates entirely client-side without relying on rate-limited third-party solar APIs:</p>
+    <ol>
+      <li><strong>Great-Circle Route Interpolation:</strong> Computes waypoints between origin and destination airport pairs using spherical trigonometry (Haversine and spherical law of cosines) to calculate the aircraft's instantaneous true heading.</li>
+      <li><strong>Sub-Solar Point Modeling:</strong> Calculates solar declination and the Greenwich Hour Angle (GHA) for each flight segment timestamp using Jean Meeus astronomical algorithms.</li>
+      <li><strong>Relative Azimuth Transformation:</strong> Projects the sun's coordinates into the aircraft's local coordinate frame, determining whether sunlight strikes port (left / A-seats) or starboard (right / F-K seats).</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Key Architectural Decisions</h2>
+    <div class="table-container">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th scope="col">Design Vector</th>
+            <th scope="col">Flight Sun Tracker Choice</th>
+            <th scope="col">Alternative Considered</th>
+            <th scope="col">Technical Rationale</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Visualization</th>
+            <td>HTML5 Canvas 2D</td>
+            <td>Heavy 3D WebGL (Three.js)</td>
+            <td>Zero bundle bloat, instant rendering on mobile browsers, 60 FPS animation.</td>
+          </tr>
+          <tr>
+            <th scope="row">Calculation Engine</th>
+            <td>Local TypeScript Math</td>
+            <td>External REST Ephemeris APIs</td>
+            <td>Zero network latency, offline capability, 100% deterministic results.</td>
+          </tr>
+          <tr>
+            <th scope="row">Seat Mapping</th>
+            <td>Relative Angle Vectors</td>
+            <td>Binary Left/Right Classification</td>
+            <td>Allows calculating exact cabin glare duration, sunrise/sunset golden hours, and twilight.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2>Source Code & Verification</h2>
+    <p>The code is fully open-source and maintained on GitHub. Explore the repository and implementation details:</p>
+    <ul>
+      <li><strong>GitHub Repository:</strong> <a href="https://github.com/smresponsibilities/flight-sun-tracker" target="_blank" rel="noopener noreferrer">github.com/smresponsibilities/flight-sun-tracker ↗</a></li>
+      <li><strong>Author Portfolio:</strong> <a href="/">Return to Shivam Mahajan's Portfolio</a></li>
+      <li><strong>Full Projects Catalog:</strong> <a href="/projects/">Explore All Software Projects</a></li>
+    </ul>
+  </section>
+</EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 14px;
+  }
+  .breadcrumb-nav a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .breadcrumb-nav a:hover {
+    color: var(--fg, #fff);
+    text-decoration: underline;
+  }
+  .byline-bar {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 13px;
+    color: var(--dim, #888);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border, #222);
+  }
+  .byline-bar a {
+    color: var(--accent, #3b82f6);
+    text-decoration: none;
+  }
+  .byline-bar a:hover {
+    text-decoration: underline;
+  }
+  .direct-answer {
+    padding: 16px;
+    background: var(--surface, #141414);
+    border-left: 4px solid var(--accent, #3b82f6);
+    border-radius: 4px;
+    margin-bottom: 24px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+  .metric-pill {
+    background: var(--surface, #141414);
+    border: 1px solid var(--border, #222);
+    border-radius: 6px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .metric-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--dim, #888);
+    letter-spacing: 0.5px;
+  }
+  .metric-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--fg, #fff);
+  }
+  .table-container {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+  }
+  .comparison-table th, .comparison-table td {
+    padding: 12px;
+    border: 1px solid var(--border, #222);
+  }
+  .comparison-table thead th {
+    background: var(--surface, #141414);
+    color: var(--fg, #fff);
+  }
+  .comparison-table tbody th {
+    font-weight: 600;
+    background: rgba(255, 255, 255, 0.02);
+  }
+</style>
