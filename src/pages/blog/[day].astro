@@ -1,5 +1,6 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+import { extractLeetCodeQuestions } from '../../utils/leetcode';
 
 export async function getStaticPaths() {
   const allPosts = await import('../../data/linkedin-posts.json');
@@ -13,16 +14,38 @@ const { post } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 
 // Extract LeetCode problem if present in post content
-const leetcodeMatch = typeof post.content === 'string' ? post.content.match(/Leetcode:\s*(\d+)\.\s*([^\n#]+)/i) : null;
-const problemTitle = leetcodeMatch ? `LeetCode ${leetcodeMatch[1]}: ${leetcodeMatch[2].trim()}` : null;
+const leetcodeQuestions = extractLeetCodeQuestions(post.content);
+const primaryQuestion = leetcodeQuestions[0];
+const problemTitle = primaryQuestion ? `LeetCode ${primaryQuestion.number}: ${primaryQuestion.title}` : null;
 const leetcodeTag = problemTitle 
   ? problemTitle 
   : (typeof post.content === 'string' && /leetcode/i.test(post.content) ? 'LeetCode' : '2002 Days of Code');
-const pageTitle = `Day ${post.day} | Shivam Mahajan | ${leetcodeTag}`;
+let pageTitle;
+if (primaryQuestion) {
+  const cleanTitle = primaryQuestion.title.replace(/['"&#;]/g, '');
+  let base = `Day ${post.day} | LC ${primaryQuestion.number}: ${cleanTitle}`;
+  if (base.length > 44) {
+    base = base.slice(0, 41) + '...';
+  }
+  pageTitle = `${base} | Shivam Mahajan`;
+} else if (typeof post.content === 'string' && /leetcode/i.test(post.content)) {
+  pageTitle = `Day ${post.day} | LeetCode | Shivam Mahajan`;
+} else {
+  pageTitle = `Day ${post.day} | 2,002 Days of Code | Shivam Mahajan`;
+}
+if (pageTitle.length < 30) {
+  pageTitle = `Day ${post.day} Engineering Log | Shivam Mahajan`;
+}
 const pageHeading = problemTitle ? `Day ${post.day}: ${problemTitle}` : `Day ${post.day}`;
-const pageDesc = problemTitle
-  ? `Day ${post.day} of 2002 Days of Code: Walkthrough and solution for ${problemTitle} in Python/DSA by Shivam Mahajan.`
-  : `Day ${post.day} of Shivam Mahajan's 2002 Days of Code challenge.`;
+const trimmedTitle = problemTitle && problemTitle.length > 45 ? `${problemTitle.slice(0, 42)}...` : problemTitle;
+const pageDesc = trimmedTitle
+  ? `Day ${post.day} of 2,002 Days of Code: Algorithmic analysis and optimal solution for ${trimmedTitle} in Python/DSA by Shivam Mahajan.`
+  : `Day ${post.day} of Shivam Mahajan's 2,002 Days of Code journey: Daily software engineering updates, DSA problem solving, and project milestones.`;
+
+const groupLower = Math.floor((post.day - 1) / 100) * 100 + 1;
+const groupUpper = groupLower + 99;
+const groupName = `${groupLower}-${groupUpper}`;
+const monthSlug = typeof post.date === 'string' && /^\d{4}-\d{2}/.test(post.date) ? post.date.slice(0, 7) : null;
 
 // Inverted pyramid direct answer (under 50 words) - Tactic #2
 const directAnswer = problemTitle
@@ -165,6 +188,8 @@ const structuredData = {
     <p>Explore the connected challenges, software architecture, and case studies:</p>
     <div class="hub-links">
       <a href="/blog/">Days of Code Journal →</a>
+      <a href={`/blog/archive/${groupName}/`}>Days {groupName} Archive →</a>
+      {monthSlug && <a href={`/blog/month/${monthSlug}/`}>Month ({monthSlug}) Archive →</a>}
       <a href="/blog/timeline/">Full 2,002-Day Timeline →</a>
       <a href="/blog/milestones/">Key Milestones →</a>
       <a href="/projects/sm-dex/">Pokédex Portfolio Architecture →</a>

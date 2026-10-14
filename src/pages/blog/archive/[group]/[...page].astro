@@ -14,35 +14,57 @@ export async function getStaticPaths({ paginate }) {
     groups[gName].push(p);
   }
 
-  return Object.keys(groups).flatMap((gName) => {
+  const allGroups = Object.keys(groups);
+
+  return allGroups.flatMap((gName) => {
     return paginate(groups[gName], {
       params: { group: gName },
+      props: { allGroups },
       pageSize: 20,
     });
   });
 }
 
-const { page } = Astro.props;
+const { page, allGroups } = Astro.props;
 const { group } = Astro.params;
 
+const pageNumText = page.currentPage > 1 ? ` (Page ${page.currentPage} of ${page.lastPage})` : '';
+const pageTitle = `Days ${group} Archive${pageNumText} | 2,002 Days of Code`;
+const pageDescription = `Explore days ${group} of Shivam Mahajan's 2,002 Days of Code journal${pageNumText}. Daily software engineering updates, DSA logs, and project milestones.`;
+
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const prevUrl = page.url.prev ? new URL(page.url.prev, Astro.site ?? 'https://shivammahajan.com').href : null;
+const nextUrl = page.url.next ? new URL(page.url.next, Astro.site ?? 'https://shivammahajan.com').href : null;
+
 const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  name: `Days ${group} | 2002 Days of Code`,
-  description: `Archive of days ${group} for the 2002 Days of Code challenge.`,
+  name: `Days ${group} | 2,002 Days of Code`,
+  description: pageDescription,
   url: currentUrl
 };
 ---
 
 <EditorialShell 
-  title={`Days ${group} | 2002 Days of Code`} 
-  description={`Archive of days ${group} for the 2002 Days of Code challenge.`} 
+  title={pageTitle} 
+  description={pageDescription} 
   eyebrow={`Archive / Days ${group}`} 
   heading={`Days ${group}`} 
-  intro={`Page ${page.currentPage} of ${page.lastPage}`}
+  intro={`Page ${page.currentPage} of ${page.lastPage} — ${page.total} daily updates recorded in this century block.`}
   structuredData={structuredData}
 >
+  <Fragment slot="head">
+    {prevUrl && <link rel="prev" href={prevUrl} />}
+    {nextUrl && <link rel="next" href={nextUrl} />}
+  </Fragment>
+
+  <nav class="breadcrumb-nav" aria-label="Breadcrumbs" style="margin-bottom: 1.5rem; font-size: 14px;">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/blog/">Blog</a> <span>/</span>
+    <a href={`/blog/archive/${group}/`}>Days {group}</a>
+    {page.currentPage > 1 && <span> / Page {page.currentPage}</span>}
+  </nav>
+
   <section>
     <div class="grid">
       {page.data.map((post) => (
@@ -55,8 +77,122 @@ const structuredData = {
     </div>
   </section>
 
-  <nav aria-label="Pagination" style="margin-top: 2rem; display: flex; gap: 1rem;">
-    {page.url.prev && <a href={page.url.prev} style="padding: 8px 16px; border: 2px solid var(--accent);">← Previous</a>}
-    {page.url.next && <a href={page.url.next} style="padding: 8px 16px; border: 2px solid var(--accent);">Next →</a>}
+  <nav aria-label="Pagination" class="pagination-bar">
+    <div class="page-buttons">
+      {page.url.prev && <a href={page.url.prev} class="nav-btn">← Previous</a>}
+      <div class="page-numbers">
+        {Array.from({ length: page.lastPage }, (_, i) => i + 1).map((num) => {
+          const targetUrl = num === 1 ? `/blog/archive/${group}/` : `/blog/archive/${group}/${num}/`;
+          const isCurrent = num === page.currentPage;
+          return (
+            <a 
+              href={targetUrl} 
+              class={`num-btn ${isCurrent ? 'active' : ''}`}
+              aria-current={isCurrent ? 'page' : undefined}
+            >
+              {num}
+            </a>
+          );
+        })}
+      </div>
+      {page.url.next && <a href={page.url.next} class="nav-btn">Next →</a>}
+    </div>
   </nav>
+
+  <section class="other-archives" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border, #333);">
+    <h2>All Century Archives</h2>
+    <p>Jump to any 100-day block in the 2,002 Days of Code challenge:</p>
+    <div class="group-chips">
+      {(allGroups || []).map((gName) => (
+        <a 
+          href={`/blog/archive/${gName}/`} 
+          class={`chip ${gName === group ? 'current' : ''}`}
+        >
+          Days {gName}
+        </a>
+      ))}
+    </div>
+  </section>
 </EditorialShell>
+
+<style>
+  .pagination-bar {
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .page-buttons {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .nav-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--accent);
+    color: var(--ink);
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 4px;
+  }
+  .page-numbers {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+  }
+  .num-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 8px;
+    border: 1px solid var(--border, #444);
+    background: var(--panel, #161b22);
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  .num-btn.active {
+    background: var(--accent);
+    color: var(--bg, #000);
+    font-weight: bold;
+    border-color: var(--accent);
+  }
+  .num-btn:hover:not(.active), .nav-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .breadcrumb-nav a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+  .group-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 1rem;
+  }
+  .chip {
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--border, #444);
+    background: var(--panel, #161b22);
+    color: var(--ink);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 13px;
+  }
+  .chip.current {
+    background: var(--accent);
+    color: var(--bg, #000);
+    font-weight: bold;
+    border-color: var(--accent);
+  }
+  .chip:hover:not(.current) {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+</style>

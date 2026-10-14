@@ -7,8 +7,10 @@ const variants = [
   [7, 'Editorial ledger', 25], [8, 'Dot strip', undefined], [9, 'By year', undefined], [10, 'Milestones only', undefined],
 ] as const;
 ---
-<EditorialShell title="Timeline previews | Shivam Mahajan" description="Preview of timeline designs." eyebrow="Preview" heading="Timeline previews" intro="Ten designs. Tell me the number you want.">
-  <meta name="robots" content="noindex" />
+<EditorialShell title="Timeline previews | Shivam Mahajan" description="Internal design previews and experimental timeline variants for Shivam Mahajan's 2,002 Days of Code challenge." eyebrow="Preview" heading="Timeline previews" intro="Ten designs. Tell me the number you want.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
+  </Fragment>
   {variants.map(([n, name, limit]) => (
     <section style="margin:2.5rem 0">
       <h2>{n}. {name}</h2>
