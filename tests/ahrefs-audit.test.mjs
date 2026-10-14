@@ -286,3 +286,25 @@ test('Ahrefs: all JSON-LD blocks across all pages parse without error and declar
     }
   }
 });
+
+// ── 9. SYNDICATION & AI MANIFESTS ──────────────────────────────────────────
+
+test('Ahrefs: RSS feeds and AI manifests (llms.txt, llms-full.txt) exist and are non-empty', () => {
+  const files = ['llms.txt', 'llms-full.txt', 'rss.xml', path.join('blog', 'rss.xml')];
+  for (const f of files) {
+    const full = path.join(distDir, f);
+    assert.ok(fs.existsSync(full), `Missing syndication/AI file in dist: ${f}`);
+    const stat = fs.statSync(full);
+    assert.ok(stat.size > 100, `File is too small or empty: ${f} (${stat.size} bytes)`);
+  }
+});
+
+test('Ahrefs: every blog post anchors author and publisher to canonical #shivam-mahajan entity', () => {
+  const sampleBlog = path.join(distDir, 'blog', 'day-1246', 'index.html');
+  assert.ok(fs.existsSync(sampleBlog), 'Day 1246 blog post must exist');
+  const html = fs.readFileSync(sampleBlog, 'utf8');
+  assert.match(html, /"author":\s*\{\s*"@id":\s*"https:\/\/shivammahajan\.com\/#shivam-mahajan"\s*\}/);
+  assert.match(html, /"publisher":\s*\{\s*"@id":\s*"https:\/\/shivammahajan\.com\/#shivam-mahajan"\s*\}/);
+  assert.match(html, /"dateModified":/);
+  assert.match(html, /"keywords":/);
+});

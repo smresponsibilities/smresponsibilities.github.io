@@ -4,15 +4,29 @@ import EditorialShell from '../../components/EditorialShell.astro';
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: "How the SM'S DEX roster works",
-  description: "Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio.",
-  author: {
-    '@type': 'Person',
-    name: 'Shivam Mahajan'
-  },
-  url: currentUrl,
-  datePublished: '2026-10-05T00:00:00Z'
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      '@id': `${currentUrl}#article`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      headline: "How the SM'S DEX roster works",
+      description: "Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio.",
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      url: currentUrl,
+      datePublished: '2026-10-05T00:00:00Z',
+      dateModified: '2026-10-05T00:00:00Z'
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: "How the SM'S DEX roster works", item: currentUrl }
+      ]
+    }
+  ]
 };
 ---
 <EditorialShell title="How the SM'S DEX Public Roster Works" description="Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio." eyebrow="Build notes / SM'S DEX" heading="How the SM'S DEX roster works" intro="Visitors submit a character through the site's form. A GitHub issue starts validation, then a pull request gives Shivam a review step before publication." structuredData={structuredData}>

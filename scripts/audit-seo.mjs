@@ -182,6 +182,12 @@ if (publicOrphans.length > 0) {
 }
 
 console.log('\n--- 3. Sitemap Audit ---');
+const sitemapIndex = path.join(distDir, 'sitemap-index.xml');
+const sitemapFallback = path.join(distDir, 'sitemap.xml');
+if (fs.existsSync(sitemapIndex)) {
+  fs.copyFileSync(sitemapIndex, sitemapFallback);
+  console.log('✅ Synchronized sitemap.xml with sitemap-index.xml.');
+}
 if (sitemapOrphans.length > 0) {
   hasErrors = true;
   console.error(`❌ Found ${sitemapOrphans.length} unreachable URLs in sitemap-0.xml:`);

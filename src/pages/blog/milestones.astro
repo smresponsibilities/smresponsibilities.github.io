@@ -1,7 +1,31 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
 import DaysTimeline from '../../components/DaysTimeline.astro';
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${currentUrl}#collection`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      url: currentUrl,
+      name: 'Days of Code Milestones | Shivam Mahajan',
+      description: "Explore key milestone days, century markers, and achievements across Shivam Mahajan's multi-year 2,002 Days of Code software engineering journey."
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Milestones', item: currentUrl }
+      ]
+    }
+  ]
+};
 ---
-<EditorialShell title="Days of Code milestones | Shivam Mahajan" description="Explore key milestone days, century markers, and achievements across Shivam Mahajan's multi-year 2,002 Days of Code software engineering journey." eyebrow="Field notes / Milestones" heading="Milestones" intro="Key milestone days, century markers, and achievements across the streak.">
+<EditorialShell title="Days of Code milestones | Shivam Mahajan" description="Explore key milestone days, century markers, and achievements across Shivam Mahajan's multi-year 2,002 Days of Code software engineering journey." eyebrow="Field notes / Milestones" heading="Milestones" intro="Key milestone days, century markers, and achievements across the streak." structuredData={structuredData}>
   <DaysTimeline variant={10} />
 </EditorialShell>

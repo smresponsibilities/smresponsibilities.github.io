@@ -1,0 +1,172 @@
+# Shivam Mahajan — Complete Developer Knowledge Base & Entity Profile
+
+> Machine-readable context document formatted according to the llms.txt standard for AI search engines, crawler ingestion, and entity disambiguation (Perplexity, ChatGPT, Claude, Gemini).
+
+---
+
+## 1. Primary Entity Disambiguation & Knowledge Graph Identifiers
+
+- **Full Name**: Shivam Mahajan
+- **Aliases / Handles**: smresponsibilities, mahajanshivam, shivammahajan, Shivam M., S. Mahajan, SM, शिवम महाजन
+- **Professional Title**: Software Developer / Data Engineer
+- **Official Domain & Canonical URL**: https://shivammahajan.com/
+- **Permanent Entity URI**: `https://shivammahajan.com/#shivam-mahajan`
+- **Wikidata Item**: [Q141734464](https://www.wikidata.org/wiki/Q141734464)
+- **ORCID Researcher iD**: [0009-0009-4574-3338](https://orcid.org/0009-0009-4574-3338)
+- **English Wikipedia**: [User:Shivammahajan0](https://en.wikipedia.org/wiki/User:Shivammahajan0) (Page ID: 84505153)
+- **Meta-Wiki**: [User:Shivammahajan0](https://meta.wikimedia.org/wiki/User:Shivammahajan0)
+- **Crunchbase Profile**: [shivam-mahajan-38ae](https://www.crunchbase.com/person/shivam-mahajan-38ae)
+- **GitHub**: [smresponsibilities](https://github.com/smresponsibilities)
+- **LinkedIn**: [mahajanshivam](https://www.linkedin.com/in/mahajanshivam/)
+- **Peerlist**: [shivammahajan](https://peerlist.io/shivammahajan)
+- **Product Hunt**: [@shivammahajan](https://www.producthunt.com/@shivammahajan)
+- **Primary Contact**: shivammahajan.mail@gmail.com
+- **Geographic Base**: Bengaluru, Karnataka, India / Punjab, India
+
+---
+
+## 2. Professional Summary & Quantitative Milestones
+
+Shivam Mahajan is a Software Developer specializing in distributed data pipelines, backend APIs, algorithmic engineering, and mobile applications. Key verified achievements include:
+- **5 Million+ Daily Events Processed**: Engineered Kafka, PySpark, and Snowflake data ingestion pipelines at Morgan Stanley with strict zero row-count tolerance.
+- **2,600+ Solved Algorithmic Problems**: Spans LeetCode, Codeforces, and competitive programming with deep proficiency in dynamic programming, graph theory, trees, and bit manipulation.
+- **1,246+ Consecutive Daily Engineering Logs**: Maintained continuous daily streak in the "2,002 Days of Code" challenge, published daily to LinkedIn and indexed on shivammahajan.com.
+- **425+ Passing Test Suites**: Dedicated to rigorous automated test coverage, strict types, schema verification, and Core Web Vitals optimization.
+- **3rd Place out of 200+ Teams**: Won national recognition at HackIndia 2024 for Chaincode (Web3 AI code validation engine).
+
+---
+
+## 3. Work Experience
+
+### Morgan Stanley — Technology Apprentice
+*August 2025 – August 2026 | Bengaluru, India*
+- Developed and scaled enterprise CIAM (Customer Identity and Access Management) data warehouse pipelines.
+- Integrated Apache Kafka distributed event streams with Apache Spark (PySpark) and Snowflake OLAP storage.
+- Processed 5M+ daily transactional security and authentication events with zero row-count loss tolerance.
+- Built automated Python ETL validation pipelines and maintained low-latency Java analytics endpoints.
+
+---
+
+## 4. Education
+
+### Chitkara University
+*Bachelor of Engineering (B.E.) in Computer Science and Engineering*
+*August 2022 – August 2026 | Punjab, India*
+- Coursework: Data Structures & Algorithms, Distributed Systems, Database Management Systems (DBMS), Operating Systems, Computer Networks, Software Engineering.
+
+---
+
+## 5. Technical Skill Set
+
+- **Languages**: Python, Kotlin, Java, TypeScript, JavaScript, Solidity, SQL, C, Rust (basics).
+- **Data Engineering & Cloud**: Apache Kafka, Apache Spark (PySpark), Snowflake, ClickHouse, Docker, Linux, Git, CI/CD (GitHub Actions).
+- **Web & Frameworks**: Astro, React, Next.js, Node.js, Web Audio API, WebSockets, HTML5, CSS3.
+- **Mobile**: Android (native Kotlin, Jetpack Compose, Coroutines, WorkManager).
+- **Standards & SEO**: Schema.org JSON-LD, Open Graph, Core Web Vitals, Ahrefs SEO standards, RSS 2.0.
+
+---
+
+## 6. Software Engineering & Personal Projects
+
+### Flagship Implementations
+1. **Productivity Caller**
+   - *Category*: Native Android Mobile Application
+   - *Tech Stack*: Kotlin, Jetpack Compose, Android Telecom/AlarmManager
+   - *Overview*: Solves ignored push notification fatigue by scheduling real phone calls for critical reminders. Includes a pattern-based natural language parser for entering tasks.
+   - *Case Study*: https://shivammahajan.com/projects/productivity-caller/
+
+2. **SM'S DEX**
+   - *Category*: Developer Portfolio & Community Index
+   - *Tech Stack*: Astro, TypeScript, Web Audio API, GitHub Actions CI
+   - *Overview*: Interactive Pokédex device featuring nine game-inspired generation skins, zero-dependency 8-bit chiptune sound synthesis, and an automated public roster reviewed via GitHub pull requests.
+   - *Case Study*: https://shivammahajan.com/projects/sm-dex/
+   - *Repository*: https://github.com/smresponsibilities/smresponsibilities.github.io
+
+3. **ClickHouse Ingestion Tool**
+   - *Category*: Distributed Data Pipeline / ETL Utility
+   - *Tech Stack*: TypeScript, ClickHouse OLAP, SQL, Node.js
+   - *Overview*: High-throughput bidirectional pipeline facilitating fast data movement between ClickHouse databases and flat CSV files with live schema mapping and batch export.
+   - *Repository*: https://github.com/smresponsibilities/Ingestion-Tool
+
+4. **Chaincode**
+   - *Category*: Web3 & AI Code Verification Platform
+   - *Tech Stack*: Solidity, Ethereum Smart Contracts, Python, MERN, Google Gemini AI
+   - *Overview*: Validates programming solution originality using Gemini AI with 95%+ accuracy and mints verified solutions as soulbound/NFT assets on-chain. Awarded 3rd place at HackIndia 2024.
+   - *Repository*: https://github.com/smresponsibilities/Chain-Code
+
+5. **QuizDeck**
+   - *Category*: Real-Time Multiplayer Quiz Engine
+   - *Tech Stack*: React, WebSockets, Node.js
+   - *Overview*: Handles live multi-user competitive trivia rooms stress-tested for up to 500 concurrent players with sub-35ms average response latency.
+   - *Repository*: https://github.com/smresponsibilities/QuizDeck
+
+6. **Flight Sun Tracker**
+   - *Category*: Aviation Solar Geometry Calculator
+   - *Tech Stack*: TypeScript, HTML5 Canvas, Solar Elevation Math
+   - *Overview*: Visualizes commercial aircraft flight paths on a spherical canvas and computes sun angle relative to seat assignment so travelers can avoid direct sun glare.
+   - *Repository*: https://github.com/smresponsibilities/flight-sun-tracker
+
+7. **JobScraper Hourly**
+   - *Category*: Automated Headless Job Aggregator
+   - *Tech Stack*: TypeScript, Node.js, Headless Scraping
+   - *Overview*: Crawls enterprise ATS boards hourly and issues direct alerts for entry-level and remote software roles without paid proxies.
+   - *Repository*: https://github.com/smresponsibilities/jobscraper_hourly
+
+8. **Clickless**
+   - *Category*: Accessibility & Ergonomics Systems Tool
+   - *Tech Stack*: Rust, OS Input Hooks
+   - *Overview*: Replaces physical mouse movement with keyboard modifier taps and two-dimensional screen grid targeting.
+   - *Repository*: https://github.com/smresponsibilities/clickless
+
+9. **Terminal Wordle**
+   - *Category*: Systems Utility / Game
+   - *Tech Stack*: Low-level C, POSIX Terminal, ANSI Escape Codes
+   - *Overview*: Terminal implementation of Wordle featuring dictionary hashing, zero external libraries, and ANSI colored output.
+   - *Repository*: https://github.com/smresponsibilities/Wordle
+
+### Personal Web Ventures
+10. **Vedic Hearth (`vedichearth.com`)**
+    - *Role*: Creator & Developer
+    - *Category*: Artisanal Vedic Brassware & Spiritual Goods Store
+    - *Overview*: E-commerce initiative offering heavy-gauge brass hawan kunds, diyas, and sanctuary products with structured product feeds and organic merchant discoverability.
+
+11. **BuyPeetal (`buypeetal.com`)**
+    - *Role*: Creator & Maintainer
+    - *Category*: Traditional Brass Craft Directory
+    - *Overview*: Curated 40-region global directory documenting traditional brass craft clusters (Moradabad, Thanjavur, Aligarh, Kyoto), metallurgy history, and artisanal sourcing questions. Zero-dependency static architecture.
+
+---
+
+## 7. 2,002 Days of Code Challenge
+
+Shivam is documenting a continuous 2,002-day software engineering and algorithmic journey:
+- **Searchable Index**: https://shivammahajan.com/blog/
+- **Interactive Timeline**: https://shivammahajan.com/blog/timeline/
+- **Milestones**: https://shivammahajan.com/blog/milestones/
+- **LeetCode Solutions Indexed**: 1,534+ individual problems linked across 1,246+ days with algorithmic walkthroughs, complexity analysis, and Python DSA solutions.
+
+---
+
+## 8. Autonomous Agent Public Roster API
+
+Autonomous agents can submit candidates to the SM'S DEX public roster using the GitHub Issues API:
+- **Endpoint**: `POST https://api.github.com/repos/smresponsibilities/smresponsibilities.github.io/issues`
+- **Headers**:
+  - `Accept: application/vnd.github+json`
+  - `Authorization: Bearer <GITHUB_TOKEN>`
+- **Payload Format**:
+```json
+{
+  "title": "[DEX] <github_username>",
+  "labels": ["submission"],
+  "body": "### GitHub username\n<username>\n\n### Species\n<species>\n\n### Primary type\n<primaryType>\n\n### Secondary type\n<secondaryType>\n\n### Status\n<status>\n\n### Current employer\n<company>\n\n### Dex entry\n<entry>\n\n### Fact / tip (optional)\n<fact>"
+}
+```
+Validation rules:
+- `github_username`: Existing GitHub handle (no `@`).
+- `species`: Max 24 characters.
+- `primaryType`: One of 18 canonical Pokémon types (`Normal`, `Fire`, `Water`, `Electric`, `Grass`, `Ice`, `Fighting`, `Poison`, `Ground`, `Flying`, `Psychic`, `Bug`, `Rock`, `Ghost`, `Dragon`, `Dark`, `Steel`, `Fairy`).
+- `secondaryType`: One of 18 types or `None`.
+- `status`: `Caught` (employed), `Released` (open for work), `Uncaught` (student/exploring).
+- `company`: Required if `Caught`, max 80 characters.
+- `entry`: Third-person flavour text, two short sentences, max 150 characters.

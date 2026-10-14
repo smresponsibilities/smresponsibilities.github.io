@@ -38,10 +38,26 @@ const nextUrl = page.url.next ? new URL(page.url.next, Astro.site ?? 'https://sh
 
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  name: `Days ${group} | 2,002 Days of Code`,
-  description: pageDescription,
-  url: currentUrl
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${currentUrl}#collection`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      name: `Days ${group} | 2,002 Days of Code`,
+      description: pageDescription,
+      url: currentUrl
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Timeline', item: 'https://shivammahajan.com/blog/timeline/' },
+        { '@type': 'ListItem', position: 4, name: `Days ${group}`, item: currentUrl }
+      ]
+    }
+  ]
 };
 ---
 

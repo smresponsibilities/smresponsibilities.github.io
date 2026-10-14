@@ -25,14 +25,25 @@ const embedUrl = latest.url.replace('%3A', ':').replace('linkedin.com/feed/updat
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'Blog',
-  name: 'Days of Code',
-  description: 'Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.',
-  url: currentUrl,
-  author: {
-    '@type': 'Person',
-    name: 'Shivam Mahajan'
-  }
+  '@graph': [
+    {
+      '@type': 'Blog',
+      '@id': `${currentUrl}#blog`,
+      name: 'Days of Code',
+      description: 'Shivam posts daily progress on LinkedIn. This journal connects selected updates to the projects and engineering notes on this site.',
+      url: currentUrl,
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: currentUrl }
+      ]
+    }
+  ]
 };
 ---
 <EditorialShell 

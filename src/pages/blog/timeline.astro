@@ -3,9 +3,33 @@ import Base from "../../layouts/Base.astro";
 
 const allPosts = await import("../../data/linkedin-posts.json");
 const posts = allPosts.default;
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${currentUrl}#collection`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      url: currentUrl,
+      name: 'Days of Code Timeline | Shivam Mahajan',
+      description: "Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones."
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Timeline', item: currentUrl }
+      ]
+    }
+  ]
+};
 ---
 
-<Base title="Days of Code Timeline | Shivam Mahajan" description="Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones.">
+<Base title="Days of Code Timeline | Shivam Mahajan" description="Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones." structuredData={structuredData}>
   <main class="timeline-container">
     <header class="timeline-header">
       <h1>The Complete Timeline</h1>

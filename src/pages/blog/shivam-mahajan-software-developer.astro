@@ -1,18 +1,32 @@
-﻿---
+---
 import EditorialShell from '../../components/EditorialShell.astro';
 
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 const structuredData = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting',
-  headline: 'Shivam Mahajan, software developer',
-  description: 'Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals.',
-  author: {
-    '@type': 'Person',
-    name: 'Shivam Mahajan'
-  },
-  url: currentUrl,
-  datePublished: '2026-10-05T00:00:00Z'
+  '@graph': [
+    {
+      '@type': 'BlogPosting',
+      '@id': `${currentUrl}#article`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      headline: 'Shivam Mahajan, software developer',
+      description: 'Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals.',
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      url: currentUrl,
+      datePublished: '2026-10-05T00:00:00Z',
+      dateModified: '2026-10-05T00:00:00Z'
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Software Developer Profile', item: currentUrl }
+      ]
+    }
+  ]
 };
 ---
 <EditorialShell title="Shivam Mahajan | Software Developer Profile" description="Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals." eyebrow="Profile" heading="Shivam Mahajan, software developer" intro="Shivam is a software engineer building distributed backend systems, data pipelines, and responsive frontend applications." structuredData={structuredData}>

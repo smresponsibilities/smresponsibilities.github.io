@@ -1,12 +1,37 @@
 ---
 import EditorialShell from '../../components/EditorialShell.astro';
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'ProfilePage',
+      '@id': `${currentUrl}#profile`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      url: currentUrl,
+      name: 'Shivam Mahajan — Software Engineer and Developer',
+      mainEntity: { '@id': 'https://shivammahajan.com/#shivam-mahajan' }
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Shivam Mahajan', item: currentUrl }
+      ]
+    }
+  ]
+};
 ---
 <EditorialShell 
   title="Shivam Mahajan - Software Engineer and Developer" 
   description="Explore software engineer Shivam Mahajan's developer portfolio, 2,002 Days of Code daily engineering journal, backend systems, and featured projects." 
   heading="Shivam Mahajan"
   eyebrow="Profile / Overview"
-  intro="Software engineer building distributed backend systems, algorithmic tooling, and interactive web experiences.">
+  intro="Software engineer building distributed backend systems, algorithmic tooling, and interactive web experiences."
+  structuredData={structuredData}>
   
   <p><strong>Shivam Mahajan</strong> is a software engineer dedicated to building high-quality, scalable web applications and exploring the frontiers of agentic AI. With a strong foundation in modern web technologies and a relentless drive for continuous learning, Shivam has committed to the 2,002 Days of Code challenge, documenting daily progress and technical deep dives.</p>
   

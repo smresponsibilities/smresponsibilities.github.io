@@ -1,37 +1,41 @@
-# SM'S DEX
+# Shivam Mahajan — SM'S DEX
 
-> SM'S DEX is Shivam Mahajan's interactive software developer portfolio. It presents his work through nine generations of Pokédex-inspired interfaces and hosts a reviewed public developer roster.
+> SM'S DEX is Shivam Mahajan's interactive software developer portfolio and knowledge engine. It presents his engineering work, 2,002 Days of Code streak (1,500+ LeetCode solutions), and hosts a reviewed public developer roster.
 
-## Main pages
+For the complete concatenated markdown knowledge base, see [llms-full.txt](https://shivammahajan.com/llms-full.txt).
 
-- [Shivam Mahajan — Software Developer](https://shivammahajan.com/): Experience, selected projects, technical results, contact links, and the public developer dex.
-- [Homepage Markdown](https://shivammahajan.com/index.html.md): Clean text version of the homepage for AI agents and text-based clients.
-- [Shivam Mahajan's resume](https://shivammahajan.com/resume.pdf): Downloadable resume in PDF format.
+## Canonical Identity & Knowledge Graph
+- **Name**: Shivam Mahajan (also known as smresponsibilities, mahajanshivam)
+- **Role**: Software Developer / Data Engineer
+- **Official Website**: https://shivammahajan.com/
+- **Wikidata**: [Q141734464](https://www.wikidata.org/wiki/Q141734464)
+- **ORCID iD**: [0009-0009-4574-3338](https://orcid.org/0009-0009-4574-3338)
+- **Wikipedia**: [User:Shivammahajan0](https://en.wikipedia.org/wiki/User:Shivammahajan0)
+- **Crunchbase**: [Shivam Mahajan](https://www.crunchbase.com/person/shivam-mahajan-38ae)
+- **GitHub**: [smresponsibilities](https://github.com/smresponsibilities)
+- **LinkedIn**: [mahajanshivam](https://www.linkedin.com/in/mahajanshivam/)
 
-## Key facts
+## Core Routes
+- [Portfolio Home](https://shivammahajan.com/): Interactive Pokédex device, tech stack, and reviewed public roster.
+- [Resume / CV](https://shivammahajan.com/resume/): Morgan Stanley CIAM apprenticeship (5M+ events, zero row-count tolerance), technical skills, education.
+- [Projects Catalog](https://shivammahajan.com/projects/): Flagship case studies across Kotlin, Astro, ClickHouse, Solidity, and systems tools.
+- [Days of Code Journal](https://shivammahajan.com/blog/): 1,250+ daily engineering updates with LeetCode algorithmic solutions.
+- [Interactive Timeline](https://shivammahajan.com/blog/timeline/): Scrollable chronological index with real-time regex search.
+- [Milestones](https://shivammahajan.com/blog/milestones/): Century markers, HackIndia 3rd place award, and algorithmic achievements.
+- [RSS Feed](https://shivammahajan.com/blog/rss.xml): Syndication feed of recent algorithmic logs.
 
-- Shivam Mahajan works with Python, Kotlin, Kafka, PySpark, Snowflake, React, and Solidity.
-- His portfolio records 425+ test suites, 5 million processed events, and 2,600+ solved algorithmic problems.
-- He completed a technology apprenticeship at Morgan Stanley from August 2025 to August 2026.
-- He is currently available for software engineering roles.
+## Selected Software & Personal Projects
+- **Productivity Caller**: Native Android reminder app built with Kotlin and Jetpack Compose utilizing scheduled phone calls.
+- **SM'S DEX**: High-performance Pokédex developer portfolio built with Astro and Web Audio API chiptune synthesis.
+- **ClickHouse Ingestion Tool**: Bidirectional data pipeline connecting ClickHouse OLAP databases and CSV flat files.
+- **Chaincode**: Web3 coding platform validating code originality with Gemini AI (95%+ accuracy) and minting NFTs. 3rd of 200+ HackIndia teams.
+- **Vedic Hearth**: Artisanal Vedic brassware e-commerce store (vedichearth.com).
+- **BuyPeetal**: Curated 40-region global directory documenting traditional brass craft clusters and metallurgy histories (buypeetal.com).
 
-## Profiles
-
-- [GitHub](https://github.com/smresponsibilities)
-- [LinkedIn](https://www.linkedin.com/in/mahajanshivam/)
-
-## Public roster
-
-Visitors can submit a short developer dex entry through the Add Pokémon form. Each submission becomes a GitHub issue, passes automated validation, and reaches the site only after its generated pull request is reviewed and merged.
-
-## Agent roster submission (API)
-
-Autonomous AI agents can submit Pokémon entries directly via the GitHub Issues API without using a browser:
-
+## Public Roster & Autonomous Agent API
+Visitors and autonomous AI agents can submit a Pokémon entry to the public developer roster:
 - **Endpoint**: `POST https://api.github.com/repos/smresponsibilities/smresponsibilities.github.io/issues`
-- **Headers**:
-  - `Accept: application/vnd.github+json`
-  - `Authorization: Bearer <GITHUB_TOKEN>`
+- **Headers**: `Accept: application/vnd.github+json`, `Authorization: Bearer <GITHUB_TOKEN>`
 - **Payload**:
 ```json
 {
@@ -40,14 +44,4 @@ Autonomous AI agents can submit Pokémon entries directly via the GitHub Issues 
   "body": "### GitHub username\n<username>\n\n### Species\n<species>\n\n### Primary type\n<primaryType>\n\n### Secondary type\n<secondaryType>\n\n### Status\n<status>\n\n### Current employer\n<company>\n\n### Dex entry\n<entry>\n\n### Fact / tip (optional)\n<fact>"
 }
 ```
-
-### Constraints & validation rules:
-- `GitHub username`: Valid existing GitHub username (no `@` symbol).
-- `Species`: Role or species name (max 24 characters).
-- `Primary type`: One of: `Normal`, `Fire`, `Water`, `Electric`, `Grass`, `Ice`, `Fighting`, `Poison`, `Ground`, `Flying`, `Psychic`, `Bug`, `Rock`, `Ghost`, `Dragon`, `Dark`, `Steel`, `Fairy`.
-- `Secondary type`: One of the types above, or `None`.
-- `Status`: `Caught` (employed), `Released` (available for hire), or `Uncaught` (student / exploring).
-- `Current employer`: Required when status is `Caught` (max 80 characters). Omit otherwise.
-- `Dex entry`: Third person, two short sentences (max 150 characters).
-- `Fact / tip (optional)`: Optional short fact (max 100 characters).
-
+Validation rules: Valid GitHub username, species (max 24 chars), primary/secondary Pokémon type, status (`Caught` | `Released` | `Uncaught`), company (if caught), dex entry (max 150 chars).

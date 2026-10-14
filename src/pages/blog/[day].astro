@@ -58,31 +58,28 @@ const structuredData = {
     {
       '@type': 'BlogPosting',
       '@id': `${currentUrl}#article`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: problemTitle ? `${problemTitle} (Day ${post.day})` : `Day ${post.day} of 2002 Days of Code`,
       description: pageDesc,
-      author: {
-        '@type': 'Person',
-        name: 'Shivam Mahajan',
-        jobTitle: 'Software Developer',
-        url: 'https://shivammahajan.com/resume/',
-        sameAs: [
-          'https://github.com/smresponsibilities',
-          'https://www.linkedin.com/in/mahajanshivam/',
-          'https://peerlist.io/shivammahajan',
-          'https://www.producthunt.com/@shivammahajan'
-        ]
-      },
-      publisher: {
-        '@type': 'Person',
-        name: 'Shivam Mahajan',
-        url: 'https://shivammahajan.com/'
-      },
+      inLanguage: 'en-IN',
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: currentUrl,
       mainEntityOfPage: {
         '@type': 'WebPage',
         '@id': currentUrl
       },
       datePublished: new Date(post.date).toISOString(),
+      dateModified: new Date(post.date).toISOString(),
+      keywords: [
+        'Shivam Mahajan',
+        '2002 Days of Code',
+        'LeetCode',
+        'Python',
+        'Algorithms',
+        'Data Structures',
+        ...(primaryQuestion ? [primaryQuestion.title, `LeetCode ${primaryQuestion.number}`] : [])
+      ],
       articleBody: post.content
     },
     {

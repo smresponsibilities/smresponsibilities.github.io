@@ -5,27 +5,28 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@graph': [
     {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://shivammahajan.com/projects/productivity-caller/#software',
+      name: 'Productivity Caller',
+      operatingSystem: 'Android',
+      applicationCategory: 'ProductivityApplication',
+      programmingLanguage: ['Kotlin', 'Jetpack Compose'],
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      description: 'Native Android reminder application utilizing scheduled automated phone calls to prevent missed urgent reminders.',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      }
+    },
+    {
       '@type': 'TechArticle',
       '@id': 'https://shivammahajan.com/projects/productivity-caller/#article',
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: "Productivity Caller: Native Android Reminder App with Phone Calls",
       description: "Technical case study of Productivity Caller: an Android reminder app built with Kotlin, Jetpack Compose, and automated phone calls to prevent missed urgent reminders.",
-      author: {
-        '@type': 'Person',
-        name: 'Shivam Mahajan',
-        jobTitle: 'Software Developer',
-        url: 'https://shivammahajan.com/resume/',
-        sameAs: [
-          'https://github.com/smresponsibilities',
-          'https://www.linkedin.com/in/mahajanshivam/',
-          'https://peerlist.io/shivammahajan',
-          'https://www.producthunt.com/@shivammahajan'
-        ]
-      },
-      publisher: {
-        '@type': 'Person',
-        name: 'Shivam Mahajan',
-        url: 'https://shivammahajan.com/'
-      },
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: 'https://shivammahajan.com/projects/productivity-caller/',
       about: [
         { '@type': 'Thing', name: 'Android Development' },

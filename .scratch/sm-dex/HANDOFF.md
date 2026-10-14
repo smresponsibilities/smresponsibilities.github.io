@@ -1,18 +1,22 @@
-# Handoff - 2026-10-09
+# Handoff - 2026-10-14
 
 ## State
-Resolved: 119, 120, 121, 122, 124
+Resolved: 119, 120, 121, 122, 124, 125 (Forensic Audit & Entity Depth)
 Frontier: None
 In flight: None
 
 ## Last session
-- Tagged 25 featured milestone posts in `src/data/linkedin-posts.json` (LeetCode question count milestones 1400-2000, HackIndia 2024 win, Pokédex launch, Knight badge, etc.).
-- Recovered missing Day 1100 post (2026-05-16) from featured list; removed incorrect "Where did Day 1100 go?" glitch tag on Day 1101.
-- Updated `DaysTimeline.astro` variant 10 (`/blog/milestones/`) to display milestone titles alongside day numbers.
-- Verified complete Astro production build (1,361 pages generated).
+- Anchored all 1,250+ blog subpages and project pages (`[day].astro`, `resume.astro`, `productivity-caller.astro`, `sm-dex.astro`) to canonical person entity URI `@id: 'https://shivammahajan.com/#shivam-mahajan'`. Added `isPartOf`, `dateModified`, and `keywords`.
+- Added `SoftwareApplication` schema to Productivity Caller and `SoftwareSourceCode` schema to SM'S DEX.
+- Added structured `BreadcrumbList` to all directory and index pages (`blog/index.astro`, `shivam-mahajan.astro`, `timeline.astro`, `milestones.astro`, `month/[month].astro`, `archive/[group]/[...page].astro`).
+- Added root RSS syndication route `src/pages/rss.xml.ts`, added RSS auto-discovery `<link rel="alternate">` tag to `Base.astro`, and enriched feed with LeetCode problem titles and author metadata.
+- Created `public/llms-full.txt` (full AI crawler context manifest) and updated `public/llms.txt`.
+- Declared both `sitemap-index.xml` and `sitemap.xml` in `public/robots.txt` and added postbuild synchronization.
+- Trimmed non-critical modulepreloads in `index.astro` and fixed loader image layout attributes.
+- Added 2 new test suites to `tests/ahrefs-audit.test.mjs` (syndication/manifest check and schema anchoring check). 17/17 tests passing.
 
 ## Not yet written down
 None.
 
 ## Next
-Post Day 1246 to LinkedIn, drop link into issue #55, and close it.
+Claim external developer footprints (Google Developer Profile `g.dev/shivammahajan`, Dev.to, Kaggle) to accelerate desktop SERP Knowledge Panel convergence.
