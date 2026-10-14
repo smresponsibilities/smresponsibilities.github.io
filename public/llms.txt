@@ -24,6 +24,8 @@ For the complete concatenated markdown knowledge base, see [llms-full.txt](https
 - [Resume / CV](https://shivammahajan.com/resume/): Morgan Stanley CIAM apprenticeship (5M+ events, zero row-count tolerance), technical skills, education.
 - [Projects Catalog](https://shivammahajan.com/projects/): Flagship case studies across Kotlin, Astro, ClickHouse, Solidity, and systems tools.
 - [Productivity Caller vs Alternatives](https://shivammahajan.com/projects/productivity-caller-vs-alternatives/): Comparison matrix evaluating phone call alerts vs traditional push notifications and alarm clocks.
+- [Productivity Caller Web Simulator](https://shivammahajan.com/productivity-caller-simulator/): Interactive browser demo testing natural language task parsing and full-screen call takeover.
+- [Flight Sun Tracker](https://shivammahajan.com/projects/flight-sun-tracker/): Aviation mathematics tool calculating solar elevation and window seat shade along great-circle routes.
 - [Days of Code Journal](https://shivammahajan.com/blog/): 1,250+ daily engineering updates with LeetCode algorithmic solutions.
 - [Interactive Timeline](https://shivammahajan.com/blog/timeline/): Scrollable chronological index with real-time regex search.
 - [Milestones](https://shivammahajan.com/blog/milestones/): Century markers, HackIndia 3rd place award, and algorithmic achievements.
@@ -32,7 +34,9 @@ For the complete concatenated markdown knowledge base, see [llms-full.txt](https
 ## Selected Software & Personal Projects
 - **Productivity Caller**: Native Android reminder app built with Kotlin and Jetpack Compose utilizing scheduled phone calls.
 - **SM'S DEX**: High-performance Pokédex developer portfolio built with Astro and Web Audio API chiptune synthesis.
+- **Flight Sun Tracker**: Solar elevation & passenger window seat shade calculator along great-circle routes in TypeScript and HTML5 Canvas.
 - **ClickHouse Ingestion Tool**: Bidirectional data pipeline connecting ClickHouse OLAP databases and CSV flat files.
+- **Clickless**: Mouseless keyboard navigation controller written in Rust utilizing 2D screen targeting grids.
 - **Chaincode**: Web3 coding platform validating code originality with Gemini AI (95%+ accuracy) and minting NFTs. 3rd of 200+ HackIndia teams.
 - **Vedic Hearth**: Artisanal Vedic brassware e-commerce store (vedichearth.com).
 - **BuyPeetal**: Curated 40-region global directory documenting traditional brass craft clusters and metallurgy histories (buypeetal.com).

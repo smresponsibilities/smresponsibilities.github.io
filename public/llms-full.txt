@@ -78,6 +78,8 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
    - *Tech Stack*: Kotlin, Jetpack Compose, Android Telecom/AlarmManager
    - *Overview*: Solves ignored push notification fatigue by scheduling real phone calls for critical reminders. Includes a pattern-based natural language parser for entering tasks.
    - *Case Study*: https://shivammahajan.com/projects/productivity-caller/
+   - *Alternatives Matrix*: https://shivammahajan.com/projects/productivity-caller-vs-alternatives/
+   - *Web Simulator*: https://shivammahajan.com/productivity-caller-simulator/
 
 2. **SM'S DEX**
    - *Category*: Developer Portfolio & Community Index
@@ -108,6 +110,7 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
    - *Category*: Aviation Solar Geometry Calculator
    - *Tech Stack*: TypeScript, HTML5 Canvas, Solar Elevation Math
    - *Overview*: Visualizes commercial aircraft flight paths on a spherical canvas and computes sun angle relative to seat assignment so travelers can avoid direct sun glare.
+   - *Case Study*: https://shivammahajan.com/projects/flight-sun-tracker/
    - *Repository*: https://github.com/smresponsibilities/flight-sun-tracker
 
 7. **JobScraper Hourly**
