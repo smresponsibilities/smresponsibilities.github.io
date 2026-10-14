@@ -13,6 +13,10 @@
 - **Permanent Entity URI**: `https://shivammahajan.com/#shivam-mahajan`
 - **Wikidata Item**: [Q141734464](https://www.wikidata.org/wiki/Q141734464)
 - **ORCID Researcher iD**: [0009-0009-4574-3338](https://orcid.org/0009-0009-4574-3338)
+- **Google Developer Profile**: [Shivam Mahajan](https://me.developers.google.com/u/107207277969180626613)
+- **Kaggle Profile**: [mahajanshivam](https://www.kaggle.com/mahajanshivam)
+- **Hugging Face Hub**: [mahajanshivam](https://huggingface.co/mahajanshivam)
+- **DEV Community**: [shivammahajan](https://dev.to/shivammahajan)
 - **English Wikipedia**: [User:Shivammahajan0](https://en.wikipedia.org/wiki/User:Shivammahajan0) (Page ID: 84505153)
 - **Meta-Wiki**: [User:Shivammahajan0](https://meta.wikimedia.org/wiki/User:Shivammahajan0)
 - **Crunchbase Profile**: [shivam-mahajan-38ae](https://www.crunchbase.com/person/shivam-mahajan-38ae)

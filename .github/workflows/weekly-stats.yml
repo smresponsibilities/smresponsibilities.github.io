@@ -1,0 +1,40 @@
+name: Weekly DSA & Streak Sync
+
+on:
+  schedule:
+    # Run every Sunday at 02:00 UTC (weekly)
+    - cron: '0 2 * * 0'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: dsa-stats-sync
+  cancel-in-progress: true
+
+jobs:
+  sync-metrics:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Fetch live metrics from LeetCode & Codeforces
+        run: node scripts/fetch-dsa-stats.mjs
+
+      - name: Commit and push updated metrics
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          git add src/data/dsa-stats.json
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "chore(data): weekly sync of LeetCode & Codeforces problem metrics"
+          git pull --rebase origin main
+          git push
+          gh workflow run deploy.yml --ref main

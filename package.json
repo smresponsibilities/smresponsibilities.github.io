@@ -6,7 +6,8 @@
     "node": ">=22.12.0"
   },
   "scripts": {
-    "prebuild": "node scripts/build-device-content.mjs && node scripts/build-posts-api.mjs",
+    "prebuild": "node scripts/build-device-content.mjs && node scripts/build-posts-api.mjs && node scripts/fetch-dsa-stats.mjs",
+    "update-stats": "node scripts/fetch-dsa-stats.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "postbuild": "node scripts/audit-seo.mjs && node --test tests/ahrefs-audit.test.mjs",

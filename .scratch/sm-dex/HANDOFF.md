@@ -1,22 +1,25 @@
-# Handoff - 2026-10-14
+# Handoff - 2026-10-14, after weekly pipeline & resume sync notice
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125 (Forensic Audit & Entity Depth)
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline
 Frontier: None
 In flight: None
 
 ## Last session
-- Anchored all 1,250+ blog subpages and project pages (`[day].astro`, `resume.astro`, `productivity-caller.astro`, `sm-dex.astro`) to canonical person entity URI `@id: 'https://shivammahajan.com/#shivam-mahajan'`. Added `isPartOf`, `dateModified`, and `keywords`.
-- Added `SoftwareApplication` schema to Productivity Caller and `SoftwareSourceCode` schema to SM'S DEX.
-- Added structured `BreadcrumbList` to all directory and index pages (`blog/index.astro`, `shivam-mahajan.astro`, `timeline.astro`, `milestones.astro`, `month/[month].astro`, `archive/[group]/[...page].astro`).
-- Added root RSS syndication route `src/pages/rss.xml.ts`, added RSS auto-discovery `<link rel="alternate">` tag to `Base.astro`, and enriched feed with LeetCode problem titles and author metadata.
-- Created `public/llms-full.txt` (full AI crawler context manifest) and updated `public/llms.txt`.
-- Declared both `sitemap-index.xml` and `sitemap.xml` in `public/robots.txt` and added postbuild synchronization.
-- Trimmed non-critical modulepreloads in `index.astro` and fixed loader image layout attributes.
-- Added 2 new test suites to `tests/ahrefs-audit.test.mjs` (syndication/manifest check and schema anchoring check). 17/17 tests passing.
+- Created `.github/workflows/weekly-stats.yml`:
+  - Runs weekly (Sunday 02:00 UTC) via cron and manual `workflow_dispatch`.
+  - Executes `scripts/fetch-dsa-stats.mjs`, commits updated `src/data/dsa-stats.json`, and triggers `deploy.yml`.
+- Reused streak formula in `scripts/fetch-dsa-stats.mjs` to keep `streakDay` in sync alongside `updatedAt`.
+- Enhanced `/resume` (`src/pages/resume.astro`):
+  - Added live metrics footnote below metric pills displaying:
+    - Auto-incrementing daily streak status.
+    - Verified breakdown: LeetCode (2,022) + Codeforces (651) -> 2,673+ Problems.
+    - Last synced timestamp (`<time datetime={...}>{formattedLastUpdated}</time>`).
+- Built site and passed full Ahrefs/SEO verification suite (17/17 tests passing).
 
 ## Not yet written down
 None.
 
 ## Next
-Claim external developer footprints (Google Developer Profile `g.dev/shivammahajan`, Dev.to, Kaggle) to accelerate desktop SERP Knowledge Panel convergence.
+1. Commit and push changes to trigger initial workflow sync.
+2. Cross-post technical log to Dev.to with canonical URL pointing to `https://shivammahajan.com/blog/...`.

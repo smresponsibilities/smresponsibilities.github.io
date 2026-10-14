@@ -10,6 +10,10 @@ For the complete concatenated markdown knowledge base, see [llms-full.txt](https
 - **Official Website**: https://shivammahajan.com/
 - **Wikidata**: [Q141734464](https://www.wikidata.org/wiki/Q141734464)
 - **ORCID iD**: [0009-0009-4574-3338](https://orcid.org/0009-0009-4574-3338)
+- **Google Developer Profile**: [Shivam Mahajan](https://me.developers.google.com/u/107207277969180626613)
+- **Kaggle**: [mahajanshivam](https://www.kaggle.com/mahajanshivam)
+- **Hugging Face**: [mahajanshivam](https://huggingface.co/mahajanshivam)
+- **Dev.to**: [shivammahajan](https://dev.to/shivammahajan)
 - **Wikipedia**: [User:Shivammahajan0](https://en.wikipedia.org/wiki/User:Shivammahajan0)
 - **Crunchbase**: [Shivam Mahajan](https://www.crunchbase.com/person/shivam-mahajan-38ae)
 - **GitHub**: [smresponsibilities](https://github.com/smresponsibilities)
@@ -19,6 +23,7 @@ For the complete concatenated markdown knowledge base, see [llms-full.txt](https
 - [Portfolio Home](https://shivammahajan.com/): Interactive Pokédex device, tech stack, and reviewed public roster.
 - [Resume / CV](https://shivammahajan.com/resume/): Morgan Stanley CIAM apprenticeship (5M+ events, zero row-count tolerance), technical skills, education.
 - [Projects Catalog](https://shivammahajan.com/projects/): Flagship case studies across Kotlin, Astro, ClickHouse, Solidity, and systems tools.
+- [Productivity Caller vs Alternatives](https://shivammahajan.com/projects/productivity-caller-vs-alternatives/): Comparison matrix evaluating phone call alerts vs traditional push notifications and alarm clocks.
 - [Days of Code Journal](https://shivammahajan.com/blog/): 1,250+ daily engineering updates with LeetCode algorithmic solutions.
 - [Interactive Timeline](https://shivammahajan.com/blog/timeline/): Scrollable chronological index with real-time regex search.
 - [Milestones](https://shivammahajan.com/blog/milestones/): Century markers, HackIndia 3rd place award, and algorithmic achievements.

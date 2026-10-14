@@ -1,5 +1,18 @@
 ---
 import EditorialShell from '../components/EditorialShell.astro';
+import dsaStats from '../data/dsa-stats.json';
+import { getDailyStreak } from '../lib/streak';
+
+const dailyStreak = getDailyStreak();
+const totalProblemsFormatted = `${dsaStats.totalSolved.toLocaleString()}+ Problems`;
+const dailyStreakFormatted = `${dailyStreak.toLocaleString()}+ Days`;
+
+const lastUpdatedDate = new Date(dsaStats.updatedAt);
+const formattedLastUpdated = lastUpdatedDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric'
+});
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -17,6 +30,10 @@ const structuredData = {
         sameAs: [
           'https://www.wikidata.org/wiki/Q141734464',
           'https://orcid.org/0009-0009-4574-3338',
+          'https://me.developers.google.com/u/107207277969180626613',
+          'https://www.kaggle.com/mahajanshivam',
+          'https://huggingface.co/mahajanshivam',
+          'https://dev.to/shivammahajan',
           'https://www.crunchbase.com/person/shivam-mahajan-38ae',
           'https://en.wikipedia.org/wiki/User:Shivammahajan0',
           'https://meta.wikimedia.org/wiki/User:Shivammahajan0',
@@ -63,7 +80,7 @@ const structuredData = {
 
   <!-- Direct Answer Executive Summary (Tactic #2) -->
   <div class="direct-answer">
-    <p><strong>Profile Summary:</strong> Shivam Mahajan is a Software Developer specializing in distributed data pipelines, backend APIs, and native mobile apps. Proven experience at Morgan Stanley scaling CIAM Kafka/Snowflake systems processing 5M+ daily events with zero row-count tolerance, alongside 2,600+ solved algorithmic problems.</p>
+    <p><strong>Profile Summary:</strong> Shivam Mahajan is a Software Developer specializing in distributed data pipelines, backend APIs, and native mobile apps. Proven experience at Morgan Stanley scaling CIAM Kafka/Snowflake systems processing 5M+ daily events with zero row-count tolerance, alongside {dsaStats.totalSolved.toLocaleString()}+ solved algorithmic problems.</p>
   </div>
 
   <!-- Hard Quantitative Statistics (Tactic #3 & Tactic #69) -->
@@ -72,19 +89,23 @@ const structuredData = {
       <span class="metric-label">Pipeline Scale</span>
       <span class="metric-value">5M+ Events</span>
     </div>
-    <div class="metric-pill">
-      <span class="metric-label">LeetCode Solved</span>
-      <span class="metric-value">2,600+ Problems</span>
+    <div class="metric-pill" title={`LeetCode: ${dsaStats.leetcode.solved.toLocaleString()} · Codeforces: ${dsaStats.codeforces.solved.toLocaleString()}`}>
+      <span class="metric-label">Problems Solved</span>
+      <span class="metric-value">{totalProblemsFormatted}</span>
     </div>
-    <div class="metric-pill">
+    <div class="metric-pill" title="Daily streak in 2,002 Days of Code challenge, increasing daily">
       <span class="metric-label">Daily Streak</span>
-      <span class="metric-value">1,246+ Days</span>
+      <span class="metric-value">{dailyStreakFormatted}</span>
     </div>
     <div class="metric-pill">
       <span class="metric-label">Test Suites</span>
       <span class="metric-value">425+ Passing</span>
     </div>
   </div>
+
+  <p class="metrics-footnote">
+    <strong>Live Metrics:</strong> Daily streak increments automatically every day ({dailyStreakFormatted}). Problem counts combine verified solutions across LeetCode ({dsaStats.leetcode.solved.toLocaleString()}) and Codeforces ({dsaStats.codeforces.solved.toLocaleString()}), synced weekly via automated pipeline. Last synced: <time datetime={dsaStats.updatedAt}>{formattedLastUpdated}</time>.
+  </p>
 
   <section><h2>Experience</h2><article class="card"><p class="meta">Aug 2025 – Aug 2026</p><h3>Morgan Stanley · Technology Apprentice</h3><p>Worked on a CIAM data warehouse using Kafka, PySpark, and Snowflake. The robust data ingestion system securely processed more than 5 million events with strict zero row-count tolerance to maintain data integrity. Work also included developing resilient Python ETL pipelines and maintaining a high-performance Java API to serve real-time analytics to clients.</p></article></section>
   <section><h2>Selected projects</h2><div class="grid">
@@ -152,5 +173,18 @@ const structuredData = {
     font-weight: 600;
     color: var(--ink, #fff);
     margin-top: 2px;
+  }
+  .metrics-footnote {
+    font-size: 12px;
+    color: var(--dim, #888);
+    margin: -16px 0 28px;
+    line-height: 1.5;
+    padding: 10px 14px;
+    background: var(--panel, #161b22);
+    border: 1px dashed var(--border, #333);
+    border-radius: 4px;
+  }
+  .metrics-footnote strong {
+    color: var(--time-accent, #ffd75e);
   }
 </style>
