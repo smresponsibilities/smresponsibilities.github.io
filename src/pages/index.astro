@@ -362,6 +362,23 @@ const projects = [
             </article>
           ))}
         </div>
+
+        <dialog id="wordle-native-dialog" class="wordle-dialog" aria-labelledby="wordle-dialog-title">
+          <div class="wordle-dialog-header">
+            <div>
+              <span class="eyebrow">MOVE 003 / PURE C SYSTEMS</span>
+              <h2 id="wordle-dialog-title">Terminal Wordle Simulator</h2>
+            </div>
+            <div class="wordle-dialog-controls">
+              <a href="/wordle-simulator/" class="wordle-dialog-link" target="_blank" rel="noopener noreferrer">Open Full Page ↗</a>
+              <a href="/projects/wordle/" class="wordle-dialog-link">Case Study →</a>
+              <button type="button" id="close-wordle-dialog" class="wordle-dialog-close-btn" aria-label="Close Wordle simulator">Close</button>
+            </div>
+          </div>
+          <div class="wordle-dialog-frame-wrapper">
+            <iframe id="wordle-dialog-frame" src="/wordle-simulator/?embed=true" title="Interactive Pure C Wordle Simulator" class="wordle-frame" loading="lazy"></iframe>
+          </div>
+        </dialog>
       </div>
     </section>
   <section aria-label="Days of Code"><h2>Days of Code</h2><DaysTimeline variant={1} limit={8} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
@@ -392,23 +409,6 @@ const projects = [
       <div class="form-actions"><button class="secondary-button" id="cancel-submission" type="button" data-tooltip="Close without opening an issue">Cancel</button><button class="submit-button" type="submit" data-tooltip="Open a prefilled GitHub issue for review">Open GitHub Issue</button></div>
       <p id="submission-status" class="form-status" aria-live="polite"></p>
     </form>
-  </dialog>
-
-  <dialog id="wordle-native-dialog" class="wordle-dialog" aria-labelledby="wordle-dialog-title">
-    <div class="wordle-dialog-header">
-      <div>
-        <span class="eyebrow">MOVE 003 / PURE C SYSTEMS</span>
-        <h2 id="wordle-dialog-title">Terminal Wordle Simulator</h2>
-      </div>
-      <div class="wordle-dialog-controls">
-        <a href="/wordle-simulator/" class="wordle-dialog-link" target="_blank" rel="noopener noreferrer">Open Full Page ↗</a>
-        <a href="/projects/wordle/" class="wordle-dialog-link">Case Study →</a>
-        <button type="button" id="close-wordle-dialog" class="wordle-dialog-close-btn" aria-label="Close Wordle simulator">Close</button>
-      </div>
-    </div>
-    <div class="wordle-dialog-frame-wrapper">
-      <iframe id="wordle-dialog-frame" src="/wordle-simulator/?embed=true" title="Interactive Pure C Wordle Simulator" class="wordle-frame" loading="lazy"></iframe>
-    </div>
   </dialog>
 
   <script>
@@ -558,13 +558,16 @@ const projects = [
           if (wordleFrame instanceof HTMLIFrameElement) {
             try {
               wordleFrame.contentWindow?.focus();
-              wordleFrame.focus();
+              wordleFrame.focus({ preventScroll: true });
             } catch (_) {}
           }
         };
 
-        wordleBtn?.addEventListener('click', () => {
+        wordleBtn?.addEventListener('click', (e) => {
+          e.preventDefault();
+          const savedScrollY = window.scrollY;
           wordleDialog.showModal();
+          window.scrollTo({ top: savedScrollY, behavior: 'instant' });
           setTimeout(focusIframe, 80);
           setTimeout(focusIframe, 250);
         });
