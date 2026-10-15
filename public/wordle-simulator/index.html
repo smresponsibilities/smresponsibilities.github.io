@@ -487,12 +487,27 @@ p.lead {
   border: 1px solid #e2d9c8;
 }
 
-.tree-arrow {
+.tree-connector {
   display: flex;
+  align-items: center;
   justify-content: center;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1;
+  padding: 3px 0;
+}
+
+.tree-connector svg {
+  display: block;
+}
+
+.step-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--green);
+  background: var(--sage);
+  border: 1px solid var(--line);
+  padding: 1px 6px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
 }
 
 /* LIVE INSPECTOR DUAL GRID */
@@ -716,67 +731,105 @@ p.lead {
           <!-- Node 1: Input Buffer -->
           <div class="tree-node" id="node-input" data-fn="read_input">
             <div class="node-header">
-              <span class="node-fn-name">fgets(input, 1000, stdin) &amp; strcspn()</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 1</span>
+                <span class="node-fn-name">fgets(input, 1000, stdin) &amp; strcspn()</span>
+              </div>
               <span class="node-file-tag">wordle.c</span>
             </div>
             <div class="node-desc">Reads raw buffer from terminal stdin, strips newline terminator, validates exactly 5 letters.</div>
             <div class="node-signature">char input[1000]; input[strcspn(input, "\n")] = '\0';</div>
           </div>
 
-          <div class="tree-arrow">|</div>
+          <div class="tree-connector" aria-hidden="true">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0V15M7 15L2 10M7 15L12 10" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
           <!-- Node 2: Char Validation -->
           <div class="tree-node" id="node-validate" data-fn="checkAlpha">
             <div class="node-header">
-              <span class="node-fn-name">checkAlpha(guess)</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 2</span>
+                <span class="node-fn-name">checkAlpha(guess)</span>
+              </div>
               <span class="node-file-tag">src/wordcheck.c</span>
             </div>
             <div class="node-desc">Scans each byte via isalpha(). Rejects non-alphabetic glyphs, empty strings, or null pointers.</div>
             <div class="node-signature">int checkAlpha(char *guess); // O(N) where N=5</div>
           </div>
 
-          <div class="tree-arrow">|</div>
+          <div class="tree-connector" aria-hidden="true">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0V15M7 15L2 10M7 15L12 10" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
           <!-- Node 3: Custom Polynomial Modulo Hash -->
           <div class="tree-node" id="node-hash" data-fn="hashfunction2">
             <div class="node-header">
-              <span class="node-fn-name">hashfunction2(input) &amp; isAvailable[]</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 3</span>
+                <span class="node-fn-name">hashfunction2(input) &amp; isAvailable[]</span>
+              </div>
               <span class="node-file-tag">src/hash.c</span>
             </div>
             <div class="node-desc">Calculates polynomial hash: sum(word[j]*26^j)%46106600 % 6999999. Direct array lookup.</div>
             <div class="node-signature">int hashfunction2(char *word); // O(1) space, O(1) lookup</div>
           </div>
 
-          <div class="tree-arrow">|</div>
+          <div class="tree-connector" aria-hidden="true">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0V15M7 15L2 10M7 15L12 10" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
           <!-- Node 4: Comparator -->
           <div class="tree-node" id="node-check" data-fn="wordCheck">
             <div class="node-header">
-              <span class="node-fn-name">wordCheck(wordToGuess, input)</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 4</span>
+                <span class="node-fn-name">wordCheck(wordToGuess, input)</span>
+              </div>
               <span class="node-file-tag">src/wordcheck.c</span>
             </div>
             <div class="node-desc">Fast-path equality comparator: returns 0 on invalid, 2 on exact match, 1 on partial match.</div>
             <div class="node-signature">int wordCheck(char *word, char *guess);</div>
           </div>
 
-          <div class="tree-arrow">|</div>
+          <div class="tree-connector" aria-hidden="true">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0V15M7 15L2 10M7 15L12 10" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
           <!-- Node 5: Duplicate Letter Evaluation (Core Algorithm) -->
           <div class="tree-node" id="node-eval" data-fn="wordColoring">
             <div class="node-header">
-              <span class="node-fn-name">wordColoring(wordToGuess, input, colors)</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 5</span>
+                <span class="node-fn-name">wordColoring(wordToGuess, input, colors)</span>
+              </div>
               <span class="node-file-tag">src/color.c</span>
             </div>
             <div class="node-desc">Pass 1: Tally target letters and mark exact matches ('G'). Pass 2: Mark misplaced ('Y') if remaining count &gt; 0, else ('R').</div>
             <div class="node-signature">void wordColoring(char *wordToGuess, char *input, char colors[]);</div>
           </div>
 
-          <div class="tree-arrow">|</div>
+          <div class="tree-connector" aria-hidden="true">
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M7 0V15M7 15L2 10M7 15L12 10" stroke="var(--green)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
 
           <!-- Node 6: ANSI Terminal Stream Render -->
           <div class="tree-node" id="node-render" data-fn="printColoredWord">
             <div class="node-header">
-              <span class="node-fn-name">printColoredWord() &amp; updateAtozcolors()</span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span class="step-badge">STEP 6</span>
+                <span class="node-fn-name">printColoredWord() &amp; updateAtozcolors()</span>
+              </div>
               <span class="node-file-tag">src/color.c</span>
             </div>
             <div class="node-desc">Wraps letters in ANSI escape codes (\033[1;32m etc.) and updates keyboard letter states.</div>
