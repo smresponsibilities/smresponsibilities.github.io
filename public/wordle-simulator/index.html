@@ -252,6 +252,33 @@ p.lead {
   font-weight: 600;
 }
 
+.ctrl-btn.active-reveal {
+  background: rgba(210, 153, 34, 0.25);
+  border-color: #d29922;
+  color: #ffe599;
+  font-weight: 600;
+}
+
+.revealed-pill {
+  background: rgba(210, 153, 34, 0.15);
+  border: 1px solid #d29922;
+  color: #d29922;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 9px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.revealed-pill strong {
+  color: #ffe599;
+  letter-spacing: 2px;
+}
+
 .seed-info {
   font-family: var(--font-mono);
   font-size: 11px;
@@ -674,10 +701,159 @@ p.lead {
   color: #e6edf3;
   border-radius: 6px;
   padding: 12px 14px;
+/* IN-APP MODAL: SET TEST WORD */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 14, 20, 0.78);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalFadeIn 0.15s ease-out;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-dialog {
+  background: #0f141c;
+  border: 1px solid #2d3b52;
+  border-radius: 8px;
+  padding: 22px 24px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  font-family: var(--font-sans);
+  color: var(--term-text);
+  box-sizing: border-box;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.modal-header h3 {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+.modal-close {
+  background: transparent;
+  border: none;
+  color: #8b949e;
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 4px;
+}
+.modal-close:hover { color: #fff; }
+
+.modal-subtitle {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.45;
+  margin: 0 0 16px;
+}
+
+.modal-presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.preset-label {
   font-family: var(--font-mono);
-  font-size: 12px;
-  line-height: 1.5;
-  overflow-x: auto;
+  font-size: 11px;
+  color: #8b949e;
+  width: 100%;
+  margin-bottom: 2px;
+}
+
+.preset-chip {
+  background: #18202c;
+  border: 1px solid #28374d;
+  color: #a5d6ff;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 600;
+  padding: 4px 9px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.12s;
+}
+
+.preset-chip small {
+  color: #8b949e;
+  font-weight: 400;
+}
+
+.preset-chip:hover {
+  background: #23344d;
+  border-color: #388bfd;
+  color: #fff;
+}
+
+.modal-input-group {
+  margin-bottom: 18px;
+}
+
+.modal-input-group label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: #8b949e;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modal-input-group input {
+  width: 100%;
+  box-sizing: border-box;
+  background: #06090e;
+  border: 1px solid #2d3b52;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: #aff5b4;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.modal-input-group input:focus {
+  border-color: #3fb950;
+  box-shadow: 0 0 0 2px rgba(63, 185, 80, 0.2);
+}
+
+.modal-error {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: #f85149;
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
 }
 </style>
 </head>
@@ -735,6 +911,7 @@ p.lead {
         <button id="btn-random-mode" class="ctrl-btn" title="Pick random word from 9,077 dictionary bank">Random Word</button>
         <button id="btn-custom-mode" class="ctrl-btn" title="Set test word to verify duplicate letter edge cases">Set Test Word</button>
         <button id="btn-toggle-reveal" class="ctrl-btn" title="Toggle secret word visibility">Reveal Word</button>
+        <span id="revealed-word-pill" class="revealed-pill" style="display: none;">TARGET: <strong id="revealed-word-text">CRANE</strong></span>
         <button id="btn-reset" class="ctrl-btn" title="Clear board and start fresh attempt">Reset</button>
         <span id="seed-indicator" class="seed-info">Seed: day+month</span>
       </div>
@@ -962,6 +1139,46 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
       </div>
     </div>
   </section>
+
+  <!-- IN-APP MODAL: SET TEST WORD -->
+  <div id="test-word-modal-backdrop" class="modal-backdrop" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true" aria-labelledby="modal-test-word-title">
+      <div class="modal-header">
+        <h3 id="modal-test-word-title">Set Test Word</h3>
+        <button id="modal-close-btn" class="modal-close" aria-label="Close dialog">&times;</button>
+      </div>
+      <p class="modal-subtitle">
+        Inject custom 5-letter target word into C runtime to test duplicate letters, frequency tracking, and edge cases.
+      </p>
+
+      <div class="modal-presets">
+        <span class="preset-label">Quick Presets:</span>
+        <button type="button" class="preset-chip" data-word="SPEED">SPEED <small>(duplicate E)</small></button>
+        <button type="button" class="preset-chip" data-word="ERASE">ERASE <small>(split E)</small></button>
+        <button type="button" class="preset-chip" data-word="APPLE">APPLE <small>(duplicate P)</small></button>
+        <button type="button" class="preset-chip" data-word="GEESE">GEESE <small>(triple E)</small></button>
+        <button type="button" class="preset-chip" data-word="CRANE">CRANE <small>(balanced)</small></button>
+      </div>
+
+      <div class="modal-input-group">
+        <label for="custom-word-input">5-Letter Word:</label>
+        <input 
+          type="text" 
+          id="custom-word-input" 
+          maxlength="5" 
+          placeholder="e.g. SPEED" 
+          autocomplete="off" 
+          spellcheck="false"
+        />
+        <div id="modal-error-msg" class="modal-error" style="display: none;"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-cancel-custom-word" class="ctrl-btn" type="button">Cancel</button>
+        <button id="btn-apply-custom-word" class="ctrl-btn primary" type="button">Apply Test Word</button>
+      </div>
+    </div>
+  </div>
 </main>
 
 <script>
@@ -1448,14 +1665,85 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     statusLabel.style.color = "#7ee787";
     stdoutWindow.innerHTML = '';
     stdout("// Pure C99 Wordle Stdout Stream", 'ansi-dim');
-    stdout(`Game reset. Target length: 5 bytes. Day seed initialized.`);
+    stdout(`Game reset. Target length: 5 bytes. Seed initialized.`);
+    if (isWordRevealed) {
+      const revText = document.getElementById('revealed-word-text');
+      if (revText) revText.textContent = targetWord;
+    }
     updateInspector();
     renderFreqTable();
     renderGrid();
     renderKeyboard();
   }
 
+  const modalBackdrop = document.getElementById('test-word-modal-backdrop');
+  const customWordInput = document.getElementById('custom-word-input');
+  const modalError = document.getElementById('modal-error-msg');
+  const btnToggleReveal = document.getElementById('btn-toggle-reveal');
+  const revealedWordPill = document.getElementById('revealed-word-pill');
+  const revealedWordText = document.getElementById('revealed-word-text');
+
+  function openCustomWordModal() {
+    modalBackdrop.style.display = 'flex';
+    modalBackdrop.setAttribute('aria-hidden', 'false');
+    customWordInput.value = targetWord;
+    modalError.style.display = 'none';
+    setTimeout(() => {
+      customWordInput.focus();
+      customWordInput.select();
+    }, 50);
+  }
+
+  function closeCustomWordModal() {
+    modalBackdrop.style.display = 'none';
+    modalBackdrop.setAttribute('aria-hidden', 'true');
+  }
+
+  function applyCustomWord(word) {
+    const cleanWord = (word || customWordInput.value || "").trim().toUpperCase();
+    if (cleanWord.length !== 5) {
+      modalError.textContent = "Word must contain exactly 5 letters.";
+      modalError.style.display = 'block';
+      return;
+    }
+    if (!/^[A-Z]{5}$/.test(cleanWord)) {
+      modalError.textContent = "Word must contain letters A-Z only.";
+      modalError.style.display = 'block';
+      return;
+    }
+
+    setActiveMode('btn-custom-mode');
+    seedIndicator.textContent = `Custom: ${cleanWord}`;
+    dictionarySet.add(cleanWord);
+    closeCustomWordModal();
+    resetGame(cleanWord);
+    showToast(`TEST WORD SET: ${cleanWord}`);
+    stdout(`Custom test word configured: ${cleanWord}`, 'ansi-green');
+  }
+
+  function toggleRevealWord() {
+    isWordRevealed = !isWordRevealed;
+    if (isWordRevealed) {
+      btnToggleReveal.textContent = "Hide Word";
+      btnToggleReveal.classList.add('active-reveal');
+      if (revealedWordText) revealedWordText.textContent = targetWord;
+      if (revealedWordPill) revealedWordPill.style.display = 'inline-flex';
+      showToast(`TARGET: ${targetWord}`);
+      stdout(`Target word revealed: ${targetWord}`, 'ansi-yellow');
+    } else {
+      btnToggleReveal.textContent = "Reveal Word";
+      btnToggleReveal.classList.remove('active-reveal');
+      if (revealedWordPill) revealedWordPill.style.display = 'none';
+      stdout("Target word hidden.", 'ansi-dim');
+    }
+    updateInspector();
+  }
+
   window.addEventListener('keydown', (e) => {
+    if (modalBackdrop && modalBackdrop.style.display === 'flex') {
+      if (e.key === 'Escape') closeCustomWordModal();
+      return;
+    }
     if (e.target.tagName === 'INPUT') return;
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -1488,19 +1776,45 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
 
   document.getElementById('btn-custom-mode').addEventListener('click', (e) => {
     e.currentTarget.blur();
-    const word = prompt("Enter a 5-letter test word (e.g., SPEED or ERASE to test duplicates):", "SPEED");
-    if (word && word.length === 5 && /^[a-zA-Z]+$/.test(word)) {
-      setActiveMode('btn-custom-mode');
-      seedIndicator.textContent = `Custom: ${word.toUpperCase()}`;
-      resetGame(word);
+    openCustomWordModal();
+  });
+
+  document.getElementById('modal-close-btn').addEventListener('click', closeCustomWordModal);
+  document.getElementById('btn-cancel-custom-word').addEventListener('click', closeCustomWordModal);
+
+  modalBackdrop.addEventListener('click', (e) => {
+    if (e.target === modalBackdrop) closeCustomWordModal();
+  });
+
+  document.querySelectorAll('.preset-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const w = btn.getAttribute('data-word');
+      if (w) {
+        customWordInput.value = w;
+        applyCustomWord(w);
+      }
+    });
+  });
+
+  document.getElementById('btn-apply-custom-word').addEventListener('click', () => applyCustomWord());
+
+  customWordInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      applyCustomWord();
+    } else if (e.key === 'Escape') {
+      closeCustomWordModal();
     }
   });
 
-  document.getElementById('btn-toggle-reveal').addEventListener('click', (e) => {
+  customWordInput.addEventListener('input', () => {
+    customWordInput.value = customWordInput.value.toUpperCase();
+    modalError.style.display = 'none';
+  });
+
+  btnToggleReveal.addEventListener('click', (e) => {
     e.currentTarget.blur();
-    isWordRevealed = !isWordRevealed;
-    document.getElementById('btn-toggle-reveal').textContent = isWordRevealed ? "Hide Word" : "Reveal Word";
-    updateInspector();
+    toggleRevealWord();
   });
 
   document.getElementById('btn-reset').addEventListener('click', (e) => {
