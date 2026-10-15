@@ -1,0 +1,149 @@
+---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://shivammahajan.com/projects/postie/#software',
+      name: 'Postie',
+      operatingSystem: 'Web Browser',
+      applicationCategory: 'DeveloperApplication',
+      programmingLanguage: ['JavaScript', 'HTML5', 'CSS3', 'Web Fetch API'],
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      description: 'Zero-dependency offline-first HTTP and REST API client running purely in the browser with 100% client-side execution and LocalStorage collection persistence.',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      }
+    },
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://shivammahajan.com/projects/postie/#article',
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      headline: 'Postie: Zero-Dependency Browser HTTP & API Testing Client',
+      description: 'Technical case study of Postie: building an offline-first vanilla JS alternative to Postman with zero external libraries, header inspection, and local privacy.',
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      url: 'https://shivammahajan.com/projects/postie/',
+      about: [
+        { '@type': 'Thing', name: 'JavaScript' },
+        { '@type': 'Thing', name: 'Web Fetch API' },
+        { '@type': 'Thing', name: 'REST API' },
+        { '@type': 'Thing', name: 'Developer Tools' }
+      ]
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/postie/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' },
+        { '@type': 'ListItem', position: 3, name: 'Postie', item: 'https://shivammahajan.com/projects/postie/' }
+      ]
+    }
+  ]
+};
+---
+
+<EditorialShell
+  title="Postie | Offline-First REST API Testing Client | Shivam Mahajan"
+  description="Explore Postie by Shivam Mahajan: a zero-dependency offline-first REST API client in pure vanilla JS. Fast HTTP workbench with 100% client-side privacy."
+  eyebrow="Move 007 / Developer Tooling"
+  heading="Postie: Zero-Dependency API Workbench"
+  intro="A lightweight, zero-dependency browser HTTP workbench built with pure modern JavaScript (ES6+), HTML5, and CSS3. Provides instant request execution, header inspections, response body formatting, and offline LocalStorage collections with zero server telemetry."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="https://shivammahajan.com/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Tool ↗</a>
+  <a slot="actions" href="https://github.com/smresponsibilities/Postie" target="_blank" rel="noopener noreferrer">View GitHub Repo ↗</a>
+  <a slot="actions" href="/projects/">Back to Projects</a>
+  <a slot="actions" href="/resume/">View Resume</a>
+
+  <!-- Top-of-page Breadcrumbs -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/">Projects</a> <span>/</span>
+    <a href="https://shivammahajan.com/projects/postie/" aria-current="page">Postie</a>
+  </nav>
+
+  <!-- Author Byline linked to profile -->
+  <div class="byline-bar">
+    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <span>·</span>
+    <time datetime="2026-10-15">October 2026</time>
+    <span>·</span>
+    <span>Developer Tooling &amp; Web Standards Architecture</span>
+  </div>
+
+  <!-- Direct Answer Executive Summary -->
+  <div class="direct-answer">
+    <p><strong>Executive Summary:</strong> Postie is a client-side API testing tool designed to replace bloated desktop applications (like Postman or Insomnia) with an instant, zero-install browser tab. Operating entirely on standard Web APIs (Fetch, Headers, LocalStorage), Postie guarantees zero telemetry, zero mandatory cloud logins, and sub-10ms initial page load with zero external runtime dependencies.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">Runtime Dependencies</span>
+      <span class="metric-value">0 (Pure Vanilla JS)</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Bundle Size</span>
+      <span class="metric-value">&lt; 35 KB Total</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Telemetry / Tracking</span>
+      <span class="metric-value">0% (100% Local)</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Supported Methods</span>
+      <span class="metric-value">GET, POST, PUT, DELETE, PATCH</span>
+    </div>
+  </div>
+
+  <article class="prose">
+    <section>
+      <h2>The Problem: The Bloat of Modern API Workbenches</h2>
+      <p>
+        Modern API clients that began as lightweight testing utilities have transformed into multi-gigabyte Electron monoliths requiring mandatory team accounts, cloud syncing, and constant update prompts. For engineers debugging endpoints or working in air-gapped/secure environments, transmitting authorization tokens and internal JSON payloads through third-party servers presents severe compliance risks.
+      </p>
+      <p>
+        Postie was designed as an intentional counterweight: a single-tab browser tool that requires zero installation, works offline, and keeps all sensitive request credentials strictly inside the local browser sandbox.
+      </p>
+    </section>
+
+    <section>
+      <h2>Architecture &amp; Web Standards Implementation</h2>
+      <p>
+        Postie is engineered without frameworks, bundlers, or third-party CSS libraries, achieving maximum performance and longevity:
+      </p>
+      <ul>
+        <li><strong>Native Web Fetch API:</strong> Dispatches HTTP methods (GET, POST, PUT, DELETE, PATCH) directly from the client window, honoring standard CORS policies and browser security models.</li>
+        <li><strong>Header &amp; Status Inspection:</strong> Parses HTTP response status codes, timing metrics (DNS to last byte), and response headers into a readable diagnostic grid.</li>
+        <li><strong>Safe Syntax Highlighting:</strong> Formats raw JSON responses with an in-memory lexical tokenizer written in vanilla JavaScript, avoiding heavy highlight libraries like Prism or Highlight.js.</li>
+        <li><strong>LocalStorage Workspace Persistence:</strong> Saves request tabs, bearer tokens, headers, and historical requests locally without transmitting data to external servers.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>CORS Handling &amp; Security Model</h2>
+      <p>
+        Because Postie runs directly in the browser, all network requests are subject to standard CORS (Cross-Origin Resource Sharing) headers. For development APIs, local endpoints (localhost:3000, 8080), and public open APIs with <code>Access-Control-Allow-Origin: *</code>, requests execute with zero configuration. For production APIs requiring restricted origins, Postie provides explicit diagnostic feedback explaining which preflight headers failed.
+      </p>
+    </section>
+
+    <section>
+      <h2>Live Verification &amp; Code Links</h2>
+      <p>
+        Postie is continuously hosted on GitHub Pages and runs entirely client-side:
+      </p>
+      <ul>
+        <li><a href="https://shivammahajan.com/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Postie Tool ↗</a></li>
+        <li><a href="https://github.com/smresponsibilities/Postie" target="_blank" rel="noopener noreferrer">Inspect GitHub Source Code ↗</a></li>
+        <li><a href="/projects/">Back to Projects Hub →</a></li>
+        <li><a href="/resume/">View Developer Resume &amp; Experience →</a></li>
+      </ul>
+    </section>
+  </article>
+</EditorialShell>

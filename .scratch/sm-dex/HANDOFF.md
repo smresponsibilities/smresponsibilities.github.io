@@ -1,21 +1,30 @@
-# Handoff - 2026-10-15, after Live Deployed App Audit & Two-Tier Link Restoration
+# Handoff - 2026-10-15, after SEO Technical Hardening, Case Study Expansion & IndexNow
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies
 Frontier: None
 In flight: None
 
 ## Last session
-1. Audited all deployed production web apps: verified HTTP 200 on `flight-sun-tracker` (Vercel), `productivity-caller-simulator` (custom domain), `Xeno2` (Vercel `xeno2-df3z`), `kalp-task3` (Vercel), `Renukiran` (Vercel), `nextfirst` (Vercel), `Chain-Code` (Vercel), and `Postie` (GitHub Pages on `shivammahajan.com/Postie/`).
-2. Renamed GitHub repository `web_project` to `Postie` via GitHub CLI, added developer tool topics/tags, set homepage to `https://shivammahajan.com/Postie/`, and updated README.
-3. Updated remote READMEs across active projects (`flight-sun-tracker`, `Postie`, `Xeno2`, `productivity-caller-simulator`, `kalp-task3`, `Chain-Code`, `Renukiran`, `nextfirst`) with two-tier links (Live Interactive Demo + Portfolio Architecture / Case Study) with zero emojis.
-4. Updated portfolio editorial pages:
-   - `src/pages/projects/flight-sun-tracker.astro`: Added primary `Launch Live App ↗` action link and body verification links.
-   - `src/pages/projects/index.astro`: Added dual action badges (`[Launch App ↗]` / `[Launch Simulator ↗]` and `[Read Case Study →]` / `[View Repository ↗]`), and added cards and structured schema for `Postie` and `Shopify Insights`.
-5. Built and tested site: 1366 pages rendered cleanly, 17/17 Ahrefs SEO audit tests passed with zero errors.
+1. Technical SEO & PWA Hardening:
+   - Built `public/site.webmanifest` and linked `<link rel="manifest" href="/site.webmanifest" />` in `src/layouts/Base.astro`.
+   - Built `src/pages/404.astro` (branded MissingNo/Wild 404 with links to Home, Projects, Resume, Blog) to prevent PageRank loss on GitHub Pages.
+   - Deployed IndexNow key `public/6a84f391c5e94beab5734df9b0c2e391.txt` and created `scripts/submit-indexnow.mjs` wired to `npm run indexnow`.
+   - Updated `scripts/audit-seo.mjs` and `tests/ahrefs-audit.test.mjs` to handle 404 exclusions.
+   - Deleted redundant `sitemap.xml` from Google Search Console via GSC API; cleaned `public/robots.txt` to serve single canonical `sitemap-index.xml`.
+2. Standalone Project Case Studies:
+   - Built `src/pages/projects/chaincode.astro` (Gemini AI code validation + Solidity smart contracts, HackIndia 3rd prize).
+   - Built `src/pages/projects/postie.astro` (zero-dependency offline-first REST API testing client in pure vanilla JS).
+   - Updated `src/pages/projects/index.astro` card links and `ItemList` structured schema to point to new case study routes.
+   - Enriched `public/llms.txt` and `public/llms-full.txt` with both new routes.
+3. Verification:
+   - 1,374 pages rendered cleanly.
+   - `scripts/audit-seo.mjs`: 100% pass (0 missing meta, 0 orphans, 0 sitemap errors).
+   - `tests/ahrefs-audit.test.mjs`: 17/17 pass with zero errors.
 
 ## Not yet written down
 None.
 
 ## Next
-Optionally link custom subdomain `flight-sun-tracker.shivammahajan.com` in Vercel if custom domain vanity alias is desired.
+1. Commit and push changes to trigger GitHub Pages deploy so IndexNow key `https://shivammahajan.com/6a84f391c5e94beab5734df9b0c2e391.txt` becomes live for Bing/Yandex verification.
+2. Publish 6 drafted parasite articles (`.scratch/devto-*.md` and `.scratch/medium-*.md`) with canonical tags pointing to `https://shivammahajan.com/projects/...`.

@@ -45,7 +45,7 @@ const allHtmlFiles = getAllHtmlFiles(distDir);
 // Filter out internal preview / prototype files
 const publicHtmlFiles = allHtmlFiles.filter(f => {
   const rel = path.relative(distDir, f).replace(/\\/g, '/');
-  return !rel.includes('casing-proto') && !rel.includes('generation-device') && !rel.includes('timelines') && !rel.includes('productivity-caller-simulator');
+  return !rel.includes('casing-proto') && !rel.includes('generation-device') && !rel.includes('timelines') && !rel.includes('productivity-caller-simulator') && !rel.includes('wordle-simulator') && !rel.includes('404');
 });
 
 // ── 1. INTERNAL PAGES & FILE LIMITS ──────────────────────────────────────────

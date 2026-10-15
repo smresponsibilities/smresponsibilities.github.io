@@ -26,6 +26,8 @@ For the complete concatenated markdown knowledge base, see [llms-full.txt](https
 - [Productivity Caller vs Alternatives](https://shivammahajan.com/projects/productivity-caller-vs-alternatives/): Comparison matrix evaluating phone call alerts vs traditional push notifications and alarm clocks.
 - [Productivity Caller Web Simulator](https://shivammahajan.com/productivity-caller-simulator/): Interactive browser demo testing natural language task parsing and full-screen call takeover.
 - [Flight Sun Tracker](https://shivammahajan.com/projects/flight-sun-tracker/): Aviation mathematics tool calculating solar elevation and window seat shade along great-circle routes.
+- [Chaincode Case Study](https://shivammahajan.com/projects/chaincode/): Web3 AI code originality evaluation engine and Solidity ERC-721 smart contracts. Awarded 3rd of 200+ teams at HackIndia.
+- [Postie API Client](https://shivammahajan.com/projects/postie/): Zero-dependency offline-first REST API workbench in pure vanilla JS with 100% client-side privacy.
 - [Days of Code Journal](https://shivammahajan.com/blog/): 1,250+ daily engineering updates with LeetCode algorithmic solutions.
 - [Interactive Timeline](https://shivammahajan.com/blog/timeline/): Scrollable chronological index with real-time regex search.
 - [Milestones](https://shivammahajan.com/blog/milestones/): Century markers, HackIndia 3rd place award, and algorithmic achievements.

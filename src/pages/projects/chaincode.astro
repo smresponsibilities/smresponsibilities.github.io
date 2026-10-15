@@ -1,0 +1,155 @@
+---
+import EditorialShell from '../../components/EditorialShell.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'SoftwareApplication',
+      '@id': 'https://shivammahajan.com/projects/chaincode/#software',
+      name: 'Chaincode',
+      operatingSystem: 'Web Browser / EVM Blockchain',
+      applicationCategory: 'DeveloperApplication',
+      programmingLanguage: ['Solidity', 'JavaScript', 'Node.js', 'React'],
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      description: 'Web3 developer platform validating source code originality using Gemini AI and minting verified proof-of-code NFT certificates on EVM blockchains.',
+      offers: {
+        '@type': 'Offer',
+        price: '0',
+        priceCurrency: 'USD'
+      }
+    },
+    {
+      '@type': 'TechArticle',
+      '@id': 'https://shivammahajan.com/projects/chaincode/#article',
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      headline: 'Chaincode: AI Originality Verification and Solidity Smart Contracts',
+      description: 'Case study of Chaincode: combining Gemini AI code validation with Solidity smart contracts to mint tamper-proof developer credentials. 3rd of 200+ teams.',
+      author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
+      url: 'https://shivammahajan.com/projects/chaincode/',
+      about: [
+        { '@type': 'Thing', name: 'Solidity' },
+        { '@type': 'Thing', name: 'Smart Contracts' },
+        { '@type': 'Thing', name: 'Gemini AI' },
+        { '@type': 'Thing', name: 'Web3' }
+      ]
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': 'https://shivammahajan.com/projects/chaincode/#breadcrumb',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://shivammahajan.com/projects/' },
+        { '@type': 'ListItem', position: 3, name: 'Chaincode', item: 'https://shivammahajan.com/projects/chaincode/' }
+      ]
+    }
+  ]
+};
+---
+
+<EditorialShell
+  title="Chaincode | Web3 Code Validation | Shivam Mahajan"
+  description="Explore Chaincode by Shivam Mahajan: a Web3 coding platform with Gemini AI plagiarism validation (95%+ accuracy) and automated Solidity NFT minting."
+  eyebrow="Move 005 / Web3 & AI Verification"
+  heading="Chaincode: Web3 AI Code Engine"
+  intro="A decentralized coding evaluation engine combining Google Gemini AI for semantic originality analysis with Solidity smart contracts to mint tamper-proof developer certificates. Awarded 3rd place across 200+ teams at HackIndia."
+  structuredData={structuredData}
+>
+  <a slot="actions" href="https://chain-code.vercel.app/" target="_blank" rel="noopener noreferrer">Launch Live App ↗</a>
+  <a slot="actions" href="https://github.com/smresponsibilities/Chain-Code" target="_blank" rel="noopener noreferrer">View GitHub Repo ↗</a>
+  <a slot="actions" href="/projects/">Back to Projects</a>
+  <a slot="actions" href="/resume/">View Resume</a>
+
+  <!-- Top-of-page Breadcrumbs -->
+  <nav class="breadcrumb-nav" aria-label="Breadcrumb navigation">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/projects/">Projects</a> <span>/</span>
+    <a href="https://shivammahajan.com/projects/chaincode/" aria-current="page">Chaincode</a>
+  </nav>
+
+  <!-- Author Byline linked to profile -->
+  <div class="byline-bar">
+    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <span>·</span>
+    <time datetime="2026-10-15">October 2026</time>
+    <span>·</span>
+    <span>Web3 &amp; Machine Learning Architecture</span>
+  </div>
+
+  <!-- Direct Answer Executive Summary -->
+  <div class="direct-answer">
+    <p><strong>Executive Summary:</strong> Chaincode is an automated Web3 assessment platform that prevents code plagiarism and credential spoofing in technical recruiting and hackathons. It passes submitted code through Google Gemini AI to analyze AST semantics, syntactic originality, and algorithmic complexity (achieving 95%+ classification accuracy). When code satisfies strict originality thresholds, an EVM smart contract mints an immutable ERC-721 Proof-of-Skill NFT to the developer's wallet.</p>
+  </div>
+
+  <!-- Hard Quantitative Statistics -->
+  <div class="metrics-strip">
+    <div class="metric-pill">
+      <span class="metric-label">HackIndia Placement</span>
+      <span class="metric-value">3rd / 200+ Teams</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Validation Engine</span>
+      <span class="metric-value">Gemini AI (95%+)</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Contracts</span>
+      <span class="metric-value">Solidity ERC-721</span>
+    </div>
+    <div class="metric-pill">
+      <span class="metric-label">Blockchain</span>
+      <span class="metric-value">EVM / Sepolia</span>
+    </div>
+  </div>
+
+  <article class="prose">
+    <section>
+      <h2>The Problem: The Collapse of Code Authenticity</h2>
+      <p>
+        Generative AI tooling has made it trivial for candidates to paste AI-generated solutions into coding interviews and hackathons without understanding core algorithms. Traditional string-distance checkers (such as Levenshtein or token-based Moss) fail to catch LLM completions because variable renaming, whitespace shifts, and comment additions scramble token sequences.
+      </p>
+      <p>
+        At the same time, traditional certification platforms issue easily forged PDF credentials. Chaincode was built at HackIndia to solve both sides of this trust equation: detecting semantic code provenance and anchoring verified achievement to an immutable decentralized ledger.
+      </p>
+    </section>
+
+    <section>
+      <h2>Dual-Tier Architecture: AI Evaluation + Smart Contracts</h2>
+      <p>
+        The platform operates as a secure two-tier pipeline separating off-chain algorithmic computation from on-chain certificate consensus:
+      </p>
+      <ul>
+        <li><strong>Tier 1 (Off-Chain Analysis):</strong> Submissions are ingested via Next.js serverless functions, tokenized, and evaluated against Gemini AI with a constrained system prompt to isolate algorithmic logic from cosmetic variable alterations. The engine checks time complexity, auxiliary space allocation, and semantic originality.</li>
+        <li><strong>Tier 2 (On-Chain Minting):</strong> If the evaluation passes both runtime correctness tests and the 90%+ originality threshold, the backend signs an authorization voucher. The developer’s Web3 wallet (MetaMask) calls the Solidity smart contract on EVM to mint an ERC-721 token storing IPFS metadata, timestamp, and challenge ID.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Smart Contract Engineering (Solidity)</h2>
+      <p>
+        The ERC-721 contract implements gas-optimized cryptographic signature verification (EIP-712). Rather than writing expensive string payloads directly to the blockchain, the contract stores a cryptographic hash of the challenge result pointing to decentralized IPFS storage.
+      </p>
+      <p>
+        Key smart contract guarantees:
+      </p>
+      <ul>
+        <li><strong>Replay Protection:</strong> Each signature voucher contains a unique nonce and sender address, preventing unauthorized wallet re-use.</li>
+        <li><strong>Gas Optimization:</strong> Custom bitmasking for status flags reduces mint gas costs below 65,000 gas units per certificate.</li>
+        <li><strong>Decentralized Metadata:</strong> Token URIs resolve to permanent IPFS hashes with standard OpenSea metadata attributes (Rank, Problem ID, Efficiency Score).</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Verification &amp; Links</h2>
+      <p>
+        Chaincode was recognized with 3rd place overall at the HackIndia Hackathon out of more than 200 competing engineering teams across India.
+      </p>
+      <ul>
+        <li><a href="https://chain-code.vercel.app/" target="_blank" rel="noopener noreferrer">Live Interactive Web3 App ↗</a></li>
+        <li><a href="https://github.com/smresponsibilities/Chain-Code" target="_blank" rel="noopener noreferrer">GitHub Repository &amp; Smart Contracts ↗</a></li>
+        <li><a href="/projects/">Return to Projects Catalog →</a></li>
+        <li><a href="/resume/">View Shivam Mahajan's Resume &amp; Skills →</a></li>
+      </ul>
+    </section>
+  </article>
+</EditorialShell>

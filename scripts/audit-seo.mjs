@@ -166,7 +166,7 @@ if (!missingDesc.length && !shortDesc.length && !longDesc.length) {
 console.log('\n--- 2. Internal Link / Orphan Audit ---');
 const publicOrphans = [];
 for (const [route] of pagesByRoute.entries()) {
-  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines') || route.includes('/productivity-caller-simulator')) {
+  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines') || route.includes('/productivity-caller-simulator') || route.includes('/404')) {
     continue;
   }
   if (!visited.has(route)) {

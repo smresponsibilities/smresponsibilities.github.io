@@ -98,6 +98,8 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
    - *Category*: Web3 & AI Code Verification Platform
    - *Tech Stack*: Solidity, Ethereum Smart Contracts, Python, MERN, Google Gemini AI
    - *Overview*: Validates programming solution originality using Gemini AI with 95%+ accuracy and mints verified solutions as soulbound/NFT assets on-chain. Awarded 3rd place at HackIndia 2024.
+   - *Case Study*: https://shivammahajan.com/projects/chaincode/
+   - *Live App*: https://chain-code.vercel.app/
    - *Repository*: https://github.com/smresponsibilities/Chain-Code
 
 5. **QuizDeck**
@@ -119,13 +121,21 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
    - *Overview*: Crawls enterprise ATS boards hourly and issues direct alerts for entry-level and remote software roles without paid proxies.
    - *Repository*: https://github.com/smresponsibilities/jobscraper_hourly
 
-8. **Clickless**
+8. **Postie**
+   - *Category*: Zero-Dependency Developer Tooling & API Workbench
+   - *Tech Stack*: Pure Vanilla JavaScript (ES6+), HTML5, CSS3, Web Fetch API, LocalStorage
+   - *Overview*: Browser HTTP request execution workbench and Postman alternative with 100% client-side privacy, zero server telemetry, sub-10ms initial render, and LocalStorage collection persistence.
+   - *Case Study*: https://shivammahajan.com/projects/postie/
+   - *Live Tool*: https://shivammahajan.com/Postie/
+   - *Repository*: https://github.com/smresponsibilities/Postie
+
+9. **Clickless**
    - *Category*: Accessibility & Ergonomics Systems Tool
    - *Tech Stack*: Rust, OS Input Hooks
    - *Overview*: Replaces physical mouse movement with keyboard modifier taps and two-dimensional screen grid targeting.
    - *Repository*: https://github.com/smresponsibilities/clickless
 
-9. **Terminal Wordle**
+10. **Terminal Wordle**
    - *Category*: Systems Utility / Game
    - *Tech Stack*: Low-level C, POSIX Terminal, ANSI Escape Codes
    - *Overview*: Terminal implementation of Wordle featuring dictionary hashing, zero external libraries, and ANSI colored output.

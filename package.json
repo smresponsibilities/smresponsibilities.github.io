@@ -12,6 +12,7 @@
     "build": "astro build",
     "postbuild": "node scripts/audit-seo.mjs && node --test tests/ahrefs-audit.test.mjs",
     "audit:seo": "node scripts/audit-seo.mjs",
+    "indexnow": "node scripts/submit-indexnow.mjs",
     "test": "node --test tests/ahrefs-audit.test.mjs",
     "preview": "astro preview",
     "astro": "astro"

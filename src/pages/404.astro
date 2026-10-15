@@ -1,0 +1,51 @@
+---
+import EditorialShell from '../components/EditorialShell.astro';
+
+const title = "Page Not Found (404) | SM'S DEX Portfolio";
+const description = "The requested URL could not be found in SM'S DEX. Use the links below to return to the interactive Pokédex, software case studies, or developer resume.";
+---
+
+<EditorialShell
+  title={title}
+  description={description}
+  eyebrow="Error 404 — Wild Route Appeared"
+  heading="Wild 404 Appeared"
+  intro="The URL you requested does not exist or has been relocated. Choose an escape route below to return to the portfolio."
+>
+  <Fragment slot="actions">
+    <a class="btn primary" href="/">Pokédex Home →</a>
+    <a class="btn" href="/projects/">Projects Hub ↗</a>
+    <a class="btn" href="/resume/">Resume ↗</a>
+    <a class="btn" href="/blog/">Engineering Blog ↗</a>
+  </Fragment>
+
+  <article class="prose">
+    <section>
+      <h2>Available Navigational Waypoints</h2>
+      <p>
+        If you followed an external link or mistyped a path, these primary coordinates are verified and active:
+      </p>
+      <ul>
+        <li>
+          <a href="/"><strong>Interactive Pokédex Home</strong></a>: Custom Game Boy casing with Web Audio API sound generator and reviewed developer roster.
+        </li>
+        <li>
+          <a href="/resume/"><strong>Developer Resume &amp; Apprenticeship</strong></a>: Morgan Stanley technology apprenticeship, real-time distributed data pipelines, and full technical CV.
+        </li>
+        <li>
+          <a href="/projects/"><strong>Software Projects &amp; Architecture</strong></a>: Flagship case studies for Productivity Caller, Flight Sun Tracker, and SM'S DEX.
+        </li>
+        <li>
+          <a href="/blog/"><strong>2,002 Days of Code Journal</strong></a>: Searchable engineering archive with over 1,250 daily LeetCode algorithmic logs.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Contact &amp; Issue Reporting</h2>
+      <p>
+        If a link on this domain brought you here unexpectedly, open an issue on GitHub or email directly at <a href="mailto:shivammahajan.mail@gmail.com">shivammahajan.mail@gmail.com</a>.
+      </p>
+    </section>
+  </article>
+</EditorialShell>
