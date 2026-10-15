@@ -701,6 +701,30 @@ p.lead {
   color: #e6edf3;
   border-radius: 6px;
   padding: 12px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* EMBEDDED MODE (WHEN OPENED INLINE ON HOMEPAGE) */
+body.is-embedded .top-bar,
+body.is-embedded .breadcrumb-nav,
+body.is-embedded .hero,
+body.is-embedded .hosting-section {
+  display: none !important;
+}
+
+body.is-embedded {
+  background: transparent !important;
+}
+
+body.is-embedded .workspace {
+  max-width: 100% !important;
+  padding: 12px 16px !important;
+  margin: 0 !important;
+}
+
 /* IN-APP MODAL: SET TEST WORD */
 .modal-backdrop {
   position: fixed;
@@ -1183,6 +1207,10 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
 
 <script>
 (function() {
+  if (window.self !== window.top || new URLSearchParams(window.location.search).has('embed')) {
+    document.body.classList.add('is-embedded');
+  }
+
   const FALLBACK_WORDS = [
     "cigar", "rebut", "sissy", "humph", "awake", "blush", "focal", "evade", "naval", "serve",
     "heath", "dwarf", "model", "karma", "stink", "grade", "quiet", "bench", "abate", "feign",
@@ -1511,8 +1539,20 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     setTimeout(() => el.classList.remove('active-pulse'), 500);
   }
 
+  let hasScrolledDownOnType = false;
+  function ensureBoardCentered() {
+    if (!hasScrolledDownOnType) {
+      hasScrolledDownOnType = true;
+      const target = document.getElementById('grid-container') || document.querySelector('.terminal-casing');
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+  }
+
   function handleVirtualKey(key) {
     if (isGameOver) return;
+    ensureBoardCentered();
 
     if (key === 'ENTER') {
       submitGuess();
@@ -1651,6 +1691,7 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
   }
 
   function resetGame(newWord) {
+    hasScrolledDownOnType = false;
     targetWord = newWord ? newWord.toUpperCase() : getDailyWord();
     if (newWord) {
       dictionarySet.add(targetWord);
