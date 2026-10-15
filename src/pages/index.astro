@@ -80,10 +80,11 @@ const structuredData = {
 const projects = [
   { number:'001', name:'Productivity Caller', stack:'Kotlin / Jetpack Compose', copy:'Uses phone calls for reminders. A pattern-based parser helps enter tasks in natural language.', stats:['Kotlin app','Demo available'], url:'https://drive.google.com/file/d/1O9mQD-Qeo7GR40SdG440pdqSM8NdXV_K/view?usp=sharing', action:'Demo Video' },
   { number:'002', name:"SM'S DEX", stack:'Astro / Web Audio / CI', copy:'Open-source Pokédex developer portfolio with synthesized chiptune audio and automated GitHub Actions community roster.', stats:['Zero-JS default','Automated PRs'], url:'/projects/sm-dex/', action:'Case Study' },
-  { number:'003', name:'ClickHouse Ingestion Tool', stack:'TypeScript / ClickHouse / SQL', copy:'Bidirectional data pipeline connecting ClickHouse OLAP databases and CSV flat files with real-time schema mapping.', stats:['OLAP ETL','Batch export'], url:'https://github.com/smresponsibilities/Ingestion-Tool', action:'View repository' },
-  { number:'004', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
-  { number:'005', name:'Flight Sun Tracker', stack:'TypeScript / Canvas / Math', copy:'Visualizes aircraft flight paths and computes sun angle relative to seat placement for sunlight optimization.', stats:['Solar calc','3 GitHub stars'], url:'https://github.com/smresponsibilities/flight-sun-tracker', action:'View repository' },
-  { number:'006', name:'QuizDeck', stack:'React / WebSockets', copy:'Runs live multiplayer quizzes for at max 500 concurrent players with a 31 ms average response time.', stats:['Stress tested for 500 concurrent users','PP 1/10 · archived'], url:'https://github.com/smresponsibilities/QuizDeck', action:'View repository' },
+  { number:'003', name:'Terminal Wordle in C', stack:'C99 / WebAssembly / ANSI', copy:'Zero-dependency Wordle engine with custom polynomial hashing, two-pass duplicate tracking, and real-time execution call tree.', stats:['Native Wasm 2.4 KB','Pure C99'], url:'/wordle-simulator/', action:'Try This', isWordle: true },
+  { number:'004', name:'ClickHouse Ingestion Tool', stack:'TypeScript / ClickHouse / SQL', copy:'Bidirectional data pipeline connecting ClickHouse OLAP databases and CSV flat files with real-time schema mapping.', stats:['OLAP ETL','Batch export'], url:'https://github.com/smresponsibilities/Ingestion-Tool', action:'View repository' },
+  { number:'005', name:'Chaincode', stack:'Solidity / MERN / Python', copy:'Coding platform that validates code originality with Gemini AI at 95%+ accuracy and mints it as NFTs.', stats:['15+ REST APIs','3rd of 200+ teams'], url:'https://github.com/smresponsibilities/Chain-Code', action:'View repository' },
+  { number:'006', name:'Flight Sun Tracker', stack:'TypeScript / Canvas / Math', copy:'Visualizes aircraft flight paths and computes sun angle relative to seat placement for sunlight optimization.', stats:['Solar calc','3 GitHub stars'], url:'https://github.com/smresponsibilities/flight-sun-tracker', action:'View repository' },
+  { number:'007', name:'QuizDeck', stack:'React / WebSockets', copy:'Runs live multiplayer quizzes for at max 500 concurrent players with a 31 ms average response time.', stats:['Stress tested for 500 concurrent users','PP 1/10 · archived'], url:'https://github.com/smresponsibilities/QuizDeck', action:'View repository' },
 ];
 ---
 
@@ -239,6 +240,15 @@ const projects = [
               </a>
             </li>
             <li>
+              <a href="/wordle-simulator/" class="drawer-link">
+                <span class="drawer-bullet">◆</span>
+                <div class="drawer-item-text">
+                  <strong>Terminal Wordle Simulator</strong>
+                  <small>Interactive C99 WebAssembly engine & function call visualizer</small>
+                </div>
+              </a>
+            </li>
+            <li>
               <a href="/projects/flight-sun-tracker/" class="drawer-link">
                 <span class="drawer-bullet">◆</span>
                 <div class="drawer-item-text">
@@ -341,7 +351,14 @@ const projects = [
               <div class="project-number">MOVE {project.number}</div><h3>{project.name}</h3>
               <p class="project-stack">{project.stack}</p><p>{project.copy}</p>
               <ul>{project.stats.map((stat) => <li>{stat}</li>)}</ul>
-              <a class="project-link" href={project.number === '001' ? '/projects/productivity-caller/' : project.url} target={project.number !== '001' && project.url.startsWith('http')?'_blank':undefined} rel={project.number !== '001' && project.url.startsWith('http')?'noreferrer':undefined}>{project.number === '001' ? 'Project details' : project.action} <span aria-hidden="true">↗</span></a>
+              {project.isWordle ? (
+                <div class="project-action-row">
+                  <button type="button" class="project-try-native-btn" id="open-wordle-native-btn">Try This (Play Here)</button>
+                  <a class="project-link" href={project.url}>Open Page <span aria-hidden="true">↗</span></a>
+                </div>
+              ) : (
+                <a class="project-link" href={project.number === '001' ? '/projects/productivity-caller/' : project.url} target={project.number !== '001' && project.url.startsWith('http')?'_blank':undefined} rel={project.number !== '001' && project.url.startsWith('http')?'noreferrer':undefined}>{project.number === '001' ? 'Project details' : project.action} <span aria-hidden="true">↗</span></a>
+              )}
             </article>
           ))}
         </div>
@@ -375,6 +392,23 @@ const projects = [
       <div class="form-actions"><button class="secondary-button" id="cancel-submission" type="button" data-tooltip="Close without opening an issue">Cancel</button><button class="submit-button" type="submit" data-tooltip="Open a prefilled GitHub issue for review">Open GitHub Issue</button></div>
       <p id="submission-status" class="form-status" aria-live="polite"></p>
     </form>
+  </dialog>
+
+  <dialog id="wordle-native-dialog" class="wordle-dialog" aria-labelledby="wordle-dialog-title">
+    <div class="wordle-dialog-header">
+      <div>
+        <span class="eyebrow">MOVE 003 / PURE C SYSTEMS</span>
+        <h2 id="wordle-dialog-title">Terminal Wordle Simulator</h2>
+      </div>
+      <div class="wordle-dialog-controls">
+        <a href="/wordle-simulator/" class="wordle-dialog-link" target="_blank" rel="noopener noreferrer">Open Full Page ↗</a>
+        <a href="/projects/wordle/" class="wordle-dialog-link">Case Study →</a>
+        <button type="button" id="close-wordle-dialog" class="close-button" aria-label="Close Wordle simulator">×</button>
+      </div>
+    </div>
+    <div class="wordle-dialog-frame-wrapper">
+      <iframe src="/wordle-simulator/" title="Interactive Pure C Wordle Simulator" class="wordle-frame" loading="lazy"></iframe>
+    </div>
   </dialog>
 
   <script>
@@ -513,6 +547,24 @@ const projects = [
           dialog.showModal();
         }
       });
+
+      const wordleBtn = document.querySelector('#open-wordle-native-btn');
+      const wordleDialog = document.querySelector('#wordle-native-dialog');
+      const closeWordleBtn = document.querySelector('#close-wordle-dialog');
+
+      if (wordleDialog instanceof HTMLDialogElement) {
+        wordleBtn?.addEventListener('click', () => {
+          wordleDialog.showModal();
+        });
+        closeWordleBtn?.addEventListener('click', () => {
+          wordleDialog.close();
+        });
+        wordleDialog.addEventListener('click', (e) => {
+          if (e.target === wordleDialog) {
+            wordleDialog.close();
+          }
+        });
+      }
     }
   </script>
 </Base>
@@ -636,4 +688,92 @@ const projects = [
   .close-button,.secondary-button{border-color:var(--time-accent,#ffd75e);background:var(--time-panel,#161b22);color:#fff}
   .dialog-copy,.portfolio-header p,.section-heading p,.eyebrow,.section-index,.project-number,.project-stack,.field-hint,.project-card ul,.availability,.loader-fact{color:#fff}
   input,select,textarea{border-color:var(--time-soft,#fff);background:color-mix(in srgb,var(--time-deep,#08101a) 88%,#000);color:#fff}
+
+  /* Wordle Native In-Page Simulator Dialog */
+  .wordle-dialog {
+    width: min(1180px, calc(100% - 24px));
+    height: min(860px, calc(100dvh - 24px));
+    max-height: calc(100dvh - 24px);
+    padding: 16px 20px 20px;
+    border: 3px solid var(--time-accent, #ffd75e);
+    border-radius: 4px;
+    background: var(--time-deep, #0a111d);
+    color: #fff;
+    box-shadow: 12px 12px 0 #05070b;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .wordle-dialog::backdrop {
+    background: rgba(5, 7, 11, 0.88);
+    backdrop-filter: blur(4px);
+  }
+  .wordle-dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 12px;
+    gap: 16px;
+  }
+  .wordle-dialog-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .wordle-dialog-link {
+    font-family: var(--font-display);
+    font-size: 13px;
+    color: var(--time-accent, #ffd75e);
+    text-decoration: none;
+    padding: 6px 10px;
+    border: 1px solid var(--time-accent, #ffd75e);
+    border-radius: 2px;
+    transition: all 0.12s;
+  }
+  .wordle-dialog-link:hover {
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
+  }
+  .wordle-dialog-frame-wrapper {
+    flex: 1;
+    width: 100%;
+    min-height: 0;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    overflow: hidden;
+    background: #06090e;
+  }
+  .wordle-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+  }
+  .project-action-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+  .project-try-native-btn {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 9px 14px;
+    background: var(--time-accent, #ffd75e);
+    border: 2px solid var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
+    font-family: var(--font-display);
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #05070b;
+    transition: filter 0.12s;
+  }
+  .project-try-native-btn:hover {
+    background: var(--time-soft, #fff);
+  }
 </style>
