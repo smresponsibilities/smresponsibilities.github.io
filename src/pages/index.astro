@@ -727,6 +727,9 @@ const projects = [
   input,select,textarea{border-color:var(--time-soft,#fff);background:color-mix(in srgb,var(--time-deep,#08101a) 88%,#000);color:#fff}
 
   /* Wordle Native In-Page Simulator Dialog (Clean Close Button / No Cross Icon) */
+  .wordle-dialog:not([open]) {
+    display: none !important;
+  }
   .wordle-dialog {
     width: min(1180px, calc(100% - 24px));
     height: min(860px, calc(100dvh - 24px));
@@ -738,6 +741,8 @@ const projects = [
     color: #fff;
     box-shadow: 12px 12px 0 #05070b;
     overflow: hidden;
+  }
+  .wordle-dialog[open] {
     display: flex;
     flex-direction: column;
   }
