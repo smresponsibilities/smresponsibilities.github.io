@@ -493,7 +493,7 @@ const projects = [
       }
     }
   </script>
-  <script is:inline type="module">window.addEventListener('load', () => import('/generation-device/app.js?v=89.0'));</script>
+  <script is:inline type="module">import('/generation-device/app.js?v=89.0');</script>
   <script>
     const loader=document.querySelector('#page-loader');
     const factOwner=document.querySelector('#loader-fact-owner');
@@ -501,8 +501,28 @@ const projects = [
     if(loader instanceof HTMLElement&&factOwner instanceof HTMLAnchorElement&&extraFact instanceof HTMLElement){
       try{const facts=JSON.parse(loader.dataset.facts||'[]');const selected=facts[Math.floor(Math.random()*facts.length)];if(selected){factOwner.textContent=`@${selected.github}`;factOwner.href=`https://github.com/${selected.github}`;extraFact.textContent=`DEX FACT: ${selected.fact}`;}}catch{}
     }
-    const dismissLoader=()=>{const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;window.setTimeout(()=>{if(loader instanceof HTMLElement){loader.classList.add('loader-done');window.setTimeout(()=>loader.remove(),reduced?0:180);}},reduced?0:1200);};
-    if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dismissLoader,{once:true});else dismissLoader();
+    const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let dexReady=document.documentElement.classList.contains('dex-ready');
+    let minTimeElapsed=false;
+    const hideLoader=()=>{
+      if(dexReady&&minTimeElapsed&&loader instanceof HTMLElement){
+        loader.classList.add('loader-done');
+        window.setTimeout(()=>loader.remove(),reduced?0:180);
+      }
+    };
+    window.addEventListener('dex:ready',()=>{
+      dexReady=true;
+      hideLoader();
+    },{once:true});
+    window.setTimeout(()=>{
+      minTimeElapsed=true;
+      hideLoader();
+    },reduced?0:800);
+    window.setTimeout(()=>{
+      dexReady=true;
+      minTimeElapsed=true;
+      hideLoader();
+    },2800);
   </script>
   <script>
     const world=document.querySelector('.world-backdrop');
@@ -713,8 +733,8 @@ const projects = [
   /* Ticket 65: clear, unblurred panels keep the fixed pixel world readable. */
   .portfolio-header{width:100%;max-width:none;margin:0;padding-inline:clamp(20px,4vw,64px);background:#08101ad9;backdrop-filter:none}
   .world-backdrop::after{background:#0307111f}.world-backdrop[data-time=night]::after{background:#03071112}
-  .device-section{background:transparent;backdrop-filter:none}
-  .device-native{background:#07101a24;backdrop-filter:none}
+  .device-section{background:transparent;backdrop-filter:none;border-radius:28px}
+  .device-native{background:#07101a24;backdrop-filter:none;border-radius:20px;overflow:hidden}
   .content-section{margin:28px auto;padding:72px 34px;border:1px solid #dff6ff36;border-radius:28px;background:#08101a42;backdrop-filter:none;box-shadow:0 10px 0 #03071138}
   .project-card,.experience-card{background:#111a276e;backdrop-filter:none;border-color:#dff6ff3b}
   .site-footer{background:#08101ad9;backdrop-filter:none}
@@ -722,7 +742,7 @@ const projects = [
   .snake-loader img{position:absolute;inset:50% auto auto 50%;width:138px;height:138px;animation:python-roll 1200ms steps(16) infinite}
   .loader-static-fact,.loader-fact{max-width:min(58ch,100%);margin-inline:auto!important;font-size:14px}.loader-static-fact{color:#fff}.loader-fact{display:flex;justify-content:center;align-items:baseline;flex-wrap:wrap;gap:0 .65ch;color:#8fcbe8}.loader-fact a{color:#ffd75e;text-underline-offset:4px}.loader-fact span::before{content:'· ';color:#8fcbe8}
   @keyframes python-roll{from{transform:translate(-50%,-50%) rotate(0)}to{transform:translate(-50%,-50%) rotate(360deg)}}
-  @media(max-width:760px){.loader-mobile-note{display:block}.content-section{margin:18px 10px;background:#08101a66;border-radius:20px;padding:58px 18px}}
+  @media(max-width:760px){.loader-mobile-note{display:block}.device-section{border-radius:20px}.device-native{border-radius:16px}.content-section{margin:18px 10px;background:#08101a66;border-radius:20px;padding:58px 18px}}
   @media(max-width:480px){.loader-fact{display:grid;gap:6px}.loader-fact span::before{content:''}}
   @media(max-height:560px){.loader{gap:8px;align-content:start}.snake-loader{width:132px;height:132px}.snake-loader img{width:92px;height:92px}.loader-mobile-note{display:none}.loader-static-fact,.loader-fact{font-size:12px}}
   .portfolio-header,.site-footer{background:var(--time-deep,#08101a);border-color:var(--time-accent,var(--border))}.portfolio-header{box-shadow:inset 0 -3px var(--time-accent,#ffd75e)}

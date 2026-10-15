@@ -199,6 +199,8 @@ $('asset-grid').innerHTML=catalog.map(d=>`<button class="asset-card" data-gen="$
 $('asset-grid').addEventListener('click',e=>{const id=e.target.closest('[data-gen]')?.dataset.gen;if(id){hideTooltip();select(catalog.find(d=>d.id===id));$('stage').scrollIntoView({behavior:'instant',block:'center'});}});
 $('download').addEventListener('click',()=>{const blob=new Blob([exportAsset(device)],{type:'image/svg+xml'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`${device.id}-open.svg`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 select(device);
+document.documentElement.classList.add('dex-ready');
+window.dispatchEvent(new CustomEvent('dex:ready'));
 refreshRoster();
 setInterval(refreshRoster,60000);
 addEventListener('focus',refreshRoster);
