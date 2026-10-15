@@ -1759,6 +1759,15 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     }
   });
 
+  window.addEventListener('message', (e) => {
+    if (e.data && e.data.type === 'KEY_INPUT') {
+      const key = e.data.key;
+      if (key === 'Enter') handleVirtualKey('ENTER');
+      else if (key === 'Backspace') handleVirtualKey('BACK');
+      else if (/^[a-zA-Z]$/.test(key)) handleVirtualKey(key.toUpperCase());
+    }
+  });
+
   document.getElementById('btn-daily-mode').addEventListener('click', (e) => {
     setActiveMode('btn-daily-mode');
     e.currentTarget.blur();

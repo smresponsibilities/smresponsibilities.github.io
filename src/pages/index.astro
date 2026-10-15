@@ -553,8 +553,18 @@ const projects = [
       const closeWordleBtn = document.querySelector('#close-wordle-dialog');
 
       if (wordleDialog instanceof HTMLDialogElement) {
+        const focusIframe = () => {
+          const iframe = wordleDialog.querySelector('iframe');
+          try {
+            iframe?.contentWindow?.focus();
+            iframe?.focus();
+          } catch (_) {}
+        };
+
         wordleBtn?.addEventListener('click', () => {
           wordleDialog.showModal();
+          setTimeout(focusIframe, 50);
+          setTimeout(focusIframe, 250);
         });
         closeWordleBtn?.addEventListener('click', () => {
           wordleDialog.close();
@@ -562,6 +572,26 @@ const projects = [
         wordleDialog.addEventListener('click', (e) => {
           if (e.target === wordleDialog) {
             wordleDialog.close();
+          } else {
+            focusIframe();
+          }
+        });
+
+        document.addEventListener('keydown', (e) => {
+          if (wordleDialog.open) {
+            if (e.key === 'Escape') {
+              wordleDialog.close();
+              return;
+            }
+            if (e.key === 'Enter' || e.key === 'Backspace' || /^[a-zA-Z]$/.test(e.key)) {
+              const iframe = wordleDialog.querySelector('iframe');
+              if (iframe && iframe.contentWindow) {
+                iframe.contentWindow.postMessage({
+                  type: 'KEY_INPUT',
+                  key: e.key
+                }, '*');
+              }
+            }
           }
         });
       }
