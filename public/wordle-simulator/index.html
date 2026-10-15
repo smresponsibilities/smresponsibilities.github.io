@@ -1149,10 +1149,24 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     }
   }
 
+  function formatAnsi(text) {
+    return text
+      .replace(/\\033\[1;32m(.*?)\\033\[0m/g, '<span class="ansi-green">$1</span>')
+      .replace(/\\033\[1;33m(.*?)\\033\[0m/g, '<span class="ansi-yellow">$1</span>')
+      .replace(/\\033\[1;31m(.*?)\\033\[0m/g, '<span class="ansi-red">$1</span>')
+      .replace(/\u001b\[1;32m(.*?)\u001b\[0m/g, '<span class="ansi-green">$1</span>')
+      .replace(/\u001b\[1;33m(.*?)\u001b\[0m/g, '<span class="ansi-yellow">$1</span>')
+      .replace(/\u001b\[1;31m(.*?)\u001b\[0m/g, '<span class="ansi-red">$1</span>');
+  }
+
   function stdout(msg, colorClass = '') {
     const line = document.createElement('div');
     line.className = 'stdout-line' + (colorClass ? ' ' + colorClass : '');
-    line.textContent = msg;
+    if (typeof msg === 'string' && (msg.includes('033[') || msg.includes('\u001b['))) {
+      line.innerHTML = formatAnsi(msg);
+    } else {
+      line.textContent = msg;
+    }
     stdoutWindow.appendChild(line);
     stdoutWindow.scrollTop = stdoutWindow.scrollHeight;
   }
@@ -1382,13 +1396,16 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     }
 
     setTimeout(() => pulseNode('node-render'), 300);
-    let ansiStr = "";
+    let coloredWordHtml = "";
     for (let i = 0; i < 5; i++) {
-      if (colors[i] === 'G') ansiStr += `\\033[1;32m${currentGuess[i]}\\033[0m`;
-      else if (colors[i] === 'Y') ansiStr += `\\033[1;33m${currentGuess[i]}\\033[0m`;
-      else ansiStr += `\\033[1;31m${currentGuess[i]}\\033[0m`;
+      const cls = colors[i] === 'G' ? 'ansi-green' : (colors[i] === 'Y' ? 'ansi-yellow' : 'ansi-red');
+      coloredWordHtml += `<span class="${cls}">${currentGuess[i]}</span>`;
     }
-    stdout(`[Row ${currentRow + 1}] ANSI: ${ansiStr} | Tries Left: ${5 - currentRow}`);
+    const rowLine = document.createElement('div');
+    rowLine.className = 'stdout-line';
+    rowLine.innerHTML = `<span class="ansi-dim">[Row ${currentRow + 1}]</span> <span style="letter-spacing: 3px; font-weight: 700;">${coloredWordHtml}</span> <span class="ansi-dim">| printColoredWord() | Tries Left: ${5 - currentRow}</span>`;
+    stdoutWindow.appendChild(rowLine);
+    stdoutWindow.scrollTop = stdoutWindow.scrollHeight;
 
     currentRow++;
     currentCol = 0;
