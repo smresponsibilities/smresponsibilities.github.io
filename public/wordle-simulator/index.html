@@ -259,9 +259,43 @@ p.lead {
   margin-left: auto;
 }
 
+.toast-container {
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px 0;
+}
+
+.toast-msg {
+  background: #f85149;
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  animation: toastFade 2.2s forwards;
+}
+
+@keyframes toastFade {
+  0% { opacity: 0; transform: translateY(-4px); }
+  10% { opacity: 1; transform: translateY(0); }
+  85% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-4px); }
+}
+
+@keyframes rowShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-7px); }
+  40%, 80% { transform: translateX(7px); }
+}
+
 /* WORDLE GRID */
 .grid-container {
-  padding: 24px 16px 14px;
+  padding: 14px 16px 14px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -271,6 +305,10 @@ p.lead {
 .word-row {
   display: flex;
   gap: 7px;
+}
+
+.word-row.shake {
+  animation: rowShake 0.4s ease-in-out;
 }
 
 .word-tile {
@@ -701,6 +739,8 @@ p.lead {
         <span id="seed-indicator" class="seed-info">Seed: day+month</span>
       </div>
 
+      <div id="toast-container" class="toast-container" aria-live="assertive"></div>
+
       <div class="grid-container" id="grid-container">
         <!-- 6 rows x 5 tiles rendered dynamically -->
       </div>
@@ -940,16 +980,24 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
   let wordBank = [...FALLBACK_WORDS];
   let dictionarySet = new Set(wordBank.map(w => w.toUpperCase()));
 
-  fetch('/wordle-words.json')
-    .then(r => r.json())
-    .then(list => {
-      if (Array.isArray(list) && list.length > 1000) {
-        wordBank = list;
-        dictionarySet = new Set(list.map(w => w.toUpperCase()));
-        stdout(`Loaded ${list.length} words into custom hash dictionary.`);
-      }
-    })
-    .catch(() => {});
+  async function loadDictionary() {
+    const candidatePaths = ['./wordle-words.json', '/wordle-simulator/wordle-words.json', '/wordle-words.json'];
+    for (const p of candidatePaths) {
+      try {
+        const res = await fetch(p);
+        if (res.ok) {
+          const list = await res.json();
+          if (Array.isArray(list) && list.length > 1000) {
+            wordBank = list;
+            dictionarySet = new Set(list.map(w => w.toUpperCase()));
+            stdout(`Loaded ${list.length} words into custom hash dictionary.`);
+            break;
+          }
+        }
+      } catch (_) {}
+    }
+  }
+  loadDictionary();
 
   // State
   let targetWord = "CRANE";
@@ -1257,10 +1305,49 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     }
   }
 
+  function showToast(msg) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+    container.innerHTML = '';
+    const toast = document.createElement('div');
+    toast.className = 'toast-msg';
+    toast.textContent = msg;
+    container.appendChild(toast);
+    setTimeout(() => {
+      if (toast.parentNode === container) container.removeChild(toast);
+    }, 2200);
+  }
+
+  function shakeCurrentRow() {
+    const rows = gridContainer.querySelectorAll('.word-row');
+    const row = rows[currentRow];
+    if (row) {
+      row.classList.remove('shake');
+      void row.offsetWidth;
+      row.classList.add('shake');
+      setTimeout(() => row.classList.remove('shake'), 500);
+    }
+  }
+
+  function setActiveMode(activeId) {
+    const modeBtnIds = ['btn-daily-mode', 'btn-random-mode', 'btn-custom-mode'];
+    modeBtnIds.forEach(id => {
+      const btn = document.getElementById(id);
+      if (!btn) return;
+      if (id === activeId) {
+        btn.classList.add('primary');
+      } else {
+        btn.classList.remove('primary');
+      }
+    });
+  }
+
   function submitGuess() {
     const currentGuess = guesses[currentRow] || "";
 
     if (currentGuess.length !== 5) {
+      showToast("NOT ENOUGH LETTERS");
+      shakeCurrentRow();
       stdout(`Error: Guess must contain exactly 5 letters (got ${currentGuess.length}).`, 'ansi-red');
       pulseNode('node-validate');
       return;
@@ -1270,9 +1357,11 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
     hashValDisplay.textContent = `${hashIndex} (bucket)`;
     pulseNode('node-hash');
 
-    const isValidWord = dictionarySet.has(currentGuess) || wordBank.map(w => w.toUpperCase()).includes(currentGuess);
+    const isValidWord = dictionarySet.has(currentGuess) || dictionarySet.has(currentGuess.toLowerCase());
 
     if (!isValidWord) {
+      showToast("NOT IN WORD LIST");
+      shakeCurrentRow();
       stdout(`Word "${currentGuess}" not present in dictionary. Hash slot: ${hashIndex}`, 'ansi-yellow');
       return;
     }
@@ -1329,6 +1418,9 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
 
   function resetGame(newWord) {
     targetWord = newWord ? newWord.toUpperCase() : getDailyWord();
+    if (newWord) {
+      dictionarySet.add(targetWord);
+    }
     currentRow = 0;
     currentCol = 0;
     guesses = Array(6).fill("");
@@ -1348,37 +1440,56 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
 
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
-    if (e.key === 'Enter') handleVirtualKey('ENTER');
-    else if (e.key === 'Backspace') handleVirtualKey('BACK');
-    else if (/^[a-zA-Z]$/.test(e.key)) handleVirtualKey(e.key.toUpperCase());
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      if (document.activeElement && typeof document.activeElement.blur === 'function') {
+        document.activeElement.blur();
+      }
+      handleVirtualKey('ENTER');
+    } else if (e.key === 'Backspace') {
+      e.preventDefault();
+      handleVirtualKey('BACK');
+    } else if (/^[a-zA-Z]$/.test(e.key)) {
+      handleVirtualKey(e.key.toUpperCase());
+    }
   });
 
-  document.getElementById('btn-daily-mode').addEventListener('click', () => {
+  document.getElementById('btn-daily-mode').addEventListener('click', (e) => {
+    setActiveMode('btn-daily-mode');
+    e.currentTarget.blur();
     seedIndicator.textContent = "Seed: day+month";
     resetGame(getDailyWord());
   });
 
-  document.getElementById('btn-random-mode').addEventListener('click', () => {
+  document.getElementById('btn-random-mode').addEventListener('click', (e) => {
+    setActiveMode('btn-random-mode');
+    e.currentTarget.blur();
     seedIndicator.textContent = "Seed: rand()";
     const randIdx = Math.floor(Math.random() * wordBank.length);
     resetGame(wordBank[randIdx]);
   });
 
-  document.getElementById('btn-custom-mode').addEventListener('click', () => {
+  document.getElementById('btn-custom-mode').addEventListener('click', (e) => {
+    e.currentTarget.blur();
     const word = prompt("Enter a 5-letter test word (e.g., SPEED or ERASE to test duplicates):", "SPEED");
     if (word && word.length === 5 && /^[a-zA-Z]+$/.test(word)) {
+      setActiveMode('btn-custom-mode');
       seedIndicator.textContent = `Custom: ${word.toUpperCase()}`;
       resetGame(word);
     }
   });
 
-  document.getElementById('btn-toggle-reveal').addEventListener('click', () => {
+  document.getElementById('btn-toggle-reveal').addEventListener('click', (e) => {
+    e.currentTarget.blur();
     isWordRevealed = !isWordRevealed;
     document.getElementById('btn-toggle-reveal').textContent = isWordRevealed ? "Hide Word" : "Reveal Word";
     updateInspector();
   });
 
-  document.getElementById('btn-reset').addEventListener('click', () => resetGame());
+  document.getElementById('btn-reset').addEventListener('click', (e) => {
+    e.currentTarget.blur();
+    resetGame();
+  });
 
   const inspectModal = document.getElementById('inspect-modal');
   const inspectFnTitle = document.getElementById('inspect-fn-title');
