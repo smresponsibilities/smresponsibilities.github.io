@@ -1,0 +1,620 @@
+---
+interface Props {
+  currentPath?: string;
+  showBio?: boolean;
+}
+
+const { currentPath = Astro.url.pathname, showBio = true } = Astro.props;
+---
+
+<header class="portfolio-header">
+  <a class="brand" href="/" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
+  {showBio && (
+    <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. To be added as a pokemon click on the Add Pokemon Button.</p>
+  )}
+  <nav class="header-actions" aria-label="Portfolio actions">
+    <a class="resume-button" data-resume href="/resume/">Resume</a>
+    <a class="add-button" href="/#open-submission" data-tooltip="Open the form to join the public roster">Add Pokémon</a>
+    <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
+      <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      <span class="menu-text">Menu</span>
+    </button>
+  </nav>
+</header>
+
+<div class="site-drawer-backdrop" id="site-drawer-backdrop" hidden></div>
+<aside class="site-drawer" id="site-drawer" aria-label="Site menu" hidden>
+  <div class="drawer-header">
+    <div class="drawer-branding">
+      <span class="drawer-title">SM'S DEX</span>
+      <span class="drawer-subtitle">Portfolio & Knowledge Index</span>
+    </div>
+    <button class="drawer-close" id="close-drawer" type="button" aria-label="Close navigation menu">✕</button>
+  </div>
+
+  <div class="drawer-body">
+    <nav class="drawer-nav" aria-label="Directory navigation">
+      <div class="drawer-section">
+        <span class="drawer-section-heading">Core Pages</span>
+        <ul class="drawer-list">
+          <li>
+            <a href="/" class={`drawer-link ${currentPath === '/' ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Home (SM'S DEX)</strong>
+                <small>Pokédex 3D/canvas generation device & selected work</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/projects/" class={`drawer-link ${currentPath.startsWith('/projects') ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Projects Portfolio</strong>
+                <small>Android Kotlin, ClickHouse OLAP, AI code minting, WebSockets</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/" class={`drawer-link ${currentPath === '/blog/' || currentPath === '/blog' ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Days of Code Journal</strong>
+                <small>1,246+ day daily engineering logs & LeetCode problem index</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/timeline/" class={`drawer-link ${currentPath.startsWith('/blog/timeline') ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Complete Timeline</strong>
+                <small>Scrollable chronological timeline of the entire coding streak</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/milestones/" class={`drawer-link ${currentPath.startsWith('/blog/milestones') ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Milestones & Glitches</strong>
+                <small>HackIndia podium, test suites, live streaming & streak records</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/resume/" class={`drawer-link ${currentPath.startsWith('/resume') ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Resume (HTML & PDF)</strong>
+                <small>Morgan Stanley experience, Python/Kotlin skills, education</small>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-heading">Featured Architecture & Case Studies</span>
+        <ul class="drawer-list">
+          <li>
+            <a href="/projects/sm-dex/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>SM'S DEX Architecture</strong>
+                <small>Astro islands, zero-dep Web Audio synth, automated PR roster</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/projects/productivity-caller/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Productivity Caller Case Study</strong>
+                <small>Voice call reminders & natural language pattern parser</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/projects/productivity-caller-vs-alternatives/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Productivity Caller vs Traditional Alarms</strong>
+                <small>Side-by-side comparison matrix vs Todoist, TickTick & Clock</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/productivity-caller-simulator/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Productivity Caller Web Simulator</strong>
+                <small>Interactive phone call simulator & natural language task demo</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/wordle-simulator/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Terminal Wordle Simulator</strong>
+                <small>Interactive C99 WebAssembly engine & function call visualizer</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/projects/flight-sun-tracker/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Flight Sun Tracker</strong>
+                <small>Aviation math & solar elevation canvas tool for seat shading</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/how-the-sm-dex-roster-works/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>How the Roster Works</strong>
+                <small>GitHub issue forms → Python validator → CI pull request</small>
+              </div>
+            </a>
+          </li>
+          <li>
+            <a href="/blog/shivam-mahajan/" class="drawer-link">
+              <span class="drawer-bullet">◆</span>
+              <div class="drawer-item-text">
+                <strong>Shivam Mahajan — Engineer Profile</strong>
+                <small>System architecture background, philosophy & career story</small>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="drawer-section">
+        <span class="drawer-section-heading">Quick Actions</span>
+        <div class="drawer-actions">
+          <a href="/#open-submission" class="drawer-action-btn drawer-btn-roster">＋ Add Your Pokémon</a>
+          <a href="https://github.com/smresponsibilities" target="_blank" rel="noreferrer" class="drawer-action-btn">GitHub Profile ↗</a>
+          <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noreferrer" class="drawer-action-btn">LinkedIn ↗</a>
+          <a href="mailto:shivammahajan.mail@gmail.com" class="drawer-action-btn">Direct Email ↗</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</aside>
+
+<style>
+  .portfolio-header {
+    position: relative;
+    z-index: 50;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    margin: 0;
+    padding: 20px clamp(20px, 4vw, 64px);
+    background: var(--time-deep, #08101a);
+    border-bottom: 1px solid var(--time-accent, var(--border));
+    box-shadow: inset 0 -3px var(--time-accent, #ffd75e);
+  }
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    color: var(--ink);
+    font: 400 var(--fs-head) / 1 var(--font-display);
+    text-decoration: none !important;
+    letter-spacing: var(--track-label);
+    white-space: nowrap;
+  }
+
+  .portfolio-header p {
+    max-width: 65ch;
+    margin: 0;
+    color: #fff;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .resume-button {
+    display: grid;
+    place-items: center;
+    min-height: var(--tap);
+    padding: 10px 16px;
+    border: 2px solid var(--time-accent, #ffd75e);
+    border-radius: var(--radius);
+    color: #fff !important;
+    text-decoration: none !important;
+    font-family: var(--font-display);
+    font-size: var(--fs-label);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    background: var(--time-panel, #161b22);
+    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+
+  .resume-button:hover {
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
+  }
+
+  .add-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap);
+    padding: 10px 18px;
+    border: 2px solid var(--time-accent, #ffd75e);
+    border-radius: var(--radius);
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
+    font-family: var(--font-display);
+    font-size: var(--fs-label);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    text-decoration: none !important;
+    box-shadow: 3px 3px 0 #05070b;
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease);
+  }
+
+  .add-button:hover {
+    background: var(--time-soft, #fff);
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: var(--tap);
+    padding: 10px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: var(--fs-label);
+    letter-spacing: var(--track-label);
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+
+  .menu-toggle:hover {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 15%, var(--panel));
+    color: var(--ink);
+  }
+
+  .menu-toggle[aria-expanded="true"] {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  .menu-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 16px;
+    height: 12px;
+  }
+
+  .menu-icon span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
+    transform: translateY(5px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+
+  /* Site Drawer Panel & Backdrop */
+  .site-drawer-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 150;
+    background: #04080eee;
+    backdrop-filter: blur(6px);
+    transition: opacity var(--dur-base) var(--ease);
+  }
+
+  .site-drawer {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 151;
+    display: flex;
+    flex-direction: column;
+    width: min(460px, 100vw);
+    height: 100vh;
+    height: 100dvh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    background: #0a121f;
+    border-left: 3px solid var(--accent);
+    box-shadow: -12px 0 36px #03060cf0;
+    color: var(--ink);
+    animation: drawer-slide-in 200ms var(--ease);
+  }
+
+  @keyframes drawer-slide-in {
+    from { transform: translateX(100%); }
+    to { transform: translateX(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-drawer { animation: none; }
+  }
+
+  .drawer-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 22px 24px;
+    border-bottom: 2px solid var(--border);
+    background: #070d17;
+  }
+
+  .drawer-branding {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .drawer-title {
+    font: 700 var(--fs-head) / 1.1 var(--font-display);
+    color: var(--time-accent, #ffd75e);
+    letter-spacing: var(--track-label);
+  }
+
+  .drawer-subtitle {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--dim);
+    margin-top: 4px;
+  }
+
+  .drawer-close {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--ink);
+    font-size: 20px;
+    cursor: pointer;
+  }
+
+  .drawer-close:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .drawer-body {
+    flex: 1 1 auto;
+    padding: 24px;
+  }
+
+  .drawer-section {
+    margin-bottom: 28px;
+  }
+
+  .drawer-section:last-child {
+    margin-bottom: 0;
+  }
+
+  .drawer-section-heading {
+    display: block;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: var(--time-accent, #ffd75e);
+    margin-bottom: 12px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .drawer-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 8px;
+  }
+
+  .drawer-link {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: #0d1624;
+    color: var(--ink);
+    text-decoration: none !important;
+    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+  }
+
+  .drawer-link:hover {
+    border-color: var(--accent);
+    background: #142236;
+  }
+
+  .drawer-link.is-current {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--accent) 18%, #0d1624);
+  }
+
+  .drawer-bullet {
+    color: var(--accent);
+    font-size: 11px;
+    margin-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .drawer-item-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .drawer-item-text strong {
+    font-size: 14px;
+    font-family: var(--font-display);
+    color: var(--ink);
+  }
+
+  .drawer-item-text small {
+    font-size: 12px;
+    color: var(--dim);
+    line-height: 1.4;
+  }
+
+  .drawer-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .drawer-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: var(--tap);
+    padding: 10px 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--panel);
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 13px;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+  }
+
+  .drawer-action-btn:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .drawer-btn-roster {
+    grid-column: 1 / -1;
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff !important;
+    font-weight: bold;
+  }
+
+  .drawer-btn-roster:hover {
+    filter: brightness(1.15);
+    color: #fff !important;
+  }
+
+  @media (max-width: 760px) {
+    .portfolio-header {
+      grid-template-columns: 1fr;
+    }
+    .portfolio-header p,
+    .header-actions {
+      grid-column: 1;
+      grid-row: auto;
+    }
+    .header-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    .header-actions > * {
+      width: 100%;
+      min-width: 0;
+      padding-inline: 8px;
+    }
+    .site-drawer {
+      width: 100vw;
+      border-left: none;
+    }
+  }
+</style>
+
+<script>
+  function initDrawer() {
+    const menuToggle = document.querySelector('#menu-toggle');
+    const siteDrawer = document.querySelector('#site-drawer');
+    const drawerBackdrop = document.querySelector('#site-drawer-backdrop');
+    const closeDrawer = document.querySelector('#close-drawer');
+
+    if (menuToggle instanceof HTMLButtonElement && siteDrawer instanceof HTMLElement && drawerBackdrop instanceof HTMLElement && closeDrawer instanceof HTMLButtonElement) {
+      if (menuToggle.dataset.initialized === 'true') return;
+      menuToggle.dataset.initialized = 'true';
+
+      const openDrawer = () => {
+        siteDrawer.hidden = false;
+        drawerBackdrop.hidden = false;
+        menuToggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+        closeDrawer.focus();
+      };
+
+      const closeDrawerMenu = () => {
+        siteDrawer.hidden = true;
+        drawerBackdrop.hidden = true;
+        menuToggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+        menuToggle.focus();
+      };
+
+      menuToggle.addEventListener('click', () => {
+        if (siteDrawer.hidden) {
+          openDrawer();
+        } else {
+          closeDrawerMenu();
+        }
+      });
+
+      closeDrawer.addEventListener('click', closeDrawerMenu);
+      drawerBackdrop.addEventListener('click', closeDrawerMenu);
+
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && !siteDrawer.hidden) {
+          closeDrawerMenu();
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initDrawer);
+  } else {
+    initDrawer();
+  }
+  document.addEventListener('astro:page-load', initDrawer);
+</script>

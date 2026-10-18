@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import SiteHeader from './SiteHeader.astro';
 import ReadingProgress from './ReadingProgress.astro';
 import ScrollSpy from './ScrollSpy.astro';
 import '../styles/editorial.css';
@@ -27,18 +28,8 @@ const showScrollSpy = scrollSpy ?? isArticlePath;
 ---
 <Base title={title} description={description} structuredData={structuredData} accentTypes={['dragon','steel']}>
   {showReadingProgress && <ReadingProgress words={words} target="main" />}
+  <SiteHeader />
   <div class="editorial">
-    <header>
-      <a class="brand" href="/">SM'S DEX</a>
-      <nav aria-label="Site">
-        <a href="/">Home</a>
-        <a href="/resume/">Resume</a>
-        <a href="/projects/">Projects</a>
-        <a href="/blog/">Blog</a>
-        <a href="/blog/rss.xml">RSS</a>
-        <a href="mailto:shivammahajan.mail@gmail.com">Contact</a>
-      </nav>
-    </header>
     <main>
       <div class="hero">
         <span class="eyebrow">{eyebrow}</span>
