@@ -1,25 +1,29 @@
-# Handoff - 2026-10-18, after Hairline Reading Progress Bar & Desktop Right-Rail ScrollSpy Fix
+# Handoff - 2026-10-19, after Authentic interior.dev ScrollSpy & Vertical ReadingProgress Refactor
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Right-Rail-Fix
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor
 Frontier: None
 In flight: None
 
 ## Last session
-1. **Hairline Reading Progress Bar (`src/components/ReadingProgress.astro`):**
-   - Replaced bulky sticky block with an ultra-slim 3px hairline progress bar pinned to the very top edge (`position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 1000;`).
-   - 0 content intrusion or layout shift. Added a discrete floating top-right badge (`X min left` / `✓ End · X min`) that fades in only when reading/scrolling.
-2. **Desktop Right-Rail ScrollSpy (`src/components/ScrollSpy.astro`):**
-   - Moved ScrollSpy from sticky in-content band into a clean fixed right-rail gutter dock (`position: fixed; top: 130px; right: ...`), visible only on wide screens (>= 1260px).
-   - Completely hidden on tablets/mobile so article content remains 100% clean and unobstructed.
-   - Removed sizer duplicate rendering bug that caused concatenated text (`MilestoneMilestone`).
-   - Clean, concise label mapping (`Post Log`, `Milestone`, `Related Logs`, `Pinned Milestones`, `Featured Projects`, `Timeline & Archives`).
-3. **Verification:**
-   - Visual screenshots captured and verified on desktop (1440px) and mobile (390px). 0 overlap, 0 layout shifts.
-   - 1,373 SSG pages compiled. 17/17 automated SEO tests pass.
+1. **Route Scoping (`src/components/EditorialShell.astro`):**
+   - Scoped `ScrollSpy` and `ReadingProgress` strictly to individual long-form reading article routes (`/blog/day-[N]/`, `/blog/how-the-sm-dex-roster-works/`, `/blog/shivam-mahajan/`, `/blog/shivam-mahajan-software-developer/`).
+   - Completely excluded from `/blog/` index, timeline, milestones, archive, and month directories.
+2. **Authentic interior.dev ScrollSpy (`src/components/ScrollSpy.astro`):**
+   - Replaced retro aside rail with interior.dev's signature segmented pill control (`rounded-[10px] bg-neutral-900/85` container, sliding capsule thumb `rounded-[6px] bg-white/12`).
+   - Overrode global `.editorial a` styling: zero link underlines, zero retro blue color bleed, clean sans-serif typography (`12.5px font-medium`).
+   - Positioned sticky below hero for smooth section navigation; auto-scrolls chips horizontally on small screens.
+   - Preserved interior.dev sliding reading line math (`line = offset + ratio * usable`) and 900ms destination scroll lock.
+3. **Interior.dev Vertical + Top ReadingProgress (`src/components/ReadingProgress.astro`):**
+   - Vertical 3px progress rail pinned to right viewport edge (`transform-origin: top; scaleY(...)`).
+   - Top 2.5px hairline track along upper edge.
+   - Floating pill timer badge in top right (`X min left`, checkmark SVG + `End · X min` on completion).
+4. **Verification & Deployment:**
+   - 1,373 SSG pages compiled cleanly. 17/17 automated SEO tests pass.
+   - Pushed to `main` at commit `5fe0fde`.
 
 ## Not yet written down
 None.
 
 ## Next
-Syndicate case studies to Dev.to and target subreddits (r/programming, r/WebAssembly, r/AndroidDev) to drive high-trust nofollow citation signals.
+Monitor GitHub Actions deployment and live site at `https://shivammahajan.com/blog/`.
