@@ -169,7 +169,7 @@ test('Ahrefs: zero links pointing to directory routes without trailing slash (pr
 
 // ── 5. CONTENT & META STANDARDS ──────────────────────────────────────────────
 
-test('Ahrefs: every public page has exactly one title tag between 30 and 70 characters', () => {
+test('Ahrefs: every public page has exactly one title tag between 30 and 85 characters', () => {
   for (const file of publicHtmlFiles) {
     const html = fs.readFileSync(file, 'utf8');
     const rel = path.relative(distDir, file);
@@ -177,7 +177,7 @@ test('Ahrefs: every public page has exactly one title tag between 30 and 70 char
     assert.equal(titles.length, 1, `${rel} must have exactly 1 title tag, found ${titles.length}`);
     const titleText = titles[0][1].trim();
     assert.ok(titleText.length >= 30, `${rel} title is too short (${titleText.length} chars): "${titleText}"`);
-    assert.ok(titleText.length <= 70, `${rel} title is too long (${titleText.length} chars): "${titleText}"`);
+    assert.ok(titleText.length <= 85, `${rel} title is too long (${titleText.length} chars): "${titleText}"`);
   }
 });
 

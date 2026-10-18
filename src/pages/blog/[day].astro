@@ -179,18 +179,74 @@ const structuredData = {
     </section>
   )}
 
-  <!-- Pillar ↔ Spoke Cross-Linking (Tactic #84) -->
+  <!-- Interactive Project Feature Cards (Playbook 29) -->
+  <section class="featured-projects-section">
+    <h2>Featured Engineering Systems & Architecture</h2>
+    <p>Explore production architectures, distributed systems, and low-level engines built by Shivam Mahajan:</p>
+    <div class="project-feature-grid">
+      <div class="project-feature-card">
+        <div class="feature-card-header">
+          <span class="feature-badge">Native Wasm 2.4 KB</span>
+          <span class="feature-badge">Pure C99</span>
+        </div>
+        <h3 class="feature-title">Terminal Wordle in C &amp; WebAssembly</h3>
+        <p class="feature-desc">Zero-dependency Wordle engine compiled directly to standalone WebAssembly with custom polynomial hashing and zero JS runtime overhead.</p>
+        <div class="feature-actions">
+          <a class="feature-btn primary" href="/projects/wordle/">Explore Architecture Case Study →</a>
+          <a class="feature-btn secondary" href="/wordle-simulator/">Launch Simulator ↗</a>
+        </div>
+      </div>
+
+      <div class="project-feature-card">
+        <div class="feature-card-header">
+          <span class="feature-badge">Solved 2,600+ LeetCode</span>
+          <span class="feature-badge">Zero-JS Default</span>
+        </div>
+        <h3 class="feature-title">SM'S DEX: Pokédex Portfolio &amp; Open Roster</h3>
+        <p class="feature-desc">Open-source Pokédex portfolio with browser-native Web Audio chiptune synthesis and automated GitHub Actions roster validation.</p>
+        <div class="feature-actions">
+          <a class="feature-btn primary" href="/projects/sm-dex/">Explore Architecture Case Study →</a>
+          <a class="feature-btn secondary" href="/">Launch Pokédex ↗</a>
+        </div>
+      </div>
+
+      <div class="project-feature-card">
+        <div class="feature-card-header">
+          <span class="feature-badge">5M+ Events Kafka/Snowflake</span>
+          <span class="feature-badge">Zero Discrepancy</span>
+        </div>
+        <h3 class="feature-title">CIAM Streaming Data Platform</h3>
+        <p class="feature-desc">High-throughput Kafka, PySpark, and Snowflake enterprise data pipeline maintaining strict zero row-count discrepancy tolerance.</p>
+        <div class="feature-actions">
+          <a class="feature-btn primary" href="/resume/">Explore Experience &amp; Resume →</a>
+        </div>
+      </div>
+
+      <div class="project-feature-card">
+        <div class="feature-card-header">
+          <span class="feature-badge">Kotlin / Jetpack Compose</span>
+          <span class="feature-badge">100% Offline AlarmManager</span>
+        </div>
+        <h3 class="feature-title">Productivity Caller: Task Reminder App</h3>
+        <p class="feature-desc">Overcomes notification blindness by initiating simulated incoming phone calls for urgent tasks with on-device natural language parsing.</p>
+        <div class="feature-actions">
+          <a class="feature-btn primary" href="/projects/productivity-caller/">Explore Architecture Case Study →</a>
+          <a class="feature-btn secondary" href="/projects/productivity-caller-vs-alternatives/">Compare Alternatives →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Navigation Archive Links -->
   <section>
-    <h2>Pillars & Related Engineering Hubs</h2>
-    <p>Explore the connected challenges, software architecture, and case studies:</p>
+    <h2>Days of Code Timeline &amp; Archives</h2>
     <div class="hub-links">
       <a href="/blog/">Days of Code Journal →</a>
       <a href={`/blog/archive/${groupName}/`}>Days {groupName} Archive →</a>
       {monthSlug && <a href={`/blog/month/${monthSlug}/`}>Month ({monthSlug}) Archive →</a>}
       <a href="/blog/timeline/">Full 2,002-Day Timeline →</a>
       <a href="/blog/milestones/">Key Milestones →</a>
-      <a href="/projects/sm-dex/">Pokédex Portfolio Architecture →</a>
-      <a href="/resume/">Shivam's Resume & Experience →</a>
+      <a href="/resume/">Shivam's Resume &amp; Experience →</a>
     </div>
   </section>
 </EditorialShell>
@@ -295,6 +351,99 @@ const structuredData = {
     border-color: var(--time-accent, #ffd75e);
     background: var(--time-accent, #ffd75e);
     color: #000;
+  }
+  .featured-projects-section {
+    margin-top: 36px;
+  }
+  .project-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+  }
+  @media (max-width: 700px) {
+    .project-feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .project-feature-card {
+    padding: 20px;
+    background: var(--panel, #161b22);
+    border: 2px solid var(--accent, #ffd75e);
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .project-feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    border-color: var(--time-accent, #ffd75e);
+  }
+  .feature-card-header {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+  .feature-badge {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 3px 8px;
+    background: rgba(255, 215, 94, 0.12);
+    color: var(--time-accent, #ffd75e);
+    border: 1px solid rgba(255, 215, 94, 0.3);
+    border-radius: 3px;
+  }
+  .feature-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ink, #fff);
+    margin: 0 0 8px 0;
+  }
+  .feature-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--dim, #ccc);
+    margin: 0 0 16px 0;
+    flex-grow: 1;
+  }
+  .feature-actions {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: auto;
+  }
+  .feature-btn {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 7px 11px;
+    border-radius: 4px;
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+  .feature-btn.primary {
+    background: var(--accent, #ffd75e);
+    color: #0b0e12;
+    border: 1px solid var(--accent, #ffd75e);
+  }
+  .feature-btn.primary:hover {
+    background: #fff;
+    color: #000;
+  }
+  .feature-btn.secondary {
+    background: transparent;
+    color: var(--time-accent, #ffd75e);
+    border: 1px solid var(--border, #444);
+  }
+  .feature-btn.secondary:hover {
+    border-color: var(--time-accent, #ffd75e);
+    color: #fff;
   }
 </style>
 

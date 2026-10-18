@@ -125,13 +125,15 @@ const structuredData = {
   </section>
 
   <section>
-    <h2>Native Web Audio Engine: Pure Browser Chiptunes</h2>
-    <p>Audio in retro-themed applications is frequently handled through external sound libraries or large MP3 audio files that inflate network bandwidth and trigger harsh mobile autoplay violations.</p>
-    <p>SM'S DEX uses a custom-built sound synthesizer written directly with the browser's native <a href="https://www.w3.org/TR/webaudio/" target="_blank" rel="noopener noreferrer">Web Audio API</a>:</p>
+    <h2>How to Build a Pokédex Portfolio with Web Audio</h2>
+    <p>Building a retro-style Pokédex portfolio with authentic chiptune audio requires solving two fundamental problems: asset weight and mobile autoplay policy restrictions. Typical projects fetch pre-recorded MP3 or WAV audio clips that add hundreds of kilobytes of network transfer and suffer from network latency jitter.</p>
+    <p>To eliminate audio payloads entirely (0 KB asset footprint), SM'S DEX synthesizes Game Boy-style 8-bit sounds on the fly using the browser's native <a href="https://www.w3.org/TR/webaudio/" target="_blank" rel="noopener noreferrer">Web Audio API</a>:</p>
     <ul>
-      <li><strong>Zero sound assets:</strong> 8-bit retro sound frequencies, square waves, and noise bursts are synthesized mathematically on the fly in real-time.</li>
-      <li><strong>Strict no-autoplay enforcement:</strong> Audio remains completely silent until explicit user interaction, fully honoring browser security policies and user consent.</li>
-      <li><strong>Motion and sensory respect:</strong> The system actively queries <code>prefers-reduced-motion</code> to disable flashing screen animations and visual shake effects.</li>
+      <li><strong>Custom Oscillator Nodes:</strong> Generates square and pulse wave tones configured with rapid pitch decays (frequency modulation) to mimic classic handheld hardware sound generators.</li>
+      <li><strong>Noise Burst Synthesis:</strong> Uses a <code>createBuffer</code> white noise generator passed through a high-pass biquad filter to synthesize mechanical button clicks and lid latch sounds.</li>
+      <li><strong>Zero Network Latency:</strong> Because sounds are calculated mathematically in local memory, playback is instant (0ms buffer wait) upon user interaction.</li>
+      <li><strong>Strict No-Autoplay Compliance:</strong> Audio remains completely suspended until explicit user interaction, fully honoring browser security policies and user consent.</li>
+      <li><strong>Motion and Sensory Respect:</strong> The system actively queries <code>prefers-reduced-motion</code> to disable flashing screen animations and visual shake effects.</li>
     </ul>
   </section>
 

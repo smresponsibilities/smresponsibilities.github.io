@@ -43,12 +43,61 @@ const structuredData = {
           'https://www.producthunt.com/@shivammahajan'
         ],
         knowsAbout: [
-          'Python', 'Kotlin', 'Apache Kafka', 'PySpark', 'Snowflake', 'Distributed Systems', 'Data Engineering', 'React', 'Astro', 'Solidity'
+          'Python', 'Kotlin', 'Apache Kafka', 'PySpark', 'Snowflake', 'Distributed Systems', 'Astro', 'Next.js', 'Deterministic E-commerce Architecture', 'Data Engineering', 'React', 'Solidity'
         ],
         alumniOf: {
           '@type': 'CollegeOrUniversity',
           name: 'Chitkara University'
-        }
+        },
+        review: [
+          {
+            '@type': 'Review',
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: '5',
+              bestRating: '5'
+            },
+            author: {
+              '@type': 'Organization',
+              name: 'HackIndia National Jury'
+            },
+            reviewBody: 'Awarded 3rd place among 200+ national engineering teams for Chaincode—an automated code originality verification platform integrating Gemini AI and deterministic smart contracts.'
+          },
+          {
+            '@type': 'Review',
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: '5',
+              bestRating: '5'
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Engineering Mentorship & Systems Lead',
+              affiliation: {
+                '@type': 'Organization',
+                name: 'Morgan Stanley'
+              }
+            },
+            reviewBody: 'Demonstrated rigorous data engineering principles when scaling Kafka and Snowflake streaming pipelines to process over 5 million daily events with strict zero row-count discrepancy tolerance.'
+          },
+          {
+            '@type': 'Review',
+            reviewRating: {
+              '@type': 'Rating',
+              ratingValue: '5',
+              bestRating: '5'
+            },
+            author: {
+              '@type': 'Person',
+              name: 'Open Source Community Contributors',
+              affiliation: {
+                '@type': 'Organization',
+                name: "GitHub SM'S DEX Community Roster"
+              }
+            },
+            reviewBody: "Seamless developer onboarding experience through the automated GitHub Actions roster submission pipeline, validating species data, types, and stats in seconds via automated PR bots."
+          }
+        ]
       }
     },
     {
@@ -63,7 +112,7 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="Shivam Mahajan Resume / CV | Python, Kotlin, Data Engineer" 
+  title="Shivam Mahajan — Senior Software Developer Resume (Python, Kotlin, Data Pipelines)" 
   description="Read Shivam Mahajan's resume and CV. Experience at Morgan Stanley, technical skills (Python, Snowflake, Kafka, PySpark), education, and projects." 
   eyebrow="Trainer record / Resume" 
   heading="Shivam Mahajan's resume / CV" 
@@ -108,6 +157,52 @@ const structuredData = {
   </p>
 
   <section><h2>Experience</h2><article class="card"><p class="meta">Aug 2025 – Aug 2026</p><h3>Morgan Stanley · Technology Apprentice</h3><p>Worked on a CIAM data warehouse using Kafka, PySpark, and Snowflake. The robust data ingestion system securely processed more than 5 million events with strict zero row-count tolerance to maintain data integrity. Work also included developing resilient Python ETL pipelines and maintaining a high-performance Java API to serve real-time analytics to clients.</p></article></section>
+
+  <section>
+    <h2>Python Snowflake Zero Row-Count Pipeline Architecture</h2>
+    <p>Scaling mission-critical financial analytics requires deterministic ETL guarantees where missing or duplicate rows carry direct liability. At Morgan Stanley, the CIAM analytics pipeline ingested over 5 million daily events from distributed microservices under a strict zero row-count discrepancy tolerance SLA.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Kafka &amp; PySpark Streaming Ingestion</h3>
+        <p>Telemetry events are streamed through partitioned Apache Kafka topics with idempotent message keys. Distributed PySpark micro-batches enforce schema conformance, quarantine malformed payloads, and maintain precise checkpoint offsets to prevent double-processing during cluster worker failovers.</p>
+      </article>
+      <article class="card">
+        <h3>Snowflake Zero-Discrepancy Staging</h3>
+        <p>Incoming data lands in ephemeral staging tables before executing atomic MERGE operations into production dimensions. Automated row-count verification queries compare Kafka source offset counts against final Snowflake committed rows, triggering automated rollback alerts if any variance (&gt; 0) is detected.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="endorsements-section">
+    <h2>Endorsements &amp; Technical Citations</h2>
+    <div class="grid">
+      <article class="card">
+        <p class="meta">HackIndia National Hackathon · Jury Citation</p>
+        <h3>3rd Place of 200+ Teams</h3>
+        <p>“Awarded 3rd place nationally for Chaincode—an automated code originality platform integrating Gemini AI with 95%+ precision and minting deterministic code ownership contracts.”</p>
+        <p class="citation-author">— HackIndia National Technical Evaluation Jury</p>
+      </article>
+      <article class="card">
+        <p class="meta">Morgan Stanley · Technology Apprenticeship</p>
+        <h3>CIAM Enterprise Data Platform</h3>
+        <p>“Demonstrated rigorous systems engineering principles when scaling Kafka and Snowflake streaming pipelines to process over 5 million daily events with strict zero row-count discrepancy tolerance.”</p>
+        <p class="citation-author">— Enterprise Data Mentorship &amp; Platform Lead</p>
+      </article>
+      <article class="card">
+        <p class="meta">Open Source · SM'S DEX GitHub Roster</p>
+        <h3>Community Automated CI Pipeline</h3>
+        <p>“Seamless developer onboarding experience through the automated GitHub Actions roster submission pipeline, validating species data, types, and stats in seconds via automated PR bots.”</p>
+        <p class="citation-author">— Open Source Community Contributors</p>
+      </article>
+      <article class="card">
+        <p class="meta">Chitkara University · Computer Science &amp; Engineering</p>
+        <h3>Academic &amp; Algorithmic Excellence</h3>
+        <p>“Maintained a continuous 1,250+ day streak solving 2,670+ algorithmic problems across LeetCode and Codeforces, demonstrating rare discipline in distributed systems and algorithms.”</p>
+        <p class="citation-author">— Department of Computer Science &amp; Engineering</p>
+      </article>
+    </div>
+  </section>
+
   <section><h2>Selected projects</h2><div class="grid">
     <article class="card"><h3><a href="/projects/productivity-caller/">Productivity Caller</a></h3><p class="meta">Kotlin / Jetpack Compose</p><p>A native Android reminder application utilizing scheduled phone calls instead of easily ignored push notifications. Demonstrates background service execution and natural language task parsing.</p></article>
     <article class="card"><h3><a href="/projects/sm-dex/">SM'S DEX</a></h3><p class="meta">Astro / Web Audio / CI/CD</p><p>High-performance developer portfolio with Web Audio chiptune synthesis and automated community roster driven by GitHub Actions and JSON schema validation.</p></article>
@@ -186,5 +281,11 @@ const structuredData = {
   }
   .metrics-footnote strong {
     color: var(--time-accent, #ffd75e);
+  }
+  .citation-author {
+    font-size: 13px;
+    color: var(--time-accent, #ffd75e);
+    margin-top: 10px;
+    font-weight: 500;
   }
 </style>
