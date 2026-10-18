@@ -76,9 +76,23 @@ const structuredData = {
       </div>
     </div>
   </main>
+  <footer class="site-footer">Pokémon © Nintendo / Creatures / GAME FREAK · Tested by my friends.</footer>
 </Base>
 
 <style>
+  .site-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 32px 20px;
+    background: var(--time-deep, #08101a);
+    border-top: 1px solid var(--time-accent, var(--border));
+    box-shadow: inset 0 3px var(--time-accent, #ffd75e);
+    color: #fff;
+    font-size: 13px;
+    font-family: var(--font-display, monospace);
+    text-align: center;
+  }
   .timeline-container {
     max-width: 800px;
     margin: 0 auto;
