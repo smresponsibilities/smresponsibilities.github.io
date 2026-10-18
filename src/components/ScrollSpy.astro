@@ -21,7 +21,7 @@ const {
 } = Astro.props;
 ---
 
-<!-- Interior.dev Segmented Pill ScrollSpy -->
+<!-- Vertical ScrollSpy Table of Contents (No truncation, zero underlines, pure sans-serif) -->
 <nav 
   class={`interior-scroll-spy ${className}`} 
   aria-label={label}
@@ -29,144 +29,192 @@ const {
   data-offset={offset}
   data-target={target}
 >
-  <div class="scroll-spy-track">
-    <!-- Sliding capsule thumb indicator -->
-    <div class="scroll-spy-thumb" aria-hidden="true"></div>
+  <div class="scroll-spy-card">
+    <div class="scroll-spy-header">
+      <span class="scroll-spy-badge" aria-hidden="true"></span>
+      <span class="scroll-spy-title">On this page</span>
+    </div>
 
-    <ol class="scroll-spy-list" role="list">
-      {sections.map((section) => (
-        <li class="scroll-spy-item" data-id={section.id}>
-          <a href={`#${section.id}`} class="scroll-spy-link">
-            <span class="scroll-spy-text">{section.label}</span>
-          </a>
-        </li>
-      ))}
-    </ol>
+    <div class="scroll-spy-track">
+      <ol class="scroll-spy-list" role="list">
+        {sections.map((section) => (
+          <li class="scroll-spy-item" data-id={section.id}>
+            <a href={`#${section.id}`} class="scroll-spy-link">
+              <span class="scroll-spy-text">{section.label}</span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </div>
   </div>
   <p class="sr-only" aria-live="polite" data-announce></p>
 </nav>
 
 <style>
   .interior-scroll-spy {
-    position: sticky;
-    top: 12px;
-    z-index: 35;
+    display: block;
     width: 100%;
-    margin: 20px 0 28px;
+    margin: 24px 0 32px;
     user-select: none;
+  }
+
+  /* Desktop right-rail gutter dock on wide viewports (>= 1260px) */
+  @media (min-width: 1260px) {
+    .interior-scroll-spy {
+      position: fixed;
+      top: 100px;
+      right: max(20px, calc((100vw - 940px) / 2 - 250px));
+      width: 235px;
+      margin: 0;
+      z-index: 50;
+      max-height: calc(100vh - 140px);
+      overflow-y: auto;
+    }
+  }
+
+  .scroll-spy-card {
+    position: relative;
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: rgba(14, 18, 28, 0.88);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
+  }
+
+  :global(.light) .scroll-spy-card {
+    background: rgba(245, 245, 245, 0.94);
+    border-color: rgba(0, 0, 0, 0.08);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  }
+
+  .scroll-spy-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  :global(.light) .scroll-spy-header {
+    border-bottom-color: rgba(0, 0, 0, 0.06);
+  }
+
+  .scroll-spy-badge {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #4568FF;
+    box-shadow: 0 0 8px #4568FF;
+  }
+
+  .scroll-spy-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+
+  :global(.light) .scroll-spy-title {
+    color: #94a3b8;
   }
 
   .scroll-spy-track {
     position: relative;
-    display: inline-flex;
-    max-width: 100%;
-    padding: 3px;
-    border-radius: 10px;
-    background: rgba(18, 24, 38, 0.85);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.28);
-  }
-
-  :global(.light) .scroll-spy-track {
-    background: rgba(245, 245, 245, 0.92);
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.06);
-  }
-
-  .scroll-spy-thumb {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 28px;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
-    pointer-events: none;
-    transition: transform 0.24s cubic-bezier(0.23, 1, 0.32, 1), width 0.24s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease;
-    opacity: 0;
-    z-index: 1;
-  }
-
-  :global(.light) .scroll-spy-thumb {
-    background: #ffffff;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .scroll-spy-list {
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    overflow-x: auto;
     margin: 0;
     padding: 0;
     list-style: none;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    border-left: 1px solid rgba(255, 255, 255, 0.06);
   }
 
-  .scroll-spy-list::-webkit-scrollbar {
-    display: none;
+  :global(.light) .scroll-spy-list {
+    border-left-color: rgba(0, 0, 0, 0.08);
   }
 
   .scroll-spy-item {
     position: relative;
-    flex: 0 0 auto;
     margin: 0;
     padding: 0;
   }
 
-  /* Force override any global .editorial a inheritance */
-  :global(.editorial) .scroll-spy-link,
-  .scroll-spy-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 28px;
-    padding: 0 11px;
-    border-radius: 6px;
+  /* Force override any global .editorial a inheritance (kill underlines & monospace font) */
+  :global(.editorial) a.scroll-spy-link,
+  :global(.editorial a.scroll-spy-link),
+  a.scroll-spy-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 7px 12px !important;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-    font-size: 12.5px !important;
-    line-height: 1 !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
     font-weight: 500 !important;
     color: #94a3b8 !important;
     text-decoration: none !important;
+    text-decoration-line: none !important;
+    text-underline-offset: unset !important;
+    border-bottom: none !important;
+    border-left: 2px solid transparent !important;
+    margin-left: -1px;
     background: transparent !important;
-    border: none !important;
-    white-space: nowrap;
-    outline: none;
-    transition: color 0.15s ease;
-    cursor: pointer;
+    border-radius: 0 6px 6px 0 !important;
+    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease !important;
+    cursor: pointer !important;
+    white-space: normal !important;
+    word-break: break-word !important;
   }
 
-  :global(.light .editorial) .scroll-spy-link,
-  :global(.light) .scroll-spy-link {
+  :global(.light .editorial) a.scroll-spy-link,
+  :global(.light .editorial a.scroll-spy-link),
+  :global(.light) a.scroll-spy-link {
     color: #64748b !important;
   }
 
-  :global(.editorial) .scroll-spy-link:hover,
-  .scroll-spy-link:hover {
-    color: #f8fafc !important;
+  :global(.editorial) a.scroll-spy-link:hover,
+  :global(.editorial a.scroll-spy-link:hover),
+  a.scroll-spy-link:hover {
+    color: #ffffff !important;
     text-decoration: none !important;
+    text-decoration-line: none !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-left-color: rgba(255, 255, 255, 0.25) !important;
   }
 
-  :global(.light .editorial) .scroll-spy-link:hover,
-  :global(.light) .scroll-spy-link:hover {
+  :global(.light .editorial) a.scroll-spy-link:hover,
+  :global(.light .editorial a.scroll-spy-link:hover),
+  :global(.light) a.scroll-spy-link:hover {
     color: #0f172a !important;
+    background: rgba(0, 0, 0, 0.04) !important;
+    border-left-color: rgba(0, 0, 0, 0.2) !important;
   }
 
-  :global(.editorial) .scroll-spy-item.is-active .scroll-spy-link,
-  .scroll-spy-item.is-active .scroll-spy-link {
+  :global(.editorial) .scroll-spy-item.is-active a.scroll-spy-link,
+  :global(.editorial .scroll-spy-item.is-active a.scroll-spy-link),
+  .scroll-spy-item.is-active a.scroll-spy-link {
     color: #ffffff !important;
     font-weight: 600 !important;
     text-decoration: none !important;
+    text-decoration-line: none !important;
+    background: rgba(69, 104, 255, 0.12) !important;
+    border-left-color: #4568FF !important;
   }
 
-  :global(.light .editorial) .scroll-spy-item.is-active .scroll-spy-link,
-  :global(.light) .scroll-spy-item.is-active .scroll-spy-link {
+  :global(.light .editorial) .scroll-spy-item.is-active a.scroll-spy-link,
+  :global(.light .editorial .scroll-spy-item.is-active a.scroll-spy-link),
+  :global(.light) .scroll-spy-item.is-active a.scroll-spy-link {
     color: #0f172a !important;
+    background: rgba(69, 104, 255, 0.1) !important;
+    border-left-color: #4568FF !important;
   }
 
   .scroll-spy-link:focus-visible {
@@ -184,26 +232,12 @@ const {
     white-space: nowrap;
     border-width: 0;
   }
-
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-spy-thumb {
-      transition: none !important;
-    }
-  }
 </style>
 
 <script>
   function formatCleanLabel(text: string): string {
-    const clean = text.replace(/^[^\w\s]+/, '').trim();
-    if (/what the post says/i.test(clean)) return 'Post Log';
-    if (/milestone/i.test(clean)) return 'Milestone';
-    if (/related/i.test(clean)) return 'Related Walkthroughs';
-    if (/pinned/i.test(clean)) return 'Pinned Milestones';
-    if (/featured/i.test(clean)) return 'Featured Systems';
-    if (/from form to issue/i.test(clean)) return 'Form to Issue';
-    if (/validation and review/i.test(clean)) return 'Validation & Review';
-    if (/why use a pull request/i.test(clean)) return 'Why Pull Requests';
-    return clean.length > 24 ? clean.slice(0, 22) + '…' : clean;
+    // Strip leading emojis or bullet symbols (e.g. "🎉 ") without truncating any text
+    return text.replace(/^[^\w\s]+/, '').trim();
   }
 
   function initScrollSpy() {
@@ -219,7 +253,6 @@ const {
       if (!targetEl) return;
 
       const listEl = spy.querySelector<HTMLElement>('.scroll-spy-list');
-      const thumbEl = spy.querySelector<HTMLElement>('.scroll-spy-thumb');
       const announceEl = spy.querySelector<HTMLElement>('[data-announce]');
       const offset = parseInt(spy.dataset.offset || '96', 10);
       if (!listEl) return;
@@ -283,15 +316,8 @@ const {
           }
         });
 
-        const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
-        if (activeItem && thumbEl) {
-          thumbEl.style.opacity = '1';
-          thumbEl.style.transform = `translateX(${activeItem.offsetLeft}px)`;
-          thumbEl.style.width = `${activeItem.offsetWidth}px`;
-          activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
-        }
-
         if (announceEl) {
+          const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
           const textEl = activeItem?.querySelector('.scroll-spy-text');
           announceEl.textContent = textEl?.textContent || '';
         }
