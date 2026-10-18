@@ -1,0 +1,423 @@
+---
+export interface ScrollSpySection {
+  id: string;
+  label: string;
+}
+
+interface Props {
+  sections?: ScrollSpySection[];
+  offset?: number;
+  label?: string;
+  target?: string;
+  className?: string;
+}
+
+const {
+  sections = [],
+  offset = 96,
+  label = "On this page",
+  target = "main",
+  className = "",
+} = Astro.props;
+---
+
+<nav 
+  class={`scroll-spy-container ${className}`} 
+  aria-label={label}
+  data-scroll-spy
+  data-offset={offset}
+  data-target={target}
+>
+  <div class="scroll-spy-track">
+    <ol class="scroll-spy-list" role="list">
+      {sections.map((section) => (
+        <li class="scroll-spy-item" data-id={section.id}>
+          <a href={`#${section.id}`} class="scroll-spy-link">
+            <span class="scroll-spy-label-grid">
+              <span class="scroll-spy-sizer" aria-hidden="true">{section.label}</span>
+              <span class="scroll-spy-text">{section.label}</span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+    <span class="scroll-spy-thumb" aria-hidden="true"></span>
+  </div>
+  <p class="sr-only" aria-live="polite" data-announce></p>
+</nav>
+
+<style>
+  .scroll-spy-container {
+    position: sticky;
+    top: 42px;
+    z-index: 85;
+    width: 100%;
+    margin: 0 0 16px;
+    padding: 2px 0;
+  }
+
+  .scroll-spy-track {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 3px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--panel, #0f172a) 90%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 70%, transparent);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+  }
+
+  .scroll-spy-list {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    width: 100%;
+    z-index: 2;
+  }
+
+  .scroll-spy-list::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-spy-item {
+    position: relative;
+    flex: 0 0 auto;
+  }
+
+  .scroll-spy-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 0 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 12px;
+    color: var(--dim, #94a3b8);
+    transition: color 0.15s ease;
+    outline: none;
+    user-select: none;
+    white-space: nowrap;
+  }
+
+  .scroll-spy-link:hover {
+    color: var(--ink, #f1f5f9);
+  }
+
+  .scroll-spy-item.is-active .scroll-spy-link {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .scroll-spy-label-grid {
+    display: grid;
+    place-items: center;
+  }
+
+  .scroll-spy-sizer {
+    grid-column: 1;
+    grid-row: 1;
+    visibility: hidden;
+    font-weight: 600;
+    pointer-events: none;
+  }
+
+  .scroll-spy-text {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  /* Sliding ink thumb */
+  .scroll-spy-thumb {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 28px;
+    width: 0;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--accent, #4568FF) 25%, #182234);
+    border: 1px solid var(--accent, #4568FF);
+    box-shadow: 0 1px 4px rgba(69, 104, 255, 0.25);
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0;
+    transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1), width 0.28s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease;
+    will-change: transform, width;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-spy-thumb,
+    .scroll-spy-link {
+      transition: none !important;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+</style>
+
+<script>
+  function initScrollSpy() {
+    const spies = document.querySelectorAll<HTMLElement>('[data-scroll-spy]');
+    if (!spies.length) return;
+
+    spies.forEach((spy) => {
+      if (spy.dataset.initialized === 'true') return;
+      spy.dataset.initialized = 'true';
+
+      const targetSelector = spy.dataset.target || 'main';
+      const targetEl = document.querySelector<HTMLElement>(targetSelector);
+      if (!targetEl) return;
+
+      const trackEl = spy.querySelector<HTMLElement>('.scroll-spy-track');
+      const listEl = spy.querySelector<HTMLElement>('.scroll-spy-list');
+      const thumbEl = spy.querySelector<HTMLElement>('.scroll-spy-thumb');
+      const announceEl = spy.querySelector<HTMLElement>('[data-announce]');
+      const offset = parseInt(spy.dataset.offset || '96', 10);
+
+      if (!listEl || !thumbEl || !trackEl) return;
+
+      // Auto-discover headings if list is empty
+      let items = Array.from(listEl.querySelectorAll<HTMLElement>('.scroll-spy-item'));
+      if (items.length === 0) {
+        const headings = targetEl.querySelectorAll<HTMLHeadingElement>('h2');
+        headings.forEach((h, idx) => {
+          let id = h.id;
+          if (!id) {
+            id = h.textContent
+              ? h.textContent.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+              : `section-${idx + 1}`;
+            h.id = id;
+          }
+
+          // Clean label text
+          const rawText = h.textContent || `Section ${idx + 1}`;
+          const cleanLabel = rawText.replace(/^[^\w\s]+/, '').trim() || rawText;
+
+          const li = document.createElement('li');
+          li.className = 'scroll-spy-item';
+          li.dataset.id = id;
+
+          const a = document.createElement('a');
+          a.href = `#${id}`;
+          a.className = 'scroll-spy-link';
+
+          const grid = document.createElement('span');
+          grid.className = 'scroll-spy-label-grid';
+
+          const sizer = document.createElement('span');
+          sizer.className = 'scroll-spy-sizer';
+          sizer.setAttribute('aria-hidden', 'true');
+          sizer.textContent = cleanLabel;
+
+          const text = document.createElement('span');
+          text.className = 'scroll-spy-text';
+          text.textContent = cleanLabel;
+
+          grid.appendChild(sizer);
+          grid.appendChild(text);
+          a.appendChild(grid);
+          li.appendChild(a);
+          listEl.appendChild(li);
+        });
+
+        items = Array.from(listEl.querySelectorAll<HTMLElement>('.scroll-spy-item'));
+      }
+
+      if (items.length === 0) {
+        spy.style.display = 'none';
+        return;
+      }
+
+      let activeId = items[0].dataset.id || '';
+      let lock: string | null = null;
+      let lockTimer: number | null = null;
+      let rAF = 0;
+
+      const positionThumb = (id: string) => {
+        const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
+        if (!activeItem) return;
+
+        items.forEach((item) => {
+          const isActive = item.dataset.id === id;
+          item.classList.toggle('is-active', isActive);
+          const link = item.querySelector<HTMLAnchorElement>('.scroll-spy-link');
+          if (link) {
+            if (isActive) link.setAttribute('aria-current', 'location');
+            else link.removeAttribute('aria-current');
+          }
+        });
+
+        const trackRect = trackEl.getBoundingClientRect();
+        const itemRect = activeItem.getBoundingClientRect();
+        const left = itemRect.left - trackRect.left + trackEl.scrollLeft;
+        const width = itemRect.width;
+
+        thumbEl.style.transform = `translateX(${left}px)`;
+        thumbEl.style.width = `${width}px`;
+        thumbEl.style.opacity = '1';
+
+        // Keep chip in view inside the horizontally scrolling strip
+        activeItem.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'nearest'
+        });
+
+        if (announceEl) {
+          const textEl = activeItem.querySelector('.scroll-spy-text');
+          announceEl.textContent = textEl ? textEl.textContent : '';
+        }
+      };
+
+      // Interior.dev sliding reading line algorithm
+      const measure = () => {
+        const viewport = window.innerHeight;
+        const top = window.scrollY;
+        const max = document.documentElement.scrollHeight - viewport;
+        const ratio = max > 0 ? Math.min(1, Math.max(0, top / max)) : 1;
+
+        // Sliding reading line slides from under top edge to bottom as scroll runs out
+        const line = offset + ratio * Math.max(0, viewport - offset - 1);
+
+        let current = '';
+        let last = '';
+
+        for (const item of items) {
+          const id = item.dataset.id;
+          if (!id) continue;
+          const node = document.getElementById(id);
+          if (!node) continue;
+          last = id;
+          if (!current) current = id;
+          if (node.getBoundingClientRect().top <= line + 1) {
+            current = id;
+          }
+        }
+
+        const atEnd = window.scrollY + viewport >= document.documentElement.scrollHeight - 2;
+        return atEnd && last ? last : current;
+      };
+
+      const sync = () => {
+        rAF = 0;
+        const next = measure();
+        if (!next) return;
+
+        if (lock) {
+          if (lock === next) {
+            lock = null;
+            if (lockTimer) clearTimeout(lockTimer);
+          }
+          return;
+        }
+
+        if (next !== activeId) {
+          activeId = next;
+          positionThumb(activeId);
+        }
+      };
+
+      const schedule = () => {
+        if (rAF) return;
+        rAF = requestAnimationFrame(sync);
+      };
+
+      // Click to scroll destination lock
+      const scrollTo = (id: string) => {
+        const node = document.getElementById(id);
+        if (!node) return;
+
+        lock = id;
+        activeId = id;
+        positionThumb(id);
+
+        const rect = node.getBoundingClientRect();
+        const viewport = window.innerHeight;
+        const max = Math.max(0, document.documentElement.scrollHeight - viewport);
+        const H = rect.top + window.scrollY;
+        const usable = Math.max(0, viewport - offset - 1);
+        const targetTop = max > 0 ? Math.min(max, Math.max(0, (H - offset) / (1 + usable / max))) : 0;
+
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+
+        if (!node.hasAttribute('tabindex')) node.setAttribute('tabindex', '-1');
+        node.focus({ preventScroll: true });
+
+        if (lockTimer) clearTimeout(lockTimer);
+        lockTimer = window.setTimeout(() => {
+          lock = null;
+          sync();
+        }, 900);
+      };
+
+      listEl.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement;
+        const link = target.closest<HTMLAnchorElement>('.scroll-spy-link');
+        if (!link) return;
+
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+        e.preventDefault();
+
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          scrollTo(href.slice(1));
+        }
+      });
+
+      // Abandon lock immediately when user manually wheels or touches
+      const abandon = () => {
+        if (lock) {
+          lock = null;
+          if (lockTimer) clearTimeout(lockTimer);
+        }
+      };
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+      window.addEventListener('wheel', abandon, { passive: true });
+      window.addEventListener('touchstart', abandon, { passive: true });
+
+      if (typeof ResizeObserver !== 'undefined') {
+        const ro = new ResizeObserver(schedule);
+        ro.observe(targetEl);
+        items.forEach((item) => {
+          const id = item.dataset.id;
+          if (id) {
+            const el = document.getElementById(id);
+            if (el) ro.observe(el);
+          }
+        });
+      }
+
+      positionThumb(activeId);
+      sync();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initScrollSpy);
+  } else {
+    initScrollSpy();
+  }
+  document.addEventListener('astro:page-load', initScrollSpy);
+</script>

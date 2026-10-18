@@ -240,7 +240,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
   </div>
 
   <section>
-    <h2>What the post says</h2>
+    <h2 id="what-the-post-says">What the post says</h2>
     <p>{post.content}</p>
     {problemTitle && (
       <p class="citation-note">
@@ -251,7 +251,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
 
   {post.milestone && (
     <section>
-      <h2>🎉 Milestone</h2>
+      <h2 id="milestone">🎉 Milestone</h2>
       <p>
         <strong>{post.milestone}</strong>
         {post.milestoneUrl && (
@@ -307,7 +307,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
   <!-- Smart Related Engineering Logs & Walkthroughs Engine -->
   <section class="related-logs-section">
     <div class="section-title-row">
-      <h2>Related Problem Walkthroughs &amp; Logs</h2>
+      <h2 id="related-walkthroughs">Related Problem Walkthroughs &amp; Logs</h2>
       <span class="topic-tag-pill">{currentTopic}</span>
     </div>
     <p>Discover interconnected algorithmic solutions and engineering updates sharing the <strong>{currentTopic}</strong> cluster:</p>
@@ -328,7 +328,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
 
   <!-- Pinned Milestone Benchmarks -->
   <section class="pinned-milestones-section">
-    <h2>Pinned Engineering Milestones</h2>
+    <h2 id="pinned-milestones">Pinned Engineering Milestones</h2>
     <p>Anchor benchmarks and century markers across Shivam Mahajan's multi-year streak:</p>
     <div class="pinned-grid">
       {pinnedMilestones.map((m) => (
@@ -352,7 +352,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
 
   <!-- Interactive Project Feature Cards (Playbook 29) -->
   <section class="featured-projects-section">
-    <h2>Featured Engineering Systems & Architecture</h2>
+    <h2 id="featured-systems">Featured Engineering Systems & Architecture</h2>
     <p>Explore production architectures, distributed systems, and low-level engines built by Shivam Mahajan:</p>
     <div class="project-feature-grid">
       <div class="project-feature-card">
@@ -410,7 +410,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
 
   <!-- Navigation Archive Links -->
   <section>
-    <h2>Days of Code Timeline &amp; Archives</h2>
+    <h2 id="timeline-archives">Days of Code Timeline &amp; Archives</h2>
     <div class="hub-links">
       <a href="/blog/">Days of Code Journal →</a>
       <a href={`/blog/archive/${groupName}/`}>Days {groupName} Archive →</a>
