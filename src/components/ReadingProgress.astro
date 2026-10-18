@@ -6,7 +6,6 @@ interface Props {
   label?: string;
   doneLabel?: string;
   target?: string;
-  orientation?: 'horizontal' | 'vertical' | 'both';
   className?: string;
 }
 
@@ -17,240 +16,129 @@ const {
   label = "Reading progress",
   doneLabel = "End",
   target = "main",
-  orientation = "both",
   className = "",
 } = Astro.props;
 
-const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)) : 2;
-const initialReadout = `${initialMinutes} min left`;
-const initialFinish = `${doneLabel} · ${initialMinutes} min`;
-
-const showHorizontal = orientation === 'horizontal' || orientation === 'both';
-const showVertical = orientation === 'vertical' || orientation === 'both';
+const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)) : 1;
 ---
 
-{showHorizontal && (
-  <div 
-    class={`reading-progress-wrapper ${className}`}
-    data-reading-progress
-    data-words={words}
-    data-wpm={wordsPerMinute}
-    data-steps={steps}
-    data-label={label}
-    data-done-label={doneLabel}
-    data-target={target}
+<!-- Fixed top hairline progress track (0 content intrusion) -->
+<div 
+  class={`reading-progress-bar ${className}`}
+  data-reading-progress
+  data-words={words}
+  data-wpm={wordsPerMinute}
+  data-steps={steps}
+  data-label={label}
+  data-done-label={doneLabel}
+  data-target={target}
+>
+  <div
+    class="rp-line-track"
+    role="progressbar"
+    aria-label={label}
+    aria-valuemin={0}
+    aria-valuemax={steps}
+    aria-valuenow={0}
+    aria-valuetext={`0% read, ${initialMinutes} min left`}
   >
-    <div
-      class="reading-progress-track-container"
-      role="progressbar"
-      aria-label={label}
-      aria-valuemin={0}
-      aria-valuemax={steps}
-      aria-valuenow={0}
-      aria-valuetext={`0% read, ${initialReadout}`}
-    >
-      <div class="reading-progress-fill" style="transform: scaleX(0);"></div>
-    </div>
-
-    <div class="reading-progress-readout" aria-hidden="true">
-      <!-- Sizing dummy to reserve exact width and prevent layout shift -->
-      <span class="rp-sizer">
-        <span class="rp-sizer-icon"></span>
-        <span class="rp-sizer-text">{initialFinish}</span>
-      </span>
-
-      <!-- Active countdown readout -->
-      <span class="rp-active-label">
-        {initialReadout}
-      </span>
-
-      <!-- Completion state -->
-      <span class="rp-done-label">
-        <svg
-          class="rp-check-icon"
-          width="12"
-          height="12"
-          viewBox="0 0 256 256"
-          fill="none"
-          aria-hidden="true"
-        >
-          <polyline
-            class="rp-check-path"
-            points="216 72 104 184 48 128"
-            stroke="currentColor"
-            stroke-width="22"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            pathLength="1"
-          />
-        </svg>
-        <span class="rp-done-text">{initialFinish}</span>
-      </span>
-    </div>
+    <div class="rp-line-fill" style="transform: scaleX(0);"></div>
   </div>
-)}
 
-{showVertical && (
-  <aside 
-    class="reading-progress-vertical-rail" 
-    aria-label="Reading progress dock"
-    data-reading-progress-vertical
-    data-words={words}
-    data-wpm={wordsPerMinute}
-    data-steps={steps}
-    data-target={target}
-  >
-    <div class="rp-vert-card">
-      <div class="rp-vert-header">
-        <span class="rp-vert-badge">READ</span>
-        <span class="rp-vert-percent" data-vert-percent>0%</span>
-      </div>
-
-      <div 
-        class="rp-vert-track"
-        role="progressbar"
-        aria-label={label}
-        aria-valuemin={0}
-        aria-valuemax={steps}
-        aria-valuenow={0}
-      >
-        <div class="rp-vert-fill" style="transform: scaleY(0);"></div>
-      </div>
-
-      <div class="rp-vert-footer">
-        <span class="rp-vert-time" data-vert-time>{initialMinutes}m</span>
-        <svg
-          class="rp-vert-check"
-          width="14"
-          height="14"
-          viewBox="0 0 256 256"
-          fill="none"
-          aria-hidden="true"
-        >
-          <polyline
-            class="rp-vert-check-path"
-            points="216 72 104 184 48 128"
-            stroke="currentColor"
-            stroke-width="24"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            pathLength="1"
-          />
-        </svg>
-      </div>
-
-      <button 
-        type="button" 
-        class="rp-vert-top-btn" 
-        aria-label="Scroll back to top" 
-        title="Scroll to top"
-      >
-        ↑
-      </button>
-    </div>
+  <!-- Discreet floating pill at top-right -->
+  <aside class="rp-floating-badge" aria-hidden="true">
+    <span class="rp-time-text">{initialMinutes} min left</span>
+    <span class="rp-end-text">
+      <svg width="12" height="12" viewBox="0 0 256 256" fill="none" class="rp-check-icon">
+        <polyline
+          class="rp-check-path"
+          points="216 72 104 184 48 128"
+          stroke="currentColor"
+          stroke-width="24"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          pathLength="1"
+        />
+      </svg>
+      <span>{doneLabel} · {initialMinutes} min</span>
+    </span>
   </aside>
-)}
+</div>
 
 <style>
-  /* Horizontal sticky bar */
-  .reading-progress-wrapper {
-    position: sticky;
+  .reading-progress-bar {
+    position: fixed;
     top: 0;
-    z-index: 90;
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    left: 0;
+    right: 0;
     width: 100%;
-    padding: 8px 12px;
-    margin: 4px 0 16px;
-    border-radius: 6px;
-    background: color-mix(in srgb, var(--bg, #070c14) 88%, transparent);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 65%, transparent);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-  }
-
-  .reading-progress-track-container {
-    position: relative;
-    flex: 1 1 0%;
-    min-width: 0;
     height: 3px;
-    border-radius: 2px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.08);
+    z-index: 1000;
+    pointer-events: none;
   }
 
-  :global(.light) .reading-progress-track-container {
+  .rp-line-track {
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    overflow: hidden;
+  }
+
+  :global(.light) .rp-line-track {
     background: rgba(0, 0, 0, 0.07);
   }
 
-  .reading-progress-fill {
-    height: 100%;
+  .rp-line-fill {
     width: 100%;
+    height: 100%;
     transform-origin: left;
-    border-radius: 2px;
     background: var(--rp-accent, #4568FF);
     transform: scaleX(0);
-    transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
     will-change: transform;
   }
 
-  .reading-progress-readout {
-    display: grid;
-    flex-shrink: 0;
-    justify-items: end;
-    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
-    font-size: 11px;
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-    user-select: none;
-  }
-
-  .rp-sizer,
-  .rp-active-label,
-  .rp-done-label {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
+  /* Minimal floating readout in top right corner */
+  .rp-floating-badge {
+    position: fixed;
+    top: 8px;
+    right: 16px;
+    display: inline-flex;
     align-items: center;
-    gap: 4px;
-    white-space: nowrap;
-  }
-
-  .rp-sizer {
-    visibility: hidden;
+    gap: 6px;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--panel, #070c14) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 60%, transparent);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 10.5px;
+    font-variant-numeric: tabular-nums;
+    color: var(--dim, #94a3b8);
     pointer-events: none;
     opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    user-select: none;
+    z-index: 1001;
   }
 
-  .rp-sizer-icon {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
-  }
-
-  .rp-active-label {
-    color: var(--dim, #94a3b8);
+  .reading-progress-bar.is-scrolled .rp-floating-badge {
     opacity: 1;
-    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: translateY(0);
   }
 
-  .rp-done-label {
+  .rp-end-text {
+    display: none;
+    align-items: center;
+    gap: 4px;
     color: var(--ink, #f1f5f9);
-    opacity: 0;
-    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .rp-done-text {
-    transform: translateX(4px);
-    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   }
 
   .rp-check-icon {
-    width: 12px;
-    height: 12px;
-    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
     color: var(--rp-accent, #4568FF);
   }
 
@@ -260,172 +148,22 @@ const showVertical = orientation === 'vertical' || orientation === 'both';
     transition: stroke-dashoffset 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.08s;
   }
 
-  /* Completion state */
-  .reading-progress-wrapper.is-complete .rp-active-label {
-    opacity: 0;
-  }
-
-  .reading-progress-wrapper.is-complete .rp-done-label {
-    opacity: 1;
-  }
-
-  .reading-progress-wrapper.is-complete .rp-done-text {
-    transform: translateX(0);
-  }
-
-  .reading-progress-wrapper.is-complete .rp-check-path {
-    stroke-dashoffset: 0;
-  }
-
-  /* Vertical floating rail dock */
-  .reading-progress-vertical-rail {
-    position: fixed;
-    right: 20px;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 95;
+  .reading-progress-bar.is-complete .rp-time-text {
     display: none;
-    user-select: none;
   }
 
-  @media (min-width: 1080px) {
-    .reading-progress-vertical-rail {
-      display: block;
-    }
+  .reading-progress-bar.is-complete .rp-end-text {
+    display: inline-flex;
   }
 
-  .rp-vert-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 10px 8px;
-    border-radius: 10px;
-    background: color-mix(in srgb, var(--panel, #0f172a) 90%, transparent);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 80%, transparent);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
-  }
-
-  .rp-vert-header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2px;
-  }
-
-  .rp-vert-badge {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.5px;
-    color: var(--dim, #64748b);
-  }
-
-  .rp-vert-percent {
-    font-family: var(--font-mono, monospace);
-    font-size: 10px;
-    font-weight: 600;
-    color: var(--ink, #f1f5f9);
-    font-variant-numeric: tabular-nums;
-  }
-
-  .rp-vert-track {
-    position: relative;
-    width: 3px;
-    height: 120px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.08);
-    overflow: hidden;
-  }
-
-  .rp-vert-fill {
-    width: 100%;
-    height: 100%;
-    transform-origin: top;
-    border-radius: 2px;
-    background: var(--rp-accent, #4568FF);
-    transform: scaleY(0);
-    transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1);
-    will-change: transform;
-  }
-
-  .rp-vert-footer {
-    display: grid;
-    place-items: center;
-    height: 16px;
-  }
-
-  .rp-vert-time,
-  .rp-vert-check {
-    grid-column: 1;
-    grid-row: 1;
-    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
-  }
-
-  .rp-vert-time {
-    font-family: var(--font-mono, monospace);
-    font-size: 10px;
-    color: var(--dim, #94a3b8);
-    font-variant-numeric: tabular-nums;
-    opacity: 1;
-  }
-
-  .rp-vert-check {
-    color: var(--rp-accent, #4568FF);
-    opacity: 0;
-  }
-
-  .rp-vert-check-path {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.08s;
-  }
-
-  .reading-progress-vertical-rail.is-complete .rp-vert-time {
-    opacity: 0;
-  }
-
-  .reading-progress-vertical-rail.is-complete .rp-vert-check {
-    opacity: 1;
-  }
-
-  .reading-progress-vertical-rail.is-complete .rp-vert-check-path {
+  .reading-progress-bar.is-complete .rp-check-path {
     stroke-dashoffset: 0;
   }
 
-  .rp-vert-top-btn {
-    width: 22px;
-    height: 22px;
-    border-radius: 4px;
-    border: 1px solid var(--border, #334155);
-    background: transparent;
-    color: var(--dim, #94a3b8);
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: color 0.15s, border-color 0.15s, background 0.15s;
-    margin-top: 4px;
-    padding: 0;
-  }
-
-  .rp-vert-top-btn:hover {
-    color: #fff;
-    border-color: var(--accent, #4568FF);
-    background: color-mix(in srgb, var(--accent, #4568FF) 20%, transparent);
-  }
-
-  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .reading-progress-fill,
-    .rp-vert-fill,
-    .rp-active-label,
-    .rp-done-label,
-    .rp-done-text,
-    .rp-check-path,
-    .rp-vert-check-path {
+    .rp-line-fill,
+    .rp-floating-badge,
+    .rp-check-path {
       transition: none !important;
     }
   }
@@ -434,131 +172,94 @@ const showVertical = orientation === 'vertical' || orientation === 'both';
 <script>
   function initReadingProgress() {
     const bars = document.querySelectorAll<HTMLElement>('[data-reading-progress]');
-    const vertRails = document.querySelectorAll<HTMLElement>('[data-reading-progress-vertical]');
-    if (!bars.length && !vertRails.length) return;
+    if (!bars.length) return;
 
-    // Attach Top button listeners
-    vertRails.forEach((rail) => {
-      const topBtn = rail.querySelector<HTMLButtonElement>('.rp-vert-top-btn');
-      if (topBtn && !topBtn.dataset.bound) {
-        topBtn.dataset.bound = 'true';
-        topBtn.addEventListener('click', () => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-      }
-    });
+    bars.forEach((bar) => {
+      if (bar.dataset.initialized === 'true') return;
+      bar.dataset.initialized = 'true';
 
-    const targetEl = document.querySelector<HTMLElement>('main');
+      const targetEl = document.querySelector<HTMLElement>('main');
+      const track = bar.querySelector<HTMLElement>('[role="progressbar"]');
+      const fillEl = bar.querySelector<HTMLElement>('.rp-line-fill');
+      const timeText = bar.querySelector<HTMLElement>('.rp-time-text');
+      const endTextSpan = bar.querySelector<HTMLElement>('.rp-end-text span');
 
-    let words = 0;
-    const firstBar = bars[0] || vertRails[0];
-    if (firstBar) {
-      words = parseInt(firstBar.dataset.words || '0', 10);
+      const wpm = 220;
+      const steps = 24;
+      const baseDoneLabel = bar.dataset.doneLabel || 'End';
+
+      let words = parseInt(bar.dataset.words || '0', 10);
       if (words <= 0 && targetEl) {
         const text = targetEl.innerText || targetEl.textContent || '';
         words = text.trim().split(/\s+/).filter(Boolean).length;
       }
-    }
 
-    const wpm = 220;
-    const steps = 24;
-    const totalMinutes = words > 0 ? Math.max(1, Math.ceil(words / wpm)) : 1;
-    const finishText = `End · ${totalMinutes} min`;
+      const totalMinutes = words > 0 ? Math.max(1, Math.ceil(words / wpm)) : 1;
+      const finishText = `${baseDoneLabel} · ${totalMinutes} min`;
+      if (endTextSpan) endTextSpan.textContent = finishText;
 
-    bars.forEach((bar) => {
-      const doneText = bar.querySelector<HTMLElement>('.rp-done-text');
-      const sizerText = bar.querySelector<HTMLElement>('.rp-sizer-text');
-      const activeLabel = bar.querySelector<HTMLElement>('.rp-active-label');
-      if (doneText) doneText.textContent = finishText;
-      if (sizerText) sizerText.textContent = finishText;
-      if (activeLabel && words > 0) activeLabel.textContent = `${totalMinutes} min left`;
-    });
+      let currentStep = -1;
+      let rAF = 0;
 
-    vertRails.forEach((rail) => {
-      const vertTime = rail.querySelector<HTMLElement>('[data-vert-time]');
-      if (vertTime) vertTime.textContent = `${totalMinutes}m`;
-    });
+      const updateProgress = () => {
+        rAF = 0;
+        const viewport = window.innerHeight;
+        let ratio = 0;
 
-    let currentStep = -1;
-    let rAF = 0;
+        if (targetEl) {
+          const rect = targetEl.getBoundingClientRect();
+          const travel = rect.height - viewport;
+          ratio = travel <= 0 ? 1 : -rect.top / travel;
+        } else {
+          const doc = document.documentElement;
+          const travel = doc.scrollHeight - viewport;
+          ratio = travel <= 0 ? 1 : window.scrollY / travel;
+        }
 
-    const updateProgress = () => {
-      rAF = 0;
-      const viewport = window.innerHeight;
-      let ratio = 0;
+        const clamped = Math.max(0, Math.min(1, Number.isFinite(ratio) ? ratio : 0));
+        const nextStep = Math.round(clamped * steps);
 
-      if (targetEl) {
-        const rect = targetEl.getBoundingClientRect();
-        const travel = rect.height - viewport;
-        ratio = travel <= 0 ? 1 : -rect.top / travel;
-      } else {
-        const doc = document.documentElement;
-        const travel = doc.scrollHeight - viewport;
-        ratio = travel <= 0 ? 1 : window.scrollY / travel;
-      }
+        // Show floating readout badge only after user starts scrolling (scroll > 60px)
+        const isScrolled = window.scrollY > 60;
+        bar.classList.toggle('is-scrolled', isScrolled);
 
-      const clamped = Math.max(0, Math.min(1, Number.isFinite(ratio) ? ratio : 0));
-      const nextStep = Math.round(clamped * steps);
+        if (nextStep === currentStep) return;
+        currentStep = nextStep;
 
-      if (nextStep === currentStep) return;
-      currentStep = nextStep;
-
-      const progress = nextStep / steps;
-      const percent = Math.round(progress * 100);
-      const complete = nextStep >= steps;
-      const minutesLeft = Math.max(0, Math.ceil(((1 - progress) * words) / wpm));
-
-      // Update Horizontal Bars
-      bars.forEach((bar) => {
-        const fillEl = bar.querySelector<HTMLElement>('.reading-progress-fill');
-        const activeLabel = bar.querySelector<HTMLElement>('.rp-active-label');
-        const trackContainer = bar.querySelector<HTMLElement>('[role="progressbar"]');
+        const progress = nextStep / steps;
+        const percent = Math.round(progress * 100);
+        const complete = nextStep >= steps;
+        const minutesLeft = Math.max(0, Math.ceil(((1 - progress) * words) / wpm));
 
         if (fillEl) fillEl.style.transform = `scaleX(${progress})`;
-        if (activeLabel) activeLabel.textContent = `${minutesLeft} min left`;
+        if (timeText) timeText.textContent = `${minutesLeft} min left`;
+
         bar.classList.toggle('is-complete', complete);
 
-        if (trackContainer) {
+        if (track) {
           const valueText = words > 0
             ? (complete ? `100% read, ${finishText}` : `${percent}% read, ${minutesLeft} min left`)
             : `${percent}% read`;
-          trackContainer.setAttribute('aria-valuenow', String(nextStep));
-          trackContainer.setAttribute('aria-valuetext', valueText);
-        }
-      });
-
-      // Update Vertical Rails
-      vertRails.forEach((rail) => {
-        const fillEl = rail.querySelector<HTMLElement>('.rp-vert-fill');
-        const percentEl = rail.querySelector<HTMLElement>('[data-vert-percent]');
-        const timeEl = rail.querySelector<HTMLElement>('[data-vert-time]');
-        const track = rail.querySelector<HTMLElement>('.rp-vert-track');
-
-        if (fillEl) fillEl.style.transform = `scaleY(${progress})`;
-        if (percentEl) percentEl.textContent = `${percent}%`;
-        if (timeEl) timeEl.textContent = `${minutesLeft}m`;
-        rail.classList.toggle('is-complete', complete);
-
-        if (track) {
           track.setAttribute('aria-valuenow', String(nextStep));
+          track.setAttribute('aria-valuetext', valueText);
         }
-      });
-    };
+      };
 
-    const schedule = () => {
-      if (rAF) return;
-      rAF = requestAnimationFrame(updateProgress);
-    };
+      const schedule = () => {
+        if (rAF) return;
+        rAF = requestAnimationFrame(updateProgress);
+      };
 
-    window.addEventListener('scroll', schedule, { passive: true });
-    window.addEventListener('resize', schedule);
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
 
-    if (typeof ResizeObserver !== 'undefined' && targetEl) {
-      const ro = new ResizeObserver(schedule);
-      ro.observe(targetEl);
-    }
+      if (typeof ResizeObserver !== 'undefined' && targetEl) {
+        const ro = new ResizeObserver(schedule);
+        ro.observe(targetEl);
+      }
 
-    updateProgress();
+      updateProgress();
+    });
   }
 
   if (document.readyState === 'loading') {

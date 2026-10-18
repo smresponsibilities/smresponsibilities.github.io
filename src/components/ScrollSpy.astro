@@ -21,145 +21,119 @@ const {
 } = Astro.props;
 ---
 
-<nav 
-  class={`scroll-spy-container ${className}`} 
+<!-- Desktop Right-Rail ScrollSpy (Only visible on wide screens >= 1240px; never blocks text) -->
+<aside 
+  class={`scroll-spy-aside ${className}`} 
   aria-label={label}
   data-scroll-spy
   data-offset={offset}
   data-target={target}
 >
-  <div class="scroll-spy-track">
-    <ol class="scroll-spy-list" role="list">
-      {sections.map((section) => (
-        <li class="scroll-spy-item" data-id={section.id}>
-          <a href={`#${section.id}`} class="scroll-spy-link">
-            <span class="scroll-spy-label-grid">
-              <span class="scroll-spy-sizer" aria-hidden="true">{section.label}</span>
+  <div class="scroll-spy-inner">
+    <div class="scroll-spy-header">
+      <span class="scroll-spy-title">ON THIS PAGE</span>
+    </div>
+
+    <nav class="scroll-spy-nav" aria-label="Table of contents">
+      <ol class="scroll-spy-list" role="list">
+        {sections.map((section) => (
+          <li class="scroll-spy-item" data-id={section.id}>
+            <a href={`#${section.id}`} class="scroll-spy-link">
               <span class="scroll-spy-text">{section.label}</span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ol>
-    <span class="scroll-spy-thumb" aria-hidden="true"></span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
   </div>
   <p class="sr-only" aria-live="polite" data-announce></p>
-</nav>
+</aside>
 
 <style>
-  .scroll-spy-container {
-    position: sticky;
-    top: 42px;
-    z-index: 85;
-    width: 100%;
-    margin: 0 0 16px;
-    padding: 2px 0;
+  .scroll-spy-aside {
+    display: none;
+    position: fixed;
+    top: 130px;
+    right: max(16px, calc((100vw - 940px) / 2 - 195px));
+    width: 175px;
+    max-height: calc(100vh - 160px);
+    overflow-y: auto;
+    z-index: 50;
+    user-select: none;
   }
 
-  .scroll-spy-track {
-    position: relative;
-    display: flex;
-    align-items: center;
-    padding: 3px;
+  /* Only display on wide desktop viewports where there is empty gutter margin */
+  @media (min-width: 1260px) {
+    .scroll-spy-aside {
+      display: block;
+    }
+  }
+
+  .scroll-spy-inner {
+    padding: 10px 12px;
     border-radius: 8px;
-    background: color-mix(in srgb, var(--panel, #0f172a) 90%, transparent);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 70%, transparent);
-    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
+    background: color-mix(in srgb, var(--panel, #070c14) 80%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 60%, transparent);
+  }
+
+  .scroll-spy-header {
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .scroll-spy-title {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--dim, #64748b);
   }
 
   .scroll-spy-list {
     position: relative;
-    display: flex;
-    align-items: center;
-    gap: 4px;
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow-x: auto;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    width: 100%;
-    z-index: 2;
-  }
-
-  .scroll-spy-list::-webkit-scrollbar {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .scroll-spy-item {
     position: relative;
-    flex: 0 0 auto;
   }
 
   .scroll-spy-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 28px;
-    padding: 0 10px;
-    border-radius: 6px;
-    text-decoration: none;
-    font-size: 12px;
-    color: var(--dim, #94a3b8);
-    transition: color 0.15s ease;
-    outline: none;
-    user-select: none;
+    display: block;
+    padding: 6px 10px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 11.5px;
+    line-height: 1.4;
+    color: var(--dim, #94a3b8) !important;
+    text-decoration: none !important;
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+    border-radius: 0 4px 4px 0;
+    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .scroll-spy-link:hover {
-    color: var(--ink, #f1f5f9);
+    color: #fff !important;
+    background: rgba(255, 255, 255, 0.05);
   }
 
   .scroll-spy-item.is-active .scroll-spy-link {
-    color: #fff;
+    color: #fff !important;
     font-weight: 600;
-  }
-
-  .scroll-spy-label-grid {
-    display: grid;
-    place-items: center;
-  }
-
-  .scroll-spy-sizer {
-    grid-column: 1;
-    grid-row: 1;
-    visibility: hidden;
-    font-weight: 600;
-    pointer-events: none;
-  }
-
-  .scroll-spy-text {
-    grid-column: 1;
-    grid-row: 1;
-  }
-
-  /* Sliding ink thumb */
-  .scroll-spy-thumb {
-    position: absolute;
-    top: 3px;
-    left: 0;
-    height: 28px;
-    width: 0;
-    border-radius: 6px;
-    background: color-mix(in srgb, var(--accent, #4568FF) 25%, #182234);
-    border: 1px solid var(--accent, #4568FF);
-    box-shadow: 0 1px 4px rgba(69, 104, 255, 0.25);
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0;
-    transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1), width 0.28s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease;
-    will-change: transform, width;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-spy-thumb,
-    .scroll-spy-link {
-      transition: none !important;
-    }
+    border-left-color: var(--rp-accent, #4568FF);
+    background: color-mix(in srgb, var(--rp-accent, #4568FF) 15%, transparent);
   }
 
   .sr-only {
@@ -176,6 +150,17 @@ const {
 </style>
 
 <script>
+  function formatCleanLabel(text: string): string {
+    const clean = text.replace(/^[^\w\s]+/, '').trim();
+    if (/what the post says/i.test(clean)) return 'Post Log';
+    if (/related/i.test(clean)) return 'Related Logs';
+    if (/pinned/i.test(clean)) return 'Pinned Milestones';
+    if (/milestone/i.test(clean)) return 'Milestone';
+    if (/featured/i.test(clean)) return 'Featured Projects';
+    if (/timeline|archive/i.test(clean)) return 'Timeline & Archives';
+    return clean.length > 20 ? clean.slice(0, 18) + '...' : clean;
+  }
+
   function initScrollSpy() {
     const spies = document.querySelectorAll<HTMLElement>('[data-scroll-spy]');
     if (!spies.length) return;
@@ -188,15 +173,12 @@ const {
       const targetEl = document.querySelector<HTMLElement>(targetSelector);
       if (!targetEl) return;
 
-      const trackEl = spy.querySelector<HTMLElement>('.scroll-spy-track');
       const listEl = spy.querySelector<HTMLElement>('.scroll-spy-list');
-      const thumbEl = spy.querySelector<HTMLElement>('.scroll-spy-thumb');
       const announceEl = spy.querySelector<HTMLElement>('[data-announce]');
       const offset = parseInt(spy.dataset.offset || '96', 10);
+      if (!listEl) return;
 
-      if (!listEl || !thumbEl || !trackEl) return;
-
-      // Auto-discover headings if list is empty
+      // Auto-populate from headings if list is empty
       let items = Array.from(listEl.querySelectorAll<HTMLElement>('.scroll-spy-item'));
       if (items.length === 0) {
         const headings = targetEl.querySelectorAll<HTMLHeadingElement>('h2');
@@ -209,9 +191,8 @@ const {
             h.id = id;
           }
 
-          // Clean label text
           const rawText = h.textContent || `Section ${idx + 1}`;
-          const cleanLabel = rawText.replace(/^[^\w\s]+/, '').trim() || rawText;
+          const cleanLabel = formatCleanLabel(rawText);
 
           const li = document.createElement('li');
           li.className = 'scroll-spy-item';
@@ -220,22 +201,13 @@ const {
           const a = document.createElement('a');
           a.href = `#${id}`;
           a.className = 'scroll-spy-link';
+          a.title = rawText;
 
-          const grid = document.createElement('span');
-          grid.className = 'scroll-spy-label-grid';
+          const span = document.createElement('span');
+          span.className = 'scroll-spy-text';
+          span.textContent = cleanLabel;
 
-          const sizer = document.createElement('span');
-          sizer.className = 'scroll-spy-sizer';
-          sizer.setAttribute('aria-hidden', 'true');
-          sizer.textContent = cleanLabel;
-
-          const text = document.createElement('span');
-          text.className = 'scroll-spy-text';
-          text.textContent = cleanLabel;
-
-          grid.appendChild(sizer);
-          grid.appendChild(text);
-          a.appendChild(grid);
+          a.appendChild(span);
           li.appendChild(a);
           listEl.appendChild(li);
         });
@@ -253,10 +225,7 @@ const {
       let lockTimer: number | null = null;
       let rAF = 0;
 
-      const positionThumb = (id: string) => {
-        const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
-        if (!activeItem) return;
-
+      const highlightItem = (id: string) => {
         items.forEach((item) => {
           const isActive = item.dataset.id === id;
           item.classList.toggle('is-active', isActive);
@@ -267,25 +236,10 @@ const {
           }
         });
 
-        const trackRect = trackEl.getBoundingClientRect();
-        const itemRect = activeItem.getBoundingClientRect();
-        const left = itemRect.left - trackRect.left + trackEl.scrollLeft;
-        const width = itemRect.width;
-
-        thumbEl.style.transform = `translateX(${left}px)`;
-        thumbEl.style.width = `${width}px`;
-        thumbEl.style.opacity = '1';
-
-        // Keep chip in view inside the horizontally scrolling strip
-        activeItem.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'nearest'
-        });
-
         if (announceEl) {
-          const textEl = activeItem.querySelector('.scroll-spy-text');
-          announceEl.textContent = textEl ? textEl.textContent : '';
+          const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
+          const textEl = activeItem?.querySelector('.scroll-spy-text');
+          announceEl.textContent = textEl?.textContent || '';
         }
       };
 
@@ -296,7 +250,6 @@ const {
         const max = document.documentElement.scrollHeight - viewport;
         const ratio = max > 0 ? Math.min(1, Math.max(0, top / max)) : 1;
 
-        // Sliding reading line slides from under top edge to bottom as scroll runs out
         const line = offset + ratio * Math.max(0, viewport - offset - 1);
 
         let current = '';
@@ -333,7 +286,7 @@ const {
 
         if (next !== activeId) {
           activeId = next;
-          positionThumb(activeId);
+          highlightItem(activeId);
         }
       };
 
@@ -342,14 +295,14 @@ const {
         rAF = requestAnimationFrame(sync);
       };
 
-      // Click to scroll destination lock
+      // Destination scroll lock
       const scrollTo = (id: string) => {
         const node = document.getElementById(id);
         if (!node) return;
 
         lock = id;
         activeId = id;
-        positionThumb(id);
+        highlightItem(id);
 
         const rect = node.getBoundingClientRect();
         const viewport = window.innerHeight;
@@ -384,7 +337,6 @@ const {
         }
       });
 
-      // Abandon lock immediately when user manually wheels or touches
       const abandon = () => {
         if (lock) {
           lock = null;
@@ -400,16 +352,9 @@ const {
       if (typeof ResizeObserver !== 'undefined') {
         const ro = new ResizeObserver(schedule);
         ro.observe(targetEl);
-        items.forEach((item) => {
-          const id = item.dataset.id;
-          if (id) {
-            const el = document.getElementById(id);
-            if (el) ro.observe(el);
-          }
-        });
       }
 
-      positionThumb(activeId);
+      highlightItem(activeId);
       sync();
     });
   }
