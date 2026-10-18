@@ -1,23 +1,15 @@
-# Handoff - 2026-10-18, after Exact Anchor Alignment, Interactive Feature Cards, GSC Query Mining & Endorsements Schema
+# Handoff - 2026-10-18, after Blog Cross-Linking Engine, Adjacent Day Navigation & Pinned Milestones
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones
 Frontier: None
 In flight: None
 
 ## Last session
-1. **4-Point Exact Anchor Alignment (Playbook 28):**
-   - In `src/pages/projects/productivity-caller.astro`, aligned `<title>` to `Productivity Caller — AI Task Phone Call Reminder App for Android`, `<h1>` to `Productivity Caller: Android Task Phone Call Reminder App`, and Sentence 1 to `Productivity Caller is an Android application that uses automated phone calls and natural language parsing to ensure high-priority reminders are never missed.`
-   - In `src/pages/resume.astro`, set `<title>` to `Shivam Mahajan — Senior Software Developer Resume (Python, Kotlin, Data Pipelines)`. Updated audit test limit to 85 characters.
-2. **Internal Link Clickability Multiplier (Playbook 29):**
-   - Replaced flat text links at the bottom of all 1,250+ blog posts (`src/pages/blog/[day].astro`) with Interactive Project Feature Cards featuring distinct `--accent` borders, technical tags (`Native Wasm 2.4 KB`, `Solved 2,600+ LeetCode`, `5M+ Events Kafka/Snowflake`, `Kotlin / AlarmManager`), and explicit action buttons (`Explore Architecture Case Study →`).
-3. **Conversational GSC Query Answers (Playbook 30):**
-   - Added dedicated `<h2>How to Build a Pokédex Portfolio with Web Audio</h2>` in `src/pages/projects/sm-dex.astro` detailing 0KB Web Audio API oscillators, noise burst filters, and autoplay policies.
-   - Added dedicated `<h2>Python Snowflake Zero Row-Count Pipeline Architecture</h2>` in `src/pages/resume.astro` detailing Kafka offsets, PySpark micro-batch deduplication, and atomic Snowflake merge staging with zero discrepancy tolerance.
-4. **Dedicated Review & Endorsement Sub-Entity (Playbook 31):**
-   - Embedded `<h2>Endorsements & Technical Citations</h2>` in `src/pages/resume.astro` with structured Schema.org `Review` entities covering HackIndia jury citation (3rd of 200+ teams), Morgan Stanley enterprise CIAM mentorship, GitHub community roster PR contributors, and Chitkara University algorithms.
-5. **Verification:**
-   - 1,370 SSG pages generated in 6.59s. 17/17 automated SEO, link, and schema tests passing with zero errors.
+1. **Bidirectional Adjacent Navigation:** Built sequential timeline pagination (`← Day N-1` / `Day N+1 →`) across all 1,250+ blog logs (`src/pages/blog/[day].astro`) with title snippets, dates, and direct links to `/blog/timeline/`.
+2. **Semantic / Topical Related Post Recommendation Engine:** Implemented an O(1) topic clustering classifier in `getStaticPaths` dividing 1,258 logs into 7 core algorithm domains (Dynamic Programming, Trees & Hierarchies, Graph Theory, Binary Search, Math & Simulation, Hash Maps & Two Pointers, Engineering Practice). Displays 3 contextual related posts with topic pills and snippets on every post page, plus `relatedLink` structured JSON-LD schema.
+3. **Pinned Milestones & Engineering Benchmarks:** Added pinned benchmark cards to both `[day].astro` and `src/pages/blog/index.astro` highlighting Days 1228, 1000, 500, 100, 1 with direct links and link to `/blog/milestones/`.
+4. **Verification & Audit:** Full Astro SSG build (1,373 static HTML pages) generated in 38s, with 17/17 automated SEO tests passing (0 broken links, strict trailing slashes, schema validation).
 
 ## Not yet written down
 None.

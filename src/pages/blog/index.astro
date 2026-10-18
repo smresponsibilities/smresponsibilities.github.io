@@ -22,6 +22,23 @@ for (const p of posts) {
 const postUrl = latest.url;
 const embedUrl = latest.url.replace('%3A', ':').replace('linkedin.com/feed/update', 'linkedin.com/embed/feed/update');
 
+const pinnedDays = [1228, 1000, 500, 100, 1];
+const pinnedMilestones = pinnedDays.map(d => {
+  const p = allPosts.find(item => item.day === d);
+  const titles: Record<number, string> = {
+    1228: 'Day 1228: 2,000 Questions Solved on LeetCode',
+    1000: 'Day 1000: Extended Challenge to #2002DaysOfCode',
+    500: 'Day 500: 1,150 LeetCode Questions & DP Trees',
+    100: 'Day 100: First Century Completed',
+    1: 'Day 1: Where 2,002 Days of Code Began'
+  };
+  return {
+    day: d,
+    date: p ? p.date : '',
+    title: titles[d] || (p?.milestone ?? `Day ${d} Milestone`)
+  };
+});
+
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 const structuredData = {
   '@context': 'https://schema.org',
@@ -95,7 +112,27 @@ const structuredData = {
     <div id="search-results" class="grid search-grid" style="margin-top: 1.5rem; display: none;"></div>
   </section>
 
-      <section aria-labelledby="recent-days"><h2 id="recent-days">Recent days</h2><DaysTimeline variant={1} limit={10} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
+  <section class="pinned-milestones-index" aria-labelledby="pinned-milestones-heading">
+    <div class="pinned-header">
+      <span class="eyebrow">Engineering Anchors · Key Benchmarks</span>
+      <h2 id="pinned-milestones-heading">Pinned Streak Milestones</h2>
+      <p>Pivotal checkpoints and algorithmic breakthroughs across the 2,002 Days of Code journey. <a href="/blog/milestones/">Browse all milestones →</a></p>
+    </div>
+    <div class="pinned-index-grid">
+      {pinnedMilestones.map(m => (
+        <a href={`/blog/day-${m.day}/`} class="pinned-index-card">
+          <div class="pinned-index-top">
+            <span class="pinned-index-badge">Day {m.day}</span>
+            <time class="pinned-index-date" datetime={m.date}>{m.date}</time>
+          </div>
+          <h3 class="pinned-index-title">{m.title}</h3>
+          <span class="pinned-index-action">Read Log →</span>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section aria-labelledby="recent-days"><h2 id="recent-days">Recent days</h2><DaysTimeline variant={1} limit={10} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
 
       <section id="archive-section">
     <h2>Complete History (Zoomed Out)</h2>
@@ -546,5 +583,79 @@ const structuredData = {
     color: var(--time-accent, #ffd75e);
     padding: 2px 6px;
     background: #0d1522;
+  }
+
+  .pinned-milestones-index {
+    margin: 3rem 0;
+    padding: 1.5rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--panel, #0f172a);
+  }
+  .pinned-header h2 {
+    margin: 0.25rem 0 0.5rem;
+  }
+  .pinned-header p {
+    color: var(--dim);
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+  }
+  .pinned-header a {
+    color: var(--accent);
+    text-decoration: underline;
+    font-weight: 500;
+  }
+  .pinned-index-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .pinned-index-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.15rem;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: #0d1522;
+    text-decoration: none;
+    color: var(--ink);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .pinned-index-card:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .pinned-index-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+  }
+  .pinned-index-badge {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .pinned-index-date {
+    font-size: 11px;
+    color: var(--dim);
+  }
+  .pinned-index-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0 0 1rem;
+    color: var(--ink);
+  }
+  .pinned-index-action {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--accent);
+    margin-top: auto;
   }
 </style>
