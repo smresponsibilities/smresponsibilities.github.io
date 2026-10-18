@@ -1,0 +1,332 @@
+---
+interface Props {
+  words?: number;
+  wordsPerMinute?: number;
+  steps?: number;
+  label?: string;
+  doneLabel?: string;
+  target?: string;
+  className?: string;
+}
+
+const {
+  words = 0,
+  wordsPerMinute = 220,
+  steps = 24,
+  label = "Reading progress",
+  doneLabel = "End",
+  target = "main",
+  className = "",
+} = Astro.props;
+
+const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)) : 2;
+const initialReadout = `${initialMinutes} min left`;
+const initialFinish = `${doneLabel} · ${initialMinutes} min`;
+---
+
+<div 
+  class={`reading-progress-wrapper ${className}`}
+  data-reading-progress
+  data-words={words}
+  data-wpm={wordsPerMinute}
+  data-steps={steps}
+  data-label={label}
+  data-done-label={doneLabel}
+  data-target={target}
+>
+  <div
+    class="reading-progress-track-container"
+    role="progressbar"
+    aria-label={label}
+    aria-valuemin={0}
+    aria-valuemax={steps}
+    aria-valuenow={0}
+    aria-valuetext={`0% read, ${initialReadout}`}
+  >
+    <div class="reading-progress-fill" style="transform: scaleX(0);"></div>
+  </div>
+
+  <div class="reading-progress-readout" aria-hidden="true">
+    <!-- Sizing dummy to reserve exact width and prevent layout shift -->
+    <span class="rp-sizer">
+      <span class="rp-sizer-icon"></span>
+      <span class="rp-sizer-text">{initialFinish}</span>
+    </span>
+
+    <!-- Active countdown readout -->
+    <span class="rp-active-label">
+      {initialReadout}
+    </span>
+
+    <!-- Completion state -->
+    <span class="rp-done-label">
+      <svg
+        class="rp-check-icon"
+        width="12"
+        height="12"
+        viewBox="0 0 256 256"
+        fill="none"
+        aria-hidden="true"
+      >
+        <polyline
+          class="rp-check-path"
+          points="216 72 104 184 48 128"
+          stroke="currentColor"
+          stroke-width="22"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          pathLength="1"
+        />
+      </svg>
+      <span class="rp-done-text">{initialFinish}</span>
+    </span>
+  </div>
+</div>
+
+<style>
+  .reading-progress-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 8px 12px;
+    margin: 4px 0 16px;
+    border-radius: 6px;
+    background: color-mix(in srgb, var(--bg, #070c14) 88%, transparent);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 65%, transparent);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  }
+
+  .reading-progress-track-container {
+    position: relative;
+    flex: 1 1 0%;
+    min-width: 0;
+    height: 3px;
+    border-radius: 2px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  :global(.light) .reading-progress-track-container {
+    background: rgba(0, 0, 0, 0.07);
+  }
+
+  .reading-progress-fill {
+    height: 100%;
+    width: 100%;
+    transform-origin: left;
+    border-radius: 2px;
+    background: var(--rp-accent, #4568FF);
+    transform: scaleX(0);
+    transition: transform 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+  }
+
+  .reading-progress-readout {
+    display: grid;
+    flex-shrink: 0;
+    justify-items: end;
+    font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace);
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    user-select: none;
+  }
+
+  .rp-sizer,
+  .rp-active-label,
+  .rp-done-label {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    white-space: nowrap;
+  }
+
+  .rp-sizer {
+    visibility: hidden;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .rp-sizer-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+  }
+
+  .rp-active-label {
+    color: var(--dim, #94a3b8);
+    opacity: 1;
+    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .rp-done-label {
+    color: var(--ink, #f1f5f9);
+    opacity: 0;
+    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .rp-done-text {
+    transform: translateX(4px);
+    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .rp-check-icon {
+    width: 12px;
+    height: 12px;
+    flex-shrink: 0;
+    color: var(--rp-accent, #4568FF);
+  }
+
+  .rp-check-path {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.08s;
+  }
+
+  /* Completion state */
+  .reading-progress-wrapper.is-complete .rp-active-label {
+    opacity: 0;
+  }
+
+  .reading-progress-wrapper.is-complete .rp-done-label {
+    opacity: 1;
+  }
+
+  .reading-progress-wrapper.is-complete .rp-done-text {
+    transform: translateX(0);
+  }
+
+  .reading-progress-wrapper.is-complete .rp-check-path {
+    stroke-dashoffset: 0;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .reading-progress-fill,
+    .rp-active-label,
+    .rp-done-label,
+    .rp-done-text,
+    .rp-check-path {
+      transition: none !important;
+    }
+  }
+</style>
+
+<script>
+  function initReadingProgress() {
+    const bars = document.querySelectorAll<HTMLElement>('[data-reading-progress]');
+    if (!bars.length) return;
+
+    bars.forEach((bar) => {
+      if (bar.dataset.initialized === 'true') return;
+      bar.dataset.initialized = 'true';
+
+      const targetSelector = bar.dataset.target || 'main';
+      const targetEl = document.querySelector<HTMLElement>(targetSelector);
+      const trackContainer = bar.querySelector<HTMLElement>('[role="progressbar"]');
+      const fillEl = bar.querySelector<HTMLElement>('.reading-progress-fill');
+      const activeLabel = bar.querySelector<HTMLElement>('.rp-active-label');
+      const doneLabel = bar.querySelector<HTMLElement>('.rp-done-label');
+      const doneText = bar.querySelector<HTMLElement>('.rp-done-text');
+      const sizerText = bar.querySelector<HTMLElement>('.rp-sizer-text');
+
+      const steps = Math.max(1, parseInt(bar.dataset.steps || '24', 10));
+      const wpm = Math.max(1, parseInt(bar.dataset.wpm || '220', 10));
+      const baseDoneLabel = bar.dataset.doneLabel || 'End';
+
+      // Compute word count if not supplied
+      let words = parseInt(bar.dataset.words || '0', 10);
+      if (words <= 0 && targetEl) {
+        const text = targetEl.innerText || targetEl.textContent || '';
+        words = text.trim().split(/\s+/).filter(Boolean).length;
+      }
+
+      const totalMinutes = words > 0 ? Math.max(1, Math.ceil(words / wpm)) : 1;
+      const finishText = `${baseDoneLabel} · ${totalMinutes} min`;
+
+      if (doneText) doneText.textContent = finishText;
+      if (sizerText) sizerText.textContent = finishText;
+      if (activeLabel && words > 0) activeLabel.textContent = `${totalMinutes} min left`;
+
+      let currentStep = -1;
+      let rAF = 0;
+
+      const updateProgress = () => {
+        rAF = 0;
+        const viewport = window.innerHeight;
+        let ratio = 0;
+
+        if (targetEl) {
+          const rect = targetEl.getBoundingClientRect();
+          const travel = rect.height - viewport;
+          ratio = travel <= 0 ? 1 : -rect.top / travel;
+        } else {
+          const doc = document.documentElement;
+          const travel = doc.scrollHeight - viewport;
+          ratio = travel <= 0 ? 1 : window.scrollY / travel;
+        }
+
+        const clamped = Math.max(0, Math.min(1, Number.isFinite(ratio) ? ratio : 0));
+        const nextStep = Math.round(clamped * steps);
+
+        if (nextStep === currentStep) return;
+        currentStep = nextStep;
+
+        const progress = nextStep / steps;
+        const percent = Math.round(progress * 100);
+        const complete = nextStep >= steps;
+        const minutesLeft = Math.max(0, Math.ceil(((1 - progress) * words) / wpm));
+
+        if (fillEl) {
+          fillEl.style.transform = `scaleX(${progress})`;
+        }
+
+        if (activeLabel) {
+          activeLabel.textContent = `${minutesLeft} min left`;
+        }
+
+        if (bar) {
+          bar.classList.toggle('is-complete', complete);
+        }
+
+        if (trackContainer) {
+          const valueText = words > 0
+            ? (complete ? `100% read, ${finishText}` : `${percent}% read, ${minutesLeft} min left`)
+            : `${percent}% read`;
+          trackContainer.setAttribute('aria-valuenow', String(nextStep));
+          trackContainer.setAttribute('aria-valuetext', valueText);
+        }
+      };
+
+      const schedule = () => {
+        if (rAF) return;
+        rAF = requestAnimationFrame(updateProgress);
+      };
+
+      window.addEventListener('scroll', schedule, { passive: true });
+      window.addEventListener('resize', schedule);
+
+      if (typeof ResizeObserver !== 'undefined' && targetEl) {
+        const ro = new ResizeObserver(schedule);
+        ro.observe(targetEl);
+      }
+
+      updateProgress();
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initReadingProgress);
+  } else {
+    initReadingProgress();
+  }
+  document.addEventListener('astro:page-load', initReadingProgress);
+</script>

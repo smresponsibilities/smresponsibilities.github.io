@@ -1,5 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
+import ReadingProgress from './ReadingProgress.astro';
 import '../styles/editorial.css';
 interface Props { 
   title: string; 
@@ -8,12 +9,16 @@ interface Props {
   heading: string; 
   intro: string;
   structuredData?: Record<string, unknown>;
+  readingProgress?: boolean;
+  words?: number;
 }
-const { title, description, eyebrow, heading, intro, structuredData } = Astro.props;
+const { title, description, eyebrow, heading, intro, structuredData, readingProgress, words } = Astro.props;
+const showReadingProgress = readingProgress ?? Astro.url.pathname.startsWith('/blog');
 ---
 <Base title={title} description={description} structuredData={structuredData} accentTypes={['dragon','steel']}>
   <div class="editorial">
     <header><a class="brand" href="/">SM'S DEX</a><nav aria-label="Site"><a href="/">Home</a><a href="/resume/">Resume</a><a href="/projects/">Projects</a><a href="/blog/">Blog</a><a href="/blog/rss.xml">RSS</a><a href="mailto:shivammahajan.mail@gmail.com">Contact</a></nav></header>
+    {showReadingProgress && <ReadingProgress words={words} target="main" />}
     <main><div class="hero"><span class="eyebrow">{eyebrow}</span><h1>{heading}</h1><p class="lead">{intro}</p><div class="actions"><slot name="actions" /></div></div><slot /></main>
   </div>
 </Base>

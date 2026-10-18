@@ -181,6 +181,8 @@ const structuredData = {
     }
   ]
 };
+
+const articleWords = (typeof post.content === 'string' ? post.content.trim().split(/\s+/).length : 0) + 120;
 ---
 
 <EditorialShell 
@@ -190,6 +192,7 @@ const structuredData = {
   heading={pageHeading} 
   intro={`Shivam's engineering update for day ${post.day} of the 2,002 Days of Code challenge.`}
   structuredData={structuredData}
+  words={articleWords}
 >
   <a slot="actions" href={post.url} target="_blank" rel="noopener noreferrer">Read LinkedIn post ↗</a>
   <a slot="actions" href="/blog/timeline/">View Timeline ↗</a>
