@@ -21,119 +21,156 @@ const {
 } = Astro.props;
 ---
 
-<!-- Desktop Right-Rail ScrollSpy (Only visible on wide screens >= 1240px; never blocks text) -->
-<aside 
-  class={`scroll-spy-aside ${className}`} 
+<!-- Interior.dev Segmented Pill ScrollSpy -->
+<nav 
+  class={`interior-scroll-spy ${className}`} 
   aria-label={label}
   data-scroll-spy
   data-offset={offset}
   data-target={target}
 >
-  <div class="scroll-spy-inner">
-    <div class="scroll-spy-header">
-      <span class="scroll-spy-title">ON THIS PAGE</span>
-    </div>
+  <div class="scroll-spy-track">
+    <!-- Sliding capsule thumb indicator -->
+    <div class="scroll-spy-thumb" aria-hidden="true"></div>
 
-    <nav class="scroll-spy-nav" aria-label="Table of contents">
-      <ol class="scroll-spy-list" role="list">
-        {sections.map((section) => (
-          <li class="scroll-spy-item" data-id={section.id}>
-            <a href={`#${section.id}`} class="scroll-spy-link">
-              <span class="scroll-spy-text">{section.label}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
-    </nav>
+    <ol class="scroll-spy-list" role="list">
+      {sections.map((section) => (
+        <li class="scroll-spy-item" data-id={section.id}>
+          <a href={`#${section.id}`} class="scroll-spy-link">
+            <span class="scroll-spy-text">{section.label}</span>
+          </a>
+        </li>
+      ))}
+    </ol>
   </div>
   <p class="sr-only" aria-live="polite" data-announce></p>
-</aside>
+</nav>
 
 <style>
-  .scroll-spy-aside {
-    display: none;
-    position: fixed;
-    top: 130px;
-    right: max(16px, calc((100vw - 940px) / 2 - 195px));
-    width: 175px;
-    max-height: calc(100vh - 160px);
-    overflow-y: auto;
-    z-index: 50;
+  .interior-scroll-spy {
+    position: sticky;
+    top: 12px;
+    z-index: 35;
+    width: 100%;
+    margin: 20px 0 28px;
     user-select: none;
   }
 
-  /* Only display on wide desktop viewports where there is empty gutter margin */
-  @media (min-width: 1260px) {
-    .scroll-spy-aside {
-      display: block;
-    }
+  .scroll-spy-track {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+    padding: 3px;
+    border-radius: 10px;
+    background: rgba(18, 24, 38, 0.85);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08), 0 4px 16px rgba(0, 0, 0, 0.28);
   }
 
-  .scroll-spy-inner {
-    padding: 10px 12px;
-    border-radius: 8px;
-    background: color-mix(in srgb, var(--panel, #070c14) 80%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 60%, transparent);
+  :global(.light) .scroll-spy-track {
+    background: rgba(245, 245, 245, 0.92);
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.06);
   }
 
-  .scroll-spy-header {
-    margin-bottom: 8px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  .scroll-spy-thumb {
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14);
+    pointer-events: none;
+    transition: transform 0.24s cubic-bezier(0.23, 1, 0.32, 1), width 0.24s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.2s ease;
+    opacity: 0;
+    z-index: 1;
   }
 
-  .scroll-spy-title {
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: var(--dim, #64748b);
+  :global(.light) .scroll-spy-thumb {
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.1);
   }
 
   .scroll-spy-list {
     position: relative;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    overflow-x: auto;
     margin: 0;
     padding: 0;
     list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    z-index: 2;
+  }
+
+  .scroll-spy-list::-webkit-scrollbar {
+    display: none;
   }
 
   .scroll-spy-item {
     position: relative;
+    flex: 0 0 auto;
+    margin: 0;
+    padding: 0;
   }
 
+  /* Force override any global .editorial a inheritance */
+  :global(.editorial) .scroll-spy-link,
   .scroll-spy-link {
-    display: block;
-    padding: 6px 10px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 11.5px;
-    line-height: 1.4;
-    color: var(--dim, #94a3b8) !important;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    padding: 0 11px;
+    border-radius: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+    font-size: 12.5px !important;
+    line-height: 1 !important;
+    font-weight: 500 !important;
+    color: #94a3b8 !important;
     text-decoration: none !important;
-    border-left: 2px solid transparent;
-    margin-left: -1px;
-    border-radius: 0 4px 4px 0;
-    transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    background: transparent !important;
+    border: none !important;
     white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    outline: none;
+    transition: color 0.15s ease;
+    cursor: pointer;
   }
 
+  :global(.light .editorial) .scroll-spy-link,
+  :global(.light) .scroll-spy-link {
+    color: #64748b !important;
+  }
+
+  :global(.editorial) .scroll-spy-link:hover,
   .scroll-spy-link:hover {
-    color: #fff !important;
-    background: rgba(255, 255, 255, 0.05);
+    color: #f8fafc !important;
+    text-decoration: none !important;
   }
 
+  :global(.light .editorial) .scroll-spy-link:hover,
+  :global(.light) .scroll-spy-link:hover {
+    color: #0f172a !important;
+  }
+
+  :global(.editorial) .scroll-spy-item.is-active .scroll-spy-link,
   .scroll-spy-item.is-active .scroll-spy-link {
-    color: #fff !important;
-    font-weight: 600;
-    border-left-color: var(--rp-accent, #4568FF);
-    background: color-mix(in srgb, var(--rp-accent, #4568FF) 15%, transparent);
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+  }
+
+  :global(.light .editorial) .scroll-spy-item.is-active .scroll-spy-link,
+  :global(.light) .scroll-spy-item.is-active .scroll-spy-link {
+    color: #0f172a !important;
+  }
+
+  .scroll-spy-link:focus-visible {
+    box-shadow: inset 0 0 0 2px #4568FF;
   }
 
   .sr-only {
@@ -147,18 +184,26 @@ const {
     white-space: nowrap;
     border-width: 0;
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-spy-thumb {
+      transition: none !important;
+    }
+  }
 </style>
 
 <script>
   function formatCleanLabel(text: string): string {
     const clean = text.replace(/^[^\w\s]+/, '').trim();
     if (/what the post says/i.test(clean)) return 'Post Log';
-    if (/related/i.test(clean)) return 'Related Logs';
-    if (/pinned/i.test(clean)) return 'Pinned Milestones';
     if (/milestone/i.test(clean)) return 'Milestone';
-    if (/featured/i.test(clean)) return 'Featured Projects';
-    if (/timeline|archive/i.test(clean)) return 'Timeline & Archives';
-    return clean.length > 20 ? clean.slice(0, 18) + '...' : clean;
+    if (/related/i.test(clean)) return 'Related Walkthroughs';
+    if (/pinned/i.test(clean)) return 'Pinned Milestones';
+    if (/featured/i.test(clean)) return 'Featured Systems';
+    if (/from form to issue/i.test(clean)) return 'Form to Issue';
+    if (/validation and review/i.test(clean)) return 'Validation & Review';
+    if (/why use a pull request/i.test(clean)) return 'Why Pull Requests';
+    return clean.length > 24 ? clean.slice(0, 22) + '…' : clean;
   }
 
   function initScrollSpy() {
@@ -174,6 +219,7 @@ const {
       if (!targetEl) return;
 
       const listEl = spy.querySelector<HTMLElement>('.scroll-spy-list');
+      const thumbEl = spy.querySelector<HTMLElement>('.scroll-spy-thumb');
       const announceEl = spy.querySelector<HTMLElement>('[data-announce]');
       const offset = parseInt(spy.dataset.offset || '96', 10);
       if (!listEl) return;
@@ -215,7 +261,8 @@ const {
         items = Array.from(listEl.querySelectorAll<HTMLElement>('.scroll-spy-item'));
       }
 
-      if (items.length === 0) {
+      // Hide scrollspy if fewer than 2 sections exist
+      if (items.length < 2) {
         spy.style.display = 'none';
         return;
       }
@@ -236,8 +283,15 @@ const {
           }
         });
 
+        const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
+        if (activeItem && thumbEl) {
+          thumbEl.style.opacity = '1';
+          thumbEl.style.transform = `translateX(${activeItem.offsetLeft}px)`;
+          thumbEl.style.width = `${activeItem.offsetWidth}px`;
+          activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+        }
+
         if (announceEl) {
-          const activeItem = listEl.querySelector<HTMLElement>(`[data-id="${id}"]`);
           const textEl = activeItem?.querySelector('.scroll-spy-text');
           announceEl.textContent = textEl?.textContent || '';
         }
@@ -345,12 +399,18 @@ const {
       };
 
       window.addEventListener('scroll', schedule, { passive: true });
-      window.addEventListener('resize', schedule);
+      window.addEventListener('resize', () => {
+        highlightItem(activeId);
+        schedule();
+      });
       window.addEventListener('wheel', abandon, { passive: true });
       window.addEventListener('touchstart', abandon, { passive: true });
 
       if (typeof ResizeObserver !== 'undefined') {
-        const ro = new ResizeObserver(schedule);
+        const ro = new ResizeObserver(() => {
+          highlightItem(activeId);
+          schedule();
+        });
         ro.observe(targetEl);
       }
 

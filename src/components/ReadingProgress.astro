@@ -22,9 +22,9 @@ const {
 const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)) : 1;
 ---
 
-<!-- Fixed top hairline progress track (0 content intrusion) -->
+<!-- Interior.dev Reading Progress (Vertical + Top hairline + Floating Badge) -->
 <div 
-  class={`reading-progress-bar ${className}`}
+  class={`interior-reading-progress ${className}`}
   data-reading-progress
   data-words={words}
   data-wpm={wordsPerMinute}
@@ -33,8 +33,9 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
   data-done-label={doneLabel}
   data-target={target}
 >
+  <!-- Top hairline indicator (fixed) -->
   <div
-    class="rp-line-track"
+    class="rp-top-track"
     role="progressbar"
     aria-label={label}
     aria-valuemin={0}
@@ -42,10 +43,15 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
     aria-valuenow={0}
     aria-valuetext={`0% read, ${initialMinutes} min left`}
   >
-    <div class="rp-line-fill" style="transform: scaleX(0);"></div>
+    <div class="rp-top-fill" style="transform: scaleX(0);"></div>
   </div>
 
-  <!-- Discreet floating pill at top-right -->
+  <!-- Vertical right-rail progress bar (interior.dev vertical style) -->
+  <div class="rp-vertical-track" aria-hidden="true">
+    <div class="rp-vertical-fill" style="transform: scaleY(0);"></div>
+  </div>
+
+  <!-- Floating pill badge in top right (interior.dev signature readout) -->
   <aside class="rp-floating-badge" aria-hidden="true">
     <span class="rp-time-text">{initialMinutes} min left</span>
     <span class="rp-end-text">
@@ -66,65 +72,97 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
 </div>
 
 <style>
-  .reading-progress-bar {
+  .interior-reading-progress {
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* Fixed top hairline progress track */
+  .rp-top-track {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    width: 100%;
-    height: 3px;
+    height: 2.5px;
+    background: rgba(255, 255, 255, 0.06);
     z-index: 1000;
-    pointer-events: none;
-  }
-
-  .rp-line-track {
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.08);
     overflow: hidden;
   }
 
-  :global(.light) .rp-line-track {
-    background: rgba(0, 0, 0, 0.07);
+  :global(.light) .rp-top-track {
+    background: rgba(0, 0, 0, 0.06);
   }
 
-  .rp-line-fill {
+  .rp-top-fill {
     width: 100%;
     height: 100%;
     transform-origin: left;
     background: var(--rp-accent, #4568FF);
     transform: scaleX(0);
-    transition: transform 0.25s cubic-bezier(0.23, 1, 0.32, 1);
+    transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
     will-change: transform;
   }
 
-  /* Minimal floating readout in top right corner */
+  /* Vertical right-rail progress track */
+  .rp-vertical-track {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 3px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.06);
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  :global(.light) .rp-vertical-track {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .rp-vertical-fill {
+    width: 100%;
+    height: 100%;
+    transform-origin: top;
+    background: var(--rp-accent, #4568FF);
+    transform: scaleY(0);
+    transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+    will-change: transform;
+  }
+
+  /* Discreet floating readout badge in top right */
   .rp-floating-badge {
     position: fixed;
-    top: 8px;
-    right: 16px;
+    top: 10px;
+    right: 14px;
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    padding: 3px 8px;
-    border-radius: 4px;
-    background: color-mix(in srgb, var(--panel, #070c14) 85%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid color-mix(in srgb, var(--border, #1f293d) 60%, transparent);
-    font-family: var(--font-mono, ui-monospace, monospace);
-    font-size: 10.5px;
+    padding: 3px 9px;
+    border-radius: 9999px;
+    background: rgba(15, 20, 30, 0.88);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+    font-family: ui-monospace, SFMono-Regular, "Roboto Mono", Menlo, monospace;
+    font-size: 11px;
     font-variant-numeric: tabular-nums;
-    color: var(--dim, #94a3b8);
+    color: #94a3b8;
     pointer-events: none;
     opacity: 0;
     transform: translateY(-4px);
     transition: opacity 0.25s ease, transform 0.25s ease;
-    user-select: none;
     z-index: 1001;
   }
 
-  .reading-progress-bar.is-scrolled .rp-floating-badge {
+  :global(.light) .rp-floating-badge {
+    background: rgba(255, 255, 255, 0.92);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #475569;
+  }
+
+  .interior-reading-progress.is-scrolled .rp-floating-badge {
     opacity: 1;
     transform: translateY(0);
   }
@@ -133,12 +171,16 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
     display: none;
     align-items: center;
     gap: 4px;
-    color: var(--ink, #f1f5f9);
+    color: #f8fafc;
+  }
+
+  :global(.light) .rp-end-text {
+    color: #0f172a;
   }
 
   .rp-check-icon {
-    width: 11px;
-    height: 11px;
+    width: 12px;
+    height: 12px;
     color: var(--rp-accent, #4568FF);
   }
 
@@ -148,20 +190,21 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
     transition: stroke-dashoffset 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.08s;
   }
 
-  .reading-progress-bar.is-complete .rp-time-text {
+  .interior-reading-progress.is-complete .rp-time-text {
     display: none;
   }
 
-  .reading-progress-bar.is-complete .rp-end-text {
+  .interior-reading-progress.is-complete .rp-end-text {
     display: inline-flex;
   }
 
-  .reading-progress-bar.is-complete .rp-check-path {
+  .interior-reading-progress.is-complete .rp-check-path {
     stroke-dashoffset: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .rp-line-fill,
+    .rp-top-fill,
+    .rp-vertical-fill,
     .rp-floating-badge,
     .rp-check-path {
       transition: none !important;
@@ -180,7 +223,8 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
 
       const targetEl = document.querySelector<HTMLElement>('main');
       const track = bar.querySelector<HTMLElement>('[role="progressbar"]');
-      const fillEl = bar.querySelector<HTMLElement>('.rp-line-fill');
+      const topFill = bar.querySelector<HTMLElement>('.rp-top-fill');
+      const vertFill = bar.querySelector<HTMLElement>('.rp-vertical-fill');
       const timeText = bar.querySelector<HTMLElement>('.rp-time-text');
       const endTextSpan = bar.querySelector<HTMLElement>('.rp-end-text span');
 
@@ -219,8 +263,8 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
         const clamped = Math.max(0, Math.min(1, Number.isFinite(ratio) ? ratio : 0));
         const nextStep = Math.round(clamped * steps);
 
-        // Show floating readout badge only after user starts scrolling (scroll > 60px)
-        const isScrolled = window.scrollY > 60;
+        // Show floating readout badge after scroll starts (> 50px)
+        const isScrolled = window.scrollY > 50;
         bar.classList.toggle('is-scrolled', isScrolled);
 
         if (nextStep === currentStep) return;
@@ -231,7 +275,8 @@ const initialMinutes = words > 0 ? Math.max(1, Math.ceil(words / wordsPerMinute)
         const complete = nextStep >= steps;
         const minutesLeft = Math.max(0, Math.ceil(((1 - progress) * words) / wpm));
 
-        if (fillEl) fillEl.style.transform = `scaleX(${progress})`;
+        if (topFill) topFill.style.transform = `scaleX(${progress})`;
+        if (vertFill) vertFill.style.transform = `scaleY(${progress})`;
         if (timeText) timeText.textContent = `${minutesLeft} min left`;
 
         bar.classList.toggle('is-complete', complete);
