@@ -16,9 +16,13 @@ const { showBio = true } = Astro.props;
     {showBio && (
       <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. To be added as a pokemon click on the Add Pokemon Button.</p>
     )}
-    <nav class="header-actions" aria-label="Portfolio actions">
-      <a class="resume-button" data-resume href="/resume/">Resume</a>
-      <a class="add-button" href="/#open-submission" data-tooltip="Open the form to join the public roster">Add Pokémon</a>
+    <nav class="header-nav" aria-label="Portfolio actions">
+      <a class="nav-btn is-active" href="/">Home</a>
+      <a class="nav-btn nav-btn-secondary" href="/projects/">Projects</a>
+      <a class="nav-btn nav-btn-secondary" href="/blog/">Blog</a>
+      <a class="nav-btn nav-btn-resume" data-resume href="/resume/">Resume</a>
+      <a class="nav-btn nav-btn-add" href="/#open-submission">Add Pokémon</a>
+      <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
           <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
@@ -35,6 +39,7 @@ const { showBio = true } = Astro.props;
       <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/projects') ? 'is-active' : ''}`} href="/projects/">Projects</a>
       <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/blog') ? 'is-active' : ''}`} href="/blog/">Blog</a>
       <a class={`nav-btn nav-btn-resume ${currentPath.startsWith('/resume') ? 'is-active' : ''}`} data-resume href="/resume/">Resume</a>
+      <a class="nav-btn nav-btn-add" href="/#open-submission">Add Pokémon</a>
       <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
@@ -342,6 +347,18 @@ const { showBio = true } = Astro.props;
     color: var(--time-deep, #08101a) !important;
   }
 
+  .nav-btn-add {
+    border: 1.5px solid var(--time-accent, #ffd75e);
+    color: var(--time-accent, #ffd75e) !important;
+    background: #111722;
+    box-shadow: 2px 2px 0 #05070b;
+  }
+
+  .nav-btn-add:hover {
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
+  }
+
   .resume-button {
     display: inline-flex;
     align-items: center;
@@ -492,7 +509,7 @@ const { showBio = true } = Astro.props;
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
-    background: var(--time-deep, #08101a);
+    background: #090e17;
     border-left: 2px solid var(--time-accent, #ffd75e);
     box-shadow: -8px 0 0 #05070b, -16px 0 32px rgba(0, 0, 0, 0.85);
     color: var(--ink, #e8eddf);

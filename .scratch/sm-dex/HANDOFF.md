@@ -1,24 +1,26 @@
-# Handoff - 2026-10-19, after TagInput & Search Results Global Style Fix
+# Handoff - 2026-10-19, after Homepage & Subpage Navbar Harmonization
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex, Interior-Dev-FilterGrid-Fusion, Interior-Dev-Drawer-And-Menu, Interior-Dev-Segmented-Control-Gen-Selector, Portfolio-Aesthetic-Segmented-Control, Timed-Collapsible-Banners, Form-Dropdown-Interior-Dev, Site-Wide-Style-Harmonization, Tooltip-Group-Interior-Dev, Header-Nav-Harmonization-And-Breadcrumb-Spacing, ReadingProgress-And-ScrollSpy-Harmonization, Blog-Search-Cards-And-Tag-Input-Scoping-Fix
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex, Interior-Dev-FilterGrid-Fusion, Interior-Dev-Drawer-And-Menu, Interior-Dev-Segmented-Control-Gen-Selector, Portfolio-Aesthetic-Segmented-Control, Timed-Collapsible-Banners, Form-Dropdown-Interior-Dev, Site-Wide-Style-Harmonization, Tooltip-Group-Interior-Dev, Header-Nav-Harmonization-And-Breadcrumb-Spacing, ReadingProgress-And-ScrollSpy-Harmonization, Blog-Search-Cards-And-Tag-Input-Scoping-Fix, Homepage-And-Subpage-Navbar-Harmonization
 Frontier: None
 In flight: None
 
 ## Last session
-1. **Dynamic Style Scoping Resolution (`src/pages/blog/index.astro`):**
-   - **Root Cause**: Astro compiler appends scoped `[data-astro-cid-...]` attributes only to template HTML elements. Elements generated dynamically via JavaScript (`searchResults.innerHTML` for `.search-card`, and `document.createElement('li')` for `.tag-chip`) did not receive these attributes, resulting in zero card styling, missing borders, transparent backgrounds, and broken remove buttons.
-   - **`<style is:global>` Migration**: Moved dynamic `.tag-chip`, `.tag-remove-btn`, `.search-card`, `.search-lc-tags`, `.lc-tag`, `.lc-tag-matched`, `.secondary-tags`, `.search-snippet`, and `.no-results-box` rules into a dedicated `<style is:global>` block so all dynamically injected elements render with their full styles.
-2. **Tag Chips & Input Visibility (`src/pages/blog/index.astro`):**
-   - **Tag Chips (`.tag-chip`)**: Styled with a crisp retro gold border (`border: 1.5px solid var(--time-accent, #ffd75e)`), `#111722` dark slate background, `2px 2px 0 #05070b` offset shadow, and `Departure Mono` font. Added clear hover and armed (`.is-armed`) states.
-   - **Input Visibility (`.tag-input-field`)**: Set explicit `color: #ffffff !important;`, `-webkit-text-fill-color: #ffffff;`, and `caret-color: var(--time-accent, #ffd75e)`. Shortened placeholder when tags exist from `"Add another filter..."` to `"Add tag..."` to avoid crowding. Muted placeholder color to `#6d7685` with `opacity: 0.45` on focus so typed draft text is prominently visible.
-   - **Search Query Refinement**: Updated `performSearch` to only append typed draft queries if length >= 2 when tags are active, preventing 1-character keystrokes from immediately wiping out results.
-3. **Verification**:
-   - `npm run build`: 1,373 pages generated successfully in 1m 34s.
-   - SEO audit: 17/17 Ahrefs assertions pass.
+1. **Navbar Color & Glass Harmonization (`src/pages/index.astro`, `src/components/SiteHeader.astro`):**
+   - **Root Cause**: `.portfolio-header` had `background: var(--time-deep, #08101a)` in line 1211. When time-of-day was sunset or dawn, `--time-deep` switched to `#35102d` / `#2d163c` plum purple, causing a jarring navbar color mismatch with subpages.
+   - **Resolution**: Removed `.portfolio-header` from `var(--time-deep)` override. Set `.portfolio-header` to fixed `#08101a8f` dark slate glass with `backdrop-filter: blur(14px) saturate(135%)`, `border-bottom: 1px solid var(--border, #343840)`, and inset gold shadow `box-shadow: inset 0 -2px var(--time-accent, #ffd75e)` matching `SiteHeader.astro`.
+2. **Nav Button Family Harmonization:**
+   - **Root Cause**: `/` had disjointed, non-standard buttons (`Resume` in berry red `#8b2348`, `Add Pokémon` in bright solid orange `#ffb347`, `Tips` switch unstyled, missing `Home`, `Projects`, `Blog`, `Contact`).
+   - **Resolution**: Ported the full `.nav-btn` system to `/` header. All items (`Tips`, `Home`, `Projects`, `Blog`, `Resume`, `Add Pokémon`, `Contact`, `Menu`) now use the uniform 38px hardware pill style: `#111722` dark slate background, `2px 2px 0 #05070b` offset shadow, `Departure Mono` font, and gold accent hover.
+   - Styled `.tooltip-switch` ("Tips") to fit the 38px hardware pill dimensions seamlessly.
+3. **Menu Drawer Color Correction:**
+   - Set `.site-drawer` background to `#090e17` hardware slate across `/` and subpages, removing the two-tone split against `.drawer-header` (`#060b12`).
+4. **Verification:**
+   - `npm run build`: 1,373 pages generated successfully.
+   - SEO audit: 17/17 Ahrefs assertions passed.
 
 ## Not yet written down
 None.
 
 ## Next
-Verify search and tag input interaction on production.
+Deploy to production and inspect visual consistency across all pages.
