@@ -1,25 +1,17 @@
-# Handoff - 2026-10-19, after Pixel-Perfect Interior.dev TagInput & Search Relevance Scoring
+# Handoff - 2026-10-19, after Interior.dev TagInput & FilterGrid Fusion
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex, Interior-Dev-FilterGrid-Fusion
 Frontier: None
 In flight: None
 
 ## Last session
-1. **Interior.dev TagInput Complete Redesign (`src/pages/blog/index.astro`):**
-   - Removed the harsh, thick purple 2px container border.
-   - Replaced container with interior.dev dark surface (`#111111`), 10px rounded radius, subtle hairline box-shadow (`0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.12)`), and smooth focus-within ring (`0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 2px #4568FF`).
-   - Removed the inline `[ CLEAR ]` button jammed inside the input field; moved to a clean, subtle `Clear all` link in the meta bar.
-   - Refactored DOM to use single `ul.tag-input-shell[role="list"]` holding both chips and the input `li`.
-   - Built pixel-perfect tag chips: height 24px, radius 6px, background `#222222`, border `1px solid rgba(255, 255, 255, 0.08)`, text `#e5e5e5` (12.5px font-sans), and embedded 9px stroke CloseGlyph with zero grey block background.
-   - Implemented high-contrast armed state on Backspace/Arrow navigation: `#f5f5f5` background, `#111111` text, smooth glow.
-   - Updated meta bar: `Enter adds · Backspace removes` (or dynamic removal prompt when armed) on left, `Clear all` link and tabular-nums `0 / 6` counter on right.
-   - Added full keyboard navigation: `ArrowLeft`/`ArrowRight` selection, `Escape` disarm, `Delete` removal, and comma/paste handling.
-2. **Search Relevance Scoring & Streak Day Regex (`src/pages/blog/index.astro`):**
-   - Fixed naive substring matching where searching `day 1` erroneously matched `Day 1241` via content substring `day 1241` while missing actual Day 1.
-   - Added explicit streak day regex `^(?:day|d|#day)[-\s:]*(\d+)$` which directly maps queries like `day 1`, `day-1`, `day1`, `#day1` to `post.day === 1` with 1000 priority score.
-   - Implemented multi-tier relevance scoring `getPostRelevance`: exact streak day (1000) > exact LC combo (950) > LC problem number (900) > question title (700-900) > date prefix (600) > word-bounded content (300-400).
-   - Fixed `flashTag` referencing removed `tagList` variable.
+1. **Interior.dev FilterGrid Integration (`src/pages/blog/index.astro`):**
+   - Transformed category chips into exact interior.dev `FilterGrid` pills: 32px height, 6px radius, neutral-400 inactive styling with hover elevation (`rgba(255, 255, 255, 0.06)`), and `#282828` active thumb with hairline shadow (`0 0 0 1px #333333, 0 1px 2px rgba(0, 0, 0, 0.25)`).
+   - Injected live tabular count badges for all categories (`All: 1,258`, `#1 Two Sum: 3`, `Tree: 48`, `Binary Search: 21`, `Graph: 25`, `Parentheses: 17`, `Dynamic Programming: 8`, `#509 Fibonacci: 3`).
+   - Wired keyboard navigation (`ArrowRight`/`ArrowDown`/`ArrowLeft`/`ArrowUp`/`Home`/`End`) and bi-directional synchronization with TagInput filters.
+   - Restyled search card grid using `filter-grid` aesthetic: 11px radius, hairline border `rgba(255, 255, 255, 0.1)`, dark background `#191919`, subtle drop shadow, and spring-like `scale(0.97)` to `scale(1)` entry animation (`filterCellEnter 0.22s cubic-bezier(0.23, 1, 0.32, 1)` with reduced motion support).
+   - Cleaned up duplicated heatmap CSS block and verified 17/17 Ahrefs SEO suites passing.
 
 ## Not yet written down
 None.
