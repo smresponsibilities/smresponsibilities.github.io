@@ -1,7 +1,7 @@
-# Handoff - 2026-10-19, after Pixel-Perfect Interior.dev TagInput Implementation
+# Handoff - 2026-10-19, after Pixel-Perfect Interior.dev TagInput & Search Relevance Scoring
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex
 Frontier: None
 In flight: None
 
@@ -15,6 +15,11 @@ In flight: None
    - Implemented high-contrast armed state on Backspace/Arrow navigation: `#f5f5f5` background, `#111111` text, smooth glow.
    - Updated meta bar: `Enter adds · Backspace removes` (or dynamic removal prompt when armed) on left, `Clear all` link and tabular-nums `0 / 6` counter on right.
    - Added full keyboard navigation: `ArrowLeft`/`ArrowRight` selection, `Escape` disarm, `Delete` removal, and comma/paste handling.
+2. **Search Relevance Scoring & Streak Day Regex (`src/pages/blog/index.astro`):**
+   - Fixed naive substring matching where searching `day 1` erroneously matched `Day 1241` via content substring `day 1241` while missing actual Day 1.
+   - Added explicit streak day regex `^(?:day|d|#day)[-\s:]*(\d+)$` which directly maps queries like `day 1`, `day-1`, `day1`, `#day1` to `post.day === 1` with 1000 priority score.
+   - Implemented multi-tier relevance scoring `getPostRelevance`: exact streak day (1000) > exact LC combo (950) > LC problem number (900) > question title (700-900) > date prefix (600) > word-bounded content (300-400).
+   - Fixed `flashTag` referencing removed `tagList` variable.
 
 ## Not yet written down
 None.

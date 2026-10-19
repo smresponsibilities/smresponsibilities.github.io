@@ -304,12 +304,97 @@ const structuredData = {
     }
   };
 
+  const getPostRelevance = (post, filter) => {
+    if (!filter || !post) return 0;
+    const q = filter.trim().toLowerCase();
+    if (!q) return 0;
+
+    // 1. Explicit streak day: 'day 1', 'day-1', 'day1', '#day1', 'd1', 'day:1'
+    const dayMatch = q.match(/^(?:day|d|#day)[-\s:]*(\d+)$/i);
+    if (dayMatch) {
+      const dNum = parseInt(dayMatch[1], 10);
+      return post.day === dNum ? 1000 : 0;
+    }
+
+    let score = 0;
+
+    // 2. LC combo: e.g. '#1 Two Sum', '1 Two Sum', 'lc 1 Two Sum'
+    const comboMatch = q.match(/^(?:(?:lc|leetcode)\s*#?|#)?(\d+)\s+(.+)$/i);
+    if (comboMatch) {
+      const num = parseInt(comboMatch[1], 10);
+      const text = comboMatch[2].trim().toLowerCase();
+      if (post.questions) {
+        for (const item of post.questions) {
+          if (item.number === num && item.title.toLowerCase().includes(text)) score += 950;
+          else if (item.number === num) score += 800;
+          else if (item.title.toLowerCase().includes(text)) score += 600;
+        }
+      }
+      return score;
+    }
+
+    // 3. Pure number: e.g. '1', '#1', 'lc 509'
+    const numMatch = q.match(/^(?:(?:lc|leetcode)\s*#?|#)?(\d+)$/i);
+    if (numMatch) {
+      const num = parseInt(numMatch[1], 10);
+      const hasPrefix = /^(?:lc|leetcode|#)/i.test(q);
+      if (post.questions && post.questions.some(item => item.number === num)) {
+        score += hasPrefix ? 900 : 850;
+      }
+      if (post.day === num) {
+        score += hasPrefix ? 750 : 900;
+      }
+      return score;
+    }
+
+    // 4. LeetCode question title matches
+    if (post.questions) {
+      for (const item of post.questions) {
+        const titleLower = item.title.toLowerCase();
+        if (titleLower === q) score += 900;
+        else if (titleLower.startsWith(q)) score += 800;
+        else if (titleLower.includes(q)) score += 700;
+      }
+    }
+
+    // 5. Date match: YYYY, YYYY-MM, or YYYY-MM-DD
+    if (/^\d{4}(-\d{2}(-\d{2})?)?$/.test(q)) {
+      if (post.date && post.date.startsWith(q)) score += 600;
+      return score;
+    }
+
+    // 6. Content match with whole-word or substring
+    if (q.length >= 3 && post.content) {
+      const contentLower = post.content.toLowerCase();
+      if (/\d/.test(q)) {
+        try {
+          const escaped = q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp('\\b' + escaped + '\\b', 'i');
+          if (regex.test(post.content)) score += 400;
+        } catch (_) {
+          if (contentLower.includes(q)) score += 300;
+        }
+      } else {
+        if (contentLower.includes(q)) score += 300;
+      }
+    }
+
+    return score;
+  };
+
+  const matchPost = (post, raw) => {
+    return getPostRelevance(post, raw) > 0;
+  };
+
   const matchQuestion = (qItem, raw) => {
     if (!raw || !qItem) return false;
     const q = raw.trim().toLowerCase();
     
+    // Streak day filter does NOT match individual questions:
+    if (/^(?:day|d|#day)[-\s:]*(\d+)$/i.test(q)) return false;
+
     // Combo match: "#1 Two Sum" or "1 Two Sum"
-    const comboMatch = q.match(/^(?:#|lc\s*)?(\d+)\s+(.+)$/i);
+    const comboMatch = q.match(/^(?:(?:lc|leetcode)\s*#?|#)?(\d+)\s+(.+)$/i);
     if (comboMatch) {
       const num = parseInt(comboMatch[1], 10);
       const text = comboMatch[2].trim().toLowerCase();
@@ -317,7 +402,7 @@ const structuredData = {
     }
 
     // Number match: "#1" or "1" or "lc 509"
-    const numMatch = q.match(/^(?:#|lc\s*|leetcode\s*)?(\d+)$/i);
+    const numMatch = q.match(/^(?:(?:lc|leetcode)\s*#?|#)?(\d+)$/i);
     if (numMatch) {
       const num = parseInt(numMatch[1], 10);
       if (qItem.number === num) return true;
@@ -325,48 +410,6 @@ const structuredData = {
 
     // Title substring match
     if (qItem.title.toLowerCase().includes(q)) return true;
-    return false;
-  };
-
-  const matchPost = (post, raw) => {
-    if (!raw || !post) return false;
-    const q = raw.trim().toLowerCase();
-
-    // Check combo: e.g. "#1 Two Sum"
-    const comboMatch = q.match(/^(?:#|lc\s*)?(\d+)\s+(.+)$/i);
-    if (comboMatch) {
-      const num = parseInt(comboMatch[1], 10);
-      const text = comboMatch[2].trim().toLowerCase();
-      if (post.questions && post.questions.some(item => item.number === num || item.title.toLowerCase().includes(text))) {
-        return true;
-      }
-    }
-
-    // Check pure number: e.g. "1" or "#1" or "lc 1541"
-    const numMatch = q.match(/^(?:#|lc\s*|leetcode\s*)?(\d+)$/i);
-    if (numMatch) {
-      const num = parseInt(numMatch[1], 10);
-      if (post.questions && post.questions.some(item => item.number === num)) return true;
-      if (post.day === num) return true;
-      // NEVER match content or date substring for pure numbers!
-      return false;
-    }
-
-    // Question title match
-    if (post.questions && post.questions.some(item => item.title.toLowerCase().includes(q))) {
-      return true;
-    }
-
-    // Date match (must look like YYYY, YYYY-MM, or YYYY-MM-DD)
-    if (/^\d{4}(-\d{2}(-\d{2})?)?$/.test(q)) {
-      if (post.date && post.date.includes(q)) return true;
-    }
-
-    // Content substring match (minimum 3 characters, not single digits)
-    if (q.length >= 3 && post.content && post.content.toLowerCase().includes(q)) {
-      return true;
-    }
-
     return false;
   };
 
@@ -475,8 +518,8 @@ const structuredData = {
   };
 
   const flashTag = (idx) => {
-    if (!tagList) return;
-    const chipsList = tagList.querySelectorAll('.tag-chip');
+    if (!shell) return;
+    const chipsList = shell.querySelectorAll('.tag-chip');
     if (chipsList[idx]) {
       chipsList[idx].classList.add('is-flashed');
       setTimeout(() => chipsList[idx]?.classList.remove('is-flashed'), 450);
@@ -500,18 +543,22 @@ const structuredData = {
     if (archiveSection) archiveSection.style.display = 'none';
     if (searchResults) searchResults.style.display = 'grid';
 
-    const hits = allPosts.filter(p => {
-      return activeFilters.every(filter => matchPost(p, filter));
-    });
+    const hits = allPosts.map(p => {
+      let totalScore = 0;
+      for (const filter of activeFilters) {
+        const s = getPostRelevance(p, filter);
+        if (s <= 0) return null;
+        totalScore += s;
+      }
+      return { post: p, score: totalScore };
+    }).filter(Boolean);
 
     hits.sort((a, b) => {
-      const aMatches = (a.questions || []).filter(q => activeFilters.some(f => matchQuestion(q, f))).length;
-      const bMatches = (b.questions || []).filter(q => activeFilters.some(f => matchQuestion(q, f))).length;
-      if (aMatches !== bMatches) return bMatches - aMatches;
-      return b.day - a.day;
+      if (b.score !== a.score) return b.score - a.score;
+      return b.post.day - a.post.day;
     });
 
-    const displayHits = hits.slice(0, 32);
+    const displayHits = hits.slice(0, 32).map(h => h.post);
     const filterLabels = tags.map(t => `[${t}]`).join(' ');
     const querySummary = draft ? `${filterLabels} "${draft}"`.trim() : filterLabels;
 
