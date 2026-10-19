@@ -225,9 +225,10 @@ const { showBio = true } = Astro.props;
     width: 100%;
     margin: 0;
     padding: 20px clamp(20px, 4vw, 64px);
-    background: var(--time-deep, #08101a);
-    border-bottom: 1px solid var(--time-accent, var(--border));
-    box-shadow: inset 0 -3px var(--time-accent, #ffd75e);
+    background: #08101a8f;
+    backdrop-filter: blur(14px) saturate(135%);
+    border-bottom: 1px solid var(--border, #343840);
+    box-shadow: inset 0 -2px var(--time-accent, #ffd75e);
   }
 
   .portfolio-header.is-subpage {
@@ -240,9 +241,10 @@ const { showBio = true } = Astro.props;
     width: 100%;
     margin: 0;
     padding: 16px clamp(16px, 4vw, 48px);
-    background: var(--time-deep, #08101a);
-    border-bottom: 1px solid var(--time-accent, var(--border));
-    box-shadow: inset 0 -3px var(--time-accent, #ffd75e);
+    background: #08101a8f;
+    backdrop-filter: blur(14px) saturate(135%);
+    border-bottom: 1px solid var(--border, #343840);
+    box-shadow: inset 0 -2px var(--time-accent, #ffd75e);
   }
 
   .brand {
@@ -273,7 +275,7 @@ const { showBio = true } = Astro.props;
   .header-nav {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
     justify-content: flex-end;
   }
@@ -282,32 +284,45 @@ const { showBio = true } = Astro.props;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--tap);
-    padding: 8px 14px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--time-panel, #161b22);
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: var(--fs-label);
-    letter-spacing: var(--track-label);
+    height: 38px;
+    padding: 0 13px;
+    border: 1px solid var(--border, #343840);
+    border-radius: 2px;
+    background: #111722;
+    box-shadow: 2px 2px 0 #05070b;
+    color: var(--ink, #e8eddf);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
     text-decoration: none !important;
     cursor: pointer;
     white-space: nowrap;
-    transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+    outline: none;
+    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .nav-btn:hover {
+    background: #162030;
     border-color: var(--time-accent, #ffd75e);
-    background: var(--time-accent, #ffd75e);
-    color: var(--time-deep, #08101a) !important;
+    color: var(--time-accent, #ffd75e);
+  }
+
+  .nav-btn:active {
+    transform: translateY(1px);
+  }
+
+  .nav-btn:focus-visible {
+    outline: 2px solid var(--time-accent, #ffd75e);
+    outline-offset: 2px;
   }
 
   .nav-btn.is-active {
+    background: #162030;
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-accent, #ffd75e);
-    background: color-mix(in srgb, var(--time-accent, #ffd75e) 15%, var(--time-panel, #161b22));
+    box-shadow: 2px 2px 0 #05070b;
   }
 
   .nav-btn.is-active:hover {
@@ -316,25 +331,34 @@ const { showBio = true } = Astro.props;
   }
 
   .nav-btn-resume {
-    border-color: var(--time-accent, #ffd75e);
+    border: 2px solid var(--time-accent, #ffd75e);
     color: #fff !important;
+    background: #111722;
+    box-shadow: 2px 2px 0 #05070b;
+  }
+
+  .nav-btn-resume:hover {
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
   }
 
   .resume-button {
-    display: grid;
-    place-items: center;
-    min-height: var(--tap);
-    padding: 10px 16px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 38px;
+    padding: 0 16px;
     border: 2px solid var(--time-accent, #ffd75e);
-    border-radius: var(--radius);
+    border-radius: 2px;
     color: #fff !important;
     text-decoration: none !important;
-    font-family: var(--font-display);
-    font-size: var(--fs-label);
-    letter-spacing: var(--track-label);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 11.5px;
+    letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
-    background: var(--time-panel, #161b22);
-    transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+    background: #111722;
+    box-shadow: 2px 2px 0 #05070b;
+    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
   }
 
   .resume-button:hover {
@@ -342,28 +366,37 @@ const { showBio = true } = Astro.props;
     color: var(--time-deep, #08101a) !important;
   }
 
+  .resume-button:active {
+    transform: translateY(1px);
+  }
+
   .add-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--tap);
-    padding: 10px 18px;
+    height: 38px;
+    padding: 0 18px;
     border: 2px solid var(--time-accent, #ffd75e);
-    border-radius: var(--radius);
+    border-radius: 2px;
     background: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a) !important;
-    font-family: var(--font-display);
-    font-size: var(--fs-label);
-    letter-spacing: var(--track-label);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 11.5px;
+    letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
     text-decoration: none !important;
     box-shadow: 3px 3px 0 #05070b;
     cursor: pointer;
-    transition: background var(--dur-fast) var(--ease);
+    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color var(--dur-fast) var(--ease);
   }
 
   .add-button:hover {
     background: var(--time-soft, #fff);
+    border-color: var(--time-soft, #fff);
+  }
+
+  .add-button:active {
+    transform: translateY(1px);
   }
 
   /* Menu Toggle Button - Interior .mat-cap .press style */
@@ -371,7 +404,7 @@ const { showBio = true } = Astro.props;
     display: inline-flex;
     align-items: center;
     gap: 7px;
-    height: 32px;
+    height: 38px;
     padding: 0 12px;
     border-radius: 2px;
     border: 1px solid var(--border, #343840);

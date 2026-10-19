@@ -217,11 +217,13 @@ const structuredData = {
 <style>
   .breadcrumb-nav {
     display: flex;
-    gap: 8px;
+    gap: 10px;
     align-items: center;
+    font-family: var(--font-display, "Departure Mono", monospace);
     font-size: 13px;
-    color: var(--dim, #888);
-    margin-bottom: 14px;
+    letter-spacing: 0.04em;
+    color: var(--dim, #959ba8);
+    margin: 32px 0 28px;
     flex-wrap: wrap;
   }
   .breadcrumb-nav a {
@@ -229,6 +231,7 @@ const structuredData = {
     text-decoration: none;
   }
   .breadcrumb-nav a:hover {
+    color: #fff;
     text-decoration: underline;
   }
   .direct-answer {
