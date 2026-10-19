@@ -1,6 +1,7 @@
 ---
 import DaysTimeline from '../components/DaysTimeline.astro';
 import Base from '../layouts/Base.astro';
+import FormDropdown from '../components/FormDropdown.astro';
 import roster from '../data/roster.json';
 
 const types = ['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
@@ -426,9 +427,42 @@ const projects = [
       <div class="field-grid">
         <label for="submission-github">GitHub Username <input id="submission-github" name="github" type="text" required maxlength="39" autocomplete="off" spellcheck="false" placeholder="SM" pattern="[A-Za-z0-9](?:[A-Za-z0-9\-]{0,37}[A-Za-z0-9])?" toolparamdescription="GitHub username without @ symbol (required)" /><span class="field-hint">Your GitHub handle. No @ symbol.</span></label>
         <label for="submission-species">Species <input id="submission-species" name="species" type="text" required maxlength="24" autocomplete="off" placeholder="Builder Pokémon" toolparamdescription="Role-like Pokémon species title (max 24 characters, required)" /><span class="field-hint">A short role-like Pokémon species.</span></label>
-        <label for="submission-primary-type">Primary Type <select id="submission-primary-type" name="primaryType" required toolparamdescription="Primary Pokémon type representing strongest skill or style (required)"><option value="" disabled selected>Choose type…</option>{types.map((type) => <option value={type}>{type}</option>)}</select><span class="field-hint">Your strongest working style or skill.</span></label>
-        <label for="submission-secondary-type">Secondary Type <select id="submission-secondary-type" name="secondaryType" toolparamdescription="Optional secondary Pokémon type, or None"><option value="None">None</option>{types.map((type) => <option value={type}>{type}</option>)}</select><span class="field-hint">Optional second strength. Choose None if not needed.</span></label>
-        <label for="submission-status-select">Status <select id="submission-status-select" name="status" required toolparamdescription="Status: Caught (employed), Released (available for hire), Uncaught (student or exploring)"><option value="Caught">Caught</option><option value="Released">Released</option><option value="Uncaught">Uncaught</option></select><span class="field-hint">Caught means employed. Released means available. Uncaught means student or exploring.</span></label>
+        <FormDropdown
+          id="submission-primary-type"
+          name="primaryType"
+          label="Primary Type"
+          required={true}
+          placeholder="Choose type…"
+          hint="Your strongest working style or skill."
+          toolparamdescription="Primary Pokémon type representing strongest skill or style (required)"
+          items={types.map((type) => ({ value: type, label: type }))}
+        />
+        <FormDropdown
+          id="submission-secondary-type"
+          name="secondaryType"
+          label="Secondary Type"
+          defaultValue="None"
+          hint="Optional second strength. Choose None if not needed."
+          toolparamdescription="Optional secondary Pokémon type, or None"
+          items={[
+            { value: 'None', label: 'None', hint: 'Single type' },
+            ...types.map((type) => ({ value: type, label: type }))
+          ]}
+        />
+        <FormDropdown
+          id="submission-status-select"
+          name="status"
+          label="Status"
+          required={true}
+          defaultValue="Caught"
+          hint="Caught means employed. Released means available. Uncaught means student or exploring."
+          toolparamdescription="Status: Caught (employed), Released (available for hire), Uncaught (student or exploring)"
+          items={[
+            { value: 'Caught', label: 'Caught', hint: 'Employed' },
+            { value: 'Released', label: 'Released', hint: 'For hire' },
+            { value: 'Uncaught', label: 'Uncaught', hint: 'Exploring' }
+          ]}
+        />
         <label for="submission-company" class="company-field" data-company-field>Current Employer <input id="submission-company" name="company" type="text" maxlength="80" autocomplete="organization" placeholder="Company name" toolparamdescription="Current employer company name (required if status is Caught, max 80 characters)" /><span class="field-hint">Required only when status is Caught.</span></label>
       </div>
       <label for="submission-entry">Dex Entry <textarea id="submission-entry" name="entry" required maxlength="150" rows="4" autocomplete="off" placeholder="Builds weird tools. Keeps every system on edge under stress." toolparamdescription="Third-person dex flavour text, two short sentences, 150 characters max (required)"></textarea><span class="field-hint">Third person. 2 short sentences. 150 characters max.</span></label>

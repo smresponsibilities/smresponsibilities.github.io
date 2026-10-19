@@ -1,0 +1,720 @@
+---
+// src/components/FormDropdown.astro
+// Custom accessible Dropdown component modeled on Interior.dev dropdown.tsx
+// styled with SM'S DEX retro hardware Pokédex theme.
+
+export interface DropdownItem {
+  value: string;
+  label: string;
+  hint?: string;
+  disabled?: boolean;
+}
+
+export interface Props {
+  id: string;
+  name: string;
+  label: string;
+  items: DropdownItem[];
+  required?: boolean;
+  defaultValue?: string;
+  placeholder?: string;
+  hint?: string;
+  toolparamdescription?: string;
+}
+
+const {
+  id,
+  name,
+  label,
+  items,
+  required = false,
+  defaultValue,
+  placeholder = 'Select an option',
+  hint,
+  toolparamdescription,
+} = Astro.props;
+
+const selectedItem = defaultValue ? items.find((it) => it.value === defaultValue) : null;
+const displayLabel = selectedItem ? selectedItem.label : placeholder;
+---
+
+<div class="form-dropdown-wrapper" data-dropdown-id={id}>
+  <label for={`${id}-trigger`} id={`${id}-label`} class="form-dropdown-label">
+    {label}
+  </label>
+
+  <div class="custom-dropdown-root" id={`${id}-root`} data-required={required ? 'true' : 'false'}>
+    <!-- Native select for form submit, FormData, validation, and automated tooling -->
+    <select
+      id={id}
+      name={name}
+      required={required}
+      class="custom-dropdown-native-select"
+      tabindex="-1"
+      aria-hidden="true"
+      toolparamdescription={toolparamdescription}
+    >
+      {placeholder && (
+        <option value="" disabled selected={!defaultValue}>
+          {placeholder}
+        </option>
+      )}
+      {items.map((item) => (
+        <option
+          value={item.value}
+          selected={item.value === defaultValue}
+          disabled={item.disabled}
+        >
+          {item.label}
+        </option>
+      ))}
+    </select>
+
+    <!-- Custom Trigger Button (Interior Dropdown trigger) -->
+    <button
+      type="button"
+      class="custom-dropdown-trigger"
+      id={`${id}-trigger`}
+      aria-haspopup="listbox"
+      aria-expanded="false"
+      aria-controls={`${id}-listbox`}
+      aria-labelledby={`${id}-label ${id}-selected`}
+    >
+      <span class="custom-dropdown-trigger-text" id={`${id}-selected`}>
+        {displayLabel}
+      </span>
+      <span class="custom-dropdown-caret" aria-hidden="true">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+          <path
+            d="M2.5 4.5L6 8L9.5 4.5"
+            stroke="currentColor"
+            stroke-width="1.8"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+      </span>
+    </button>
+
+    <!-- Dropdown Popover Menu (Interior Dropdown menu) -->
+    <div class="custom-dropdown-popover" id={`${id}-popover`} hidden>
+      <ul
+        class="custom-dropdown-listbox"
+        id={`${id}-listbox`}
+        role="listbox"
+        tabindex="-1"
+        aria-labelledby={`${id}-label`}
+      >
+        <!-- Sliding Highlight Pill (tracks active/hovered row) -->
+        <span class="custom-dropdown-pill" aria-hidden="true"></span>
+
+        {items.map((item, index) => {
+          const isPicked = item.value === defaultValue;
+          return (
+            <li
+              id={`${id}-opt-${index}`}
+              role="option"
+              aria-selected={isPicked ? 'true' : 'false'}
+              aria-disabled={item.disabled ? 'true' : undefined}
+              data-value={item.value}
+              data-index={index}
+              data-disabled={item.disabled ? 'true' : undefined}
+              class:list={[
+                'custom-dropdown-option',
+                { 'is-picked': isPicked, 'is-disabled': item.disabled },
+              ]}
+            >
+              <span class="custom-dropdown-option-body">
+                <span class="custom-dropdown-option-label">{item.label}</span>
+                {item.hint && (
+                  <span class="custom-dropdown-option-hint">{item.hint}</span>
+                )}
+              </span>
+              <span class="custom-dropdown-check" aria-hidden="true">
+                <svg viewBox="0 0 14 14" width="13" height="13" fill="none">
+                  <path
+                    d="M2.5 7.2L5.4 10.1L11.5 4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </div>
+
+  {hint && <span class="field-hint">{hint}</span>}
+</div>
+
+<style>
+  .form-dropdown-wrapper {
+    display: grid;
+    gap: 7px;
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 14px;
+    color: var(--ink, #e8eddf);
+    position: relative;
+  }
+
+  .form-dropdown-wrapper.is-open {
+    z-index: 60;
+  }
+
+  .form-dropdown-label {
+    display: block;
+    cursor: pointer;
+    user-select: none;
+    font-weight: 500;
+  }
+
+  .custom-dropdown-root {
+    position: relative;
+    width: 100%;
+  }
+
+  /* Native hidden select: keeps HTML5 validation & FormData intact */
+  .custom-dropdown-native-select {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    min-height: 0 !important;
+    max-height: 0 !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    border: 0 !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    appearance: none !important;
+  }
+
+  /* Trigger button styled with SM'S DEX tokens */
+  .custom-dropdown-trigger {
+    width: 100%;
+    min-height: 48px;
+    padding: 11px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #080d14;
+    border: 2px solid #4c5666;
+    border-radius: 2px;
+    color: var(--ink, #e8eddf);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 15px;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+  }
+
+  .custom-dropdown-trigger:hover {
+    border-color: var(--dim, #959ba8);
+    background: #0b111a;
+  }
+
+  .custom-dropdown-trigger:focus-visible,
+  .custom-dropdown-root[data-open="true"] .custom-dropdown-trigger {
+    border-color: var(--accent, #ffd75e);
+    outline: 2px solid var(--focus, #ffd75e);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 1px var(--accent, #ffd75e);
+    background: #0a1018;
+  }
+
+  .custom-dropdown-trigger.is-invalid {
+    border-color: #ff5e5e !important;
+    outline: 2px solid #ff5e5e !important;
+  }
+
+  .custom-dropdown-trigger-text {
+    flex: 1 1 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Caret rotating 180deg when open */
+  .custom-dropdown-caret {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+    color: var(--dim, #959ba8);
+    transition: transform 0.2s cubic-bezier(0.23, 1, 0.32, 1), color 0.15s ease;
+  }
+
+  .custom-dropdown-root[data-open="true"] .custom-dropdown-caret {
+    transform: rotate(180deg);
+    color: var(--accent, #ffd75e);
+  }
+
+  /* Popover container */
+  .custom-dropdown-popover {
+    position: absolute;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
+    z-index: 150;
+    background: #0c121d;
+    border: 2px solid var(--accent, #ffd75e);
+    border-radius: 2px;
+    box-shadow: 6px 6px 0 #05070b;
+    padding: 5px;
+    transform-origin: top center;
+    opacity: 0;
+    transform: scale(0.96) translateY(-6px);
+    pointer-events: none;
+    visibility: hidden;
+    transition: opacity 0.14s ease, transform 0.16s cubic-bezier(0.23, 1, 0.32, 1), visibility 0.14s;
+  }
+
+  .custom-dropdown-popover.open-upward {
+    top: auto;
+    bottom: calc(100% + 5px);
+    transform-origin: bottom center;
+    transform: scale(0.96) translateY(6px);
+  }
+
+  .custom-dropdown-root[data-open="true"] .custom-dropdown-popover {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: auto;
+    visibility: visible;
+  }
+
+  /* Listbox scrollable container */
+  .custom-dropdown-listbox {
+    position: relative;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 220px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    outline: none;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--accent, #ffd75e) #070b12;
+  }
+
+  .custom-dropdown-listbox::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-dropdown-listbox::-webkit-scrollbar-track {
+    background: #070b12;
+  }
+
+  .custom-dropdown-listbox::-webkit-scrollbar-thumb {
+    background: var(--accent, #ffd75e);
+    border-radius: 2px;
+  }
+
+  /* Sliding Highlight Pill */
+  .custom-dropdown-pill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 34px;
+    background: rgba(255, 215, 94, 0.14);
+    border: 1px solid rgba(255, 215, 94, 0.38);
+    border-radius: 2px;
+    pointer-events: none;
+    opacity: 0;
+    transition: transform 0.14s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.1s ease;
+    z-index: 0;
+  }
+
+  /* Option item */
+  .custom-dropdown-option {
+    position: relative;
+    z-index: 1;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-radius: 2px;
+    cursor: pointer;
+    user-select: none;
+    color: var(--ink, #e8eddf);
+    font-size: 13.5px;
+    font-family: var(--font-display, "Departure Mono", monospace);
+    transition: color 0.12s ease;
+  }
+
+  .custom-dropdown-option.is-active {
+    color: var(--accent, #ffd75e);
+  }
+
+  .custom-dropdown-option.is-disabled {
+    color: #555b68;
+    cursor: not-allowed;
+  }
+
+  .custom-dropdown-option-body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+
+  .custom-dropdown-option-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .custom-dropdown-option-hint {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--dim, #959ba8);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Checkmark with spring bounce */
+  .custom-dropdown-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 8px;
+    flex-shrink: 0;
+    color: var(--accent, #ffd75e);
+    opacity: 0;
+    transform: scale(0.6);
+    transition: opacity 0.14s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .custom-dropdown-option.is-picked .custom-dropdown-check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .field-hint {
+    font-size: 11.5px;
+    color: var(--dim, #959ba8);
+    text-transform: none;
+    line-height: 1.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .custom-dropdown-popover,
+    .custom-dropdown-pill,
+    .custom-dropdown-caret,
+    .custom-dropdown-check,
+    .custom-dropdown-trigger {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>
+
+<script>
+  // Client script handling Dropdown interactions modeled on D:\interior\components\interior\dropdown.tsx
+  function initCustomDropdowns() {
+    const roots = document.querySelectorAll<HTMLElement>('.custom-dropdown-root:not([data-initialized="true"])');
+
+    roots.forEach((root) => {
+      root.dataset.initialized = 'true';
+
+      const trigger = root.querySelector<HTMLButtonElement>('.custom-dropdown-trigger');
+      const popover = root.querySelector<HTMLElement>('.custom-dropdown-popover');
+      const listbox = root.querySelector<HTMLUListElement>('.custom-dropdown-listbox');
+      const pill = root.querySelector<HTMLElement>('.custom-dropdown-pill');
+      const nativeSelect = root.querySelector<HTMLSelectElement>('.custom-dropdown-native-select');
+      const triggerText = root.querySelector<HTMLElement>('.custom-dropdown-trigger-text');
+      const options = Array.from(root.querySelectorAll<HTMLLIElement>('.custom-dropdown-option'));
+
+      if (!trigger || !popover || !listbox || !nativeSelect || !triggerText) return;
+
+      let isOpen = false;
+      let activeIndex = -1;
+      let viaKey = false;
+      let typeaheadBuffer = '';
+      let typeaheadTimer: ReturnType<typeof setTimeout> | null = null;
+
+      const getSelectedIndex = () => {
+        const val = nativeSelect.value;
+        return options.findIndex((opt) => opt.dataset.value === val);
+      };
+
+      const updatePill = () => {
+        if (!pill) return;
+        if (activeIndex >= 0 && activeIndex < options.length) {
+          const opt = options[activeIndex];
+          pill.style.transform = `translateY(${opt.offsetTop}px)`;
+          pill.style.height = `${opt.offsetHeight}px`;
+          pill.style.opacity = '1';
+        } else {
+          pill.style.opacity = '0';
+        }
+      };
+
+      const setActiveIndex = (index: number) => {
+        activeIndex = index;
+        options.forEach((opt, idx) => {
+          const isActive = idx === activeIndex;
+          opt.classList.toggle('is-active', isActive);
+          if (isActive) {
+            listbox.setAttribute('aria-activedescendant', opt.id);
+          }
+        });
+        if (activeIndex < 0) {
+          listbox.removeAttribute('aria-activedescendant');
+        }
+        updatePill();
+
+        if (viaKey && activeIndex >= 0 && options[activeIndex]) {
+          options[activeIndex].scrollIntoView({ block: 'nearest' });
+          viaKey = false;
+        }
+      };
+
+      const step = (from: number, dir: 1 | -1): number => {
+        const n = options.length;
+        if (n === 0) return -1;
+        let i = from;
+        for (let k = 0; k < n; k++) {
+          i = (i + dir + n) % n;
+          if (options[i].dataset.disabled !== 'true') return i;
+        }
+        return from;
+      };
+
+      const edge = (dir: 1 | -1): number => {
+        return step(dir === 1 ? -1 : options.length, dir);
+      };
+
+      const openMenu = (targetIndex?: number) => {
+        if (nativeSelect.disabled || options.length === 0) return;
+        isOpen = true;
+        root.dataset.open = 'true';
+        root.closest('.form-dropdown-wrapper')?.classList.add('is-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        popover.hidden = false;
+
+        // Smart positioning: check if opening upward is better
+        const rect = root.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+        if (spaceBelow < 230 && rect.top > 230) {
+          popover.classList.add('open-upward');
+        } else {
+          popover.classList.remove('open-upward');
+        }
+
+        const sel = getSelectedIndex();
+        const usable = sel >= 0 && options[sel]?.dataset.disabled !== 'true';
+        viaKey = true;
+        setActiveIndex(targetIndex !== undefined ? targetIndex : (usable ? sel : edge(1)));
+        listbox.focus();
+      };
+
+      const closeMenu = (restoreFocus = true) => {
+        if (!isOpen) return;
+        isOpen = false;
+        root.dataset.open = 'false';
+        root.closest('.form-dropdown-wrapper')?.classList.remove('is-open');
+        trigger.setAttribute('aria-expanded', 'false');
+        setActiveIndex(-1);
+        typeaheadBuffer = '';
+        if (typeaheadTimer) clearTimeout(typeaheadTimer);
+        // Delay hiding popover slightly for exit transition
+        setTimeout(() => {
+          if (!isOpen) popover.hidden = true;
+        }, 160);
+        if (restoreFocus) trigger.focus();
+      };
+
+      const select = (index: number) => {
+        const opt = options[index];
+        if (!opt || opt.dataset.disabled === 'true') return;
+        const val = opt.dataset.value ?? '';
+
+        nativeSelect.value = val;
+        nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+
+        syncFromNative();
+        closeMenu(true);
+      };
+
+      const syncFromNative = () => {
+        const currentVal = nativeSelect.value;
+        let selectedLabel = '';
+
+        options.forEach((opt, idx) => {
+          const isPicked = opt.dataset.value === currentVal;
+          opt.classList.toggle('is-picked', isPicked);
+          opt.setAttribute('aria-selected', isPicked ? 'true' : 'false');
+          if (isPicked) {
+            const labelEl = opt.querySelector('.custom-dropdown-option-label');
+            selectedLabel = labelEl?.textContent?.trim() || opt.dataset.value || '';
+          }
+        });
+
+        if (selectedLabel) {
+          triggerText.textContent = selectedLabel;
+          trigger.classList.remove('is-invalid');
+        }
+      };
+
+      // Intercept property setter for value so external scripts (e.g. WebMCP) reflect instantly
+      const descriptor = Object.getOwnPropertyDescriptor(HTMLSelectElement.prototype, 'value');
+      if (descriptor && descriptor.set) {
+        Object.defineProperty(nativeSelect, 'value', {
+          get() {
+            return descriptor.get?.call(this);
+          },
+          set(val) {
+            descriptor.set?.call(this, val);
+            syncFromNative();
+          },
+        });
+      }
+
+      const typeahead = (char: string) => {
+        if (typeaheadTimer) clearTimeout(typeaheadTimer);
+        typeaheadBuffer += char.toLowerCase();
+        typeaheadTimer = setTimeout(() => {
+          typeaheadBuffer = '';
+        }, 600);
+
+        const q = typeaheadBuffer;
+        const n = options.length;
+        const from = activeIndex < 0 ? 0 : activeIndex;
+        const start = q.length > 1 ? from : from + 1;
+
+        for (let k = 0; k < n; k++) {
+          const i = (start + k) % n;
+          const it = options[i];
+          const text = it.querySelector('.custom-dropdown-option-label')?.textContent?.trim().toLowerCase() || '';
+          if (it.dataset.disabled !== 'true' && text.startsWith(q)) {
+            viaKey = true;
+            setActiveIndex(i);
+            return;
+          }
+        }
+      };
+
+      // Trigger events
+      trigger.addEventListener('click', () => {
+        if (isOpen) closeMenu();
+        else openMenu();
+      });
+
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openMenu();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          openMenu(edge(-1));
+        }
+      });
+
+      // Listbox keyboard navigation (matching interior/dropdown.tsx)
+      listbox.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          const dir = e.key === 'ArrowDown' ? 1 : -1;
+          viaKey = true;
+          setActiveIndex(step(activeIndex, dir));
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          viaKey = true;
+          setActiveIndex(edge(1));
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          viaKey = true;
+          setActiveIndex(edge(-1));
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (activeIndex >= 0) select(activeIndex);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeMenu(true);
+        } else if (e.key === 'Tab') {
+          // Allow tab to proceed to next focusable element
+          closeMenu(false);
+        } else if (e.key.length === 1 && !e.metaKey && !e.ctrlKey && !e.altKey) {
+          e.preventDefault();
+          typeahead(e.key);
+        }
+      });
+
+      // Option interactions
+      options.forEach((opt, idx) => {
+        opt.addEventListener('pointermove', () => {
+          if (opt.dataset.disabled === 'true') return;
+          viaKey = false;
+          setActiveIndex(idx);
+        });
+
+        opt.addEventListener('click', () => {
+          select(idx);
+        });
+      });
+
+      // Click outside and window blur listener
+      document.addEventListener('pointerdown', (e) => {
+        if (!isOpen) return;
+        if (!root.contains(e.target as Node)) {
+          closeMenu(false);
+        }
+      }, true);
+
+      window.addEventListener('blur', () => {
+        if (isOpen) closeMenu(false);
+      });
+
+      // Native select listener for change / invalid / reset
+      nativeSelect.addEventListener('change', () => {
+        syncFromNative();
+      });
+
+      nativeSelect.addEventListener('invalid', (e) => {
+        e.preventDefault();
+        trigger.classList.add('is-invalid');
+        trigger.focus();
+      });
+
+      nativeSelect.form?.addEventListener('submit', (e) => {
+        const isRequired = root.dataset.required === 'true' || nativeSelect.required;
+        if (isRequired && !nativeSelect.value) {
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          trigger.classList.add('is-invalid');
+          trigger.focus();
+        }
+      });
+
+      nativeSelect.form?.addEventListener('reset', () => {
+        setTimeout(syncFromNative, 0);
+      });
+
+      // Initial sync
+      syncFromNative();
+    });
+  }
+
+  // Initialize on load and on DOM updates
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCustomDropdowns);
+  } else {
+    initCustomDropdowns();
+  }
+</script>
