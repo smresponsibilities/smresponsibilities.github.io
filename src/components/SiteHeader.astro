@@ -17,12 +17,8 @@ const { showBio = true } = Astro.props;
       <p>Shivam Mahajan is a software developer building production systems with Python, Kotlin, Kafka, PySpark, Snowflake, React and Solidity. To be added as a pokemon click on the Add Pokemon Button.</p>
     )}
     <nav class="header-nav" aria-label="Portfolio actions">
-      <a class="nav-btn is-active" href="/">Home</a>
-      <a class="nav-btn nav-btn-secondary" href="/projects/">Projects</a>
-      <a class="nav-btn nav-btn-secondary" href="/blog/">Blog</a>
       <a class="nav-btn nav-btn-resume" data-resume href="/resume/">Resume</a>
       <a class="nav-btn nav-btn-add" href="/#open-submission">Add Pokémon</a>
-      <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
           <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
@@ -39,7 +35,6 @@ const { showBio = true } = Astro.props;
       <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/projects') ? 'is-active' : ''}`} href="/projects/">Projects</a>
       <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/blog') ? 'is-active' : ''}`} href="/blog/">Blog</a>
       <a class={`nav-btn nav-btn-resume ${currentPath.startsWith('/resume') ? 'is-active' : ''}`} data-resume href="/resume/">Resume</a>
-      <a class="nav-btn nav-btn-add" href="/#open-submission">Add Pokémon</a>
       <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
