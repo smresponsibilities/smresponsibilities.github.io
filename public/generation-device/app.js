@@ -188,13 +188,56 @@ function select(next){
   effects=createEffects(device,$('rig'),$('effect-controls'),()=>{syncAvailability();status();});
   for(const glass of renderer.glasses)glass.addEventListener('click',handleContent);
   $('region').textContent=device.region;$('games').textContent=device.games;$('edition').textContent=`GEN ${device.generation}`;
-  $('reference').href=device.reference;$('source-note').textContent=device.note;
-  $('generations').innerHTML=catalog.map(d=>`<button data-gen="${d.id}" aria-label="${esc(d.region)} · ${esc(d.games)}" aria-pressed="${d.id===device.id}" data-tooltip="Show Generation ${d.generation}: ${esc(d.region)} device">${d.generation}</button>`).join('');
+  const activeIndex = catalog.findIndex(d => d.id === device.id);
+  const genNav = $('generations');
+  if (genNav) {
+    genNav.setAttribute('role', 'radiogroup');
+    genNav.style.setProperty('--seg-count', String(catalog.length));
+    genNav.style.setProperty('--active-index', String(activeIndex >= 0 ? activeIndex : 0));
+    const existingButtons = genNav.querySelectorAll('button[data-gen]');
+    if (existingButtons.length === catalog.length) {
+      existingButtons.forEach(b => {
+        const isCurrent = b.dataset.gen === device.id;
+        b.setAttribute('aria-pressed', String(isCurrent));
+        b.setAttribute('aria-checked', String(isCurrent));
+        b.tabIndex = isCurrent ? 0 : -1;
+        b.classList.toggle('is-active', isCurrent);
+      });
+    } else {
+      genNav.innerHTML = `<div class="segmented-thumb" id="segmented-thumb" aria-hidden="true"></div>` + catalog.map(d => {
+        const isCurrent = d.id === device.id;
+        return `<button data-gen="${d.id}" role="radio" aria-checked="${isCurrent}" tabindex="${isCurrent ? 0 : -1}" class="segmented-item ${isCurrent ? 'is-active' : ''}" aria-label="${esc(d.region)} · ${esc(d.games)}" aria-pressed="${isCurrent}" data-tooltip="Show Generation ${d.generation}: ${esc(d.region)} device"><span class="segmented-label">${d.generation}</span></button>`;
+      }).join('');
+    }
+  }
   $('asset-grid').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.gen===device.id)));
   const url=new URL(location.href);url.searchParams.set('pokedexgen',device.id);url.searchParams.delete('gen');history.replaceState(null,'',url);
   lastStageWidth=0;renderContent(false);position(settled);resize();
 }
 $('generations').addEventListener('click',e=>{const id=e.target.closest('[data-gen]')?.dataset.gen;if(id){hideTooltip();select(catalog.find(d=>d.id===id));}});
+$('generations').addEventListener('keydown', e => {
+  const buttons = Array.from($('generations').querySelectorAll('button[data-gen]'));
+  const currentIdx = buttons.findIndex(b => b === document.activeElement);
+  if (currentIdx === -1) return;
+  let targetIdx = -1;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+    e.preventDefault();
+    targetIdx = (currentIdx + 1) % buttons.length;
+  } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+    e.preventDefault();
+    targetIdx = (currentIdx - 1 + buttons.length) % buttons.length;
+  } else if (e.key === 'Home') {
+    e.preventDefault();
+    targetIdx = 0;
+  } else if (e.key === 'End') {
+    e.preventDefault();
+    targetIdx = buttons.length - 1;
+  }
+  if (targetIdx !== -1 && buttons[targetIdx]) {
+    buttons[targetIdx].focus();
+    buttons[targetIdx].click();
+  }
+});
 $('asset-grid').innerHTML=catalog.map(d=>`<button class="asset-card" data-gen="${d.id}" aria-pressed="${d.id===device.id}">${exportAsset(d).replace('<svg ','<svg aria-hidden="true" ')}<strong>${d.generation} · ${esc(d.region)}</strong><small>${esc(d.games)}</small></button>`).join('');
 $('asset-grid').addEventListener('click',e=>{const id=e.target.closest('[data-gen]')?.dataset.gen;if(id){hideTooltip();select(catalog.find(d=>d.id===id));$('stage').scrollIntoView({behavior:'instant',block:'center'});}});
 $('download').addEventListener('click',()=>{const blob=new Blob([exportAsset(device)],{type:'image/svg+xml'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`${device.id}-open.svg`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});

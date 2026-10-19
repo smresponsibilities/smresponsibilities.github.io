@@ -102,9 +102,9 @@ const projects = [
 
 <Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
   <Fragment slot="head">
-    <link rel="preload" href="/generation-device/style.css?v=80.0" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="/generation-device/style.css?v=80.0" /></noscript>
-    <link rel="modulepreload" href="/generation-device/app.js?v=89.0" />
+    <link rel="preload" href="/generation-device/style.css?v=81.0" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/generation-device/style.css?v=81.0" /></noscript>
+    <link rel="modulepreload" href="/generation-device/app.js?v=90.0" />
     <link rel="modulepreload" href="/generation-device/assets/kanto.js?v=55.0" />
     <link rel="modulepreload" href="/generation-device/content.js?v=89.0" />
     <link rel="modulepreload" href="/generation-device/renderer.js?v=64.0" />
@@ -510,7 +510,7 @@ const projects = [
       }
     }
   </script>
-  <script is:inline type="module">import('/generation-device/app.js?v=89.0');</script>
+  <script is:inline type="module">import('/generation-device/app.js?v=90.0');</script>
   <script>
     const loader=document.querySelector('#page-loader');
     const factOwner=document.querySelector('#loader-fact-owner');
@@ -1298,5 +1298,115 @@ const projects = [
   }
   .project-try-native-btn:hover {
     background: var(--time-soft, #fff);
+  }
+
+  #generations {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(var(--seg-count, 9), minmax(0, 1fr));
+    gap: 0;
+    max-width: 940px;
+    width: 100%;
+    margin: 14px auto 16px;
+    padding: 3px;
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: #111111;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    user-select: none;
+    touch-action: manipulation;
+    box-sizing: border-box;
+    isolation: isolate;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #generations::-webkit-scrollbar {
+    display: none;
+  }
+  #generations :global(.segmented-thumb) {
+    pointer-events: none;
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc((100% - 6px) / var(--seg-count, 9));
+    height: calc(100% - 6px);
+    border-radius: 6px;
+    background-color: #222222;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    transform: translateX(calc(var(--active-index, 0) * 100%));
+    transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+  }
+  #generations :global(button) {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 32px !important;
+    height: 32px !important;
+    min-width: 0 !important;
+    padding: 0 4px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+    border-radius: 6px !important;
+    color: #a3a3a3 !important;
+    font: 12px Departure, monospace !important;
+    letter-spacing: -0.01em !important;
+    white-space: nowrap !important;
+    cursor: pointer !important;
+    outline: none !important;
+    box-shadow: none !important;
+    transform: none !important;
+    transition: color 0.15s ease !important;
+    box-sizing: border-box !important;
+  }
+  #generations :global(button:hover:not(:disabled)) {
+    color: #f5f5f5 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+  #generations :global(button[aria-checked="true"]),
+  #generations :global(button[aria-pressed="true"]),
+  #generations :global(button.is-active) {
+    color: #ffffff !important;
+    font-weight: 500 !important;
+    border: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+  #generations :global(button:focus-visible) {
+    outline: none !important;
+    background: rgba(69, 104, 255, 0.1) !important;
+    box-shadow: inset 0 0 0 1px #4568FF !important;
+  }
+  #generations :global(.segmented-label) {
+    display: inline-block;
+    line-height: 1;
+    pointer-events: none;
+  }
+  @media (max-width: 700px) {
+    #generations {
+      grid-template-columns: repeat(var(--seg-count, 9), minmax(34px, 1fr));
+      padding: 3px;
+      margin: 10px auto 14px;
+      -webkit-overflow-scrolling: touch;
+    }
+    #generations :global(button) {
+      min-height: 34px !important;
+      height: 34px !important;
+      font-size: 11px !important;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #generations :global(.segmented-thumb) {
+      transition: none !important;
+    }
   }
 </style>
