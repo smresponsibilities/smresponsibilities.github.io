@@ -1,27 +1,24 @@
-# Handoff - 2026-10-19, after ReadingProgress & ScrollSpy Harmonization
+# Handoff - 2026-10-19, after TagInput & Search Results Global Style Fix
 
 ## State
-Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex, Interior-Dev-FilterGrid-Fusion, Interior-Dev-Drawer-And-Menu, Interior-Dev-Segmented-Control-Gen-Selector, Portfolio-Aesthetic-Segmented-Control, Timed-Collapsible-Banners, Form-Dropdown-Interior-Dev, Site-Wide-Style-Harmonization, Tooltip-Group-Interior-Dev, Header-Nav-Harmonization-And-Breadcrumb-Spacing, ReadingProgress-And-ScrollSpy-Harmonization
+Resolved: 119, 120, 121, 122, 124, 125, Entity-Footprint-Expansion, Resume-Dynamic-Metrics, Weekly-Sync-Pipeline, Parasite-SEO-Step1-And-Syndication-Drafts, Menu-And-Simulator-Integration, GitHub-DR96-Parasite-Deployment, GitHub-All-Repos-Optimization, Flight-Sun-Tracker-Geodesic-Refactor, Flight-Sun-Tracker-Nextjs-Security-Patch, Live-App-Demo-Link-Audit-And-Restoration, SEO-Technical-Hardening-And-Case-Studies, Live-Hosting-Feasibility-And-Interactive-Browser-Demos, Entity-Disambiguation-AEO-Comparison-Hardening, Anchor-Alignment-Clickability-GSC-Endorsements, Blog-Crosslinking-Engine-And-Pinned-Milestones, Interior-Dev-Reading-Progress-Component, Vertical-Reading-Progress-And-Scroll-Spy, ScrollSpy-Interior-Dev-Refactor, ScrollSpy-Vertical-No-Truncate, Header-Unification-And-RSS-Removal, Blog-Index-Tag-Input-Interior-Dev, Drawer-Close-And-Subpage-Nav-Buttons, Interior-Dev-Tag-Input-Fidelity, Search-Relevance-And-Streak-Day-Regex, Interior-Dev-FilterGrid-Fusion, Interior-Dev-Drawer-And-Menu, Interior-Dev-Segmented-Control-Gen-Selector, Portfolio-Aesthetic-Segmented-Control, Timed-Collapsible-Banners, Form-Dropdown-Interior-Dev, Site-Wide-Style-Harmonization, Tooltip-Group-Interior-Dev, Header-Nav-Harmonization-And-Breadcrumb-Spacing, ReadingProgress-And-ScrollSpy-Harmonization, Blog-Search-Cards-And-Tag-Input-Scoping-Fix
 Frontier: None
 In flight: None
 
 ## Last session
-1. **ReadingProgress & ScrollSpy Retro Consolidation (`src/components/ReadingProgress.astro`, `src/components/ScrollSpy.astro`):**
-   - **`ScrollSpy.astro` ("ON THIS PAGE"):**
-     - Completely removed SaaS `#4568FF` blue, 12px rounded container corners, and system sans-serif font.
-     - Card container: `border-radius: 4px`, `border: 2px solid var(--border, #343840)`, `background: #0d1522`, `box-shadow: 4px 4px 0 #05070b`.
-     - Header & badge: Square diamond pixel badge in gold `var(--time-accent, #ffd75e)` with `1px 1px 0 #05070b` shadow. Title set in `Departure Mono`, uppercase, gold `#ffd75e`.
-     - Table of contents links: `Departure Mono`, `12px`, zero underlines, `padding: 6px 10px`, `border-radius: 0 2px 2px 0`.
-     - Active section link (`.is-active`): `#162030` dark slate background with solid gold `#ffd75e` left border and text, plus `1px 1px 0 #05070b` offset shadow.
-   - **`ReadingProgress.astro` (`1 min left` pill badge & reading rail):**
-     - Replaced 9999px rounded bubble pill with sharp retro hardware badge: `border-radius: 2px`, `background: #111722`, `border: 1px solid var(--border, #343840)`, `box-shadow: 2px 2px 0 #05070b`, `Departure Mono` font, uppercase.
-     - Top hairline & vertical rails: Background `#08101a` with gold `var(--time-accent, #ffd75e)` fill (zero `#4568FF` blue). Checkmark set to `#ffd75e`.
-2. **Verification**:
-   - Astro build: 1,373 pages generated successfully.
+1. **Dynamic Style Scoping Resolution (`src/pages/blog/index.astro`):**
+   - **Root Cause**: Astro compiler appends scoped `[data-astro-cid-...]` attributes only to template HTML elements. Elements generated dynamically via JavaScript (`searchResults.innerHTML` for `.search-card`, and `document.createElement('li')` for `.tag-chip`) did not receive these attributes, resulting in zero card styling, missing borders, transparent backgrounds, and broken remove buttons.
+   - **`<style is:global>` Migration**: Moved dynamic `.tag-chip`, `.tag-remove-btn`, `.search-card`, `.search-lc-tags`, `.lc-tag`, `.lc-tag-matched`, `.secondary-tags`, `.search-snippet`, and `.no-results-box` rules into a dedicated `<style is:global>` block so all dynamically injected elements render with their full styles.
+2. **Tag Chips & Input Visibility (`src/pages/blog/index.astro`):**
+   - **Tag Chips (`.tag-chip`)**: Styled with a crisp retro gold border (`border: 1.5px solid var(--time-accent, #ffd75e)`), `#111722` dark slate background, `2px 2px 0 #05070b` offset shadow, and `Departure Mono` font. Added clear hover and armed (`.is-armed`) states.
+   - **Input Visibility (`.tag-input-field`)**: Set explicit `color: #ffffff !important;`, `-webkit-text-fill-color: #ffffff;`, and `caret-color: var(--time-accent, #ffd75e)`. Shortened placeholder when tags exist from `"Add another filter..."` to `"Add tag..."` to avoid crowding. Muted placeholder color to `#6d7685` with `opacity: 0.45` on focus so typed draft text is prominently visible.
+   - **Search Query Refinement**: Updated `performSearch` to only append typed draft queries if length >= 2 when tags are active, preventing 1-character keystrokes from immediately wiping out results.
+3. **Verification**:
+   - `npm run build`: 1,373 pages generated successfully in 1m 34s.
    - SEO audit: 17/17 Ahrefs assertions pass.
 
 ## Not yet written down
 None.
 
 ## Next
-Verify live interaction on deployment.
+Verify search and tag input interaction on production.
