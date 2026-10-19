@@ -75,52 +75,36 @@ const {
   .scroll-spy-card {
     position: relative;
     padding: 14px 16px;
-    border-radius: 12px;
-    background: rgba(14, 18, 28, 0.88);
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.28);
-  }
-
-  :global(.light) .scroll-spy-card {
-    background: rgba(245, 245, 245, 0.94);
-    border-color: rgba(0, 0, 0, 0.08);
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    background: #0d1522;
+    border: 2px solid var(--border, #343840);
+    box-shadow: 4px 4px 0 #05070b;
   }
 
   .scroll-spy-header {
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     padding-bottom: 8px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  :global(.light) .scroll-spy-header {
-    border-bottom-color: rgba(0, 0, 0, 0.06);
+    border-bottom: 2px solid var(--border, #343840);
   }
 
   .scroll-spy-badge {
     width: 6px;
     height: 6px;
-    border-radius: 50%;
-    background: #4568FF;
-    box-shadow: 0 0 8px #4568FF;
+    border-radius: 1px;
+    background: var(--time-accent, #ffd75e);
+    box-shadow: 1px 1px 0 #05070b;
   }
 
   .scroll-spy-title {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-family: var(--font-display, "Departure Mono", monospace) !important;
     font-size: 11px !important;
-    font-weight: 700 !important;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    color: #64748b;
-  }
-
-  :global(.light) .scroll-spy-title {
-    color: #94a3b8;
+    font-weight: 600 !important;
+    letter-spacing: var(--track-label, 0.08em) !important;
+    text-transform: uppercase !important;
+    color: var(--time-accent, #ffd75e) !important;
   }
 
   .scroll-spy-track {
@@ -134,12 +118,8 @@ const {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 3px;
-    border-left: 1px solid rgba(255, 255, 255, 0.06);
-  }
-
-  :global(.light) .scroll-spy-list {
-    border-left-color: rgba(0, 0, 0, 0.08);
+    gap: 4px;
+    border-left: 2px solid var(--border, #343840);
   }
 
   .scroll-spy-item {
@@ -148,77 +128,56 @@ const {
     padding: 0;
   }
 
-  /* Force override any global .editorial a inheritance (kill underlines & monospace font) */
+  /* Force override any global .editorial a inheritance (kill underlines, use Departure Mono & retro borders) */
   :global(.editorial) a.scroll-spy-link,
   :global(.editorial a.scroll-spy-link),
   a.scroll-spy-link {
     display: flex !important;
     align-items: center !important;
-    padding: 7px 12px !important;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-    font-weight: 500 !important;
-    color: #94a3b8 !important;
+    padding: 6px 10px !important;
+    font-family: var(--font-display, "Departure Mono", monospace) !important;
+    font-size: 12px !important;
+    line-height: 1.45 !important;
+    font-weight: 400 !important;
+    letter-spacing: 0.02em !important;
+    color: var(--dim, #959ba8) !important;
     text-decoration: none !important;
     text-decoration-line: none !important;
     text-underline-offset: unset !important;
     border-bottom: none !important;
     border-left: 2px solid transparent !important;
-    margin-left: -1px;
+    margin-left: -2px;
     background: transparent !important;
-    border-radius: 0 6px 6px 0 !important;
-    transition: color 0.15s ease, background 0.15s ease, border-color 0.15s ease !important;
+    border-radius: 0 2px 2px 0 !important;
+    transition: color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease !important;
     cursor: pointer !important;
     white-space: normal !important;
     word-break: break-word !important;
   }
 
-  :global(.light .editorial) a.scroll-spy-link,
-  :global(.light .editorial a.scroll-spy-link),
-  :global(.light) a.scroll-spy-link {
-    color: #64748b !important;
-  }
-
   :global(.editorial) a.scroll-spy-link:hover,
   :global(.editorial a.scroll-spy-link:hover),
   a.scroll-spy-link:hover {
-    color: #ffffff !important;
+    color: var(--ink, #e8eddf) !important;
     text-decoration: none !important;
-    text-decoration-line: none !important;
-    background: rgba(255, 255, 255, 0.05) !important;
-    border-left-color: rgba(255, 255, 255, 0.25) !important;
-  }
-
-  :global(.light .editorial) a.scroll-spy-link:hover,
-  :global(.light .editorial a.scroll-spy-link:hover),
-  :global(.light) a.scroll-spy-link:hover {
-    color: #0f172a !important;
-    background: rgba(0, 0, 0, 0.04) !important;
-    border-left-color: rgba(0, 0, 0, 0.2) !important;
+    background: #162030 !important;
+    border-left-color: var(--time-accent, #ffd75e) !important;
   }
 
   :global(.editorial) .scroll-spy-item.is-active a.scroll-spy-link,
   :global(.editorial .scroll-spy-item.is-active a.scroll-spy-link),
   .scroll-spy-item.is-active a.scroll-spy-link {
-    color: #ffffff !important;
+    color: var(--time-accent, #ffd75e) !important;
     font-weight: 600 !important;
     text-decoration: none !important;
-    text-decoration-line: none !important;
-    background: rgba(69, 104, 255, 0.12) !important;
-    border-left-color: #4568FF !important;
-  }
-
-  :global(.light .editorial) .scroll-spy-item.is-active a.scroll-spy-link,
-  :global(.light .editorial .scroll-spy-item.is-active a.scroll-spy-link),
-  :global(.light) .scroll-spy-item.is-active a.scroll-spy-link {
-    color: #0f172a !important;
-    background: rgba(69, 104, 255, 0.1) !important;
-    border-left-color: #4568FF !important;
+    background: #162030 !important;
+    border-left-color: var(--time-accent, #ffd75e) !important;
+    box-shadow: 1px 1px 0 #05070b !important;
   }
 
   .scroll-spy-link:focus-visible {
-    box-shadow: inset 0 0 0 2px #4568FF;
+    outline: 2px solid var(--time-accent, #ffd75e);
+    outline-offset: 1px;
   }
 
   .sr-only {
