@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import CollapsibleBanners from '../components/CollapsibleBanners.astro';
 
 interface Props {
   title: string;
@@ -106,6 +107,7 @@ const accentStyle = accentTypes?.length
   <body>
     <noscript><div><img src="https://mc.yandex.ru/watch/112521507" class="metrika-pixel" width="1" height="1" alt="" /></div></noscript>
     <slot />
+    <CollapsibleBanners />
     <!-- Cloudflare Web Analytics -->
     <script is:inline>
       window.addEventListener('load', function() {

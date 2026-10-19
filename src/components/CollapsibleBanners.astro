@@ -1,0 +1,465 @@
+---
+// CollapsibleBanners.astro
+// Timed popups modeled on Interior.dev CollapsibleBanner with SM'S DEX retro styling.
+---
+
+<aside class="collapsible-banners-stack" id="site-collapsible-banners" aria-label="Site notifications">
+  <!-- Banner 1: Resume (Triggered after 1 min on site) -->
+  <div
+    class="collapsible-banner"
+    id="banner-resume"
+    role="region"
+    aria-labelledby="banner-resume-title"
+    hidden
+  >
+    <div class="banner-card">
+      <div class="banner-header">
+        <span class="banner-icon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <path d="M200 224H56a8 8 0 0 1-8-8V40a8 8 0 0 1 8-8h96l56 56v136a8 8 0 0 1-8 8Z" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <polyline points="152 32 152 88 208 88" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="88" y1="136" x2="168" y2="136" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+            <line x1="88" y1="176" x2="144" y2="176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+          </svg>
+        </span>
+        <button
+          type="button"
+          class="banner-toggle"
+          id="banner-resume-toggle"
+          aria-expanded="true"
+          aria-controls="banner-resume-body"
+        >
+          <span class="banner-title" id="banner-resume-title">Explore Shivam's Resume</span>
+          <span class="banner-caret" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+              <polyline points="208 96 128 176 48 96" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="banner-close"
+          id="banner-resume-close"
+          aria-label="Dismiss resume notice"
+        >
+          <svg width="12" height="12" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <line x1="200" y1="56" x2="56" y2="200" stroke="currentColor" stroke-width="24" stroke-linecap="round"/>
+            <line x1="200" y1="200" x2="56" y2="56" stroke="currentColor" stroke-width="24" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="banner-body" id="banner-resume-body">
+        <div class="banner-body-inner">
+          <p class="banner-desc">Available for software engineering roles. Review Morgan Stanley experience, 425+ test suites, and 2,600+ solved algorithmic problems.</p>
+          <div class="banner-action">
+            <a href="/resume/" class="banner-cta" id="banner-resume-link">View Resume ↗</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Banner 2: Add Pokemon (Triggered after 2 mins on site) -->
+  <div
+    class="collapsible-banner"
+    id="banner-pokemon"
+    role="region"
+    aria-labelledby="banner-pokemon-title"
+    hidden
+  >
+    <div class="banner-card">
+      <div class="banner-header">
+        <span class="banner-icon banner-icon-pokemon" aria-hidden="true">
+          <svg width="15" height="15" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <circle cx="128" cy="128" r="96" stroke="currentColor" stroke-width="20"/>
+            <line x1="32" y1="128" x2="96" y2="128" stroke="currentColor" stroke-width="20"/>
+            <line x1="160" y1="128" x2="224" y2="128" stroke="currentColor" stroke-width="20"/>
+            <circle cx="128" cy="128" r="32" stroke="currentColor" stroke-width="20"/>
+            <circle cx="128" cy="128" r="12" fill="currentColor"/>
+          </svg>
+        </span>
+        <button
+          type="button"
+          class="banner-toggle"
+          id="banner-pokemon-toggle"
+          aria-expanded="true"
+          aria-controls="banner-pokemon-body"
+        >
+          <span class="banner-title" id="banner-pokemon-title">Join the Dex Roster</span>
+          <span class="banner-caret" aria-hidden="true">
+            <svg width="12" height="12" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+              <polyline points="208 96 128 176 48 96" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+        </button>
+        <button
+          type="button"
+          class="banner-close"
+          id="banner-pokemon-close"
+          aria-label="Dismiss add pokemon notice"
+        >
+          <svg width="12" height="12" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+            <line x1="200" y1="56" x2="56" y2="200" stroke="currentColor" stroke-width="24" stroke-linecap="round"/>
+            <line x1="200" y1="200" x2="56" y2="56" stroke="currentColor" stroke-width="24" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="banner-body" id="banner-pokemon-body">
+        <div class="banner-body-inner">
+          <p class="banner-desc">Become a Pokémon in SM'S DEX. Submit your GitHub handle, custom types, and developer stats to join the community.</p>
+          <div class="banner-action">
+            <button type="button" class="banner-cta" id="banner-pokemon-btn">Add Your Pokémon ＋</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  (() => {
+    const RESUME_KEY = 'sm_banner_resume_dismissed';
+    const POKEMON_KEY = 'sm_banner_pokemon_dismissed';
+    const TIMER_KEY = 'sm_site_active_seconds';
+
+    const isResumePage = window.location.pathname.startsWith('/resume');
+
+    const bannerResume = document.getElementById('banner-resume');
+    const bannerPokemon = document.getElementById('banner-pokemon');
+
+    let resumeShown = false;
+    let pokemonShown = false;
+
+    function openBanner(el: HTMLElement | null) {
+      if (!el) return;
+      el.hidden = false;
+      el.removeAttribute('hidden');
+      void el.offsetHeight;
+      el.classList.add('is-visible');
+    }
+
+    function dismissBanner(el: HTMLElement | null, storageKey: string) {
+      if (!el) return;
+      try { sessionStorage.setItem(storageKey, '1'); } catch {}
+      el.classList.add('is-dismissing');
+      el.classList.remove('is-visible');
+      setTimeout(() => {
+        el.hidden = true;
+        el.setAttribute('hidden', '');
+      }, 240);
+    }
+
+    function toggleBanner(el: HTMLElement | null, toggleBtn: HTMLElement | null, bodyEl: HTMLElement | null) {
+      if (!el || !toggleBtn || !bodyEl) return;
+      const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+      toggleBtn.setAttribute('aria-expanded', String(!isExpanded));
+      el.classList.toggle('is-folded', isExpanded);
+    }
+
+    // Bind resume banner interactions
+    if (bannerResume) {
+      const toggle = document.getElementById('banner-resume-toggle');
+      const close = document.getElementById('banner-resume-close');
+      const body = document.getElementById('banner-resume-body');
+      const link = document.getElementById('banner-resume-link');
+
+      toggle?.addEventListener('click', () => toggleBanner(bannerResume, toggle, body));
+      close?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissBanner(bannerResume, RESUME_KEY);
+      });
+      link?.addEventListener('click', () => {
+        try { sessionStorage.setItem(RESUME_KEY, '1'); } catch {}
+      });
+    }
+
+    // Bind pokemon banner interactions
+    if (bannerPokemon) {
+      const toggle = document.getElementById('banner-pokemon-toggle');
+      const close = document.getElementById('banner-pokemon-close');
+      const body = document.getElementById('banner-pokemon-body');
+      const btn = document.getElementById('banner-pokemon-btn');
+
+      toggle?.addEventListener('click', () => toggleBanner(bannerPokemon, toggle, body));
+      close?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dismissBanner(bannerPokemon, POKEMON_KEY);
+      });
+      btn?.addEventListener('click', () => {
+        dismissBanner(bannerPokemon, POKEMON_KEY);
+        const openSubmission = document.getElementById('open-submission');
+        if (openSubmission) {
+          openSubmission.click();
+        } else {
+          window.location.href = '/#open-submission';
+        }
+      });
+    }
+
+    // Active presence timer (pauses when tab hidden)
+    function checkTimers() {
+      if (document.hidden) return;
+
+      let sec = 0;
+      try {
+        sec = parseInt(sessionStorage.getItem(TIMER_KEY) || '0', 10);
+      } catch {}
+
+      sec += 1;
+
+      try {
+        sessionStorage.setItem(TIMER_KEY, String(sec));
+      } catch {}
+
+      // 1 minute (60s): Check resume
+      if (sec >= 60 && !resumeShown && !isResumePage) {
+        try {
+          if (!sessionStorage.getItem(RESUME_KEY)) {
+            resumeShown = true;
+            openBanner(bannerResume);
+          }
+        } catch {}
+      }
+
+      // 2 minutes (120s): Prompt add pokemon
+      if (sec >= 120 && !pokemonShown) {
+        try {
+          if (!sessionStorage.getItem(POKEMON_KEY)) {
+            pokemonShown = true;
+            openBanner(bannerPokemon);
+          }
+        } catch {}
+      }
+    }
+
+    checkTimers();
+    setInterval(checkTimers, 1000);
+  })();
+</script>
+
+<style>
+  .collapsible-banners-stack {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 12px;
+    max-width: 380px;
+    width: calc(100vw - 48px);
+    pointer-events: none;
+  }
+  @media (max-width: 600px) {
+    .collapsible-banners-stack {
+      bottom: 16px;
+      right: 16px;
+      left: 16px;
+      width: calc(100vw - 32px);
+      max-width: none;
+    }
+  }
+
+  .collapsible-banner {
+    pointer-events: auto;
+    opacity: 0;
+    transform: translateY(20px) scale(0.97);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, max-height 0.24s cubic-bezier(0.23, 1, 0.32, 1), margin 0.24s ease;
+    max-height: 280px;
+    overflow: hidden;
+  }
+  .collapsible-banner.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  .collapsible-banner.is-dismissing {
+    opacity: 0;
+    transform: translateY(14px) scale(0.96);
+    max-height: 0;
+    margin: 0;
+  }
+
+  .banner-card {
+    border: 2px solid var(--time-accent, #ffd75e);
+    border-radius: 6px;
+    background: var(--time-deep, #0a111d);
+    color: var(--ink, #e8eddf);
+    box-shadow: 6px 6px 0 #05070b;
+    overflow: hidden;
+  }
+
+  .banner-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: rgba(255, 215, 94, 0.04);
+    border-bottom: 1px solid rgba(255, 215, 94, 0.15);
+  }
+
+  .banner-icon {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid var(--time-accent, #ffd75e);
+    background: rgba(255, 215, 94, 0.14);
+    color: var(--time-accent, #ffd75e);
+    flex-shrink: 0;
+  }
+  .banner-icon-pokemon {
+    border-color: var(--accent, #dc4056);
+    background: rgba(220, 64, 86, 0.14);
+    color: var(--accent, #dc4056);
+  }
+
+  .banner-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    flex: 1;
+    min-width: 0;
+    padding: 4px 6px;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.12s;
+  }
+  .banner-toggle:hover {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .banner-toggle:focus-visible {
+    outline: 2px solid var(--time-accent, #ffd75e);
+    outline-offset: 1px;
+  }
+
+  .banner-title {
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: uppercase;
+  }
+
+  .banner-caret {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dim, #959ba8);
+    transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+    transform: rotate(0deg);
+    flex-shrink: 0;
+  }
+  .collapsible-banner.is-folded .banner-caret {
+    transform: rotate(180deg);
+  }
+
+  .banner-close {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    color: var(--dim, #959ba8);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: color 0.12s, background 0.12s;
+    flex-shrink: 0;
+  }
+  .banner-close:hover {
+    color: var(--accent, #dc4056);
+    background: rgba(220, 64, 86, 0.12);
+  }
+  .banner-close:focus-visible {
+    outline: 2px solid var(--time-accent, #ffd75e);
+  }
+
+  .banner-body {
+    max-height: 180px;
+    opacity: 1;
+    overflow: hidden;
+    transition: max-height 0.24s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.18s ease;
+  }
+  .collapsible-banner.is-folded .banner-body {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .banner-body-inner {
+    padding: 12px 14px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .banner-desc {
+    margin: 0;
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--dim, #b8c2d1);
+  }
+
+  .banner-action {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 2px;
+  }
+
+  .banner-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 7px 14px;
+    border: 2px solid var(--time-accent, #ffd75e);
+    border-radius: 3px;
+    background: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #05070b;
+    transition: background 0.12s, border-color 0.12s, transform 0.08s;
+  }
+  .banner-cta:hover {
+    background: #ffffff;
+    border-color: #ffffff;
+  }
+  .banner-cta:active {
+    transform: translate(1px, 1px);
+    box-shadow: 1px 1px 0 #05070b;
+  }
+  .banner-cta:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .collapsible-banner,
+    .banner-body,
+    .banner-caret {
+      transition: none !important;
+      animation: none !important;
+    }
+  }
+</style>

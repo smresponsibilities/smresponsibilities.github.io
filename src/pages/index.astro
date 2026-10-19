@@ -442,6 +442,8 @@ const projects = [
     const dialog=document.querySelector('#submission-dialog'); const form=document.querySelector('#submission-form'); const status=document.querySelector('#submission-status'); const openButton=document.querySelector('#open-submission');
     if(dialog instanceof HTMLDialogElement&&form instanceof HTMLFormElement&&status instanceof HTMLElement&&openButton instanceof HTMLButtonElement){
       openButton.addEventListener('click',()=>dialog.showModal());
+      if(location.hash==='#open-submission'||location.search.includes('add-pokemon'))dialog.showModal();
+      window.addEventListener('hashchange',()=>{if(location.hash==='#open-submission')dialog.showModal();});
       ['#close-submission','#cancel-submission'].forEach(selector=>document.querySelector(selector)?.addEventListener('click',()=>dialog.close()));
       dialog.addEventListener('click',event=>{if(event.target===dialog)dialog.close();});
       const employment=form.querySelector('[name="status"]');const company=form.querySelector('[name="company"]');const companyField=form.querySelector('[data-company-field]');
