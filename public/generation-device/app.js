@@ -249,16 +249,226 @@ setInterval(refreshRoster,60000);
 addEventListener('focus',refreshRoster);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)refreshRoster();});
 
+// --- Interior.dev Tooltip Group for SM'S DEX hints on / ---
 const tooltip=document.createElement('div');tooltip.id='button-tooltip';tooltip.className='button-tooltip';tooltip.setAttribute('role','tooltip');tooltip.hidden=true;document.body.append(tooltip);
 const callout=document.createElementNS('http://www.w3.org/2000/svg','svg');callout.classList.add('callout-line');callout.setAttribute('aria-hidden','true');callout.innerHTML='<polyline></polyline>';callout.hidden=true;document.body.append(callout);
-let tooltipOwner=null;
+const calloutPoly=callout.querySelector('polyline');
+
 const tooltipSwitch=$('tooltip-switch');
 let tooltipsEnabled=true;
 try{tooltipsEnabled=localStorage.getItem('sm-dex-tooltips')!=='off';}catch{}
 function syncTooltipSwitch(){tooltipSwitch?.setAttribute('aria-checked',String(tooltipsEnabled));}
 syncTooltipSwitch();
-tooltipSwitch?.addEventListener('click',()=>{tooltipsEnabled=!tooltipsEnabled;try{localStorage.setItem('sm-dex-tooltips',tooltipsEnabled?'on':'off');}catch{}hideTooltip();syncTooltipSwitch();});
-function showTooltip(target){const button=target.closest?.('[data-tooltip]'),text=button?.dataset.tooltip;if(!tooltipsEnabled||!text||button===tooltipSwitch)return;tooltipOwner=button;tooltip.replaceChildren();const title=document.createElement('strong');title.textContent=text;tooltip.append(title);if(button.dataset.tooltipDetail){const detail=document.createElement('span');detail.textContent=button.dataset.tooltipDetail;tooltip.append(detail);}tooltip.hidden=false;callout.hidden=false;button.setAttribute('aria-describedby','button-tooltip');const rect=button.getBoundingClientRect(),above=rect.top>190;let top=above?rect.top-tooltip.offsetHeight-92:rect.bottom+92;top=Math.max(16,Math.min(innerHeight-tooltip.offsetHeight-16,top));let left=rect.left+rect.width/2-tooltip.offsetWidth/2+(rect.left<innerWidth/2?150:-150);left=Math.max(16,Math.min(innerWidth-tooltip.offsetWidth-16,left));tooltip.style.left=`${left}px`;tooltip.style.top=`${top}px`;const tx=rect.left+rect.width/2,ty=above?rect.top:rect.bottom,lx=left+tooltip.offsetWidth/2,ly=above?top+tooltip.offsetHeight:top,elbowY=above?ly+28:ly-28;callout.querySelector('polyline').setAttribute('points',`${lx},${ly} ${lx},${elbowY} ${tx},${ty}`);}
-function hideTooltip(){tooltipOwner?.removeAttribute('aria-describedby');tooltipOwner=null;tooltip.hidden=true;callout.hidden=true;callout.querySelector('polyline').removeAttribute('points');}
-document.addEventListener('pointerover',e=>{const button=e.target.closest?.('[data-tooltip]');if(button&&!button.contains(e.relatedTarget))showTooltip(button);});document.addEventListener('pointerout',e=>{const button=e.target.closest?.('[data-tooltip]');if(button&&!button.contains(e.relatedTarget))hideTooltip(button);});document.addEventListener('focusin',e=>showTooltip(e.target));document.addEventListener('focusout',e=>hideTooltip(e.target));
-addEventListener('scroll',hideTooltip,{passive:true,capture:true});addEventListener('resize',hideTooltip,{passive:true});addEventListener('blur',hideTooltip);document.addEventListener('keydown',e=>{if(e.key==='Escape')hideTooltip();});
+
+let tooltipOwner=null;
+let blockedTarget=null;
+let activeTarget=null;
+let isWarm=false;
+let lastX=null;
+let openTimer=null;
+let closeTimer=null;
+let coolTimer=null;
+let currentPlacement=null;
+let rafId=null;
+
+const OPEN_DELAY=180;
+const CLOSE_DELAY=100;
+const SKIP_DELAY=400;
+const GLIDE_DURATION=180;
+
+const stopTimer=t=>{if(t!==null)clearTimeout(t);return null;};
+
+function cool(){
+  coolTimer=stopTimer(coolTimer);
+  if(SKIP_DELAY<=0){isWarm=false;return;}
+  coolTimer=setTimeout(()=>{coolTimer=null;isWarm=false;lastX=null;},SKIP_DELAY);
+}
+
+function getPlacement(button){
+  const rect=button.getBoundingClientRect();
+  const above=rect.top>190;
+  const tipW=tooltip.offsetWidth||230;
+  const tipH=tooltip.offsetHeight||60;
+  let top=above?rect.top-tipH-92:rect.bottom+92;
+  top=Math.max(16,Math.min(window.innerHeight-tipH-16,top));
+  let left=rect.left+rect.width/2-tipW/2+(rect.left<window.innerWidth/2?150:-150);
+  left=Math.max(16,Math.min(window.innerWidth-tipW-16,left));
+  const tx=rect.left+rect.width/2;
+  const ty=above?rect.top:rect.bottom;
+  const lx=left+tipW/2;
+  const ly=above?top+tipH:top;
+  const elbowY=above?ly+28:ly-28;
+  return {left,top,tx,ty,lx,ly,elbowY};
+}
+
+function animateCalloutLine(from,to,duration=GLIDE_DURATION){
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduced||!from){
+    calloutPoly?.setAttribute('points',`${to.lx},${to.ly} ${to.lx},${to.elbowY} ${to.tx},${to.ty}`);
+    return;
+  }
+  if(rafId)cancelAnimationFrame(rafId);
+  const start=performance.now();
+  function frame(now){
+    const elapsed=now-start;
+    const p=Math.min(1,elapsed/duration);
+    const ease=1-Math.pow(1-p,3);
+    const clx=from.lx+(to.lx-from.lx)*ease;
+    const cly=from.ly+(to.ly-from.ly)*ease;
+    const celb=from.elbowY+(to.elbowY-from.elbowY)*ease;
+    const ctx=from.tx+(to.tx-from.tx)*ease;
+    const cty=from.ty+(to.ty-from.ty)*ease;
+    calloutPoly?.setAttribute('points',`${clx},${cly} ${clx},${celb} ${ctx},${cty}`);
+    if(p<1){rafId=requestAnimationFrame(frame);}else{rafId=null;}
+  }
+  rafId=requestAnimationFrame(frame);
+}
+
+function renderTooltip(button,travel,warm){
+  const text=button?.dataset.tooltip;
+  if(!text)return;
+  const content=document.createElement('div');
+  content.className='button-tooltip-content';
+  if(travel>0){content.classList.add('swap-right');}
+  else if(travel<0){content.classList.add('swap-left');}
+  else{content.classList.add('swap-up');}
+  const title=document.createElement('strong');
+  title.textContent=text;
+  content.append(title);
+  if(button.dataset.tooltipDetail){
+    const detail=document.createElement('span');
+    detail.textContent=button.dataset.tooltipDetail;
+    content.append(detail);
+  }
+  tooltip.replaceChildren(content);
+  const placement=getPlacement(button);
+  if(warm&&currentPlacement){
+    tooltip.classList.add('is-gliding');
+    animateCalloutLine(currentPlacement,placement,GLIDE_DURATION);
+  }else{
+    tooltip.classList.remove('is-gliding');
+    calloutPoly?.setAttribute('points',`${placement.lx},${placement.ly} ${placement.lx},${placement.elbowY} ${placement.tx},${placement.ty}`);
+  }
+  tooltip.style.left=`${placement.left}px`;
+  tooltip.style.top=`${placement.top}px`;
+  currentPlacement=placement;
+  tooltip.hidden=false;
+  callout.hidden=false;
+  tooltip.classList.add('is-visible');
+  callout.classList.add('is-visible');
+  tooltipOwner=button;
+  activeTarget=button;
+  button.setAttribute('aria-describedby','button-tooltip');
+}
+
+function showTooltip(target,immediate=false,clientX){
+  const button=target?.closest?.('[data-tooltip]');
+  if(!tooltipsEnabled||!button||button===tooltipSwitch||button===blockedTarget)return;
+  closeTimer=stopTimer(closeTimer);
+  coolTimer=stopTimer(coolTimer);
+  if(activeTarget===button){
+    openTimer=stopTimer(openTimer);
+    return;
+  }
+  const rect=button.getBoundingClientRect();
+  const currentX=clientX!==undefined?clientX:rect.left+rect.width/2;
+  const travel=lastX!==null?Math.sign(currentX-lastX):0;
+  lastX=currentX;
+  const arrive=()=>{
+    isWarm=true;
+    renderTooltip(button,travel,isWarm);
+  };
+  if(immediate||isWarm){
+    openTimer=stopTimer(openTimer);
+    arrive();
+    return;
+  }
+  openTimer=stopTimer(openTimer);
+  openTimer=setTimeout(()=>{
+    openTimer=null;
+    arrive();
+  },OPEN_DELAY);
+}
+
+function hideTooltip(immediate=false){
+  openTimer=stopTimer(openTimer);
+  if(activeTarget===null&&tooltip.hidden)return;
+  const finish=()=>{
+    closeTimer=null;
+    tooltipOwner?.removeAttribute('aria-describedby');
+    tooltipOwner=null;
+    activeTarget=null;
+    tooltip.classList.remove('is-visible','is-gliding');
+    callout.classList.remove('is-visible');
+    tooltip.hidden=true;
+    callout.hidden=true;
+    currentPlacement=null;
+    if(rafId){cancelAnimationFrame(rafId);rafId=null;}
+    calloutPoly?.removeAttribute('points');
+    cool();
+  };
+  if(immediate||CLOSE_DELAY<=0){
+    closeTimer=stopTimer(closeTimer);
+    finish();
+  }else{
+    closeTimer=stopTimer(closeTimer);
+    closeTimer=setTimeout(finish,CLOSE_DELAY);
+  }
+}
+
+function dismissTooltip(){
+  if(activeTarget){blockedTarget=activeTarget;}
+  openTimer=stopTimer(openTimer);
+  closeTimer=stopTimer(closeTimer);
+  coolTimer=stopTimer(coolTimer);
+  isWarm=false;
+  lastX=null;
+  hideTooltip(true);
+}
+
+tooltipSwitch?.addEventListener('click',()=>{
+  tooltipsEnabled=!tooltipsEnabled;
+  try{localStorage.setItem('sm-dex-tooltips',tooltipsEnabled?'on':'off');}catch{}
+  dismissTooltip();
+  syncTooltipSwitch();
+});
+
+document.addEventListener('pointerover',e=>{
+  const button=e.target.closest?.('[data-tooltip]');
+  if(button&&!button.contains(e.relatedTarget)){
+    showTooltip(button,false,e.clientX);
+  }
+});
+
+document.addEventListener('pointerout',e=>{
+  const button=e.target.closest?.('[data-tooltip]');
+  if(button&&!button.contains(e.relatedTarget)){
+    if(button===blockedTarget)blockedTarget=null;
+    hideTooltip(false);
+  }
+});
+
+document.addEventListener('pointerdown',e=>{
+  const button=e.target.closest?.('[data-tooltip]');
+  if(button){blockedTarget=button;}
+  dismissTooltip();
+});
+
+document.addEventListener('focusin',e=>{
+  const button=e.target.closest?.('[data-tooltip]');
+  if(button){showTooltip(button,true);}
+});
+
+document.addEventListener('focusout',e=>{
+  const button=e.target.closest?.('[data-tooltip]');
+  if(button){
+    if(button===blockedTarget)blockedTarget=null;
+    hideTooltip(true);
+  }
+});
+
+addEventListener('scroll',()=>hideTooltip(true),{passive:true,capture:true});
+addEventListener('resize',()=>hideTooltip(true),{passive:true});
+addEventListener('blur',()=>dismissTooltip());
+document.addEventListener('visibilitychange',()=>{if(document.hidden)dismissTooltip();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')dismissTooltip();});
