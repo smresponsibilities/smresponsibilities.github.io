@@ -373,24 +373,25 @@ const { showBio = true } = Astro.props;
     gap: 7px;
     height: 32px;
     padding: 0 12px;
-    border-radius: 7px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: #191919;
-    box-shadow: 0 0 0 1px #282828, 0 1px 2px rgba(0, 0, 0, 0.3);
-    color: #e5e5e5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    font-size: 12px;
+    border-radius: 2px;
+    border: 1px solid var(--border, #343840);
+    background: #111722;
+    box-shadow: 2px 2px 0 #05070b;
+    color: var(--ink, #e8eddf);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 11.5px;
     font-weight: 500;
-    letter-spacing: 0.01em;
+    letter-spacing: var(--track-label, 0.08em);
+    text-transform: uppercase;
     cursor: pointer;
     outline: none;
     transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .menu-toggle:hover {
-    background: #222222;
-    border-color: rgba(255, 255, 255, 0.22);
-    color: #ffffff;
+    background: #162030;
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-accent, #ffd75e);
   }
 
   .menu-toggle:active {
@@ -398,15 +399,15 @@ const { showBio = true } = Astro.props;
   }
 
   .menu-toggle:focus-visible {
-    outline: 2px solid #4568FF;
-    outline-offset: 1px;
+    outline: 2px solid var(--time-accent, #ffd75e);
+    outline-offset: 2px;
   }
 
   .menu-toggle[aria-expanded="true"] {
-    background: #282828;
-    border-color: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    box-shadow: 0 0 0 1px #333333, 0 1px 2px rgba(0, 0, 0, 0.4);
+    background: var(--time-accent, #ffd75e);
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
+    box-shadow: 2px 2px 0 #05070b;
   }
 
   .menu-icon-svg {
@@ -418,13 +419,13 @@ const { showBio = true } = Astro.props;
     transform: rotate(90deg);
   }
 
-  /* Site Drawer Panel & Backdrop - Interior.dev Drawer Component */
+  /* Site Drawer Panel & Backdrop - Interior.dev Drawer Component with SM's DEX tokens */
   .site-drawer-backdrop {
     position: fixed;
     inset: 0;
     z-index: 99998;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(4px);
+    background: rgba(5, 7, 11, 0.75);
+    backdrop-filter: blur(2px);
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
@@ -458,12 +459,10 @@ const { showBio = true } = Astro.props;
     height: 100vh;
     height: 100dvh;
     overflow: hidden;
-    background: #111111;
-    border-left: 1px solid rgba(255, 255, 255, 0.1);
-    border-top-left-radius: 14px;
-    border-bottom-left-radius: 14px;
-    box-shadow: 0 0 56px -16px rgba(0, 0, 0, 0.8), -1px 0 0 rgba(255, 255, 255, 0.1);
-    color: #e5e5e5;
+    background: var(--time-deep, #08101a);
+    border-left: 2px solid var(--time-accent, #ffd75e);
+    box-shadow: -8px 0 0 #05070b, -16px 0 32px rgba(0, 0, 0, 0.85);
+    color: var(--ink, #e8eddf);
     transform: translateX(calc(100% + 24px));
     opacity: 0;
     visibility: hidden;
@@ -501,9 +500,9 @@ const { showBio = true } = Astro.props;
     align-items: flex-start;
     justify-content: space-between;
     gap: 12px;
-    padding: 14px 18px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    background: #111111;
+    padding: 16px 18px;
+    border-bottom: 2px solid var(--border, #343840);
+    background: #060b12;
     user-select: none;
   }
 
@@ -515,68 +514,68 @@ const { showBio = true } = Astro.props;
 
   .drawer-title {
     margin: 0;
-    font-size: 13.5px;
+    font-size: 15px;
     font-weight: 500;
-    color: #f5f5f5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    letter-spacing: -0.01em;
+    color: var(--ink, #e8eddf);
+    font-family: var(--font-display, "Departure Mono", monospace);
+    letter-spacing: var(--track-label, 0.08em);
+    text-transform: uppercase;
   }
 
   .drawer-subtitle {
-    margin: 2px 0 0;
+    margin: 3px 0 0;
     font-size: 12px;
-    color: #888888;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--dim, #959ba8);
+    font-family: var(--font-display, "Departure Mono", monospace);
   }
 
   .drawer-close {
     display: grid;
     place-items: center;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     margin-right: -4px;
     padding: 0;
-    border-radius: 7px;
-    border: none;
-    background: transparent;
-    color: #a3a3a3;
+    border-radius: 2px;
+    border: 1px solid var(--border, #343840);
+    background: #111722;
+    color: var(--dim, #959ba8);
     cursor: pointer;
     outline: none;
-    transition: background-color 0.15s ease, color 0.15s ease;
+    transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
   }
 
   .drawer-close:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
+    background-color: var(--time-accent, #ffd75e);
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
   }
 
   .drawer-close:focus-visible {
-    box-shadow: inset 0 0 0 1px #4568FF;
-    color: #ffffff;
+    outline: 2px solid var(--time-accent, #ffd75e);
+    outline-offset: 2px;
   }
 
   .drawer-body {
     flex: 1 1 auto;
     overflow-y: auto;
     overscroll-behavior: contain;
-    padding: 14px 16px;
+    padding: 16px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--time-accent, #ffd75e) #060b12;
   }
 
   .drawer-body::-webkit-scrollbar {
-    width: 3px;
+    width: 4px;
   }
 
   .drawer-body::-webkit-scrollbar-track {
-    background: transparent;
+    background: #060b12;
   }
 
   .drawer-body::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 999px;
-  }
-
-  .drawer-body::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.28);
+    background-color: var(--time-accent, #ffd75e);
+    border-radius: 2px;
   }
 
   .drawer-section {
@@ -589,12 +588,12 @@ const { showBio = true } = Astro.props;
 
   .drawer-section-heading {
     display: block;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    font-size: 10.5px;
+    font-family: var(--font-display, "Departure Mono", monospace);
+    font-size: 11px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #737373;
+    letter-spacing: var(--track-label, 0.08em);
+    color: var(--time-accent, #ffd75e);
     margin-bottom: 8px;
     padding-left: 6px;
   }
@@ -612,19 +611,19 @@ const { showBio = true } = Astro.props;
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    padding: 8px 10px;
-    border-radius: 8px;
+    padding: 10px 12px;
+    border-radius: 2px;
     border: 1px solid transparent;
     background: transparent;
-    color: #c4c4c4;
+    color: var(--ink, #e8eddf);
     text-decoration: none !important;
     transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
   }
 
   .drawer-link:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
-    color: #ffffff;
+    background: #121824;
+    border-color: var(--border, #343840);
+    color: var(--time-accent, #ffd75e);
   }
 
   .drawer-link:active {
@@ -632,17 +631,16 @@ const { showBio = true } = Astro.props;
   }
 
   .drawer-link.is-current {
-    background: #1c1c1c;
-    border-color: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
+    background: #162030;
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-accent, #ffd75e);
   }
 
   .drawer-bullet {
     font-size: 11px;
-    color: #4568FF;
+    color: var(--time-accent, #ffd75e);
     margin-top: 3px;
     flex-shrink: 0;
-    opacity: 0.85;
   }
 
   .drawer-item-text {
@@ -653,52 +651,54 @@ const { showBio = true } = Astro.props;
   }
 
   .drawer-item-text strong {
-    font-size: 12.5px;
+    font-size: 13px;
     font-weight: 500;
-    color: #f5f5f5;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    color: var(--ink, #e8eddf);
+    font-family: var(--font-display, "Departure Mono", monospace);
     line-height: 1.35;
   }
 
   .drawer-item-text small {
-    font-size: 11px;
-    color: #888888;
+    font-size: 11.5px;
+    color: var(--dim, #959ba8);
     line-height: 1.35;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-display, "Departure Mono", monospace);
   }
 
   .drawer-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px;
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-top: 2px solid var(--border, #343840);
     padding: 14px 16px;
-    background: #111111;
+    background: #060b12;
   }
 
   .drawer-action-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 32px;
+    min-height: 38px;
     padding: 0 12px;
-    border-radius: 7px;
-    background: #202020;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
-    color: #d4d4d4;
-    font-size: 12px;
+    border-radius: 2px;
+    background: #111722;
+    border: 1px solid var(--border, #343840);
+    box-shadow: 2px 2px 0 #05070b;
+    color: var(--ink, #e8eddf);
+    font-size: 11.5px;
     font-weight: 500;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-family: var(--font-display, "Departure Mono", monospace);
+    letter-spacing: var(--track-label, 0.08em);
+    text-transform: uppercase;
     text-decoration: none !important;
     cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 
   .drawer-action-btn:hover {
-    background: #282828;
-    border-color: rgba(255, 255, 255, 0.18);
-    color: #ffffff;
+    background: var(--time-accent, #ffd75e);
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
   }
 
   .drawer-action-btn:active {
@@ -707,16 +707,16 @@ const { showBio = true } = Astro.props;
 
   .drawer-btn-roster {
     grid-column: 1 / -1;
-    background: #4568FF;
-    border-color: #3655dc;
-    color: #ffffff !important;
-    box-shadow: 0 1px 2px rgba(42, 68, 184, 0.25);
+    background: var(--time-accent, #ffd75e);
+    border-color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
+    box-shadow: 3px 3px 0 #05070b;
   }
 
   .drawer-btn-roster:hover {
-    background: #5778ff;
-    border-color: #4568ff;
-    color: #ffffff !important;
+    background: var(--time-glow, #f9e59c);
+    border-color: var(--time-glow, #f9e59c);
+    color: var(--time-deep, #08101a) !important;
   }
 
   @media (max-width: 760px) {
