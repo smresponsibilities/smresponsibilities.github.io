@@ -20,7 +20,9 @@ const { showBio = true } = Astro.props;
       <a class="resume-button" data-resume href="/resume/">Resume</a>
       <a class="add-button" href="/#open-submission" data-tooltip="Open the form to join the public roster">Add Pokémon</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
-        <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
+          <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+        </svg>
         <span class="menu-text">Menu</span>
       </button>
     </nav>
@@ -35,7 +37,9 @@ const { showBio = true } = Astro.props;
       <a class={`nav-btn nav-btn-resume ${currentPath.startsWith('/resume') ? 'is-active' : ''}`} data-resume href="/resume/">Resume</a>
       <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
-        <span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+        <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
+          <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+        </svg>
         <span class="menu-text">Menu</span>
       </button>
     </nav>
@@ -49,7 +53,12 @@ const { showBio = true } = Astro.props;
       <span class="drawer-title">SM'S DEX</span>
       <span class="drawer-subtitle">Portfolio & Knowledge Index</span>
     </div>
-    <button class="drawer-close" id="close-drawer" type="button" aria-label="Close navigation menu">✕</button>
+    <button class="drawer-close" id="close-drawer" type="button" aria-label="Close navigation menu">
+      <svg width="13" height="13" viewBox="0 0 256 256" fill="none" aria-hidden="true">
+        <line x1="200" y1="56" x2="56" y2="200" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+        <line x1="200" y1="200" x2="56" y2="56" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
+      </svg>
+    </button>
   </div>
 
   <div class="drawer-body">
@@ -357,73 +366,79 @@ const { showBio = true } = Astro.props;
     background: var(--time-soft, #fff);
   }
 
+  /* Menu Toggle Button - Interior .mat-cap .press style */
   .menu-toggle {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    min-height: var(--tap);
-    padding: 10px 16px;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--panel);
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: var(--fs-label);
-    letter-spacing: var(--track-label);
-    text-transform: uppercase;
+    gap: 7px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 7px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #191919;
+    box-shadow: 0 0 0 1px #282828, 0 1px 2px rgba(0, 0, 0, 0.3);
+    color: #e5e5e5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
     cursor: pointer;
-    transition: border-color var(--dur-fast) var(--ease), background-color var(--dur-fast) var(--ease);
+    outline: none;
+    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .menu-toggle:hover {
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 15%, var(--panel));
-    color: var(--ink);
+    background: #222222;
+    border-color: rgba(255, 255, 255, 0.22);
+    color: #ffffff;
+  }
+
+  .menu-toggle:active {
+    transform: translateY(1px);
+  }
+
+  .menu-toggle:focus-visible {
+    outline: 2px solid #4568FF;
+    outline-offset: 1px;
   }
 
   .menu-toggle[aria-expanded="true"] {
-    border-color: var(--accent);
-    background: var(--accent);
-    color: var(--bg);
+    background: #282828;
+    border-color: rgba(255, 255, 255, 0.25);
+    color: #ffffff;
+    box-shadow: 0 0 0 1px #333333, 0 1px 2px rgba(0, 0, 0, 0.4);
   }
 
-  .menu-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 16px;
-    height: 12px;
+  .menu-icon-svg {
+    flex-shrink: 0;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .menu-icon span {
-    display: block;
-    width: 100%;
-    height: 2px;
-    background: currentColor;
-    border-radius: 1px;
-    transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  .menu-toggle[aria-expanded="true"] .menu-icon-svg {
+    transform: rotate(90deg);
   }
 
-  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(1) {
-    transform: translateY(5px) rotate(45deg);
-  }
-
-  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .menu-toggle[aria-expanded="true"] .menu-icon span:nth-child(3) {
-    transform: translateY(-5px) rotate(-45deg);
-  }
-
-  /* Site Drawer Panel & Backdrop */
+  /* Site Drawer Panel & Backdrop - Interior.dev Drawer Component */
   .site-drawer-backdrop {
     position: fixed;
     inset: 0;
     z-index: 99998;
-    background: #04080eee;
-    backdrop-filter: blur(6px);
-    transition: opacity var(--dur-base) var(--ease);
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .site-drawer-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .site-drawer-backdrop.is-closing {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.16s cubic-bezier(0.4, 0, 1, 1);
   }
 
   .site-drawer-backdrop[hidden] {
@@ -438,86 +453,134 @@ const { showBio = true } = Astro.props;
     z-index: 99999;
     display: flex;
     flex-direction: column;
-    width: min(460px, 100vw);
+    width: 380px;
+    max-width: calc(100% - 40px);
     height: 100vh;
     height: 100dvh;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-    background: #0a121f;
-    border-left: 3px solid var(--accent);
-    box-shadow: -12px 0 36px #03060cf0;
-    color: var(--ink);
-    animation: drawer-slide-in 200ms var(--ease);
+    overflow: hidden;
+    background: #111111;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-top-left-radius: 14px;
+    border-bottom-left-radius: 14px;
+    box-shadow: 0 0 56px -16px rgba(0, 0, 0, 0.8), -1px 0 0 rgba(255, 255, 255, 0.1);
+    color: #e5e5e5;
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease, visibility 0.28s;
+    outline: none;
+    touch-action: pan-y;
+  }
+
+  .site-drawer.is-open {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .site-drawer.is-closing {
+    transform: translateX(calc(100% + 24px));
+    opacity: 0;
+    transition: transform 0.18s cubic-bezier(0.4, 0, 1, 1), opacity 0.16s ease;
   }
 
   .site-drawer[hidden] {
     display: none !important;
   }
 
-  @keyframes drawer-slide-in {
-    from { transform: translateX(100%); }
-    to { transform: translateX(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .site-drawer { animation: none; }
+    .site-drawer,
+    .site-drawer-backdrop {
+      transition: none !important;
+      animation: none !important;
+    }
   }
 
   .drawer-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
-    gap: 16px;
-    padding: 22px 24px;
-    border-bottom: 2px solid var(--border);
-    background: #070d17;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    background: #111111;
+    user-select: none;
   }
 
   .drawer-branding {
     display: flex;
     flex-direction: column;
+    min-width: 0;
   }
 
   .drawer-title {
-    font: 700 var(--fs-head) / 1.1 var(--font-display);
-    color: var(--time-accent, #ffd75e);
-    letter-spacing: var(--track-label);
+    margin: 0;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    letter-spacing: -0.01em;
   }
 
   .drawer-subtitle {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--dim);
-    margin-top: 4px;
+    margin: 2px 0 0;
+    font-size: 12px;
+    color: #888888;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   .drawer-close {
     display: grid;
     place-items: center;
-    width: 40px;
-    height: 40px;
+    width: 28px;
+    height: 28px;
+    margin-right: -4px;
     padding: 0;
-    border: 2px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--panel);
-    color: var(--ink);
-    font-size: 20px;
+    border-radius: 7px;
+    border: none;
+    background: transparent;
+    color: #a3a3a3;
     cursor: pointer;
+    outline: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
 
   .drawer-close:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  .drawer-close:focus-visible {
+    box-shadow: inset 0 0 0 1px #4568FF;
+    color: #ffffff;
   }
 
   .drawer-body {
     flex: 1 1 auto;
-    padding: 24px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: 14px 16px;
+  }
+
+  .drawer-body::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  .drawer-body::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .drawer-body::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 999px;
+  }
+
+  .drawer-body::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255, 255, 255, 0.28);
   }
 
   .drawer-section {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
   }
 
   .drawer-section:last-child {
@@ -526,110 +589,134 @@ const { showBio = true } = Astro.props;
 
   .drawer-section-heading {
     display: block;
-    font-size: 11px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 10.5px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: var(--time-accent, #ffd75e);
-    margin-bottom: 12px;
-    padding-bottom: 5px;
-    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.08em;
+    color: #737373;
+    margin-bottom: 8px;
+    padding-left: 6px;
   }
 
   .drawer-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 
   .drawer-link {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: #0d1624;
-    color: var(--ink);
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #c4c4c4;
     text-decoration: none !important;
-    transition: border-color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease);
+    transition: background-color 0.12s ease, border-color 0.12s ease, transform 0.12s ease;
   }
 
   .drawer-link:hover {
-    border-color: var(--accent);
-    background: #142236;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+  }
+
+  .drawer-link:active {
+    transform: translateY(1px);
   }
 
   .drawer-link.is-current {
-    border-color: var(--accent);
-    background: color-mix(in srgb, var(--accent) 18%, #0d1624);
+    background: #1c1c1c;
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
   }
 
   .drawer-bullet {
-    color: var(--accent);
     font-size: 11px;
-    margin-top: 4px;
+    color: #4568FF;
+    margin-top: 3px;
     flex-shrink: 0;
+    opacity: 0.85;
   }
 
   .drawer-item-text {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 2px;
+    min-width: 0;
   }
 
   .drawer-item-text strong {
-    font-size: 14px;
-    font-family: var(--font-display);
-    color: var(--ink);
+    font-size: 12.5px;
+    font-weight: 500;
+    color: #f5f5f5;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.35;
   }
 
   .drawer-item-text small {
-    font-size: 12px;
-    color: var(--dim);
-    line-height: 1.4;
+    font-size: 11px;
+    color: #888888;
+    line-height: 1.35;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   }
 
   .drawer-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 10px;
+    gap: 8px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 14px 16px;
+    background: #111111;
   }
 
   .drawer-action-btn {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: var(--tap);
-    padding: 10px 14px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    background: var(--panel);
-    color: var(--ink);
-    font-family: var(--font-display);
-    font-size: 13px;
+    height: 32px;
+    padding: 0 12px;
+    border-radius: 7px;
+    background: #202020;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+    color: #d4d4d4;
+    font-size: 12px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     text-decoration: none !important;
     cursor: pointer;
-    text-align: center;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.12s ease;
   }
 
   .drawer-action-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
+    background: #282828;
+    border-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+  }
+
+  .drawer-action-btn:active {
+    transform: translateY(1px);
   }
 
   .drawer-btn-roster {
     grid-column: 1 / -1;
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff !important;
-    font-weight: bold;
+    background: #4568FF;
+    border-color: #3655dc;
+    color: #ffffff !important;
+    box-shadow: 0 1px 2px rgba(42, 68, 184, 0.25);
   }
 
   .drawer-btn-roster:hover {
-    filter: brightness(1.15);
-    color: #fff !important;
+    background: #5778ff;
+    border-color: #4568ff;
+    color: #ffffff !important;
   }
 
   @media (max-width: 760px) {
@@ -669,6 +756,8 @@ const { showBio = true } = Astro.props;
     }
     .site-drawer {
       width: 100vw;
+      max-width: 100vw;
+      border-radius: 0;
       border-left: none;
     }
   }
@@ -686,23 +775,40 @@ const { showBio = true } = Astro.props;
     const siteDrawer = document.querySelector('#site-drawer');
     const drawerBackdrop = document.querySelector('#site-drawer-backdrop');
     const closeDrawer = document.querySelector('#close-drawer');
+    const drawerAddPokemon = document.querySelector('#drawer-add-pokemon');
 
     if (menuToggle instanceof HTMLButtonElement && siteDrawer instanceof HTMLElement && drawerBackdrop instanceof HTMLElement && closeDrawer instanceof HTMLButtonElement) {
       if (menuToggle.dataset.initialized === 'true') return;
       menuToggle.dataset.initialized = 'true';
 
+      let isTransitioning = false;
+
       const openDrawer = () => {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
         siteDrawer.hidden = false;
         siteDrawer.removeAttribute('hidden');
-        siteDrawer.style.display = 'flex';
-
         drawerBackdrop.hidden = false;
         drawerBackdrop.removeAttribute('hidden');
-        drawerBackdrop.style.display = 'block';
 
+        const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+        document.documentElement.style.overflow = 'hidden';
+        if (scrollBarWidth > 0) {
+          document.documentElement.style.paddingRight = `${scrollBarWidth}px`;
+        }
+
+        void siteDrawer.offsetHeight;
+        siteDrawer.classList.remove('is-closing');
+        siteDrawer.classList.add('is-open');
+        drawerBackdrop.classList.remove('is-closing');
+        drawerBackdrop.classList.add('is-open');
         menuToggle.setAttribute('aria-expanded', 'true');
-        document.body.style.overflow = 'hidden';
-        closeDrawer.focus();
+
+        setTimeout(() => {
+          closeDrawer.focus({ preventScroll: true });
+          isTransitioning = false;
+        }, 60);
       };
 
       const closeDrawerMenu = (e?: Event) => {
@@ -710,44 +816,100 @@ const { showBio = true } = Astro.props;
           e.preventDefault();
           e.stopPropagation();
         }
-        siteDrawer.hidden = true;
-        siteDrawer.setAttribute('hidden', '');
-        siteDrawer.style.display = 'none';
+        if (isTransitioning) return;
+        if (!siteDrawer.classList.contains('is-open')) return;
+        isTransitioning = true;
 
-        drawerBackdrop.hidden = true;
-        drawerBackdrop.setAttribute('hidden', '');
-        drawerBackdrop.style.display = 'none';
-
+        siteDrawer.classList.add('is-closing');
+        siteDrawer.classList.remove('is-open');
+        drawerBackdrop.classList.add('is-closing');
+        drawerBackdrop.classList.remove('is-open');
         menuToggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-        menuToggle.focus();
+
+        document.documentElement.style.overflow = '';
+        document.documentElement.style.paddingRight = '';
+
+        setTimeout(() => {
+          siteDrawer.hidden = true;
+          siteDrawer.setAttribute('hidden', '');
+          siteDrawer.classList.remove('is-closing');
+
+          drawerBackdrop.hidden = true;
+          drawerBackdrop.setAttribute('hidden', '');
+          drawerBackdrop.classList.remove('is-closing');
+
+          isTransitioning = false;
+          menuToggle.focus({ preventScroll: true });
+        }, 200);
       };
 
       menuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
-        const isHidden = siteDrawer.hidden || siteDrawer.hasAttribute('hidden') || siteDrawer.style.display === 'none';
-        if (isHidden) {
-          openDrawer();
-        } else {
+        const isOpen = siteDrawer.classList.contains('is-open');
+        if (isOpen) {
           closeDrawerMenu(e);
+        } else {
+          openDrawer();
         }
       });
 
       closeDrawer.addEventListener('click', closeDrawerMenu);
-      closeDrawer.addEventListener('touchend', closeDrawerMenu);
       drawerBackdrop.addEventListener('click', closeDrawerMenu);
-      drawerBackdrop.addEventListener('touchend', closeDrawerMenu);
 
       window.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && (!siteDrawer.hidden || siteDrawer.style.display === 'flex')) {
+        if (e.key === 'Escape' && siteDrawer.classList.contains('is-open')) {
           closeDrawerMenu(e);
         }
       });
+
+      if (drawerAddPokemon) {
+        drawerAddPokemon.addEventListener('click', () => {
+          closeDrawerMenu();
+          const dialog = document.querySelector('#submission-dialog');
+          if (dialog instanceof HTMLDialogElement) {
+            dialog.showModal();
+          }
+        });
+      }
 
       siteDrawer.querySelectorAll('a').forEach((link) => {
         link.addEventListener('click', () => {
           closeDrawerMenu();
         });
+      });
+
+      // Swipe / Drag to dismiss gesture
+      let startX = 0;
+      let currentX = 0;
+      let isDragging = false;
+
+      siteDrawer.addEventListener('touchstart', (e) => {
+        if (e.touches.length !== 1) return;
+        startX = e.touches[0].clientX;
+        currentX = startX;
+        isDragging = true;
+      }, { passive: true });
+
+      siteDrawer.addEventListener('touchmove', (e) => {
+        if (!isDragging) return;
+        currentX = e.touches[0].clientX;
+        const deltaX = currentX - startX;
+        if (deltaX > 0) {
+          siteDrawer.style.transform = `translateX(${deltaX}px)`;
+          const opacity = Math.max(0, 1 - deltaX / 300);
+          drawerBackdrop.style.opacity = String(opacity);
+        }
+      }, { passive: true });
+
+      siteDrawer.addEventListener('touchend', () => {
+        if (!isDragging) return;
+        isDragging = false;
+        const deltaX = currentX - startX;
+        siteDrawer.style.transform = '';
+        drawerBackdrop.style.opacity = '';
+        if (deltaX > 80) {
+          closeDrawerMenu();
+        }
       });
     }
   }
