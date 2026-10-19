@@ -102,9 +102,9 @@ const projects = [
 
 <Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
   <Fragment slot="head">
-    <link rel="preload" href="/generation-device/style.css?v=81.0" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="/generation-device/style.css?v=81.0" /></noscript>
-    <link rel="modulepreload" href="/generation-device/app.js?v=90.0" />
+    <link rel="preload" href="/generation-device/style.css?v=82.0" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+    <noscript><link rel="stylesheet" href="/generation-device/style.css?v=82.0" /></noscript>
+    <link rel="modulepreload" href="/generation-device/app.js?v=91.0" />
     <link rel="modulepreload" href="/generation-device/assets/kanto.js?v=55.0" />
     <link rel="modulepreload" href="/generation-device/content.js?v=89.0" />
     <link rel="modulepreload" href="/generation-device/renderer.js?v=64.0" />
@@ -510,7 +510,7 @@ const projects = [
       }
     }
   </script>
-  <script is:inline type="module">import('/generation-device/app.js?v=90.0');</script>
+  <script is:inline type="module">import('/generation-device/app.js?v=91.0');</script>
   <script>
     const loader=document.querySelector('#page-loader');
     const factOwner=document.querySelector('#loader-fact-owner');
@@ -1307,12 +1307,12 @@ const projects = [
     gap: 0;
     max-width: 940px;
     width: 100%;
-    margin: 14px auto 16px;
+    margin: 14px auto 18px;
     padding: 3px;
-    border-radius: 9px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background-color: #111111;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+    border-radius: 5px;
+    border: 1px solid var(--border, #343840);
+    background-color: var(--panel, #17191f);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.6), 0 1px 0 rgba(255, 255, 255, 0.04);
     user-select: none;
     touch-action: manipulation;
     box-sizing: border-box;
@@ -1333,9 +1333,9 @@ const projects = [
     left: 3px;
     width: calc((100% - 6px) / var(--seg-count, 9));
     height: calc(100% - 6px);
-    border-radius: 6px;
-    background-color: #222222;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    background-color: var(--ink, #e8eddf);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.25);
     transform: translateX(calc(var(--active-index, 0) * 100%));
     transition: transform 0.22s cubic-bezier(0.23, 1, 0.32, 1);
     z-index: 1;
@@ -1346,17 +1346,17 @@ const projects = [
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 32px !important;
-    height: 32px !important;
+    min-height: 44px !important;
+    height: 44px !important;
     min-width: 0 !important;
     padding: 0 4px !important;
     margin: 0 !important;
     border: 0 !important;
     background: transparent !important;
-    border-radius: 6px !important;
-    color: #a3a3a3 !important;
+    border-radius: 3px !important;
+    color: var(--dim, #959ba8) !important;
     font: 12px Departure, monospace !important;
-    letter-spacing: -0.01em !important;
+    letter-spacing: 0.04em !important;
     white-space: nowrap !important;
     cursor: pointer !important;
     outline: none !important;
@@ -1366,7 +1366,7 @@ const projects = [
     box-sizing: border-box !important;
   }
   #generations :global(button:hover:not(:disabled)) {
-    color: #f5f5f5 !important;
+    color: var(--ink, #e8eddf) !important;
     border: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
@@ -1375,16 +1375,17 @@ const projects = [
   #generations :global(button[aria-checked="true"]),
   #generations :global(button[aria-pressed="true"]),
   #generations :global(button.is-active) {
-    color: #ffffff !important;
-    font-weight: 500 !important;
+    color: var(--bg, #0d0e12) !important;
+    font-weight: 700 !important;
     border: 0 !important;
     background: transparent !important;
     box-shadow: none !important;
   }
   #generations :global(button:focus-visible) {
-    outline: none !important;
-    background: rgba(69, 104, 255, 0.1) !important;
-    box-shadow: inset 0 0 0 1px #4568FF !important;
+    outline: 2px solid #f9e59c !important;
+    outline-offset: -2px !important;
+    background: transparent !important;
+    box-shadow: none !important;
   }
   #generations :global(.segmented-label) {
     display: inline-block;
@@ -1399,8 +1400,8 @@ const projects = [
       -webkit-overflow-scrolling: touch;
     }
     #generations :global(button) {
-      min-height: 34px !important;
-      height: 34px !important;
+      min-height: 44px !important;
+      height: 44px !important;
       font-size: 11px !important;
     }
   }
