@@ -1,0 +1,85 @@
+---
+import EditorialShell from '../../../components/EditorialShell.astro';
+import PokemonTimeline from '../../../components/PokemonTimeline.astro';
+
+const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'CollectionPage',
+      '@id': `${currentUrl}#collection`,
+      isPartOf: { '@id': 'https://shivammahajan.com/#website' },
+      url: currentUrl,
+      name: 'Century Archives | 2,002 Days of Code',
+      description: "Explore all 100-day century chapters of Shivam Mahajan's 2,002 Days of Code journey with interactive century milestones, all centuries pinned at the top, and Pokémon era themes."
+    },
+    {
+      '@type': 'BreadcrumbList',
+      '@id': `${currentUrl}#breadcrumb`,
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://shivammahajan.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://shivammahajan.com/blog/' },
+        { '@type': 'ListItem', position: 3, name: 'Century Archives', item: currentUrl }
+      ]
+    }
+  ]
+};
+---
+
+<EditorialShell
+  title="Century Archives | 2,002 Days of Code"
+  description="Explore all 100-day century chapters of Shivam Mahajan's 2,002 Days of Code journey with interactive century milestones, all centuries pinned at the top, and Pokémon era themes."
+  eyebrow="100-Day Chapters · Pokédex Milestones"
+  heading="All Century Archives"
+  intro="The entire 1,258+ day engineering journey clubbed by 100-day chapters. Select any century milestone from the top rail to inspect."
+  structuredData={structuredData}
+>
+  <nav class="breadcrumb-nav" aria-label="Breadcrumbs" style="margin-bottom: 1.5rem;">
+    <a href="/">Home</a> <span>/</span>
+    <a href="/blog/">Blog</a> <span>/</span>
+    <span>Century Archives</span>
+  </nav>
+
+  <PokemonTimeline />
+
+  <section class="archive-quick-links" style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border, #333);">
+    <h2>Additional Directory Views</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
+      <a href="/blog/timeline/" class="archive-nav-btn">Full Daily Timeline →</a>
+      <a href="/blog/milestones/" class="archive-nav-btn">Milestones & Glitches →</a>
+      <a href="/blog/month/2026-10/" class="archive-nav-btn">Monthly Calendar →</a>
+    </div>
+  </section>
+</EditorialShell>
+
+<style>
+  .breadcrumb-nav {
+    font-size: 13px;
+    color: #94a3b8;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .breadcrumb-nav a {
+    color: var(--accent, #38bdf8);
+    text-decoration: none;
+  }
+  .archive-nav-btn {
+    padding: 8px 16px;
+    background: #111a28;
+    border: 1px solid rgba(223, 246, 255, 0.16);
+    border-radius: 6px;
+    color: #cbd5e1;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.16s ease;
+  }
+  .archive-nav-btn:hover {
+    color: #ffffff;
+    border-color: #38bdf8;
+    background: #17243b;
+    transform: translateY(-1px);
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import Base from "../../layouts/Base.astro";
+import PokemonTimeline from "../../components/PokemonTimeline.astro";
 
 const allPosts = await import("../../data/linkedin-posts.json");
 const posts = allPosts.default;
@@ -33,12 +34,47 @@ const structuredData = {
   <main class="timeline-container">
     <header class="timeline-header">
       <h1>The Complete Timeline</h1>
-      <p>A scrollable history of every day coded. Watch out for the glitches!</p>
+      <p>A scrollable history of every day coded across the 2,002 Days of Code streak.</p>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
         <a href="/blog/" class="back-link">← Back to Blog</a>
-        <a href="/blog/archive/1201-1300/" class="back-link">Century Archives →</a>
+        <a href="/blog/archive/" class="back-link">Century Archives Hub →</a>
         <a href="/blog/milestones/" class="back-link">Milestones →</a>
       </div>
+
+      <!-- Timeline View Mode Switcher -->
+      <div class="timeline-view-modes" role="tablist" aria-label="Timeline navigation views">
+        <button
+          type="button"
+          class="mode-btn is-active"
+          id="btn-view-centuries"
+          role="tab"
+          aria-selected="true"
+          aria-controls="view-panel-centuries"
+        >
+          <span class="mode-icon">🏛</span>
+          <span>Century Chapters (All Centuries at Top)</span>
+        </button>
+        <button
+          type="button"
+          class="mode-btn"
+          id="btn-view-daily"
+          role="tab"
+          aria-selected="false"
+          aria-controls="view-panel-daily"
+        >
+          <span class="mode-icon">📜</span>
+          <span>Day-by-Day Feed ({posts.length} Days)</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Century Chapters Panel (Scroll Timeline with All Centuries at Top) -->
+    <div id="view-panel-centuries" class="timeline-view-panel" role="tabpanel" aria-labelledby="btn-view-centuries">
+      <PokemonTimeline />
+    </div>
+
+    <!-- Day-by-Day Feed Panel -->
+    <div id="view-panel-daily" class="timeline-view-panel" role="tabpanel" aria-labelledby="btn-view-daily" hidden>
       <div class="timeline-filter-bar">
         <input 
           type="search" 
@@ -48,31 +84,31 @@ const structuredData = {
         />
         <span id="timeline-filter-count" class="timeline-filter-count">Showing all {posts.length} days</span>
       </div>
-    </header>
 
-    <div class="timeline-scroll">
-      <div class="timeline">
-        {posts.map(post => (
-          <div class={`timeline-item ${post.easterEgg ? "has-egg" : ""}`} id={`day-${post.day}`}>
-            <div class="timeline-marker"></div>
-                        <details class="timeline-content">
-              <summary>
-                <span class="timeline-date">
-                  {post.date && post.date.length >= 7 ? (
-                    <a href={`/blog/month/${post.date.slice(0, 7)}/`}>{post.date}</a>
-                  ) : post.date}
-                </span>
-                <h3>Day {post.day}</h3>
-                {post.easterEgg && <span class="egg-badge">?? Glitch</span>}
-              </summary>
-              <div class="expanded">
-                <p class="post-text">{post.content.slice(0, 150)}...</p>
-                <a href={`/blog/day-${post.day}/`} class="read-more">Read full page →</a>
-                {post.easterEgg && <p class="egg">?? {post.easterEgg}</p>}
-              </div>
-            </details>
-          </div>
-        ))}
+      <div class="timeline-scroll">
+        <div class="timeline">
+          {posts.map(post => (
+            <div class={`timeline-item ${post.easterEgg ? "has-egg" : ""}`} id={`day-${post.day}`}>
+              <div class="timeline-marker"></div>
+              <details class="timeline-content">
+                <summary>
+                  <span class="timeline-date">
+                    {post.date && post.date.length >= 7 ? (
+                      <a href={`/blog/month/${post.date.slice(0, 7)}/`}>{post.date}</a>
+                    ) : post.date}
+                  </span>
+                  <h3>Day {post.day}</h3>
+                  {post.easterEgg && <span class="egg-badge">?? Glitch</span>}
+                </summary>
+                <div class="expanded">
+                  <p class="post-text">{post.content.slice(0, 150)}...</p>
+                  <a href={`/blog/day-${post.day}/`} class="read-more">Read full page →</a>
+                  {post.easterEgg && <p class="egg">?? {post.easterEgg}</p>}
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   </main>
@@ -94,7 +130,7 @@ const structuredData = {
     text-align: center;
   }
   .timeline-container {
-    max-width: 800px;
+    max-width: 1080px;
     margin: 0 auto;
     padding: 2rem 1rem;
   }
@@ -103,9 +139,55 @@ const structuredData = {
   }
   .back-link {
     display: inline-block;
-    margin-top: 1rem;
-    color: var(--color-primary, #0056b3);
+    color: var(--color-primary, #38bdf8);
     text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .back-link:hover {
+    text-decoration: underline;
+  }
+
+  /* View Mode Switcher */
+  .timeline-view-modes {
+    display: inline-flex;
+    margin-top: 1.5rem;
+    background: #090e17;
+    border: 1px solid rgba(223, 246, 255, 0.16);
+    border-radius: 10px;
+    padding: 4px;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .mode-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #94a3b8;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.16s ease;
+  }
+  .mode-btn:hover {
+    color: #f1f5f9;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .mode-btn.is-active {
+    color: #050811;
+    background: #F7D02C;
+    box-shadow: 0 2px 10px rgba(247, 208, 44, 0.35);
+  }
+  .mode-icon {
+    font-size: 14px;
+  }
+  .timeline-view-panel[hidden] {
+    display: none !important;
   }
   .timeline-scroll {
     height: 70vh;
@@ -205,24 +287,73 @@ const structuredData = {
 </style>
 
 <script>
-  const search = document.getElementById('timeline-search');
-  const count = document.getElementById('timeline-filter-count');
-  const items = document.querySelectorAll('.timeline-item');
-  if (search instanceof HTMLInputElement && items.length) {
-    search.addEventListener('input', (e) => {
-      const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
-      let visible = 0;
-      items.forEach(item => {
-        const text = item.textContent?.toLowerCase() || '';
-        const match = !q || text.includes(q);
-        (item as HTMLElement).style.display = match ? '' : 'none';
-        if (match) visible++;
-      });
-      if (count) {
-        count.textContent = q ? `Showing ${visible} of ${items.length} days matching "${q}"` : `Showing all ${items.length} days`;
+  function initTimelineTabs() {
+    const btnCenturies = document.getElementById('btn-view-centuries');
+    const btnDaily = document.getElementById('btn-view-daily');
+    const panelCenturies = document.getElementById('view-panel-centuries');
+    const panelDaily = document.getElementById('view-panel-daily');
+
+    function switchView(mode: 'centuries' | 'daily') {
+      if (mode === 'centuries') {
+        btnCenturies?.classList.add('is-active');
+        btnCenturies?.setAttribute('aria-selected', 'true');
+        btnDaily?.classList.remove('is-active');
+        btnDaily?.setAttribute('aria-selected', 'false');
+        if (panelCenturies) panelCenturies.hidden = false;
+        if (panelDaily) panelDaily.hidden = true;
+      } else {
+        btnDaily?.classList.add('is-active');
+        btnDaily?.setAttribute('aria-selected', 'true');
+        btnCenturies?.classList.remove('is-active');
+        btnCenturies?.setAttribute('aria-selected', 'false');
+        if (panelDaily) panelDaily.hidden = false;
+        if (panelCenturies) panelCenturies.hidden = true;
       }
-    });
+    }
+
+    btnCenturies?.addEventListener('click', () => switchView('centuries'));
+    btnDaily?.addEventListener('click', () => switchView('daily'));
+
+    // If direct link to specific day (e.g. #day-500), switch to daily view
+    if (window.location.hash && window.location.hash.startsWith('#day-')) {
+      switchView('daily');
+    }
   }
+
+  function initTimelineSearch() {
+    const search = document.getElementById('timeline-search');
+    const count = document.getElementById('timeline-filter-count');
+    const items = document.querySelectorAll('.timeline-item');
+    if (search instanceof HTMLInputElement && items.length) {
+      search.addEventListener('input', (e) => {
+        const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
+        let visible = 0;
+        items.forEach(item => {
+          const text = item.textContent?.toLowerCase() || '';
+          const match = !q || text.includes(q);
+          (item as HTMLElement).style.display = match ? '' : 'none';
+          if (match) visible++;
+        });
+        if (count) {
+          count.textContent = q ? `Showing ${visible} of ${items.length} days matching "${q}"` : `Showing all ${items.length} days`;
+        }
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+      initTimelineTabs();
+      initTimelineSearch();
+    });
+  } else {
+    initTimelineTabs();
+    initTimelineSearch();
+  }
+  document.addEventListener('astro:page-load', () => {
+    initTimelineTabs();
+    initTimelineSearch();
+  });
 </script>
 
 

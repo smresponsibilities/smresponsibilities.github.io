@@ -77,6 +77,7 @@ const structuredData = {
   <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
     <a href="/">Home</a> <span>/</span>
     <a href="/blog/">Blog</a> <span>/</span>
+    <a href="/blog/archive/">Century Archives</a> <span>/</span>
     <a href={`/blog/archive/${group}/`}>Days {group}</a>
     {page.currentPage > 1 && <span> / Page {page.currentPage}</span>}
   </nav>
@@ -119,6 +120,9 @@ const structuredData = {
     <h2>All Century Archives</h2>
     <p>Jump to any 100-day block in the 2,002 Days of Code challenge:</p>
     <div class="group-chips">
+      <a href="/blog/archive/" class="chip" style="background: #F7D02C; color: #000; font-weight: 800; border-color: #F7D02C;">
+        ⚡ Interactive Century Hub ↗
+      </a>
       {(allGroups || []).map((gName) => (
         <a 
           href={`/blog/archive/${gName}/`} 
