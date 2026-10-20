@@ -280,18 +280,19 @@ const { showBio = true } = Astro.props;
     align-items: center;
     justify-content: center;
     height: 38px;
-    padding: 0 13px;
-    border: 1px solid var(--border, #343840);
-    border-radius: 2px;
-    background: #111722;
-    box-shadow: 3px 3px 0 #05070b;
-    color: var(--ink, #e8eddf);
+    padding: 0 14px;
+    border: 1.5px solid color-mix(in srgb, var(--time-accent, #ffd75e) 30%, #343f50);
+    border-radius: 3px;
+    background: linear-gradient(180deg, #182234 0%, #0f1624 100%);
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    color: #f0f4f8;
     font-family: var(--font-display, "Departure Mono", monospace);
-    font-size: 11.5px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
     text-decoration: none !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     cursor: pointer;
     white-space: nowrap;
     outline: none;
@@ -299,13 +300,16 @@ const { showBio = true } = Astro.props;
   }
 
   .nav-btn:hover {
-    background: #162030;
+    background: var(--time-accent, #ffd75e);
     border-color: var(--time-accent, #ffd75e);
-    color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a) !important;
+    text-shadow: none;
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
   .nav-btn:active {
-    transform: translateY(1px);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 #05070b;
   }
 
   .nav-btn:focus-visible {
@@ -314,27 +318,34 @@ const { showBio = true } = Astro.props;
   }
 
   .nav-btn.is-active {
-    background: #162030;
+    background: linear-gradient(180deg, color-mix(in srgb, var(--time-accent, #ffd75e) 30%, #151d2a) 0%, color-mix(in srgb, var(--time-accent, #ffd75e) 15%, #0c121c) 100%);
     border: 2px solid var(--time-accent, #ffd75e);
     color: var(--time-accent, #ffd75e);
-    box-shadow: 3px 3px 0 #05070b;
+    font-weight: 700;
+    box-shadow: 3px 3px 0 #05070b, inset 0 0 12px color-mix(in srgb, var(--time-accent, #ffd75e) 25%, transparent), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    text-shadow: 0 0 8px color-mix(in srgb, var(--time-accent, #ffd75e) 50%, transparent);
   }
 
   .nav-btn.is-active:hover {
     background: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a) !important;
+    text-shadow: none;
   }
 
   .nav-btn-resume {
+    background: linear-gradient(180deg, var(--time-accent, #ffd75e) 0%, color-mix(in srgb, var(--time-accent, #ffd75e) 82%, #b57c00) 100%) !important;
     border: 2px solid var(--time-accent, #ffd75e) !important;
-    color: #fff !important;
-    background: var(--time-panel, #161b22) !important;
-    box-shadow: 3px 3px 0 #05070b !important;
+    color: var(--time-deep, #08101a) !important;
+    font-weight: 700 !important;
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+    text-shadow: none !important;
   }
 
   .nav-btn-resume:hover {
-    background: var(--time-accent, #ffd75e) !important;
+    background: var(--time-soft, #ffffff) !important;
+    border-color: var(--time-soft, #ffffff) !important;
     color: var(--time-deep, #08101a) !important;
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
   }
 
   .resume-button {
@@ -400,30 +411,34 @@ const { showBio = true } = Astro.props;
     align-items: center;
     gap: 7px;
     height: 38px;
-    padding: 0 12px;
-    border-radius: 2px;
-    border: 1px solid var(--border, #343840);
-    background: #111722;
-    box-shadow: 3px 3px 0 #05070b;
-    color: var(--ink, #e8eddf);
+    padding: 0 13px;
+    border-radius: 3px;
+    border: 1.5px solid color-mix(in srgb, var(--time-accent, #ffd75e) 30%, #343f50);
+    background: linear-gradient(180deg, #182234 0%, #0f1624 100%);
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    color: #f0f4f8;
     font-family: var(--font-display, "Departure Mono", monospace);
-    font-size: 11.5px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
     letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     cursor: pointer;
     outline: none;
     transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
   }
 
   .menu-toggle:hover {
-    background: #162030;
+    background: var(--time-accent, #ffd75e);
     border-color: var(--time-accent, #ffd75e);
-    color: var(--time-accent, #ffd75e);
+    color: var(--time-deep, #08101a);
+    text-shadow: none;
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
   .menu-toggle:active {
-    transform: translateY(1px);
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 #05070b;
   }
 
   .menu-toggle:focus-visible {
@@ -435,7 +450,8 @@ const { showBio = true } = Astro.props;
     background: var(--time-accent, #ffd75e);
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a);
-    box-shadow: 3px 3px 0 #05070b;
+    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    text-shadow: none;
   }
 
   .menu-icon-svg {
