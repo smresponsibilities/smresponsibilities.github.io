@@ -284,7 +284,7 @@ const { showBio = true } = Astro.props;
     border: 1.5px solid color-mix(in srgb, var(--time-accent, #ffd75e) 30%, #343f50);
     border-radius: 3px;
     background: linear-gradient(180deg, #182234 0%, #0f1624 100%);
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.16);
     color: #f0f4f8;
     font-family: var(--font-display, "Departure Mono", monospace);
     font-size: 12px;
@@ -296,7 +296,10 @@ const { showBio = true } = Astro.props;
     cursor: pointer;
     white-space: nowrap;
     outline: none;
-    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    transform: perspective(340px) translateY(0) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.14s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.14s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .nav-btn:hover {
@@ -304,12 +307,14 @@ const { showBio = true } = Astro.props;
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a) !important;
     text-shadow: none;
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: perspective(340px) translateY(-1px);
+    box-shadow: 0 4px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
-  .nav-btn:active {
-    transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0 #05070b;
+  .nav-btn:active,
+  .nav-btn[data-pressed] {
+    transform: perspective(340px) translateY(3px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) !important;
+    box-shadow: 0 0 0 #05070b, inset 0 1.5px 3px rgba(0, 0, 0, 0.7) !important;
   }
 
   .nav-btn:focus-visible {
@@ -321,7 +326,7 @@ const { showBio = true } = Astro.props;
     background: #162030;
     border: 2px solid var(--time-accent, #ffd75e);
     color: var(--time-accent, #ffd75e);
-    box-shadow: 3px 3px 0 #05070b;
+    box-shadow: 0 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
     text-shadow: none;
   }
 
@@ -329,6 +334,14 @@ const { showBio = true } = Astro.props;
     background: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a) !important;
     text-shadow: none;
+    transform: perspective(340px) translateY(-1px);
+    box-shadow: 0 4px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  .nav-btn.is-active:active,
+  .nav-btn.is-active[data-pressed] {
+    transform: perspective(340px) translateY(3px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) !important;
+    box-shadow: 0 0 0 #05070b, inset 0 1.5px 3px rgba(0, 0, 0, 0.7) !important;
   }
 
   .nav-btn-resume {
@@ -336,7 +349,7 @@ const { showBio = true } = Astro.props;
     border: 2px solid var(--time-accent, #ffd75e) !important;
     color: var(--time-deep, #08101a) !important;
     font-weight: 700 !important;
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
+    box-shadow: 0 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.45) !important;
     text-shadow: none !important;
   }
 
@@ -344,7 +357,14 @@ const { showBio = true } = Astro.props;
     background: var(--time-soft, #ffffff) !important;
     border-color: var(--time-soft, #ffffff) !important;
     color: var(--time-deep, #08101a) !important;
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+    transform: perspective(340px) translateY(-1px);
+    box-shadow: 0 4px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .nav-btn-resume:active,
+  .nav-btn-resume[data-pressed] {
+    transform: perspective(340px) translateY(3px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) !important;
+    box-shadow: 0 0 0 #05070b, inset 0 1.5px 3px rgba(0, 0, 0, 0.7) !important;
   }
 
   .resume-button {
@@ -404,7 +424,7 @@ const { showBio = true } = Astro.props;
     transform: translateY(1px);
   }
 
-  /* Menu Toggle Button - Interior .mat-cap .press style */
+  /* Menu Toggle Button - Interior .press-depth style */
   .menu-toggle {
     display: inline-flex;
     align-items: center;
@@ -414,7 +434,7 @@ const { showBio = true } = Astro.props;
     border-radius: 3px;
     border: 1.5px solid color-mix(in srgb, var(--time-accent, #ffd75e) 30%, #343f50);
     background: linear-gradient(180deg, #182234 0%, #0f1624 100%);
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    box-shadow: 0 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.15);
     color: #f0f4f8;
     font-family: var(--font-display, "Departure Mono", monospace);
     font-size: 12px;
@@ -424,7 +444,10 @@ const { showBio = true } = Astro.props;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     cursor: pointer;
     outline: none;
-    transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+    transform: perspective(340px) translateY(0) rotateX(0deg) rotateY(0deg);
+    transition: transform 0.14s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.14s cubic-bezier(0.23, 1, 0.32, 1), background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .menu-toggle:hover {
@@ -432,12 +455,14 @@ const { showBio = true } = Astro.props;
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a);
     text-shadow: none;
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transform: perspective(340px) translateY(-1px);
+    box-shadow: 0 4px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
-  .menu-toggle:active {
-    transform: translate(1px, 1px);
-    box-shadow: 2px 2px 0 #05070b;
+  .menu-toggle:active,
+  .menu-toggle[data-pressed] {
+    transform: perspective(340px) translateY(3px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) !important;
+    box-shadow: 0 0 0 #05070b, inset 0 1.5px 3px rgba(0, 0, 0, 0.7) !important;
   }
 
   .menu-toggle:focus-visible {
@@ -449,7 +474,7 @@ const { showBio = true } = Astro.props;
     background: var(--time-accent, #ffd75e);
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a);
-    box-shadow: 3px 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 3px 0 #05070b, inset 0 1px 0 rgba(255, 255, 255, 0.4);
     text-shadow: none;
   }
 
@@ -957,10 +982,87 @@ const { showBio = true } = Astro.props;
     }
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initDrawer);
-  } else {
-    initDrawer();
+  function initPressDepth() {
+    const targets = document.querySelectorAll('.header-nav .nav-btn, .header-nav .menu-toggle, .header-actions .resume-button, .header-actions .add-button, .header-actions .menu-toggle');
+    targets.forEach((el) => {
+      if (!(el instanceof HTMLElement) || el.dataset.pressDepthInit === 'true') return;
+      el.dataset.pressDepthInit = 'true';
+
+      let tracking = false;
+      let activePointerId: number | null = null;
+
+      const contains = (e: PointerEvent) => {
+        const r = el.getBoundingClientRect();
+        return (
+          e.clientX >= r.left &&
+          e.clientX <= r.right &&
+          e.clientY >= r.top &&
+          e.clientY <= r.bottom
+        );
+      };
+
+      const stop = () => {
+        tracking = false;
+        activePointerId = null;
+        el.removeAttribute('data-pressed');
+        el.style.removeProperty('--tilt-x');
+        el.style.removeProperty('--tilt-y');
+      };
+
+      el.addEventListener('pointerdown', (e) => {
+        if (e.pointerType === 'mouse' && e.button !== 0) return;
+        activePointerId = e.pointerId;
+        tracking = true;
+        el.setAttribute('data-pressed', '');
+
+        const r = el.getBoundingClientRect();
+        const normX = Math.max(-1, Math.min(1, ((e.clientX - r.left) / r.width) * 2 - 1));
+        const normY = Math.max(-1, Math.min(1, ((e.clientY - r.top) / r.height) * 2 - 1));
+        el.style.setProperty('--tilt-x', `${(-normY * 6).toFixed(1)}deg`);
+        el.style.setProperty('--tilt-y', `${(normX * 6).toFixed(1)}deg`);
+      });
+
+      window.addEventListener('pointermove', (e) => {
+        if (!tracking || e.pointerId !== activePointerId) return;
+        if (contains(e)) {
+          el.setAttribute('data-pressed', '');
+        } else {
+          el.removeAttribute('data-pressed');
+        }
+      });
+
+      window.addEventListener('pointerup', (e) => {
+        if (tracking && e.pointerId === activePointerId) stop();
+      });
+      window.addEventListener('pointercancel', (e) => {
+        if (tracking && e.pointerId === activePointerId) stop();
+      });
+      window.addEventListener('blur', stop);
+
+      el.addEventListener('keydown', (e) => {
+        if (e.repeat) return;
+        if (e.key === ' ' || e.key === 'Enter') {
+          el.setAttribute('data-pressed', '');
+        }
+      });
+      el.addEventListener('keyup', (e) => {
+        if (e.key === ' ' || e.key === 'Enter' || e.key === 'Escape') {
+          el.removeAttribute('data-pressed');
+        }
+      });
+      el.addEventListener('blur', stop);
+    });
   }
-  document.addEventListener('astro:page-load', initDrawer);
+
+  function initHeader() {
+    initDrawer();
+    initPressDepth();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHeader);
+  } else {
+    initHeader();
+  }
+  document.addEventListener('astro:page-load', initHeader);
 </script>
