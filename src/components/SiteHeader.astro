@@ -30,9 +30,12 @@ const { showBio = true } = Astro.props;
 ) : (
   <header class="portfolio-header is-subpage">
     <a class="brand" href="/" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
-    <nav class="header-actions" aria-label="Portfolio actions">
-      <a class="resume-button" data-resume href="/resume/">Resume</a>
-      <a class="add-button" href="/#open-submission" data-tooltip="Open the form to join the public roster">Add Pokémon</a>
+    <nav class="header-nav" aria-label="Site navigation">
+      <a class={`nav-btn ${currentPath === '/' ? 'is-active' : ''}`} href="/">Home</a>
+      <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/projects') ? 'is-active' : ''}`} href="/projects/">Projects</a>
+      <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/blog') ? 'is-active' : ''}`} href="/blog/">Blog</a>
+      <a class={`nav-btn nav-btn-resume ${currentPath.startsWith('/resume') ? 'is-active' : ''}`} data-resume href="/resume/">Resume</a>
+      <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
           <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
@@ -281,7 +284,7 @@ const { showBio = true } = Astro.props;
     border: 1px solid var(--border, #343840);
     border-radius: 2px;
     background: #111722;
-    box-shadow: 2px 2px 0 #05070b;
+    box-shadow: 3px 3px 0 #05070b;
     color: var(--ink, #e8eddf);
     font-family: var(--font-display, "Departure Mono", monospace);
     font-size: 11.5px;
@@ -312,9 +315,9 @@ const { showBio = true } = Astro.props;
 
   .nav-btn.is-active {
     background: #162030;
-    border-color: var(--time-accent, #ffd75e);
+    border: 2px solid var(--time-accent, #ffd75e);
     color: var(--time-accent, #ffd75e);
-    box-shadow: 2px 2px 0 #05070b;
+    box-shadow: 3px 3px 0 #05070b;
   }
 
   .nav-btn.is-active:hover {
@@ -323,14 +326,14 @@ const { showBio = true } = Astro.props;
   }
 
   .nav-btn-resume {
-    border: 2px solid var(--time-accent, #ffd75e);
+    border: 2px solid var(--time-accent, #ffd75e) !important;
     color: #fff !important;
-    background: #111722;
-    box-shadow: 2px 2px 0 #05070b;
+    background: var(--time-panel, #161b22) !important;
+    box-shadow: 3px 3px 0 #05070b !important;
   }
 
   .nav-btn-resume:hover {
-    background: var(--time-accent, #ffd75e);
+    background: var(--time-accent, #ffd75e) !important;
     color: var(--time-deep, #08101a) !important;
   }
 
@@ -401,7 +404,7 @@ const { showBio = true } = Astro.props;
     border-radius: 2px;
     border: 1px solid var(--border, #343840);
     background: #111722;
-    box-shadow: 2px 2px 0 #05070b;
+    box-shadow: 3px 3px 0 #05070b;
     color: var(--ink, #e8eddf);
     font-family: var(--font-display, "Departure Mono", monospace);
     font-size: 11.5px;
@@ -432,7 +435,7 @@ const { showBio = true } = Astro.props;
     background: var(--time-accent, #ffd75e);
     border-color: var(--time-accent, #ffd75e);
     color: var(--time-deep, #08101a);
-    box-shadow: 2px 2px 0 #05070b;
+    box-shadow: 3px 3px 0 #05070b;
   }
 
   .menu-icon-svg {
@@ -768,24 +771,15 @@ const { showBio = true } = Astro.props;
       padding: 12px 14px;
       gap: 10px;
     }
-    .portfolio-header.is-subpage .header-actions {
+    .portfolio-header.is-subpage .header-nav {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .portfolio-header.is-subpage .resume-button,
-    .portfolio-header.is-subpage .add-button,
+    .portfolio-header.is-subpage .nav-btn,
     .portfolio-header.is-subpage .menu-toggle {
       height: 36px;
       font-size: 11px;
-    }
-    .portfolio-header.is-subpage .resume-button {
-      padding: 0 10px;
-    }
-    .portfolio-header.is-subpage .add-button {
-      padding: 0 12px;
-    }
-    .portfolio-header.is-subpage .menu-toggle {
       padding: 0 10px;
     }
     .site-drawer {
