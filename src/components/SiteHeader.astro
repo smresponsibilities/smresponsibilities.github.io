@@ -30,12 +30,9 @@ const { showBio = true } = Astro.props;
 ) : (
   <header class="portfolio-header is-subpage">
     <a class="brand" href="/" aria-label="Shivam Mahajan portfolio home">SM'S DEX</a>
-    <nav class="header-nav" aria-label="Site navigation">
-      <a class={`nav-btn ${currentPath === '/' ? 'is-active' : ''}`} href="/">Home</a>
-      <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/projects') ? 'is-active' : ''}`} href="/projects/">Projects</a>
-      <a class={`nav-btn nav-btn-secondary ${currentPath.startsWith('/blog') ? 'is-active' : ''}`} href="/blog/">Blog</a>
-      <a class={`nav-btn nav-btn-resume ${currentPath.startsWith('/resume') ? 'is-active' : ''}`} data-resume href="/resume/">Resume</a>
-      <a class="nav-btn nav-btn-secondary" href="mailto:shivammahajan.mail@gmail.com">Contact</a>
+    <nav class="header-actions" aria-label="Portfolio actions">
+      <a class="resume-button" data-resume href="/resume/">Resume</a>
+      <a class="add-button" href="/#open-submission" data-tooltip="Open the form to join the public roster">Add Pokémon</a>
       <button class="menu-toggle" id="menu-toggle" type="button" aria-expanded="false" aria-controls="site-drawer" aria-label="Open navigation menu">
         <svg viewBox="0 0 256 256" width="13" height="13" fill="none" aria-hidden="true" class="menu-icon-svg">
           <path d="M40 72h176M40 128h176M40 184h176" stroke="currentColor" stroke-width="20" stroke-linecap="round"/>
@@ -215,36 +212,31 @@ const { showBio = true } = Astro.props;
 </aside>
 
 <style>
-  .portfolio-header.is-home {
+  .portfolio-header.is-home,
+  .portfolio-header.is-subpage {
     position: relative;
     z-index: 50;
+    width: 100%;
+    margin: 0;
+    background: var(--time-deep, #08101a);
+    border-bottom: 1px solid var(--time-accent, var(--border));
+    box-shadow: inset 0 -3px var(--time-accent, #ffd75e);
+  }
+
+  .portfolio-header.is-home {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
     gap: 24px;
-    width: 100%;
-    margin: 0;
     padding: 20px clamp(20px, 4vw, 64px);
-    background: #08101a8f;
-    backdrop-filter: blur(14px) saturate(135%);
-    border-bottom: 1px solid var(--border, #343840);
-    box-shadow: inset 0 -2px var(--time-accent, #ffd75e);
   }
 
   .portfolio-header.is-subpage {
-    position: relative;
-    z-index: 50;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    width: 100%;
-    margin: 0;
     padding: 16px clamp(16px, 4vw, 48px);
-    background: #08101a8f;
-    backdrop-filter: blur(14px) saturate(135%);
-    border-bottom: 1px solid var(--border, #343840);
-    box-shadow: inset 0 -2px var(--time-accent, #ffd75e);
   }
 
   .brand {
@@ -356,8 +348,8 @@ const { showBio = true } = Astro.props;
     font-size: 11.5px;
     letter-spacing: var(--track-label, 0.08em);
     text-transform: uppercase;
-    background: #111722;
-    box-shadow: 2px 2px 0 #05070b;
+    background: var(--time-panel, #161b22);
+    box-shadow: 3px 3px 0 #05070b;
     transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
   }
 
@@ -776,16 +768,25 @@ const { showBio = true } = Astro.props;
       padding: 12px 14px;
       gap: 10px;
     }
-    .header-nav {
+    .portfolio-header.is-subpage .header-actions {
+      display: flex;
+      align-items: center;
       gap: 6px;
     }
-    .nav-btn {
-      padding: 6px 10px;
+    .portfolio-header.is-subpage .resume-button,
+    .portfolio-header.is-subpage .add-button,
+    .portfolio-header.is-subpage .menu-toggle {
+      height: 36px;
       font-size: 11px;
     }
-    .menu-toggle {
-      padding: 6px 10px;
-      font-size: 11px;
+    .portfolio-header.is-subpage .resume-button {
+      padding: 0 10px;
+    }
+    .portfolio-header.is-subpage .add-button {
+      padding: 0 12px;
+    }
+    .portfolio-header.is-subpage .menu-toggle {
+      padding: 0 10px;
     }
     .site-drawer {
       width: 100vw;
