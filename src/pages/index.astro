@@ -1,5 +1,5 @@
 ---
-import DaysTimeline from '../components/DaysTimeline.astro';
+import PokemonCarouselTimeline from '../components/PokemonCarouselTimeline.astro';
 import Base from '../layouts/Base.astro';
 import FormDropdown from '../components/FormDropdown.astro';
 import roster from '../data/roster.json';
@@ -409,7 +409,15 @@ const projects = [
         </dialog>
       </div>
     </section>
-  <section aria-label="Days of Code"><h2>Days of Code</h2><DaysTimeline variant={1} limit={8} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
+    <section class="journal-section content-section" id="journal-section" aria-labelledby="journal-heading">
+      <div class="section-index" aria-hidden="true">JOURNAL / 004</div>
+      <div class="journal-content">
+        <span class="eyebrow">Pokémon Chronology · 2,002 Days of Code</span>
+        <h2 id="journal-heading">Days of Code Expedition</h2>
+        <p class="lead">1,258+ daily engineering logs, algorithms, and systems clubbed into 100-day chapters.</p>
+        <PokemonCarouselTimeline />
+      </div>
+    </section>
 </main>
 
   <footer class="site-footer">Pokémon © Nintendo / Creatures / GAME FREAK · Tested by my friends.</footer>
