@@ -36,7 +36,7 @@ export async function getStaticPaths({ paginate }: any) {
     return paginate(groups[gName], {
       params: { group: gName },
       props: { allGroups, groupPosts: groups[gName] },
-      pageSize: 100,
+      pageSize: 150,
     });
   });
 }
