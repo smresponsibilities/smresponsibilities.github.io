@@ -31,7 +31,7 @@ git diff -- public/floral/
 
 These scripts use only Node's standard library. They overwrite the 21 named flower SVGs in `public/floral/`. They do not generate `sm-card.svg`, the earlier blue back study. Unmodified generators reproduce the committed flower files byte for byte. No runtime generation, raster images, image model or external flower library is involved.
 
-Every flower uses `viewBox="0 18 500 440"`. Petals are closed cubic Bézier paths, placed in concentric rotated groups. Fine interior curves simulate engraved hatching; short strokes in the center suggest stamens. There are no leaves or stems. The hibiscus's projecting stamen is part of the bloom.
+Every flower uses `viewBox="0 18 500 440"`. Petals are closed cubic Bézier paths, placed in concentric rotated groups. Fine interior curves simulate engraved hatching; each petal clips its interior lines to its own Bézier outline so veins and fold lines cannot spill into neighboring petals. This local SVG clip is unrelated to a card foil mask. Short strokes in the center suggest stamens. There are no leaves or stems. The hibiscus's projecting stamen is part of the bloom.
 
 The chrysanthemum has seven rings, `18 + ring * 2` petals per ring: 168 petals, seven interior lines each, and 145 central marks. Radius starts at 177 and decreases by 21 per ring. Small deterministic sine/cosine changes vary angle, length, width and curl. Its center uses the golden angle, approximately `2.399963` radians, with radius `sqrt(i / count) * 27`.
 
@@ -44,8 +44,8 @@ The collection generator defines each species using `rings`, `count`, `step`, `l
 | Lotus | Three sparse layers of pointed petals |
 | Dahlia | Seven dense pointed layers |
 | Poppy | Two layers of four broad ruffled petals |
-| Iris | Two whorls of three broad falls |
-| Lily | Two whorls of three curled petals and six long stamens |
+| Iris | Three broad falls alternating with three narrower upright petals |
+| Lily | Two alternating whorls of three broad tapered petals and six long stamens |
 | Camellia | Five rounded overlapping layers |
 | Cosmos | Eight notched petals |
 | Sunflower | Two rings of narrow rays and a 280-mark central disk |
@@ -54,7 +54,7 @@ The collection generator defines each species using `rings`, `count`, `step`, `l
 | Gerbera | Three dense layers of narrow rounded petals |
 | Zinnia | Six rounded layers |
 | Cornflower | Three layers with fringed tips |
-| Carnation | Five broad fringed layers |
+| Carnation | Five layers with curved scalloped fringes, avoiding saw-tooth edges |
 | Hibiscus | Five ruffled petals and an extended stamen |
 | Clematis | Six pointed petals and 28 radial stamens |
 | Passionflower | Two five-petal whorls and 72 corona filaments |
@@ -191,7 +191,7 @@ The lab's separate opening experiment uses a 1600ms eased full turn with earlier
 
 ## Verification and recovery
 
-For artwork-only edits, regenerate and inspect the SVG diff. Both generators assert valid finite geometry; chrysanthemum also asserts its petal count and the collection asserts 20 unique IDs. At minimum inspect a sparse bloom, a dense bloom and both diagonal corners at 390px.
+For artwork-only edits, regenerate and inspect the SVG diff. Both generators assert valid finite geometry; chrysanthemum also asserts its petal count and the collection asserts 20 unique IDs and one engraving clip per petal. Cup-petal width scales with petal length to avoid tangled inner rose/magnolia folds; plumeria uses asymmetric curved lobes rather than a generic tip. At minimum inspect a sparse bloom, a dense bloom and both diagonal corners at 390px.
 
 For behavior/style changes, build first, then run tests against the completed output. Do not run build-output audits while a build is replacing `dist`.
 
