@@ -1,15 +1,15 @@
-# Handoff — 2026-10-22, after card art documentation
+# Handoff — 2026-10-22, after reference project fronts and flip
 
 ## State
-Resolved: Card rollout, four-treatment contract and replication documentation.
-Frontier: Review published site.
+Resolved: Reference project fronts, compact horizontal mobile panels, production back turn and first-card showcase.
+Frontier: Review deployment.
 In flight: None.
 
 ## Last session
-Added `docs/card-art.md` and linked it from `docs/content-guide.md`. Preserved deterministic flower generators in `scripts/card-art/` and accepted back assets in `docs/assets/card-art/`. Generator output matches all 21 committed flowers byte for byte; documentation links resolve. See `.scratch/timeline-refresh/issues/05-card-art-replication-docs.md`. Runtime remains unchanged from the verified card rollout.
+User superseded the plain project-listing and subtle first-card treatments. Shared `ProjectCard.astro` now matches supplied lab reference on homepage and `/projects/`. Inspection rotates through the accepted logo reverse. First project/chapter uses stronger rainbow; other categories remain unchanged. See `.scratch/timeline-refresh/issues/06-reference-project-fronts-and-flip.md` and `docs/card-art.md`. Build, browser checks and all 17 SEO tests pass. Push authorized.
 
 ## Not yet written down
-None. Replication decisions are recorded in `docs/card-art.md`.
+None. Updated replication guide records the showcase archive exception, mobile previews and production flip.
 
 ## Next
-Use the replication guide for new card artwork; review production after deployment.
+Review deployed homepage and projects on mobile.

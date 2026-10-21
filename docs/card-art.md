@@ -12,6 +12,7 @@ This guide records the shipped card system and the accepted card back from the l
 | Accepted back repeat pattern | [`sm-identity-pattern.svg`](assets/card-art/sm-identity-pattern.svg) |
 | Lab's corrected pixel monogram | [`sm-mark.svg`](assets/card-art/sm-mark.svg) |
 | Original site favicon | [`favicon-sm-complete.svg`](../public/favicon-sm-complete.svg) |
+| Reference-matched project front, art/paper panels and mobile layout | [`ProjectCard.astro`](../src/components/ProjectCard.astro) |
 | Card discovery, treatment, flower identity, pointer input, inspection | [`CardFinishes.astro`](../src/components/CardFinishes.astro) |
 | Adapted upstream foil recipes | [`card-recipes.css`](../src/styles/card-recipes.css) |
 | Theme, frame, flowers, readability and motion limits | [`card-finishes.css`](../src/styles/card-finishes.css) |
@@ -73,7 +74,7 @@ Use `position:absolute`, a clipped ornament wrapper, `pointer-events:none`, empt
 
 The accepted back is a **monogram repeat pattern with fine keyline borders and a simulated debossed seal**. The earlier blue looping-line back was **guilloché**, a different design. Do not replace the accepted monogram with that older study.
 
-The back is still a lab design. Shipped site cards are front-only, including enlarged inspection; no production back or flip is installed.
+The accepted back now appears during production inspection. Opening performs a 1600ms full turn through the monogram reverse and returns to the readable front. The public background copy is `public/card-finishes/sm-identity-pattern.svg`; keep it identical to the preserved SVG in this guide.
 
 The committed `sm-identity-pattern.svg` is already the complete code-built background. Its construction is:
 
@@ -130,16 +131,24 @@ This recreates the material construction; wording and font fallbacks are illustr
 
 | Treatment | Actual behavior | Current assignment |
 | --- | --- | --- |
-| Engraved | Flowers and frame; no foil, glare or tilt | Every enhanced card on `/resume/` or under `/blog/archive/`; `.experience-card` and `.daily-log-card` anywhere |
-| Interactive engraved | Flowers, subtle pointer tilt and neutral white glare; no rainbow | Remaining enhanced cards: listings, search results, featured/pinned posts, related content and supporting editorial cards |
-| Floral holo | Flowers, random approved foil, glare, tilt and front-only click inspection | `.project-card`, `.project-feature-card`, `.chapter-card`, except where the static rule above wins |
+| Engraved | Flowers and frame; no foil, glare or tilt | Every enhanced card on `/resume/`, non-showcase archive cards, `.experience-card` and `.daily-log-card` |
+| Interactive engraved | Flowers, subtle pointer tilt and neutral white glare; no rainbow | Search results, featured/pinned posts, related content and supporting editorial cards |
+| Floral holo | Flowers, random approved foil, glare, tilt and front-only click inspection | Printed project cards on homepage and `/projects/`, `.project-feature-card` and non-static `.chapter-card`; first project and first chapter are always showcase holo |
 | Plain utility | Existing ordinary UI, no shared flower/foil enhancement | Navigation, filters, forms, ordinary timeline rows and elements outside the selector |
 
-Enhancement currently targets `.chapter-card`, `.project-card`, `.experience-card`, `.editorial .card`, `.search-card`, `.pinned-index-card`, `.daily-log-card`, `.related-card`, `.pinned-card` and `.project-feature-card`. Treatment comes from route/class, not from visible copy. A generic `.editorial .card` on a case-study page stays interactive engraved; use the existing main-project class only for a card that should receive holo treatment. There is no new public configuration API.
+Enhancement currently targets `.chapter-card`, `.project-card`, `.experience-card`, `.editorial .card`, `.search-card`, `.pinned-index-card`, `.daily-log-card`, `.related-card`, `.pinned-card` and `.project-feature-card`. Treatment comes from route/class and showcase position, not from visible copy. First project card in the document and first chapter in each chapter track receive `data-showcase="true"`, including the first chapter on an archive page. They use the rainbow recipe deterministically, with stronger resting foil; remaining holo cards randomize as before. A generic `.editorial .card` on a case-study page stays interactive engraved; use the existing main-project class only for a card that should receive holo treatment. There is no new public configuration API.
+
+## Reference project fronts and mobile previews
+
+`ProjectCard.astro` renders the accepted lab structure on both homepage projects and all 15 project-directory entries: graphite double frame, favicon/title/collector header, art panel, cream copy panel, diagonal blooms and signature footer. Existing descriptions and destination links remain authored by their pages through summary/default slots. Productivity Caller uses a CSS phone illustration, the supplied Reminders headline and two factual feature rows; other projects use a code-window illustration carrying their name and stack. No raster or Pokémon creature artwork is introduced.
+
+Mobile keeps art and copy side by side. Listing previews clamp the summary, omit feature rows and retain the first two directory links so the card stays compact. Inspection restores full summary, feature rows and all links while retaining the horizontal panel layout. Readability wins over forcing a fixed aspect ratio on long content. All supplementary links remain available in inspection and desktop views.
+
+The project's opaque art/paper surfaces paint below its foil, while HTML text and controls paint above. Do not put the entire `printed-body` in a stacking context above the foil; that would make its effect invisible. First project and first chapter use visibly stronger rainbow; other cards keep the bounded ordinary intensity.
 
 ## Reuse the effects
 
-To reproduce elsewhere, copy `CardFinishes.astro`, both card stylesheets, `public/floral/` and `public/card-finishes/`. Install the component once in the shared layout, as `Base.astro` does. Preserve CSS variables for the site's theme: `--time-panel`, `--time-deep`, `--time-accent`, `--ink`, `--border`, plus `--panel`, `--bg`, `--accent` fallbacks. Change the discovery selector/treatment rule to match that site's content classes. In a non-Astro project, port the script's initialization/cleanup and the native dialog markup; retain its DOM ownership and accessibility behavior.
+To reproduce elsewhere, copy `ProjectCard.astro`, `CardFinishes.astro`, both card stylesheets, `public/floral/` and `public/card-finishes/`. Install the component once in the shared layout, as `Base.astro` does. Preserve CSS variables for the site's theme: `--time-panel`, `--time-deep`, `--time-accent`, `--ink`, `--border`, plus `--panel`, `--bg`, `--accent` fallbacks. Change the discovery selector/treatment rule to match that site's content classes. In a non-Astro project, port the script's initialization/cleanup and the native dialog markup; retain its DOM ownership and accessibility behavior.
 
 The source recipes come from [simeydotme/pokemon-cards-css](https://github.com/simeydotme/pokemon-cards-css), revision `acb1197`. Attribution is in `card-recipes.css`; the upstream GPL license is preserved at `public/card-finishes/LICENSE`. Keep that attribution/license when reusing the adapted code and assets.
 
@@ -152,7 +161,7 @@ The source recipes come from [simeydotme/pokemon-cards-css](https://github.com/s
 | `vstar` | `v-star.css` | `rare holo vstar` / `vstar` |
 | `rainbow` | `rainbow-holo.css` | `rare rainbow` / `vmax` |
 
-One random recipe is chosen independently for each holo card when enhanced. It remains unchanged during hover, filtering and reordering. A reload can choose another. Basic/Common and Radiant are excluded. Static and interactive engraved cards do not receive rarity/recipe attributes.
+One random recipe is chosen independently for each ordinary holo card when enhanced. Showcase cards always use `rainbow`. It remains unchanged during hover, filtering and reordering. A reload can choose another. Basic/Common and Radiant are excluded. Static and interactive engraved cards do not receive rarity/recipe attributes.
 
 The adaptation renames `.card`, `.card__shine`, `.card__glare` to the scoped site selectors and `.site-card-foil` / `.site-card-glare`. Each recipe is gated by `data-finish`; keep its source declaration order, layered background order, blend modes and pseudo-elements. Remove portrait-window clipping and creature-specific mask inputs. Local textures are abstract grain, glitter, cosmos and geometric foil; do not import creature etchings or Pokémon artwork as a custom card mask.
 
@@ -164,7 +173,8 @@ The production surface is a theme-derived gradient and double inset frame. Flowe
 
 | Control | Production value |
 | --- | --- |
-| Resting holo foil opacity | `.19` |
+| Resting ordinary holo foil opacity | `.19` |
+| First project / chapter showcase foil | `.52` resting, `.68` hover/focus |
 | Holo hover/focus foil opacity | `.35` |
 | Resting glare | `.048` |
 | Holo hover/focus glare | `.0875` |
@@ -175,9 +185,9 @@ The production surface is a theme-derived gradient and double inset frame. Flowe
 
 Idle movement changes the foil position, never the card's physical tilt. Pointer input clamps coordinates to the card and adjusts glare/background position. Reduced motion stops idle drift and tilt; touch/hoverless layouts have no tilt. Hidden tabs and offscreen cards stop idle updates. Static cards have no animated finish. Print removes foil/glare/ordinary flower wrappers and uses a plain white surface; chapter flowers are managed by the chapter component's own styles.
 
-Inspection uses a native `<dialog>` with an enlarged front. The explicit Inspect button supports keyboard activation; clicking non-control card space also opens it. Existing links navigate normally. The clone keeps its selected flower/recipe, removes duplicate IDs and its Inspect button, and allows pointer movement. Escape, Close or backdrop dismisses it; native dialog behavior restores focus. No spin, flip or back is needed to read production content.
+Inspection uses a native `<dialog>` with an enlarged front. The explicit Inspect button supports keyboard activation; clicking non-control card space also opens it. Existing links navigate normally. The clone keeps its selected flower/recipe, removes duplicate IDs and its Inspect button, and allows pointer movement. A preserve-3D wrapper rotates from 0 to 180 to 360 degrees over 1600ms, revealing an inert, aria-hidden monogram back halfway through. The front and back use `backface-visibility:hidden`. Reduced motion disables the turn. The cloned Wordle action becomes a working simulator link instead of a button whose listener belongs to the original card. Escape, Close or backdrop dismisses it; native dialog behavior restores focus. Links remain accessible without opening inspection. The turn is a user-triggered presentation effect, never an autoplay entrance.
 
-The lab's separate opening experiment uses a 1600ms eased full turn with earlier zoom, and skips animation for reduced motion. Do not confuse that older lab motion with production inspection. A future lab-style two-face card must keep the hidden face inert and hidden from assistive technology.
+The lab's separate opening experiment uses a 1600ms eased full turn with earlier zoom, and skips animation for reduced motion. Production now uses a separate full-turn keyframe on its dialog wrapper, with the accepted reverse, rather than porting the lab spring/viewport positioning system. A future lab-style two-face card must keep the hidden face inert and hidden from assistive technology.
 
 ## Verification and recovery
 
@@ -205,7 +215,7 @@ Common regressions:
 - Washed-out text: restore layer order and the opacity limits above.
 - Creature silhouettes: remove per-card mask/foil inputs and any recipe-specific unmasked fallback.
 - Flowers change on hover: keep flower identity separate from random finish and initialize each node only once.
-- Archive gets rainbow: the static route rule must precede holo class selection.
+- Archive gets rainbow beyond its first chapter: only the first chapter is a deliberate showcase exception; daily cards and remaining archive summaries stay static.
 - Duplicate inspection/listeners: preserve the initializer's ready guard and cleanup on `astro:before-swap`.
 - Missing decoration without JavaScript: enhancement is client-side; content and navigation remain server-rendered. Do not promise server-rendered ornament without changing that architecture.
 

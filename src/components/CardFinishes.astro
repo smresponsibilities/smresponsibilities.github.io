@@ -66,9 +66,11 @@ function initCardFinishes() {
     card.style.setProperty('--seedx', String((hash % 1000) / 1000));
     card.style.setProperty('--seedy', String(((hash >>> 8) % 1000) / 1000));
     card.style.setProperty('--cosmosbg', `${hash % 734}px ${hash % 1280}px`);
-    card.dataset.cardMode = location.pathname === '/resume/' || location.pathname.startsWith('/blog/archive/') || card.matches('.experience-card, .daily-log-card') ? 'static' : card.matches('.chapter-card, .project-card, .project-feature-card') ? 'holo' : 'interactive';
+    const showcase = card === document.querySelector('.project-card') || (card.matches('.chapter-card') && card === card.parentElement?.querySelector('.chapter-card'));
+    if (showcase) card.dataset.showcase = 'true';
+    card.dataset.cardMode = showcase ? 'holo' : location.pathname === '/resume/' || location.pathname.startsWith('/blog/archive/') || card.matches('.experience-card, .daily-log-card') ? 'static' : card.matches('.chapter-card, .project-card, .project-feature-card') ? 'holo' : 'interactive';
     if (card.dataset.cardMode === 'holo') {
-      const finish = finishes[Math.floor(Math.random()*finishes.length)];
+      const finish = showcase ? finishes[5] : finishes[Math.floor(Math.random()*finishes.length)];
       card.dataset.finish = finish.key;
       card.dataset.rarity = finish.rarity;
       card.dataset.subtypes = finish.subtypes;
@@ -109,9 +111,18 @@ function initCardFinishes() {
         const copy = card.cloneNode(true) as HTMLElement;
         copy.querySelectorAll('.site-card-inspect').forEach(node=>node.remove());
         copy.removeAttribute('id');copy.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
+        copy.querySelectorAll('[aria-controls], [aria-labelledby]').forEach(node=>{node.removeAttribute('aria-controls');node.removeAttribute('aria-labelledby');});
+        copy.querySelectorAll<HTMLButtonElement>('.project-try-native-btn').forEach(button=>{const link=document.createElement('a');link.href='/wordle-simulator/';link.textContent=button.textContent;button.replaceWith(link);});
         copy.style.setProperty('--rx','0deg');copy.style.setProperty('--ry','0deg');
         copy.addEventListener('pointermove',event=>move(copy,event));
-        inspectionBody.replaceChildren(copy);dialog.showModal();
+        const turn = document.createElement('div');turn.className='inspection-turn';
+        const back = document.createElement('div');back.className='inspection-back';back.setAttribute('aria-hidden','true');back.inert=true;
+        const label=document.createElement('span');label.textContent="SM'S DEX";
+        const seal=document.createElement('div');seal.className='inspection-seal';
+        const mark=document.createElement('img');mark.src='/favicon-sm-complete.svg';mark.alt='';mark.width=112;mark.height=112;seal.append(mark);
+        const signature=document.createElement('span');signature.textContent='DESIGNED & BUILT BY SHIVAM MAHAJAN';
+        back.append(label,seal,signature);turn.append(copy,back);
+        inspectionBody.replaceChildren(turn);dialog.showModal();
       };
       button.addEventListener('click',inspect,{signal:controller.signal});
       card.addEventListener('click',event=>{

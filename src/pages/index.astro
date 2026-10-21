@@ -1,4 +1,5 @@
 ---
+import ProjectCard from '../components/ProjectCard.astro';
 import PokemonCarouselTimeline from '../components/PokemonCarouselTimeline.astro';
 import Base from '../layouts/Base.astro';
 import FormDropdown from '../components/FormDropdown.astro';
@@ -367,14 +368,8 @@ const projects = [
         <span class="eyebrow">Selected Work</span><h2 id="projects-heading">Projects</h2><p><a href="/projects/">View all projects →</a></p>
         <div class="project-grid">
           {projects.map((project) => (
-            <article class="project-card">
-              <div>
-                <span class="project-number">MOVE {project.number}</span>
-                <h3>{project.name}</h3>
-                <p class="project-stack">{project.stack}</p>
-              </div>
-              <div>
-                <p>{project.copy}</p>
+            <ProjectCard name={project.name} stack={project.stack} number={project.number}>
+                <p class="printed-summary" slot="summary">{project.copy}</p>
                 {project.stats && project.stats.length > 0 && (
                   <ul class="project-stats-list">
                     {project.stats.map((stat) => <li>{stat}</li>)}
@@ -388,8 +383,7 @@ const projects = [
                 ) : (
                   <a class="project-link" href={project.number === '001' ? '/projects/productivity-caller/' : project.url} target={project.number !== '001' && project.url.startsWith('http')?'_blank':undefined} rel={project.number !== '001' && project.url.startsWith('http')?'noreferrer':undefined}>{project.number === '001' ? 'Project details' : project.action}&nbsp;<span aria-hidden="true">↗</span></a>
                 )}
-              </div>
-            </article>
+            </ProjectCard>
           ))}
         </div>
 
