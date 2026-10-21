@@ -1,0 +1,138 @@
+---
+import '../styles/card-recipes.css';
+import '../styles/card-finishes.css';
+---
+<dialog class="card-inspection" aria-label="Card inspection">
+  <button class="card-inspection-close" type="button" autofocus>Close inspection ×</button>
+  <div class="card-inspection-body"></div>
+</dialog>
+<script>
+const selector = '.chapter-card, .project-card, .experience-card, .editorial .card, .search-card, .pinned-index-card, .daily-log-card, .related-card, .pinned-card, .project-feature-card';
+const flowers = ['chrysanthemum','rose','peony','lotus','dahlia','poppy','iris','lily','camellia','cosmos','sunflower','anemone','magnolia','gerbera','zinnia','cornflower','carnation','hibiscus','clematis','passionflower','plumeria'];
+const finishes = [
+  { key:'beam', rarity:'rare holo', subtypes:'basic' },
+  { key:'cosmos', rarity:'rare holo cosmos', subtypes:'basic' },
+  { key:'secret', rarity:'rare secret', subtypes:'basic' },
+  { key:'vregular', rarity:'rare holo v', subtypes:'basic v' },
+  { key:'vstar', rarity:'rare holo vstar', subtypes:'vstar' },
+  { key:'rainbow', rarity:'rare rainbow', subtypes:'vmax' },
+];
+function initCardFinishes() {
+  const controller = new AbortController();
+  const dialog = document.querySelector<HTMLDialogElement>('.card-inspection')!;
+  if (dialog.dataset.ready) return;
+  dialog.dataset.ready = 'true';
+  const inspectionBody = dialog.querySelector<HTMLElement>('.card-inspection-body')!;
+  dialog.querySelector('button')!.addEventListener('click', () => dialog.close(), {signal:controller.signal});
+  dialog.addEventListener('click', event => {if(event.target === dialog) dialog.close();}, {signal:controller.signal});
+  dialog.addEventListener('close', () => inspectionBody.replaceChildren(), {signal:controller.signal});
+  const visible = new Set<HTMLElement>();
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+    const card = entry.target as HTMLElement;
+    if (entry.isIntersecting && card.dataset.cardMode === 'holo') visible.add(card); else visible.delete(card);
+    schedule();
+  }), { threshold:.08 });
+  let frame = 0;
+  let previous = 0;
+  function schedule() {
+    if (frame || reduced.matches || document.hidden || !visible.size) return;
+    frame = requestAnimationFrame(tick);
+  }
+  function tick(now: number) {
+    frame = 0;
+    if (reduced.matches || document.hidden || !visible.size) return;
+    if (now - previous >= 70) {
+      previous = now;
+      for (const card of visible) {
+        if (card.dataset.cardMode === 'static' || card.matches(':hover, :focus-within')) continue;
+        const phase = now / 18000 * Math.PI * 2 + Number(card.dataset.flowerIndex);
+        card.style.setProperty('--background-x', `${50 + Math.sin(phase)*6}%`);
+        card.style.setProperty('--background-y', `${50 + Math.cos(phase)*6}%`);
+      }
+    }
+    schedule();
+  }
+  function enhance(card: HTMLElement) {
+    if (card.dataset.cardReady) return;
+    card.dataset.cardReady = 'true';
+    card.classList.add('site-card');
+    const project = card.querySelector<HTMLAnchorElement>('a[href^="/projects/"]');
+    const link = project ?? card.querySelector<HTMLAnchorElement>('h3 a, h2 a, a');
+    const identity = project?.pathname ?? link?.pathname ?? card.querySelector('h3,h2')?.textContent ?? card.textContent ?? '';
+    let hash = 0;
+    for (const char of identity) hash = (Math.imul(hash,31)+char.charCodeAt(0)) >>> 0;
+    card.dataset.flowerIndex = String(hash % flowers.length);
+    card.style.setProperty('--seedx', String((hash % 1000) / 1000));
+    card.style.setProperty('--seedy', String(((hash >>> 8) % 1000) / 1000));
+    card.style.setProperty('--cosmosbg', `${hash % 734}px ${hash % 1280}px`);
+    card.dataset.cardMode = location.pathname === '/resume/' || location.pathname.startsWith('/blog/archive/') || card.matches('.experience-card, .daily-log-card') ? 'static' : card.matches('.chapter-card, .project-card, .project-feature-card') ? 'holo' : 'interactive';
+    if (card.dataset.cardMode === 'holo') {
+      const finish = finishes[Math.floor(Math.random()*finishes.length)];
+      card.dataset.finish = finish.key;
+      card.dataset.rarity = finish.rarity;
+      card.dataset.subtypes = finish.subtypes;
+      card.dataset.supertype = 'pokémon';
+    }
+    if (!card.querySelector('.chapter-flowers')) {
+      const engraving = document.createElement('div');
+      engraving.className = 'site-card-flowers';
+      engraving.setAttribute('aria-hidden','true');
+      for (const corner of ['top','bottom']) {
+        const img = document.createElement('img');
+        img.src = `/floral/${flowers[hash % flowers.length]}.svg`;
+        img.alt = '';img.loading = 'lazy';img.width = 130;img.height = 130;img.className = corner;
+        engraving.append(img);
+      }
+      card.append(engraving);
+    }
+    for (const className of ['site-card-foil','site-card-glare']) {
+      const layer = document.createElement('div');layer.className=className;layer.setAttribute('aria-hidden','true');card.append(layer);
+    }
+    observer.observe(card);
+    const move = (target: HTMLElement, event: PointerEvent) => {
+      if (event.pointerType === 'touch' || card.dataset.cardMode === 'static') return;
+      const rect=target.getBoundingClientRect();
+      const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
+      const y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
+      target.style.setProperty('--pointer-x',`${x*100}%`);target.style.setProperty('--pointer-y',`${y*100}%`);
+      target.style.setProperty('--background-x',`${37+x*26}%`);target.style.setProperty('--background-y',`${33+y*34}%`);
+      if (!reduced.matches) {target.style.setProperty('--rx',`${(.5-y)*3}deg`);target.style.setProperty('--ry',`${(x-.5)*4}deg`);}
+    };
+    card.addEventListener('pointermove', event => move(card,event), {signal:controller.signal});
+    card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
+    if (card.dataset.cardMode === 'holo') {
+      const button = document.createElement('button');
+      button.type='button';button.className='site-card-inspect';button.textContent='Inspect ↗';
+      button.setAttribute('aria-label', `Inspect ${card.querySelector('h2,h3')?.textContent ?? 'card'}`);
+      const inspect = () => {
+        const copy = card.cloneNode(true) as HTMLElement;
+        copy.querySelectorAll('.site-card-inspect').forEach(node=>node.remove());
+        copy.removeAttribute('id');copy.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
+        copy.style.setProperty('--rx','0deg');copy.style.setProperty('--ry','0deg');
+        copy.addEventListener('pointermove',event=>move(copy,event));
+        inspectionBody.replaceChildren(copy);dialog.showModal();
+      };
+      button.addEventListener('click',inspect,{signal:controller.signal});
+      card.addEventListener('click',event=>{
+        if(event.target instanceof Element && !event.target.closest('a,button,input,select,textarea,summary') && !getSelection()?.toString()) inspect();
+      },{signal:controller.signal});
+      card.append(button);
+    }
+  }
+  document.querySelectorAll<HTMLElement>(selector).forEach(enhance);
+  const additions = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
+    if (!(node instanceof HTMLElement)) return;
+    if (node.matches(selector)) enhance(node);
+    node.querySelectorAll<HTMLElement>(selector).forEach(enhance);
+  })));
+  additions.observe(document.body,{childList:true,subtree:true});
+  document.addEventListener('visibilitychange',schedule,{signal:controller.signal});
+  reduced.addEventListener('change',schedule,{signal:controller.signal});
+  document.addEventListener('astro:before-swap',()=>{cancelAnimationFrame(frame);observer.disconnect();additions.disconnect();controller.abort();},{once:true});
+}
+initCardFinishes();
+document.addEventListener('astro:page-load',()=>{
+  if (!document.querySelector('[data-card-ready]')) initCardFinishes();
+});
+</script>

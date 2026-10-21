@@ -114,7 +114,9 @@ const projects = [
       .snake-loader{position:relative;width:232px;height:232px;margin:auto}
       .snake-loader img{position:absolute;inset:50% auto auto 50%;width:138px;height:138px;transform:translate(-50%,-50%);image-rendering:pixelated;display:block;max-width:none}
       @media(max-height:560px){.snake-loader{width:132px;height:132px}.snake-loader img{width:92px;height:92px}}
-    </style>
+
+  #journal-section{grid-template-columns:minmax(0,1fr)}#journal-heading{font:500 clamp(28px,4vw,42px)/1.1 Arial,sans-serif;letter-spacing:-.03em}.journal-section .section-index{display:none}.journal-content{min-width:0;width:100%}.journal-content>.lead{max-width:65ch;font-family:Arial,sans-serif;font-size:17px;line-height:1.7}.journal-content>.eyebrow{display:none}
+</style>
   </Fragment>
   <div class="loader" id="page-loader" role="status" aria-live="polite" data-facts={JSON.stringify(loaderFacts)}>
     <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src="/logos/pixel-python.png" width="138" height="138" alt="" /></div>
@@ -412,10 +414,10 @@ const projects = [
     <section class="journal-section content-section" id="journal-section" aria-labelledby="journal-heading">
       <div class="section-index" aria-hidden="true">JOURNAL / 004</div>
       <div class="journal-content">
-        <span class="eyebrow">Pokémon Chronology · 2,002 Days of Code</span>
+        <span class="eyebrow">2,002 Days of Code</span>
         <h2 id="journal-heading">Days of Code Expedition</h2>
-        <p class="lead">1,258+ daily engineering logs, algorithms, and systems clubbed into 100-day chapters.</p>
-        <PokemonCarouselTimeline />
+        <p class="lead">Daily engineering notes, algorithms and projects. Follow the journey, one hundred days at a time.</p>
+        <PokemonCarouselTimeline compact />
       </div>
     </section>
 </main>

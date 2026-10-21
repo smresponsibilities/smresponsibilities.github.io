@@ -33,8 +33,8 @@ const structuredData = {
 <Base title="Days of Code Timeline | Shivam Mahajan" description="Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones." structuredData={structuredData}>
   <main class="timeline-container">
     <header class="timeline-header">
-      <h1>The Complete Timeline</h1>
-      <p>A scrollable history of every day coded across the 2,002 Days of Code streak.</p>
+      <h1>Days of Code. One chapter at a time.</h1>
+      <p>A journey through algorithms, projects and systems. Explore each hundred-day chapter, or look up an individual day.</p>
       <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
         <a href="/blog/" class="back-link">← Back to Blog</a>
         <a href="/blog/archive/" class="back-link">Century Archives Hub →</a>
@@ -51,8 +51,8 @@ const structuredData = {
           aria-selected="true"
           aria-controls="view-panel-centuries"
         >
-          <span class="mode-icon">🏛</span>
-          <span>Century Chapters (All Centuries at Top)</span>
+
+          <span>Chapter journey</span>
         </button>
         <button
           type="button"
@@ -62,7 +62,7 @@ const structuredData = {
           aria-selected="false"
           aria-controls="view-panel-daily"
         >
-          <span class="mode-icon">📜</span>
+
           <span>Day-by-Day Feed ({posts.length} Days)</span>
         </button>
       </div>
@@ -76,11 +76,11 @@ const structuredData = {
     <!-- Day-by-Day Feed Panel -->
     <div id="view-panel-daily" class="timeline-view-panel" role="tabpanel" aria-labelledby="btn-view-daily" hidden>
       <div class="timeline-filter-bar">
-        <input 
-          type="search" 
-          id="timeline-search" 
-          placeholder="Filter timeline by LeetCode question (e.g. 'Two Sum', '1541') or day..." 
-          aria-label="Filter timeline by LeetCode question or day" 
+        <input
+          type="search"
+          id="timeline-search"
+          placeholder="Filter timeline by LeetCode question (e.g. 'Two Sum', '1541') or day..."
+          aria-label="Filter timeline by LeetCode question or day"
         />
         <span id="timeline-filter-count" class="timeline-filter-count">Showing all {posts.length} days</span>
       </div>
@@ -284,6 +284,8 @@ const structuredData = {
     font-size: 0.85rem;
     color: var(--dim, #666);
   }
+
+  .timeline-header h1{font:500 clamp(30px,5vw,48px)/1.1 Arial,sans-serif;letter-spacing:-.035em;max-width:24ch}.timeline-header>p{font:16px/1.7 Arial,sans-serif;max-width:65ch;color:#becfd8}.timeline-scroll{background:#0d1723;border-color:#dff6ff26;color:#e1e9ed}.timeline-content{color:#e1e9ed}.timeline-date{color:#b1c5d0}.timeline-marker{background:#ffd75e;border-color:#0d1723}.timeline::before{background:#5c7180}.mode-btn{font:600 13px Arial,sans-serif}.timeline-filter-count{color:#b1c5d0}
 </style>
 
 <script>
