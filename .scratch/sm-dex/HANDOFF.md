@@ -1,15 +1,15 @@
-# Handoff — 2026-10-22, after card treatment contract
+# Handoff — 2026-10-22, after card art documentation
 
 ## State
-Resolved: Site card rollout, century archives, and four-treatment contract. Previous resolved work remains in its tickets.
+Resolved: Card rollout, four-treatment contract and replication documentation.
 Frontier: Review published site.
 In flight: None.
 
 ## Last session
-Matched the user-approved treatment table and added front-only native dialog inspection for holo cards. See `.scratch/timeline-refresh/issues/04-card-treatment-contract.md`. Full rollout includes shared floral assets/recipes, chapter timelines and searchable century archives. Latest automated metrics commit preserved. Build generated 1,321 pages; browser checks and 17 SEO tests pass. User authorized pushing main.
+Added `docs/card-art.md` and linked it from `docs/content-guide.md`. Preserved deterministic flower generators in `scripts/card-art/` and accepted back assets in `docs/assets/card-art/`. Generator output matches all 21 committed flowers byte for byte; documentation links resolve. See `.scratch/timeline-refresh/issues/05-card-art-replication-docs.md`. Runtime remains unchanged from the verified card rollout.
 
 ## Not yet written down
-Static engraving covers resume, experience and all archive cards. Listings/related/featured posts have neutral glare and tilt; main project cards/home highlights and non-archive chapter cards have random holo plus inspection. Utility UI and ordinary timeline rows stay plain. Basic/Common and Radiant excluded from random finishes.
+None. Replication decisions are recorded in `docs/card-art.md`.
 
 ## Next
-Review published homepage, project listings and `/blog/archive/801-900/` after deployment.
+Use the replication guide for new card artwork; review production after deployment.

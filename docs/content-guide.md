@@ -1,5 +1,7 @@
 # Portfolio content guide
 
+Card artwork and effects: see [the replication guide](card-art.md) for flower generators, the accepted card back, treatment assignments and verification.
+
 The portfolio page is authored in `src/pages/index.astro`. Device-screen copies live separately
 in `public/generation-device/content.js`; update both places when the same project or role appears
 in both views.
