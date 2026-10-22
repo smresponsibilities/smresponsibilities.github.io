@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SM'S DEX | Screen fit and button feedback study</title>
+<style>
+@font-face{font-family:Departure;src:url('../../../../public/fonts/departure-mono-latin.woff2') format('woff2');font-display:swap}
+:root{font-family:system-ui,sans-serif;color:#222824;background:#eeeee8;color-scheme:light}
+*{box-sizing:border-box}body{margin:0;padding:24px;max-width:1340px;margin-inline:auto}h1{font-size:clamp(27px,4vw,40px);letter-spacing:-.045em;margin:6px 0 12px}h2{font-size:20px;margin:0 0 12px}p{line-height:1.5;max-width:84ch}a{color:#245c71}button,select{font:inherit}button{cursor:pointer}button:disabled{cursor:default}button:focus-visible,a:focus-visible,select:focus-visible{outline:3px solid #bb4c24;outline-offset:4px}button:not(.physical){border:1px solid #a9b2ab;border-radius:4px;background:#fafbf6;padding:9px 12px;color:inherit}button[aria-pressed=true]:not(.physical){background:#254d48;color:white}.kicker{font:11px Departure,monospace;letter-spacing:.1em;color:#68736b}.intro{font-size:14px;color:#515e55}.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:18px 0}.toolbar label{font-size:13px;display:flex;gap:6px;align-items:center}.layout{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(320px,1fr);gap:20px;align-items:start}.panel{background:#fff;border:1px solid #d1d7cf;border-radius:8px;padding:18px;min-width:0}.source-stage{position:relative;width:100%;overflow:hidden;border-radius:5px;background:#e4e8df;aspect-ratio:640/480}.source-image{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none}.aperture{position:absolute;left:0;top:0;transform-origin:0 0;overflow:hidden;contain:paint;background:#151c15;border-radius:4px;pointer-events:none;display:grid;place-items:center}.aperture .lcd{flex-shrink:0}.aperture.off>*{visibility:hidden}.source-note{font-size:12px;color:#566459;margin:10px 0 0}.secondary{font:18px Departure,monospace;color:#b6d1a6;background:#17241e;text-align:center;overflow:hidden;padding:10px}.lcd{width:160px;height:144px;overflow:hidden;background:#f0f1d8;color:#263420;font:11px/14px Departure,monospace;padding:7px}.lcd .top{font-size:9px;border-bottom:2px solid currentColor;padding-bottom:3px;margin-bottom:5px;display:flex;justify-content:space-between}.lcd .name{font-size:11px;line-height:14px;margin:4px 0 6px}.lcd .rule{border-top:1px solid currentColor;margin:6px 0}.lcd .copy{font-size:9px;line-height:13px}.lcd .bottom{font-size:8px;margin-top:6px;border-top:1px solid currentColor;padding-top:3px}.lcd img{display:block;width:100%;height:100%;object-fit:contain;image-rendering:pixelated}.lcd.game{padding:0}.reader{margin-top:16px}.reader summary{cursor:pointer;font-size:13px}.reader-content{margin-top:12px;display:grid;place-items:center;background:#202a25;min-height:306px;border-radius:5px;overflow:hidden}.reader-content .lcd{transform:scale(2);transform-origin:center}.reader-content.off .lcd{visibility:hidden}.state-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}.state-grid div{border-bottom:1px solid #e1e6df;padding-bottom:6px;font-size:13px;min-height:44px}.state-grid small{display:block;color:#69746d;font-size:10px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px}.state-grid output{font-weight:600}.bench-title{margin-top:26px}.bench-caption{font-size:12px;color:#637066;line-height:1.45}.keypad{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;background:#263f40;padding:12px;border:2px solid #192e30;border-radius:8px}.control{min-width:0;text-align:center}.physical{appearance:none;display:block;position:relative;border:0;padding:0;width:100%;height:52px;background:#285662;isolation:isolate;clip-path:inset(0 round 6px);border-radius:6px;touch-action:manipulation;-webkit-tap-highlight-color:transparent;user-select:none;box-shadow:inset 0 0 0 2px #183438}.cap{display:block;position:absolute;inset:0 0 4px;border:2px solid #204451;border-radius:6px;background:linear-gradient(135deg,#b4edf3 0%,#77c9de 30%,#5badc9 100%);box-shadow:inset 2px 2px 0 #d1f7f4,inset -2px -2px 0 #458497;overflow:hidden;contain:paint;pointer-events:none;transform:translateY(0)}.physical[data-held=true] .cap{transform:translateY(4px)}.cap-label{position:absolute;inset:0;display:grid;place-items:center;font:12px Departure,monospace;color:#154258;pointer-events:none}.physical:disabled{opacity:.45}.physical:focus-visible{outline:none;box-shadow:inset 0 0 0 3px #f4d559}.control-name{display:block;font-size:9px;line-height:12px;margin-top:6px;color:#e6efed;overflow-wrap:anywhere}.extra-controls{display:flex;gap:16px;align-items:start;margin-top:16px;padding:0 4px}.extra-controls .control{width:72px}.extra-controls .control-name{color:#40514a}.physical.white{background:#737b72}.white .cap{background:linear-gradient(135deg,#fff,#dbe0d3);border-color:#545f52;box-shadow:inset 2px 2px #fff,inset -2px -2px #adb7a7}.physical.round{width:52px;margin:auto;background:#8d7020;border-radius:50%;clip-path:circle(50%)}.round .cap{border-radius:50%;background:linear-gradient(135deg,#fffca3,#e8bd38);border-color:#705822;box-shadow:inset 2px 2px #fffbbe,inset -2px -2px #b98f2e}.ripples{position:absolute;inset:0;overflow:hidden;border-radius:inherit;pointer-events:none}.ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.65);transform:translate(-50%,-50%) scale(0);animation:ripple 360ms ease-out both;pointer-events:none}.physical[data-feedback=static] .cap{box-shadow:inset 0 0 0 3px #fff7a7}.inspect .ripple{animation-play-state:paused;animation-delay:-150ms}.reduced .ripple{display:none}.reduced .cap{transform:none!important}.hint{min-height:44px;font-size:12px;background:#f0f4ed;padding:10px;border-radius:4px;margin:14px 0}.metrics{font:11px/1.6 Departure,monospace;margin-top:14px;white-space:pre-wrap}.checks{margin-top:20px}.check-actions{display:flex;gap:8px;flex-wrap:wrap}.check-list{font-size:12px;line-height:1.7;padding-left:20px}.checks-note{font-size:12px;color:#56675a}.walk-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.walk-tabs [aria-selected=true]{background:#254d48;color:white}.walk-body{font-size:13px;line-height:1.5}.result{font-size:13px;line-height:1.6;min-height:50px}footer{padding:20px 0;font-size:12px;color:#5c665f}.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+@keyframes ripple{0%{transform:translate(-50%,-50%) scale(0);opacity:.7}100%{transform:translate(-50%,-50%) scale(1);opacity:0}}
+.aperture[hidden]{display:none}.secondary.off{color:transparent}
+.lcd:not(.game){padding:6px}.inspect .ripple{animation-delay:-60ms}
+@media(prefers-reduced-motion:reduce){.ripple{display:none!important;animation:none!important}.cap{transform:none!important}}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.panel{padding:14px}body{padding:16px}.source-stage{max-width:720px;margin:auto}}
+@media(max-width:420px){.keypad{gap:8px;padding:8px}.physical{height:48px}.reader-content .lcd{transform:scale(1.7)}.reader-content{min-height:260px}.control-name{font-size:8px}}
+</style>
+<header><div class="kicker">THROWAWAY STUDY · NOT A REBUILT CASING</div><h1>SM'S DEX: screens + click feedback</h1><p class="intro">Can a live portfolio screen fit references 1, 5 and 6? Can each button acknowledge a click without moving its neighbours or activating the gaps? The source images below are unchanged. The separate button bench tests behaviour, not final pixel-perfect artwork or closing.</p></header>
+<div class="toolbar" aria-label="Study settings">
+  <button type="button" data-reference="1" aria-pressed="false">Reference 1</button><button type="button" data-reference="5" aria-pressed="true">Reference 5</button><button type="button" data-reference="6" aria-pressed="false">Reference 6</button>
+  <label>Screen content <select id="content-mode"><option value="portfolio">Live sample portfolio</option><option value="game">Original game capture</option><option value="source">Unchanged reference</option></select></label>
+  <label><input type="checkbox" id="reduced">Reduced-motion preview</label><label><input type="checkbox" id="inspect">Freeze ripple for inspection</label>
+</div>
+<main class="layout">
+  <section class="panel" aria-labelledby="fit-title"><h2 id="fit-title">Screen fit</h2>
+    <div class="source-stage" id="stage"><img class="source-image" id="source-image" alt="Selected original Kanto casing reference"><div class="aperture" id="main-aperture" aria-hidden="true"></div><div class="aperture secondary" id="side-aperture" aria-hidden="true"></div></div>
+    <p class="source-note" id="source-note"></p>
+    <p class="source-note">Manual inset aperture points, not a final tracing. Content keeps its 160 × 144 layout inside the local screen plane. Perspective follows the photographed/artwork screen; spare space is letterboxed.</p>
+    <details class="reader" open><summary>Enlarged reading view and accessible screen content</summary><div class="reader-content" id="reader"></div></details>
+  </section>
+  <section class="panel" aria-labelledby="feedback-title"><h2 id="feedback-title">Button feedback bench</h2>
+    <div class="state-grid"><div><small>Power</small><output id="power-state">On</output></div><div><small>Screen</small><output id="page-state">Profile</output></div><div><small>Accepted actions</small><output id="accepted">0</output></div><div><small>Cancelled presses</small><output id="cancelled">0</output></div><div><small>Last input</small><output id="last-input">None</output></div><div><small>Feedback</small><output id="feedback-state">None</output></div></div>
+    <p class="bench-caption">Separate study controls. Cyan caps, white keys and yellow round cap have individual fixed targets. Labels are study labels, not proposed casing markings. No source keypad pixels were sliced.</p>
+    <div class="keypad" id="keypad"></div><div class="extra-controls" id="extra-controls"></div>
+    <p class="hint" id="hint" role="status">Hover or focus a control to see its action. Press, then release over that same control.</p>
+    <div class="toolbar"><button type="button" id="reset">Reset study</button><button type="button" id="held-preview">Show held cap</button></div>
+    <output class="metrics" id="metrics">No press measured yet.</output>
+    <div class="checks"><h2>Guided cases</h2><div class="walk-tabs" role="tablist" aria-label="Input walkthrough"><button role="tab" id="walk-normal" aria-controls="walk-panel" aria-selected="true" tabindex="0" data-walk="normal">Click</button><button role="tab" id="walk-cancel" aria-controls="walk-panel" aria-selected="false" tabindex="-1" data-walk="cancel">Cancel</button><button role="tab" id="walk-motion" aria-controls="walk-panel" aria-selected="false" tabindex="-1" data-walk="motion">Reduced motion</button></div><div class="walk-body" id="walk-panel" role="tabpanel" aria-labelledby="walk-normal"></div>
+    <p class="checks-note">The scripted check below dispatches synthetic mouse, touch and keyboard events. It is not a substitute for testing a physical touchscreen. Normal bench use records real browser input separately.</p><div class="check-actions"><button type="button" id="run-checks">Run scripted input checks</button></div><ol class="check-list" id="check-results"></ol></div>
+  </section>
+</main>
+<footer><a href="../../research/restart/">Reference board</a> · <a href="README.md">Scope and test results</a>. In-memory scratch study. No data submitted, no audio, no stored people images. Power-off is tested; a moving lid is not built here.</footer>
+<script>
+// Pure input-to-portfolio state, kept independent of the visual study.
+const pages = [
+  {name:'Profile',title:'SHIVAM MAHAJAN',line:'SOFTWARE DEVELOPER',copy:'Builds software and reliable systems. Sample screen layout.'},
+  {name:'Moves',title:'MOVE LIST',line:'01 / SAMPLE PROJECT',copy:'Project details appear here. Select a move to read its impact.'},
+  {name:'Encounters',title:'ENCOUNTERS',line:'CAREER HISTORY',copy:'Roles and teams belong here. Sample content, not final copy.'},
+  {name:'Ribbons',title:'RIBBONS',line:'ACHIEVEMENTS',copy:'Verified achievements appear here. Each ribbon has a story.'},
+  {name:'Evolution',title:'EVOLUTION',line:'CAREER PROGRESSION',copy:'Past stages and current work. The next stage is unrevealed.'},
+  {name:'Dex',title:'DEX ROSTER',line:'001 / SHIVAM',copy:'Browse portfolio entries. Public roster integration comes later.'},
+  {name:'Join',title:'ADD AN ENTRY',line:'FORM PREVIEW',copy:'The real form opens later. This study submits no information.'},
+  {name:'Resume',title:'RESUME',line:'PLAIN TEXT VIEW',copy:'Readable portfolio content, independent of the device casing.'}
+];
+const initialState=()=>({power:true,index:0,accepted:0,cancelled:0,lastInput:'None',feedback:'None'});
+function transition(s,event){
+  if(event.type==='cancel')return {...s,cancelled:s.cancelled+1,lastInput:event.input,feedback:'Cancelled; no ripple'};
+  if(event.type!=='activate'||(!s.power&&event.action!=='power'))return s;
+  const next={...s,accepted:s.accepted+1,lastInput:event.input,feedback:event.reduced?'Static acknowledgement':'Contained ripple'};
+  if(event.action==='power')next.power=!s.power;
+  else if(event.action==='previous')next.index=(s.index+pages.length-1)%pages.length;
+  else if(event.action==='next')next.index=(s.index+1)%pages.length;
+  else next.index=Number(event.action);
+  return next;
+}
+// Project a rectangular local screen plane onto four measured image-space points.
+function projection(width,height,points){
+  const from=[[0,0],[width,0],[width,height],[0,height]],rows=[];
+  from.forEach(([x,y],i)=>{const [u,v]=points[i];rows.push([x,y,1,0,0,0,-u*x,-u*y,u],[0,0,0,x,y,1,-v*x,-v*y,v]);});
+  for(let c=0;c<8;c++){let p=c;for(let r=c+1;r<8;r++)if(Math.abs(rows[r][c])>Math.abs(rows[p][c]))p=r;[rows[c],rows[p]]=[rows[p],rows[c]];const d=rows[c][c];rows[c]=rows[c].map(v=>v/d);for(let r=0;r<8;r++)if(r!==c){const f=rows[r][c];rows[r]=rows[r].map((v,k)=>v-f*rows[c][k]);}}
+  const [a,b,c,d,e,f,g,h]=rows.map(r=>r[8]);return `matrix3d(${a},${d},0,${g},${b},${e},0,${h},0,0,1,0,${c},${f},0,1)`;
+}
+const references={
+  1:{file:'g1-01.png',w:1150,h:945,title:'g1-01 · Original RG open artwork. Main and right displays.',main:[[218,492],[396,410],[471,582],[304,657]],side:[[566,196],[790,93],[870,201],[625,315]]},
+  5:{file:'g1-05.png',w:640,h:480,title:'g1-05 · Original-series anime open casing. Main and right displays.',main:[[260,174],[352,201],[328,263],[239,235]],side:[[451,221],[574,262],[557,297],[436,258]]},
+  6:{file:'g1-06.png',w:640,h:480,title:'g1-06 · Original-series anime scan close-up. Only the visible main display is fitted.',main:[[219,183],[465,182],[484,409],[211,410]]}
+};
+const root='../../research/restart/references/';
+const $=id=>document.getElementById(id),controls=[];
+let state=initialState(),selectedReference=5,pending=null,preview=false,feedbackSerial=0;
+const media=matchMedia('(prefers-reduced-motion: reduce)');
+const reduced=()=>media.matches||$('reduced').checked;
+function lcdMarkup(){
+  if($('content-mode').value==='game')return '<div class="lcd game"><img src="'+root+(state.index===0?'g1-04.png':'g1-03.png')+'" alt="Original RBY game UI reference, not portfolio content"></div>';
+  const p=pages[state.index];return '<div class="lcd"><div class="top"><span>SM\'S DEX</span><span>NO.'+String(state.index+1).padStart(3,'0')+'</span></div><div class="name">'+p.title+'</div><div class="copy">'+p.line+'</div><div class="rule"></div><div class="copy">'+p.copy+'</div><div class="bottom">'+p.name.toUpperCase()+' / SAMPLE</div></div>';
+}
+function fit(){
+  const ref=references[selectedReference],scale=$('stage').clientWidth/ref.w;
+  const main=$('main-aperture'),side=$('side-aperture');
+  const [w,h]=selectedReference===5?[224,160]:selectedReference===1?[192,176]:[256,224];main.style.width=w+'px';main.style.height=h+'px';main.style.transform=projection(w,h,ref.main.map(p=>p.map(v=>v*scale)));
+  const lcd=main.querySelector('.lcd');if(lcd)lcd.style.transform='scale('+Math.min(w/160,h/144)+')';
+  // Uniformly scale 160×144 content into the local plane, then project the entire plane.
+  side.style.width='320px';side.style.height='128px';side.style.display=ref.side?'grid':'none';
+  if(ref.side)side.style.transform=projection(320,128,ref.side.map(p=>p.map(v=>v*scale)));
+}
+function render(){
+  $('power-state').textContent=state.power?'On':'Off';$('page-state').textContent=pages[state.index].name;
+  $('accepted').textContent=state.accepted;$('cancelled').textContent=state.cancelled;$('last-input').textContent=state.lastInput;$('feedback-state').textContent=state.feedback;
+  $('main-aperture').innerHTML=lcdMarkup();$('reader').innerHTML=lcdMarkup();$('side-aperture').textContent=pages[state.index].name.toUpperCase()+' / '+String(state.index+1).padStart(2,'0');
+  for(const id of ['main-aperture','side-aperture','reader'])$(id).classList.toggle('off',!state.power);
+  $('reader').inert=!state.power;$('reader').setAttribute('aria-hidden',String(!state.power));
+  const original=$('content-mode').value==='source';$('main-aperture').hidden=original;$('side-aperture').style.visibility=original?'hidden':'visible';
+  // The power-state experiment never alters the unchanged source-only view.
+  controls.forEach(b=>b.disabled=!state.power&&b.dataset.action!=='power');document.body.classList.toggle('reduced',reduced());fit();
+}
+function setReference(id){selectedReference=id;const ref=references[id];$('source-image').src=root+ref.file;$('source-image').alt=ref.title;$('stage').style.aspectRatio=ref.w+'/'+ref.h;$('source-note').textContent=ref.title;document.querySelectorAll('[data-reference]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.reference===String(id))));fit();render();}
+function rectangles(){return [...controls,$('stage'),$('keypad')].map(b=>{const r=b.getBoundingClientRect();return [r.x,r.y,r.width,r.height];});}
+function startHold(button,input){
+  const before=rectangles(),faceBefore=button.querySelector('.cap').getBoundingClientRect();
+  button.dataset.held='true';const after=rectangles(),faceAfter=button.querySelector('.cap').getBoundingClientRect();
+  const delta=Math.max(...before.flatMap((r,i)=>r.map((v,j)=>Math.abs(v-after[i][j]))));
+  $('metrics').textContent='Input: '+input+'\nFixed target / neighbour drift: '+delta.toFixed(2)+'px\nCap travel: '+(faceAfter.y-faceBefore.y).toFixed(2)+'px';
+  $('metrics').dataset.drift=delta;$('metrics').dataset.travel=faceAfter.y-faceBefore.y;
+}
+function stopHold(){controls.forEach(b=>b.dataset.held='false');preview=false;}
+function inside(button,x,y){return document.elementFromPoint(x,y)?.closest('.physical')===button;}
+function clearFeedback(){controls.forEach(b=>{b.querySelector('.ripples').replaceChildren();delete b.dataset.feedback;});}
+function acknowledge(button,x,y){
+  const serial=++feedbackSerial;button.querySelector('.ripples').replaceChildren();
+  if(reduced()){button.dataset.feedback='static';setTimeout(()=>{if(button.dataset.serial===String(serial))delete button.dataset.feedback;},220);}
+  else{const cap=button.querySelector('.cap'),r=cap.getBoundingClientRect(),span=document.createElement('span'),size=2*Math.hypot(r.width,r.height);span.className='ripple';span.style.width=span.style.height=size+'px';span.style.left=Math.max(0,Math.min(r.width,x-r.left))+'px';span.style.top=Math.max(0,Math.min(r.height,y-r.top))+'px';span.dataset.origin=x==null?'centre':'input';span.addEventListener('animationend',()=>span.remove(),{once:true});button.querySelector('.ripples').append(span);}
+  button.dataset.serial=serial;
+}
+function activate(button,input,x,y){const next=transition(state,{type:'activate',action:button.dataset.action,input,reduced:reduced()});if(next===state)return;state=next;stopHold();render();acknowledge(button,x,y);}
+function cancel(input){if(!pending)return;state=transition(state,{type:'cancel',input});pending=null;stopHold();render();}
+function install(button){
+  button.addEventListener('pointerenter',()=>{$('hint').textContent=button.title;});button.addEventListener('focus',()=>{$('hint').textContent=button.title;});
+  button.addEventListener('pointerdown',e=>{if(e.button!==0||!e.isPrimary||pending||button.disabled)return;e.preventDefault();stopHold();clearFeedback();button.focus({preventScroll:true});pending={button,pointerId:e.pointerId,cancelled:false,input:(e.isTrusted?'Browser ':'Synthetic ')+e.pointerType};if(e.isTrusted)button.setPointerCapture(e.pointerId);startHold(button,pending.input);});
+  button.addEventListener('pointermove',e=>{if(pending?.button!==button||pending.pointerId!==e.pointerId)return;if(!inside(button,e.clientX,e.clientY)){pending.cancelled=true;stopHold();}});
+  button.addEventListener('pointerup',e=>{if(pending?.button!==button||pending.pointerId!==e.pointerId)return;e.preventDefault();const p=pending;if(p.cancelled||!inside(button,e.clientX,e.clientY)){cancel(p.input);return;}pending=null;activate(button,p.input,e.clientX,e.clientY);});
+  button.addEventListener('pointercancel',e=>{if(pending?.button===button&&pending.pointerId===e.pointerId)cancel(pending.input);});button.addEventListener('lostpointercapture',e=>{if(pending?.button===button&&pending.pointerId===e.pointerId)cancel(pending.input);});
+  button.addEventListener('keydown',e=>{if(![' ','Enter'].includes(e.key))return;e.preventDefault();if(e.repeat||pending||button.disabled)return;stopHold();clearFeedback();pending={button,key:e.key,input:(e.isTrusted?'Browser ':'Synthetic ')+(e.key===' '?'Space':'Enter')};startHold(button,pending.input);});
+  button.addEventListener('keyup',e=>{if(![' ','Enter'].includes(e.key))return;e.preventDefault();if(pending?.button!==button||pending.key!==e.key)return;const input=pending.input;pending=null;const r=button.getBoundingClientRect();activate(button,input,r.x+r.width/2,r.y+r.height/2);});
+  button.addEventListener('blur',()=>{if(pending?.button===button)cancel(pending.input);});
+  button.addEventListener('click',e=>{e.preventDefault();if(e.detail===0&&!pending){const r=button.getBoundingClientRect();activate(button,e.isTrusted?'Browser assistive click':'Synthetic click',r.x+r.width/2,r.y+r.height/2);}});
+}
+function addControl(parent,id,label,action,kind,mark){const wrap=document.createElement('div');wrap.className='control';const b=document.createElement('button');b.type='button';b.id=id;b.className='physical '+(kind||'');b.dataset.action=action;b.dataset.held='false';b.setAttribute('aria-label',label);b.title=label+'. Press and release here; dragging off cancels.';b.innerHTML='<span class="cap"><span class="cap-label">'+mark+'</span><span class="ripples" aria-hidden="true"></span></span>';wrap.append(b);const caption=document.createElement('span');caption.className='control-name';caption.textContent=label;wrap.append(caption);$(parent).append(wrap);controls.push(b);install(b);}
+pages.forEach((p,i)=>addControl('keypad','key-'+(i+1),'Show '+p.name,String(i),'',String(i+1).padStart(2,'0')));
+addControl('keypad','key-9','Previous page','previous','','09');addControl('keypad','key-10','Next page','next','','10');
+addControl('extra-controls','white-left','Previous page, white key','previous','white','←');addControl('extra-controls','white-right','Next page, white key','next','white','→');addControl('extra-controls','yellow-round','Power on or off','power','round','');
+function reset(){pending=null;state=initialState();stopHold();clearFeedback();$('metrics').textContent='No press measured yet.';delete $('metrics').dataset.drift;delete $('metrics').dataset.travel;render();}
+window.addEventListener('blur',()=>cancel(pending?.input||'Window blur'));document.addEventListener('visibilitychange',()=>{if(document.hidden)cancel(pending?.input||'Hidden page');});
+document.querySelectorAll('[data-reference]').forEach(b=>b.addEventListener('click',()=>{cancel('Reference change');setReference(Number(b.dataset.reference));}));$('content-mode').addEventListener('change',render);$('reset').addEventListener('click',reset);$('reduced').addEventListener('change',()=>{cancel('Motion change');clearFeedback();render();});media.addEventListener('change',()=>{cancel('System motion change');clearFeedback();render();});$('inspect').addEventListener('change',()=>{clearFeedback();document.body.classList.toggle('inspect',$('inspect').checked);});
+$('held-preview').addEventListener('click',()=>{if(preview){stopHold();return;}reset();preview=true;startHold(controls[1],'Held-state preview, not physical input');});
+const walks={normal:['Press then release','Use a cyan key. Its target stays fixed, its face depresses, and release changes the screen exactly once. A short ripple stays inside the cap.','Show Moves'],cancel:['Leave the control before release','Drag from a cyan cap into a gap and release. The page and accepted-action count must stay unchanged. No ripple confirms a cancelled press.','Script a cancelled drag'],motion:['Acknowledge without expansion','Reduced-motion preview removes cap travel and the expanding ripple. Successful activation uses a brief static highlight and a visible screen change.','Preview reduced-motion click']};
+function walk(id){reset();$('reduced').checked=id==='motion';render();document.querySelectorAll('[data-walk]').forEach(b=>{b.setAttribute('aria-selected',String(b.dataset.walk===id));b.tabIndex=b.dataset.walk===id?0:-1;});$('walk-panel').setAttribute('aria-labelledby','walk-'+id);const [title,copy,label]=walks[id];$('walk-panel').innerHTML='<strong>'+title+'</strong><p>'+copy+'</p><button type="button" id="walk-step">'+label+'</button>';$('walk-step').addEventListener('click',()=>{const b=controls[1];b.scrollIntoView({block:'center',behavior:'instant'});if(id==='cancel')syntheticPointer(b,'mouse','off');else{const r=b.getBoundingClientRect();activate(b,'Guided preview',r.x+r.width/2,r.y+r.height/2);}});}
+document.querySelectorAll('[data-walk]').forEach(b=>{b.addEventListener('click',()=>walk(b.dataset.walk));b.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight','Home','End'].includes(e.key))return;e.preventDefault();const tabs=[...document.querySelectorAll('[data-walk]')],i=tabs.indexOf(b),n=e.key==='Home'?0:e.key==='End'?tabs.length-1:(i+(e.key==='ArrowRight'?1:-1)+tabs.length)%tabs.length;tabs[n].focus();walk(tabs[n].dataset.walk);});});
+function syntheticPointer(b,type,mode='accept'){const r=b.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;const emit=(name,xx=x,yy=y)=>b.dispatchEvent(new PointerEvent(name,{bubbles:true,cancelable:true,pointerId:77,pointerType:type,isPrimary:true,button:0,buttons:name==='pointerup'?0:1,clientX:xx,clientY:yy}));emit('pointerdown');if(mode==='cancel'){emit('pointercancel');return;}if(mode==='off'){emit('pointermove',r.right+5,y);emit('pointerup',r.right+5,y);}else emit('pointerup');}
+$('run-checks').addEventListener('click',()=>{
+  reset();const results=[],check=(label,pass)=>results.push({label,pass});const originalReduced=$('reduced').checked;const originalMode=$('content-mode').value;$('content-mode').value='portfolio';$('reduced').checked=false;render();
+  for(const b of controls){if(!state.power){state={...state,power:true};render();}b.scrollIntoView({block:'center',behavior:'instant'});const before=state.accepted;syntheticPointer(b,'mouse');check(b.getAttribute('aria-label')+' accepts once',state.accepted===before+1);check(b.id+' target, neighbours and source fixed',Number($('metrics').dataset.drift)===0);check(b.id+' cap travel',Number($('metrics').dataset.travel)===(media.matches?0:4));if(/^\d+$/.test(b.dataset.action)){const lcd=$('reader').querySelector('.lcd');check(b.id+' visible portfolio result',$('reader').querySelector('.name').textContent===pages[Number(b.dataset.action)].title&&$('main-aperture').querySelector('.name').textContent===pages[Number(b.dataset.action)].title);check(b.id+' text fits native screen',lcd.scrollHeight<=lcd.clientHeight&&lcd.scrollWidth<=lcd.clientWidth);}}
+  reset();const b=controls[1];b.scrollIntoView({block:'center',behavior:'instant'});syntheticPointer(b,'mouse','off');check('Off-target release: no action or ripple',state.accepted===0&&state.cancelled===1&&!document.querySelector('.ripple'));
+  syntheticPointer(b,'touch','cancel');check('Touch cancellation clears held state',state.accepted===0&&state.cancelled===2&&b.dataset.held==='false');syntheticPointer(b,'touch');check('Synthetic touch accepts exactly once',state.accepted===1);
+  for(const key of [' ','Enter']){const before=state.accepted;b.dispatchEvent(new KeyboardEvent('keydown',{key,bubbles:true,cancelable:true}));b.dispatchEvent(new KeyboardEvent('keydown',{key,repeat:true,bubbles:true,cancelable:true}));b.dispatchEvent(new KeyboardEvent('keyup',{key,bubbles:true,cancelable:true}));check((key===' '?'Space':'Enter')+' ignores key-repeat',state.accepted===before+1);}
+  const caps=controls.map(b=>b.getBoundingClientRect());const gap=inside(controls[0],(caps[0].right+caps[1].left)/2,caps[0].y+caps[0].height/2);check('Keypad gap has no control target',!gap&&!document.elementFromPoint((caps[0].right+caps[1].left)/2,caps[0].y+caps[0].height/2)?.closest('.physical'));
+  check('Ripple container stays clipped and pointer-inert',controls.every(b=>{const s=getComputedStyle(b.querySelector('.ripples'));return s.overflow==='hidden'&&s.pointerEvents==='none';}));
+  $('reduced').checked=true;render();clearFeedback();syntheticPointer(b,'mouse');check('Reduced motion uses static acknowledgement',!document.querySelector('.ripple')&&b.dataset.feedback==='static'&&Number($('metrics').dataset.travel)===0);
+  $('yellow-round').scrollIntoView({block:'center',behavior:'instant'});syntheticPointer($('yellow-round'),'mouse');check('Power-off blanks and disables live content',!state.power&&$('reader').inert&&controls.filter(b=>b.dataset.action!=='power').every(b=>b.disabled));syntheticPointer($('yellow-round'),'mouse');check('Power-on restores prior page',state.power&&state.index===1);
+  $('reduced').checked=originalReduced;$('content-mode').value=originalMode;render();$('check-results').replaceChildren(...results.map(r=>{const li=document.createElement('li');li.textContent=(r.pass?'PASS · ':'FAIL · ')+r.label;li.dataset.pass=String(r.pass);return li;}));$('check-results').dataset.passed=results.filter(r=>r.pass).length;$('check-results').dataset.total=results.length;$('check-results').scrollIntoView({block:'start',behavior:'instant'});
+});
+new ResizeObserver(fit).observe($('stage'));setReference(5);walk('normal');
+</script>
+</html>

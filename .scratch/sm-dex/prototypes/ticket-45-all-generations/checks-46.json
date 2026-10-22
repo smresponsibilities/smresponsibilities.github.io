@@ -1,0 +1,15 @@
+{
+  "date": "2026-09-07",
+  "revision": "46.5",
+  "scope": "Local flat study, not production or visual approval",
+  "browser": "Codex in-app browser, hidden tab observed at 1280x720",
+  "physicalControls": {"revision": "46.4", "checked": 47, "passed": 47, "assertion": "Each native click increments accepted action count by exactly one", "byDevice": {"red": 23, "gold": 8, "ruby": 7, "diamond": 7, "black": 2}},
+  "closeReopen": {"revision": "46.4", "devices": 10, "passed": 10, "assertions": ["Closed enabled hardware count zero", "Closed exposed glass count zero", "End reopens"]},
+  "hingeProbe": {"samples": 18, "failed": 0, "progress": [0.25, 0.5, 0.75], "devices": ["red", "gold", "ruby", "diamond", "heartgold"], "goldMovingLeafCounts": [1, 0, 1], "oldXSignWithZIndex999": {"device": "gold", "progress": 0.25, "topCentreZ": -105.71, "verdict": "FAIL"}},
+  "rearFirstSelection": {"revision": "46.5", "devices": ["sun-moon", "sword-shield", "scarlet-violet"], "passed": 3, "assertion": "Selecting from an open previous device gives progress 0 and rear-facing; End reveals front", "loggedErrors": 0},
+  "rotom": {"shortNativeDrag": "returns to 0 rear", "fullNativeDrag": "1 front, glass exposed", "manualFlip": "rear hides glass and reader", "rearClick": "restores front and glass", "reaction": "arm wave and eyelid blink; iris group not scaled", "pause": "float and arm animation none"},
+  "reducedMotion": {"rotomFloat": "none", "rotomBlink": "none", "xyScan": "none", "phoneFlipTransition": "0s", "bothPhones": "rear to front and manual rear passed"},
+  "visualChecks": ["II/IV/V open palette", "III open layout and exposed closed disc", "VI open/closed cyan glass", "VII concept rear start"],
+  "exports": {"devices": 10, "innerLayers": 24, "outerFaces": 6, "rearFaces": 3, "controlSheets": 10, "svgFiles": 53},
+  "limitations": ["No pixel diff or full collision proof", "RSE needs user visual approval", "Mobile viewport override did not apply; not counted as mobile pass", "No real touch, other engine, screen reader or OS motion-setting test"]
+}

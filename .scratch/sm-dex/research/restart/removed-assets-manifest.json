@@ -1,0 +1,1218 @@
+{
+  "reason": "User requested removal of all generated/derived Pokédex assets and a restart. Original downloaded references are excluded.",
+  "recoveryRoot": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01",
+  "entries": [
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-1b33120a-0453-40e7-9984-395e7528d24a.png",
+      "bytes": 1849726,
+      "sha256": "A30F76D65FD8703110982338049B38CDE10423E214BE9A2E41DBEC931C6DA885",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-1b33120a-0453-40e7-9984-395e7528d24a.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-4f5fd5b9-e929-46b2-ac34-65f2f030ff04.png",
+      "bytes": 1098869,
+      "sha256": "1FADE63C4E6B5CCBBEB7A94482E5FFFE191FC009CFD1754F586A19ADFABCE6D7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-4f5fd5b9-e929-46b2-ac34-65f2f030ff04.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-a93f5f5f-8485-4bd6-9dc7-57acc890873a.png",
+      "bytes": 1201535,
+      "sha256": "FD837F865780DB4DD9F547F2F9C59FB56B4F7EC98EA82CFB40FD9318E06166D1",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-a93f5f5f-8485-4bd6-9dc7-57acc890873a.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-ac28e8ff-0ab0-4733-a365-89086d6a794b.png",
+      "bytes": 1147369,
+      "sha256": "27F18D97F57030B17F3C37F4DB38105F42569C8BE9C82EF3D5F970860AB20F9D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-ac28e8ff-0ab0-4733-a365-89086d6a794b.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-c3ee2750-f558-4975-b701-df0ea092f9b9.png",
+      "bytes": 1561920,
+      "sha256": "89139DC3012A9FE8C6DD9A4A7042ABB20B1BD9AE3E61CFB0593CDC76E063CB3D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-c3ee2750-f558-4975-b701-df0ea092f9b9.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-edbc4347-7758-42bf-aacb-14dd3081b663.png",
+      "bytes": 826038,
+      "sha256": "19DFF9C2D06C4AEC64D993EDD0E007EE60DD7736413C3E84DF19479335D56B48",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-edbc4347-7758-42bf-aacb-14dd3081b663.png"
+    },
+    {
+      "source": "C:\\Users\\sm\\.codex\\generated_images\\01a0611e-8f19-7d52-ae53-e13bcd0da3fb\\exec-fe53ad3c-5828-43bf-a52f-99f291e80002.png",
+      "bytes": 1062715,
+      "sha256": "395BB5A4BFC23431CC9E03BE32A9EF7836B5EC1CE6859D9EDB31DB795C45A9BB",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\generated-cache\\exec-fe53ad3c-5828-43bf-a52f-99f291e80002.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-23\\inner-lid-master.png",
+      "bytes": 1160231,
+      "sha256": "1CB24BB8DC9BD331DBBF03AC8819FDDE64353D81EE6197E692E627C136F17636",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-23\\inner-lid-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-23\\outer-cover-master.png",
+      "bytes": 1234329,
+      "sha256": "8A043E85AA52F72EBC9E4DD16E61A31622C2173026197205DD984AE12DB91570",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-23\\outer-cover-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-23\\stationary-body-master.png",
+      "bytes": 1292951,
+      "sha256": "EB379B6D91D5967405ED91F3C7DFC8E8292F74A6A42A15071FD6F6164E164FE6",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-23\\stationary-body-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-24\\gen-1-2-game-boy-master.png",
+      "bytes": 1328855,
+      "sha256": "4F8242F506088B43C5BFD87DF24320FBF4D746D34B423A8DF21EC7D575B5F734",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-24\\gen-1-2-game-boy-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-24\\gen-4-5-closed-master.png",
+      "bytes": 1262668,
+      "sha256": "C7FF25EEB8D9086CF2ABEC02A88B6142FD63FE4C368414AF037908ACAF011A17",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-24\\gen-4-5-closed-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-24\\gen-4-5-open-master.png",
+      "bytes": 1384448,
+      "sha256": "35176AF9BB919A31C68DEB52BA8CFB7A6E65B9237E6158C45535D6590A540277",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-24\\gen-4-5-open-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-24\\gen-6-9-modern-master.png",
+      "bytes": 1312442,
+      "sha256": "AEA1E8963FD470F1189C3425FB606B005069C116D61F62142DBB26C37A711052",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-24\\gen-6-9-modern-master.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-30\\all-eight-source-preview.png",
+      "bytes": 665582,
+      "sha256": "2A63FC6361C90352289C9DCE8159845264E6A019D7447042867EA2C1A7F0D5D4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-30\\all-eight-source-preview.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\assets\\ticket-30\\all-eight-source-preview.svg",
+      "bytes": 4167,
+      "sha256": "993DC5ACE885A2055E15B3BACF6923B04A9B5E63D9034C65AE7DF30A8F9B60E0",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\assets\\ticket-30\\all-eight-source-preview.svg"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-assembled.png",
+      "bytes": 374681,
+      "sha256": "58F3DAD59950F5848CCC424C95F9FA3DD5E980A98442932DB9BEC4D6F6ADDC1A",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-assembled.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-exploded-high.png",
+      "bytes": 172493,
+      "sha256": "44013751B309D46C63D3284C23CA1C3F208D6734490FE9BCB5DEB84BAFD5F0F6",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-exploded-high.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-exploded-low.png",
+      "bytes": 112396,
+      "sha256": "B3CFE9B96F3EBE1BE70EDE8617991F97C4E932DDE444A2E36362A3295BCEA9AE",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\gb-exploded-low.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\rotom-assembled.png",
+      "bytes": 164810,
+      "sha256": "78E7711BCE526C254F14B7930C498D4C104531A4FF5B6964922AFBF531BDBF0C",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\rotom-assembled.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\rotom-exploded.png",
+      "bytes": 144134,
+      "sha256": "097AFB7FE0D668526A88D1A7527219B7F1DCE6AD5B2B96673650005BFCAD8E8E",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\_probe\\rotom-exploded.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\extraction-manifest.json",
+      "bytes": 18426,
+      "sha256": "8A18F38D2B48806236615C51FC94848394F2491E9C5356E7E15A98543407721B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\extraction-manifest.json"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-base.png",
+      "bytes": 15756,
+      "sha256": "6A1B5D6D40D5B6FBB911A419BAE32A2C383067E7CC212EE6296DA09982C93600",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-center.png",
+      "bytes": 1507,
+      "sha256": "64320E67D37119930CC7A28616257F3537794E281E529C53286F0C3EBEC3208D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-center.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-down.png",
+      "bytes": 2383,
+      "sha256": "9D55BE4E2794F11DDBFA06242AB1A5C35E4839E4BBAB842B23760F01CCC392CA",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-down.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-face.png",
+      "bytes": 15867,
+      "sha256": "1247BA56696FD27BBA06D303B0E1ABC33772AB18E15506CBC173A1E4E2EAF074",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-left.png",
+      "bytes": 2696,
+      "sha256": "B780FABFC4836CB8B59F62A6B1FE01E167738D26544A4E081359F6CE1327ECE9",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-left.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-right.png",
+      "bytes": 2622,
+      "sha256": "CBAFA87254F9C77AF2D875627ACD2A8BDBAFCAFB0E67806DAB8C4FA6D3BBF58B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-right.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-up.png",
+      "bytes": 2526,
+      "sha256": "79A3527D462EF7674C15085B0AF1D6D4CB9A49B1D25353328A219DD530176BA7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-cross-up.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-hinge.png",
+      "bytes": 31602,
+      "sha256": "8A1E79E0AD0D01BF6CF36E8DBC8166193E2D6C57C5C154F8BB454345E641761B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-hinge.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-home-pill.png",
+      "bytes": 5617,
+      "sha256": "25758703491674EDF6916A37BDD78301E0B85735E3CA200B8BC0379912745609",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-home-pill.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lens.png",
+      "bytes": 42103,
+      "sha256": "9909012A7C9AECDF30A322A416BBA1D1973258FDE9818383F30DD20056076659",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lens.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lid-inner.png",
+      "bytes": 134724,
+      "sha256": "832A335254C9187420710216805AAEA6286769D0BBD4C0F485052EAB8B79BC95",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lid-inner.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lid-outer.png",
+      "bytes": 309689,
+      "sha256": "AA6F961571ACFC40C30F49100EE5A790CF2591A568B4A0BB3A4ED417724A85F8",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-lid-outer.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-pill-a.png",
+      "bytes": 2925,
+      "sha256": "DDD9628D55FD293BC4607043EAE3FF34FC781619FACAD6955CDBDB36C7521729",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-pill-a.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-pill-b.png",
+      "bytes": 4150,
+      "sha256": "1F9FA8072C6FF2D1CBA2FA7F61126201D9E6312FF6C57B894E894B648645944F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-pill-b.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-base.png",
+      "bytes": 34283,
+      "sha256": "2791E6F0478978CB58A2595999260C0D8078EAC6468853FC738AF876FB9EF762",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-down.png",
+      "bytes": 7017,
+      "sha256": "CA641B1E0E77985C74F27BAE0BB02567818992214E75E887B258D5D2FE248EFF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-down.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-face.png",
+      "bytes": 27846,
+      "sha256": "DEF3FFDFBBEB8F7E3769EC5DCD47C15B311E7075010E7E5128BE1E2465929000",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-left.png",
+      "bytes": 7160,
+      "sha256": "6EDD3C4E69B229881418D720DA9155FD3955FBB4E2CABFAB15CF78A873E219DC",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-left.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-right.png",
+      "bytes": 7125,
+      "sha256": "C1E6384221585F586686091ABCAE5C977C60F4B71D56EDCE86ED8E2BEE16E02A",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-right.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-up.png",
+      "bytes": 7261,
+      "sha256": "CFBF1C2E38B836473F3A8834BD0AD39A0BAC4D3E0D350C3D21C1696909F1B7B6",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-ring-up.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-shell.png",
+      "bytes": 310133,
+      "sha256": "59EE34A3AF53F60EB0D3A6F2F9765233BA5E943E9658C1D8F2CB0A7F61160C32",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-shell.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-start-base.png",
+      "bytes": 13529,
+      "sha256": "9857EBF556690674756D720172EB2CC30D32B55844D7B4EE802995DD85C2D2E4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-start-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-start-face.png",
+      "bytes": 12198,
+      "sha256": "852E6E24956BEEB00A2D0E5174C90419FD72C685C06FAE9CD3BFA175C754F7E8",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\g45-start-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-a-face.png",
+      "bytes": 9133,
+      "sha256": "34B4C13087E24F857F10291E0D16D3EAE985A5674CC9D8405F144B0526E9B75B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-a-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-b-face.png",
+      "bytes": 10107,
+      "sha256": "F75E2AB3874BD171B855F241B1C97F431EFAB31392B40A167A6452F9BF91B988",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-b-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-body.png",
+      "bytes": 506108,
+      "sha256": "CF68E639617AE6C96000C6502B01B1F1B5E7A9E5604705444A63829D5A86B7BA",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-body.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-button-base.png",
+      "bytes": 9917,
+      "sha256": "7D0E806921340E74BC69607291A8CA6AB7FA0906F42DBD3D6D20BA7B2EF38E4D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-button-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-base.png",
+      "bytes": 10120,
+      "sha256": "84D4650C2A76F779C4BD58D6469A2B57714C88E083C836CE602F172A793094C2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-center.png",
+      "bytes": 1465,
+      "sha256": "A6E1CB8F5309477C5FAF574F6D4AD5F7D5B799530CA492D1B12E67A638C68D9F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-center.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-down.png",
+      "bytes": 2014,
+      "sha256": "C5A4FD3A4022B38A91925FE0D5515663ADCF11A5B8F45838432E33D857796363",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-down.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-face.png",
+      "bytes": 10530,
+      "sha256": "F2352BE5C46227923FAFD6AF333E7EBB32A5E4BF91B77F569B985BDB343E4F29",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-left.png",
+      "bytes": 2174,
+      "sha256": "17A067299BAAFA0D5EA11D6CB02A1509C55F1F8C0FA09E9BE042247E736EDE0D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-left.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-right.png",
+      "bytes": 2186,
+      "sha256": "C514A77263D26AECAC96860105A932C96E3D522227F43C0B86C401E2FE0039AF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-right.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-up.png",
+      "bytes": 2184,
+      "sha256": "A3F8C199708B73B4BFB3B86D5AEEFAB5CE4A6DD25D818F46D8946EDDDABE3697",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-dpad-up.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-led.png",
+      "bytes": 993,
+      "sha256": "4B041D90108962DA11C16DE67372B85E33C984E91E6E994D9A3F1973FD50AFF4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-led.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-pill-select.png",
+      "bytes": 4989,
+      "sha256": "723CF69B57E85FA59AA8DEA4CCF7E46949E6582F82158237D435933E10D471CB",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-pill-select.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-pill-start.png",
+      "bytes": 5209,
+      "sha256": "F652C551514F6C6EDC3661522FBAFFBEE256AE58BCDAD7E693A7ED2E703B72A4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\gb-pill-start.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-antenna.png",
+      "bytes": 15956,
+      "sha256": "4CFD6048864A75E4673829C538165D08B2D97836021D6F1F5864CFABB672F342",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-antenna.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-body.png",
+      "bytes": 461974,
+      "sha256": "CEB5E4CED4267FC3548F8DA803FCA6154A6211CB70F17B4E4267440187012E55",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-body.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-c1.png",
+      "bytes": 6801,
+      "sha256": "78B1761EA11DFD1B65AD58F58AD366895D47E2343DE2E84C30660A0AAAD6F6B4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-c1.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-c2.png",
+      "bytes": 6641,
+      "sha256": "77DC30F52A515C703C72B077833E7C764B94BFAB13B0EC14437D2F4EA866A5C2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-c2.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-o1.png",
+      "bytes": 6604,
+      "sha256": "4BE5FB4AA768A23CDBB0C03891E5BF49CA62302652969A7330C0B7E9C037ED6A",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-o1.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-o2.png",
+      "bytes": 6447,
+      "sha256": "E602F5FFEED841A6E5B921D21FB49999D4AB8158780077AD1D1F6FF7CCB143E0",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-btn-o2.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-tail.png",
+      "bytes": 12776,
+      "sha256": "AFAB3101126CD70F5CF0BDDFE39302B339A2A0713079A7177592D0A6AD6D37DF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-tail.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-wing-left.png",
+      "bytes": 21760,
+      "sha256": "FE3552B260BBA5C6FBA74BBF1EB0A2711EA9F5663E825BC6BE1A90F6202B4FDE",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-wing-left.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-wing-right.png",
+      "bytes": 21955,
+      "sha256": "AB18C433850384305D545752A878FF00271763D72160C7BD226F890018E6F15D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\assets\\rot-wing-right.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-list.png",
+      "bytes": 435104,
+      "sha256": "D572D1D9F2B23C26FF0CCF695FEA15D1B7465A8D6A7149DF5C5B4045DDF6C891",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-list.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-menu.png",
+      "bytes": 429746,
+      "sha256": "A9803F5122237892F77ED1992D62776AF66F0CC8D2F34B715E7AAA3835E9CCC1",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-mobile.png",
+      "bytes": 38122,
+      "sha256": "D64FA25E0B66F3BBA8D6C0ACBF7D2236177B0B8F49C26AC925827C8E017F4362",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gameboy-mobile.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-list.png",
+      "bytes": 292263,
+      "sha256": "B3804B4838CA24D405528FA43C901075D907C7CB9559720FE26F4F57527822B3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-list.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-menu.png",
+      "bytes": 287759,
+      "sha256": "0908D47A78B56CF5A37F3FA1D528A0FEFEE1D836B3067A315C4E6D46E94D9678",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-mobile.png",
+      "bytes": 56196,
+      "sha256": "451E7CCD3015BDBFCBA9DB130A9445C55AD104C11BCFFB6AA9918123DAD39720",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\gen45-mobile.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-list.png",
+      "bytes": 255793,
+      "sha256": "D8AA99E336263EBE0FE6972C87367CA1D709DAC519C1C4325145B71C2747569C",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-list.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-menu.png",
+      "bytes": 250745,
+      "sha256": "9F7382ABC3FA537441A77E3BDD25D5F6576A4B24D7508E773938AFE765B5D939",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-mobile.png",
+      "bytes": 18145,
+      "sha256": "B72C1E6649CBFA159D74FDB7877E7F8B0783D4F6D20A479E80921E1CEB568B40",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\gen-families\\screenshots\\rotom-mobile.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\bezel-round-face.png",
+      "bytes": 2586,
+      "sha256": "EDEBC842594A247361F00CA389A3EEEE35AE6F809847E5B85677AB4456CE1B44",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\bezel-round-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\extraction-manifest.json",
+      "bytes": 17641,
+      "sha256": "B70629322E7C144E852C1D060B5C8FD0761B377FDED0C0F8780D4EA6055E75F1",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\extraction-manifest.json"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-confirm-face.png",
+      "bytes": 4847,
+      "sha256": "D6F16BF175B51C70C0DB09F5F2514B12E03F733BD7013976672EE2105BD9D8ED",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-confirm-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-base.png",
+      "bytes": 5879,
+      "sha256": "81AA2A508C12FB0C67AE503A26D7C247EFDC351FA33C4AEEBA3BA666109F8298",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-left-face.png",
+      "bytes": 5200,
+      "sha256": "27741F0F7A17C70B518D9AB2615408F6DF80DFB24E08CD7771402DA35AF2B571",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-left-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-right-face.png",
+      "bytes": 4825,
+      "sha256": "98655CA270306C2BB6AF356B0277F8B47971B7E3598E138F21B5680C6BFE23E3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-green-right-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-01-face.png",
+      "bytes": 2688,
+      "sha256": "E2E3727DB36BE4172B9BDBF5D8250469834EB3C126E4BCB2F3769C221D4154F8",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-01-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-02-face.png",
+      "bytes": 2480,
+      "sha256": "FCD648C02918145A1DE5532C33D3A39503C17C61AFAF7A3D8E13D180D8ACBD04",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-02-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-03-face.png",
+      "bytes": 2401,
+      "sha256": "72AE3F7B072E73863599F0381B7525F193A454E4A5152C9DB4AC00D8226B66CC",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-03-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-04-face.png",
+      "bytes": 2563,
+      "sha256": "10051D68D2537AAB0F0619C7DC5200305143630513D125AD9453E7B3B18C3F11",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-04-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-05-face.png",
+      "bytes": 2764,
+      "sha256": "E96489CE5122AFDFB98631C1ACD39B6EBAE61C9F24FF335E75399584DADC4DD5",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-05-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-06-face.png",
+      "bytes": 2770,
+      "sha256": "6FECAC3D772505A28BB61823C9DCC64A87410DA66628F1BAB98AA623B4670B5F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-06-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-07-face.png",
+      "bytes": 2342,
+      "sha256": "AFB1A65AA2EE3B8E2812DAEB417B4E661F8A139CD15AAB3270484D19E16A9612",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-07-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-08-face.png",
+      "bytes": 2178,
+      "sha256": "A856ADB8BD364BDB2BB49C9F6828398B0CE39C94B0A7F12D74DF542DDF3B84BE",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-08-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-09-face.png",
+      "bytes": 2377,
+      "sha256": "87BD371E451E97C81F67612AAA302F70D9F6832F39082BF8AD5A725E2624A458",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-09-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-10-face.png",
+      "bytes": 2627,
+      "sha256": "2732B3E3E0BF57B36266F4917A83E5EAB8D6C435B48C63911149D865585EB8C2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-10-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-base.png",
+      "bytes": 18549,
+      "sha256": "7C2458AE0EF8FA92DB4BDEA146B85BDD74B8D5B483B105829985613D8BE72F91",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-face.png",
+      "bytes": 23485,
+      "sha256": "3116BC6446BAF6EE52BD7375EA9758685748CDB4BF8530FB87D4D67A81B75385",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-keypad-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-pill-base.png",
+      "bytes": 1844,
+      "sha256": "7071559362CE22F43290B53828F6FF7A89165ABD63DE7F49BDB5D28201D09510",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-pill-face.png",
+      "bytes": 2119,
+      "sha256": "5006ED60C8FD789818FE9BF571526B8DCFC8194E00AC9C2B62BADD86FD773A83",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-01-face.png",
+      "bytes": 4670,
+      "sha256": "9574DEDB5EB9DC443D67938BE22BF4B80FA39F992E4D1B2A391FDF3F844305A0",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-01-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-02-face.png",
+      "bytes": 4561,
+      "sha256": "417FABDD6F67A84F0B55B403A61A080F501C3EF047D7D233F3BFA7A73C840692",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-02-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-base.png",
+      "bytes": 6811,
+      "sha256": "33A595FDEE331EE04205114110267FDC98194BC15A548A5047399D1FF56554B4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-face.png",
+      "bytes": 8985,
+      "sha256": "05CEC1895BD4A1A297DF9B6F2340D2A79C03C5C6F7F395B9107B05D5D84ACAAF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\inner-white-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-amber.png",
+      "bytes": 4134,
+      "sha256": "79151706F058246EBC10E45B7A8406F12A92FAE1BE84DA3267D8AA68CC8DF70F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-amber.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-green.png",
+      "bytes": 4181,
+      "sha256": "D4BA0AD4B29105DB8F970BF57516998180EF70592A70AA21C77F04A97CF0D989",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-green.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-red.png",
+      "bytes": 4109,
+      "sha256": "068578D310BB7A7380D84966127426434F73EF596733C2FA930366E7E1B505E2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lamp-red.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lens.png",
+      "bytes": 21017,
+      "sha256": "4E153696929805433CD175EB5C82CB47665F518B1CE01CA9C96BF06E645A7702",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\lens.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\moving-inner-lid.png",
+      "bytes": 227837,
+      "sha256": "66CB3D0D80647213389E923B46C0C228E57A5D1A96F1D6C69EBCD412B3BAD5BD",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\moving-inner-lid.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\moving-outer-cover.png",
+      "bytes": 279317,
+      "sha256": "0956F17226C7C1450E9036CB314049CBAC044485C90B77FC986DA27123F39DA5",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\moving-outer-cover.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\outer-latch-face.png",
+      "bytes": 10746,
+      "sha256": "7756C9063FD3B8ED66EF04033DDD0361926E2063215C732C15147C8A2158173A",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\outer-latch-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\outer-slot.png",
+      "bytes": 9183,
+      "sha256": "160EE4FC282889745F21E5B189DAC622AF305DACCFC570EA37CE210E3D459972",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\outer-slot.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\screen-bezel-inner.png",
+      "bytes": 21661,
+      "sha256": "4DBA16618CC475E9BCE20BADAE5398BDFF942068571190C813F0A935CC2D62DC",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\screen-bezel-inner.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\screen-bezel-stationary.png",
+      "bytes": 94296,
+      "sha256": "E87C51C99F7A56CEBA2F19A3C7F1B834DE73351036727BEBA37ECC1D7FA30DC6",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\screen-bezel-stationary.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-blue-pill-base.png",
+      "bytes": 4414,
+      "sha256": "6EDB27CE62EC1568A9020A95860A4828D353536EAB50664FDD58F1379B5A9F3C",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-blue-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-blue-pill-face.png",
+      "bytes": 4354,
+      "sha256": "346C323E4ADFCB869F14D16FE09F1FE2573D320A6760BE3A9BD6F562DCBE9691",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-blue-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-body.png",
+      "bytes": 322460,
+      "sha256": "2C2938F8F9232044C464540734E519F22CCADE575697B9D48E47C846196F94DF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-body.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-base.png",
+      "bytes": 12603,
+      "sha256": "F1777B8C0DDA4D9289151FD05558DFD0144C864CDB81F23D1F06855367617D93",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-center-face.png",
+      "bytes": 1139,
+      "sha256": "1EE60322307B98EFF5F96CEDE73FF4DCE8DF43C66CF0D657621D345C752A9526",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-center-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-down-face.png",
+      "bytes": 1538,
+      "sha256": "5149892AF70966764BF8D8D1254323B040D7C41FE2FFC131FF7383833EDC53CF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-down-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-face.png",
+      "bytes": 12551,
+      "sha256": "404B69358E8DAD1BAAB66D62E7872101B5DA22E4CFA894C5EB3B973F8B40C371",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-left-face.png",
+      "bytes": 1636,
+      "sha256": "84F5A406ED02601A918E77D3F6D1C65E7359F154AA0C8DC36BAE23848C96EAC9",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-left-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-right-face.png",
+      "bytes": 1589,
+      "sha256": "7CC7079B391673C496E7849FF7F6466A8D71C7572B66E98618881B30C00E8431",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-right-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-up-face.png",
+      "bytes": 1660,
+      "sha256": "145A42C5A3DB95423063064DB7E503974817035BB07E718D19C53EFF4CBA7C66",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-dpad-up-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-green-base.png",
+      "bytes": 7518,
+      "sha256": "5068168A0C087570762FF9B0AD05F281BA411489B069345E9A499ADC7E410FD3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-green-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-green-face.png",
+      "bytes": 7281,
+      "sha256": "B3CA7F8DBEAC332BD32B2908D3ED473501A96FC00060F67A9BAB4926B3C7B3D7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-green-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-grey-pill-face.png",
+      "bytes": 1814,
+      "sha256": "B8432F2D36E95367F64E1D099E7AE27AC061873C5F48BE04DB48C5DB41B6976E",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-grey-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-hinge.png",
+      "bytes": 39304,
+      "sha256": "69A8C62940D597D121E0553E8492EDDD699AECE0B0070B6D7CAC6568DDA94AA7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-hinge.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-red-pill-base.png",
+      "bytes": 4178,
+      "sha256": "5D123BEA352BBBD06DC7282798AC08BCA772965A0D3445380B6A2BB9EF452609",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-red-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-red-pill-face.png",
+      "bytes": 4353,
+      "sha256": "34776DE445FF05A7C2CABD1D3D22135352E1E872E7074B542F93045EA30BEEB9",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-red-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-round-base.png",
+      "bytes": 7461,
+      "sha256": "A58CA065F083B948AE9868742BDAD3293796946822EF13C24BB07A540805B418",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-round-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-round-face.png",
+      "bytes": 7654,
+      "sha256": "3074A1A1CD1284AAF49BBC72FE424136B7DB29FE38E23CD6DC2B5ACCDA4DB727",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\assets\\stationary-round-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\screenshots\\closed.png",
+      "bytes": 28815,
+      "sha256": "18B64442A1342D551A0716E5EBD3A41C745D3BC864F65676233A29020D4511AA",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\screenshots\\closed.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\screenshots\\open.png",
+      "bytes": 69518,
+      "sha256": "952119D47E3B8F39F01838B3B399B81444CA9571D44419035EE983AB9365ED98",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-26-og-controls\\screenshots\\open.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\bezel-round-face.png",
+      "bytes": 2586,
+      "sha256": "EDEBC842594A247361F00CA389A3EEEE35AE6F809847E5B85677AB4456CE1B44",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\bezel-round-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\extraction-manifest.json",
+      "bytes": 17641,
+      "sha256": "B70629322E7C144E852C1D060B5C8FD0761B377FDED0C0F8780D4EA6055E75F1",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\extraction-manifest.json"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-confirm-face.png",
+      "bytes": 4847,
+      "sha256": "D6F16BF175B51C70C0DB09F5F2514B12E03F733BD7013976672EE2105BD9D8ED",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-confirm-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-base.png",
+      "bytes": 5879,
+      "sha256": "81AA2A508C12FB0C67AE503A26D7C247EFDC351FA33C4AEEBA3BA666109F8298",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-left-face.png",
+      "bytes": 5200,
+      "sha256": "27741F0F7A17C70B518D9AB2615408F6DF80DFB24E08CD7771402DA35AF2B571",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-left-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-right-face.png",
+      "bytes": 4825,
+      "sha256": "98655CA270306C2BB6AF356B0277F8B47971B7E3598E138F21B5680C6BFE23E3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-green-right-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-01-face.png",
+      "bytes": 2688,
+      "sha256": "E2E3727DB36BE4172B9BDBF5D8250469834EB3C126E4BCB2F3769C221D4154F8",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-01-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-02-face.png",
+      "bytes": 2480,
+      "sha256": "FCD648C02918145A1DE5532C33D3A39503C17C61AFAF7A3D8E13D180D8ACBD04",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-02-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-03-face.png",
+      "bytes": 2401,
+      "sha256": "72AE3F7B072E73863599F0381B7525F193A454E4A5152C9DB4AC00D8226B66CC",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-03-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-04-face.png",
+      "bytes": 2563,
+      "sha256": "10051D68D2537AAB0F0619C7DC5200305143630513D125AD9453E7B3B18C3F11",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-04-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-05-face.png",
+      "bytes": 2764,
+      "sha256": "E96489CE5122AFDFB98631C1ACD39B6EBAE61C9F24FF335E75399584DADC4DD5",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-05-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-06-face.png",
+      "bytes": 2770,
+      "sha256": "6FECAC3D772505A28BB61823C9DCC64A87410DA66628F1BAB98AA623B4670B5F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-06-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-07-face.png",
+      "bytes": 2342,
+      "sha256": "AFB1A65AA2EE3B8E2812DAEB417B4E661F8A139CD15AAB3270484D19E16A9612",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-07-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-08-face.png",
+      "bytes": 2178,
+      "sha256": "A856ADB8BD364BDB2BB49C9F6828398B0CE39C94B0A7F12D74DF542DDF3B84BE",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-08-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-09-face.png",
+      "bytes": 2377,
+      "sha256": "87BD371E451E97C81F67612AAA302F70D9F6832F39082BF8AD5A725E2624A458",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-09-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-10-face.png",
+      "bytes": 2627,
+      "sha256": "2732B3E3E0BF57B36266F4917A83E5EAB8D6C435B48C63911149D865585EB8C2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-10-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-base.png",
+      "bytes": 18549,
+      "sha256": "7C2458AE0EF8FA92DB4BDEA146B85BDD74B8D5B483B105829985613D8BE72F91",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-face.png",
+      "bytes": 23485,
+      "sha256": "3116BC6446BAF6EE52BD7375EA9758685748CDB4BF8530FB87D4D67A81B75385",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-keypad-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-pill-base.png",
+      "bytes": 1844,
+      "sha256": "7071559362CE22F43290B53828F6FF7A89165ABD63DE7F49BDB5D28201D09510",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-pill-face.png",
+      "bytes": 2119,
+      "sha256": "5006ED60C8FD789818FE9BF571526B8DCFC8194E00AC9C2B62BADD86FD773A83",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-01-face.png",
+      "bytes": 4670,
+      "sha256": "9574DEDB5EB9DC443D67938BE22BF4B80FA39F992E4D1B2A391FDF3F844305A0",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-01-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-02-face.png",
+      "bytes": 4561,
+      "sha256": "417FABDD6F67A84F0B55B403A61A080F501C3EF047D7D233F3BFA7A73C840692",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-02-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-base.png",
+      "bytes": 6811,
+      "sha256": "33A595FDEE331EE04205114110267FDC98194BC15A548A5047399D1FF56554B4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-face.png",
+      "bytes": 8985,
+      "sha256": "05CEC1895BD4A1A297DF9B6F2340D2A79C03C5C6F7F395B9107B05D5D84ACAAF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\inner-white-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\kanto-clean-casing-v3.png",
+      "bytes": 1147369,
+      "sha256": "27F18D97F57030B17F3C37F4DB38105F42569C8BE9C82EF3D5F970860AB20F9D",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\kanto-clean-casing-v3.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\kanto-coherent-master-v2.png",
+      "bytes": 826038,
+      "sha256": "19DFF9C2D06C4AEC64D993EDD0E007EE60DD7736413C3E84DF19479335D56B48",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\kanto-coherent-master-v2.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-amber.png",
+      "bytes": 4134,
+      "sha256": "79151706F058246EBC10E45B7A8406F12A92FAE1BE84DA3267D8AA68CC8DF70F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-amber.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-green.png",
+      "bytes": 4181,
+      "sha256": "D4BA0AD4B29105DB8F970BF57516998180EF70592A70AA21C77F04A97CF0D989",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-green.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-red.png",
+      "bytes": 4109,
+      "sha256": "068578D310BB7A7380D84966127426434F73EF596733C2FA930366E7E1B505E2",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lamp-red.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lens.png",
+      "bytes": 21017,
+      "sha256": "4E153696929805433CD175EB5C82CB47665F518B1CE01CA9C96BF06E645A7702",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\lens.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\moving-inner-lid.png",
+      "bytes": 227837,
+      "sha256": "66CB3D0D80647213389E923B46C0C228E57A5D1A96F1D6C69EBCD412B3BAD5BD",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\moving-inner-lid.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\moving-outer-cover.png",
+      "bytes": 279317,
+      "sha256": "0956F17226C7C1450E9036CB314049CBAC044485C90B77FC986DA27123F39DA5",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\moving-outer-cover.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\outer-latch-face.png",
+      "bytes": 10746,
+      "sha256": "7756C9063FD3B8ED66EF04033DDD0361926E2063215C732C15147C8A2158173A",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\outer-latch-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\outer-slot.png",
+      "bytes": 9183,
+      "sha256": "160EE4FC282889745F21E5B189DAC622AF305DACCFC570EA37CE210E3D459972",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\outer-slot.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\screen-bezel-inner.png",
+      "bytes": 21661,
+      "sha256": "4DBA16618CC475E9BCE20BADAE5398BDFF942068571190C813F0A935CC2D62DC",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\screen-bezel-inner.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\screen-bezel-stationary.png",
+      "bytes": 94296,
+      "sha256": "E87C51C99F7A56CEBA2F19A3C7F1B834DE73351036727BEBA37ECC1D7FA30DC6",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\screen-bezel-stationary.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-blue-pill-base.png",
+      "bytes": 4414,
+      "sha256": "6EDB27CE62EC1568A9020A95860A4828D353536EAB50664FDD58F1379B5A9F3C",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-blue-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-blue-pill-face.png",
+      "bytes": 4354,
+      "sha256": "346C323E4ADFCB869F14D16FE09F1FE2573D320A6760BE3A9BD6F562DCBE9691",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-blue-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-body.png",
+      "bytes": 322460,
+      "sha256": "2C2938F8F9232044C464540734E519F22CCADE575697B9D48E47C846196F94DF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-body.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-base.png",
+      "bytes": 12603,
+      "sha256": "F1777B8C0DDA4D9289151FD05558DFD0144C864CDB81F23D1F06855367617D93",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-center-face.png",
+      "bytes": 1139,
+      "sha256": "1EE60322307B98EFF5F96CEDE73FF4DCE8DF43C66CF0D657621D345C752A9526",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-center-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-down-face.png",
+      "bytes": 1538,
+      "sha256": "5149892AF70966764BF8D8D1254323B040D7C41FE2FFC131FF7383833EDC53CF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-down-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-face.png",
+      "bytes": 12551,
+      "sha256": "404B69358E8DAD1BAAB66D62E7872101B5DA22E4CFA894C5EB3B973F8B40C371",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-left-face.png",
+      "bytes": 1636,
+      "sha256": "84F5A406ED02601A918E77D3F6D1C65E7359F154AA0C8DC36BAE23848C96EAC9",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-left-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-right-face.png",
+      "bytes": 1589,
+      "sha256": "7CC7079B391673C496E7849FF7F6466A8D71C7572B66E98618881B30C00E8431",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-right-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-up-face.png",
+      "bytes": 1660,
+      "sha256": "145A42C5A3DB95423063064DB7E503974817035BB07E718D19C53EFF4CBA7C66",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-dpad-up-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-green-base.png",
+      "bytes": 7518,
+      "sha256": "5068168A0C087570762FF9B0AD05F281BA411489B069345E9A499ADC7E410FD3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-green-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-green-face.png",
+      "bytes": 7281,
+      "sha256": "B3CA7F8DBEAC332BD32B2908D3ED473501A96FC00060F67A9BAB4926B3C7B3D7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-green-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-grey-pill-face.png",
+      "bytes": 1814,
+      "sha256": "B8432F2D36E95367F64E1D099E7AE27AC061873C5F48BE04DB48C5DB41B6976E",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-grey-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-hinge.png",
+      "bytes": 39304,
+      "sha256": "69A8C62940D597D121E0553E8492EDDD699AECE0B0070B6D7CAC6568DDA94AA7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-hinge.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-red-pill-base.png",
+      "bytes": 4178,
+      "sha256": "5D123BEA352BBBD06DC7282798AC08BCA772965A0D3445380B6A2BB9EF452609",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-red-pill-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-red-pill-face.png",
+      "bytes": 4353,
+      "sha256": "34776DE445FF05A7C2CABD1D3D22135352E1E872E7074B542F93045EA30BEEB9",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-red-pill-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-round-base.png",
+      "bytes": 7461,
+      "sha256": "A58CA065F083B948AE9868742BDAD3293796946822EF13C24BB07A540805B418",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-round-base.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-round-face.png",
+      "bytes": 7654,
+      "sha256": "3074A1A1CD1284AAF49BBC72FE424136B7DB29FE38E23CD6DC2B5ACCDA4DB727",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\assets\\stationary-round-face.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-closed-desktop.png",
+      "bytes": 29813,
+      "sha256": "9D8BD9F7FD6802573F99BA34D33400803DA102CE8C4B040C623A499C8BBA0742",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-closed-desktop.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-mobile-375.png",
+      "bytes": 23003,
+      "sha256": "8C644E2E9095959C4C81C444456B24985DB8246774158BE571284F2984221A6B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-mobile-375.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-og-controls-v5.png",
+      "bytes": 59782,
+      "sha256": "1BBE250329BB58A01AAB31C154A4D1D0C75400F97EE68719AD8ED07F215A38A7",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-og-controls-v5.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-open-desktop.png",
+      "bytes": 71948,
+      "sha256": "F80F708E382B50BA04EFB2207501FE3DA8C551F609A6EFBFF317D6E0ACB23552",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\prototypes\\ticket-31-eight-casings\\screenshots\\kanto-open-desktop.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\bug-A-skip-boot.png",
+      "bytes": 38448,
+      "sha256": "F2C26C7F04290FA635387B3A73F010490817EE80D4E1A83500E3294BC2C27B94",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\bug-A-skip-boot.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-1-closed.png",
+      "bytes": 22220,
+      "sha256": "2029825C0F7C7AAB567CC4235C3E143DDF0DD6A3C9C869332158AEC09DF21CAF",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-1-closed.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-2-boot.png",
+      "bytes": 28394,
+      "sha256": "20BCAFA2EA70CEC46A77AA4C055F40C13C462E98B8ADAACFE8ADEDE954083B5F",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-2-boot.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-3-menu.png",
+      "bytes": 38448,
+      "sha256": "F2C26C7F04290FA635387B3A73F010490817EE80D4E1A83500E3294BC2C27B94",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-3-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-4-detail.png",
+      "bytes": 38755,
+      "sha256": "34B23017BA0092F20CC825E8877F68123DAFD656D1BAA1094F09955A55FAD24B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-4-detail.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-5-version.png",
+      "bytes": 62111,
+      "sha256": "C62DB82C16F5145734BA7CF015CC056BD685A39C953EA7EC2B86AE8A529D1782",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-5-version.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-6-mobile.png",
+      "bytes": 43884,
+      "sha256": "CA9490DE521B1D8164B61ABF7E267179280B987AF82E472B5C4166AECEFC25D3",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-6-mobile.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-detail.png",
+      "bytes": 45041,
+      "sha256": "0D18DAD66A46C39D31766923354A8B79044D4B7815AC9A07389793986EBBF82B",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-detail.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-menu.png",
+      "bytes": 44635,
+      "sha256": "64BF78D96DE53B7907001B24B8AEF6858DC95F4A52627991C3A933386261DEBB",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-mobile.png",
+      "bytes": 15877,
+      "sha256": "9E16D48F8A66A96A4AD121274EAA981464021758AC2A9C0A5E64BBE5987EEFA4",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-gameboy-mobile.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-rotom-detail.png",
+      "bytes": 48774,
+      "sha256": "7F3D8763278032B54CBFEEE5D1BE6CCFC02B1467AA7982329B8F806B870C2ACE",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-rotom-detail.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-rotom-menu.png",
+      "bytes": 48268,
+      "sha256": "ADA242256304A845FBF3BCEB30250ECC29E24C3C8085D9C9E08E27977C1F83DB",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-rotom-menu.png"
+    },
+    {
+      "source": "D:\\portfolio\\.scratch\\sm-dex\\t26-verify\\shot-rotom-mobile.png",
+      "bytes": 22607,
+      "sha256": "8A6D6FCC9F35FBA7DD578B3693E89296733C6756857496279574A396B63B2C46",
+      "destination": "C:\\Users\\sm\\AppData\\Local\\Temp\\sm-dex-rejected-assets-20260903-01\\workspace\\.scratch\\sm-dex\\t26-verify\\shot-rotom-mobile.png"
+    }
+  ]
+}

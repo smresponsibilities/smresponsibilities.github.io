@@ -1,0 +1,2 @@
+import {chromium} from 'playwright-core';
+const browser=await chromium.launch({channel:'chrome',headless:true});const page=await browser.newPage({viewport:{width:933,height:607}});await page.goto('http://127.0.0.1:4321/?gen=red',{waitUntil:'load'});await page.waitForSelector('#page-loader',{state:'hidden'});await page.screenshot({path:'.scratch/sm-dex/research/ticket-72-gen1.png'});await browser.close();

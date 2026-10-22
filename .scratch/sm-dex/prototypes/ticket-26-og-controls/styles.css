@@ -1,0 +1,473 @@
+@font-face {
+  font-family: "Departure Mono";
+  src: url("../../../../public/fonts/departure-mono-latin.woff2") format("woff2");
+  font-display: swap;
+}
+
+:root {
+  --bg: #08090c;
+  --panel: #161b22;
+  --border: #30363d;
+  --ink: #e6edf3;
+  --dim: #8b949e;
+  --screen: #0d1117;
+  --accent: #6f35fc;
+  --accent-2: #b7b7ce;
+  --electric: #f7d02c;
+  --water: #6390f0;
+  --green: #7ac74c;
+  --focus: #f7d02c;
+  --device-scale: 1;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100%;
+  overflow-x: clip;
+}
+
+body {
+  background:
+    radial-gradient(circle at 50% 45%, #201014 0, #0d0a0d 44%, var(--bg) 76%),
+    var(--bg);
+  color: var(--ink);
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+main {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 12px;
+}
+
+.device-frame {
+  position: relative;
+  width: min(840px, calc(100vw - 24px));
+  height: 816px;
+  perspective: 1900px;
+  perspective-origin: 50% 50%;
+}
+
+.device {
+  position: relative;
+  width: 840px;
+  height: 816px;
+  transform: scale(var(--device-scale));
+  transform-origin: top left;
+  isolation: isolate;
+}
+
+.stationary,
+.leaf,
+.leaf-face {
+  position: absolute;
+  top: 0;
+  width: 420px;
+  height: 816px;
+}
+
+.stationary {
+  left: 0;
+  z-index: 1;
+}
+
+.leaf {
+  left: 420px;
+  z-index: 5;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 700ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.device[data-open="false"] .leaf {
+  transform: rotateY(-180deg);
+}
+
+.leaf-face {
+  inset: 0;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.inner-face {
+  transform: rotateY(0deg);
+}
+
+.outer-face {
+  transform: rotateY(180deg);
+}
+
+.master-layer {
+  display: block;
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.body-master,
+.face-master {
+  inset: 0;
+  width: 420px;
+  height: 816px;
+}
+
+.body-master,
+.face-master {
+  z-index: 2;
+}
+
+.hinge {
+  left: 420px;
+  top: 0;
+  z-index: 9;
+  width: 56px;
+  height: 816px;
+}
+
+.screen {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  background: var(--screen);
+  border-radius: 2px;
+  color: var(--ink);
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.body-screen {
+  left: 89px;
+  top: 250px;
+  width: 249px;
+  height: 191px;
+}
+
+.lid-screen {
+  left: 78px;
+  top: 195px;
+  width: 263px;
+  height: 116px;
+}
+
+.screen-shell {
+  width: 100%;
+  height: 100%;
+  padding: 8px;
+  background: var(--screen);
+  border: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.screen-shell.compact {
+  padding: 6px;
+  gap: 4px;
+}
+
+.screen-header,
+.screen-row,
+.micro-grid,
+.identity-line,
+.detail-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  min-width: 0;
+}
+
+.screen-header,
+.label,
+.screen-row,
+.badge,
+.micro,
+.detail-title,
+.screen-status {
+  font-family: "Departure Mono", ui-monospace, monospace;
+  letter-spacing: 0.08em;
+}
+
+.screen-header,
+.label,
+.micro,
+.screen-status {
+  color: var(--dim);
+  font-size: 12px;
+}
+
+.screen-header {
+  flex: none;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 4px;
+}
+
+.menu-list,
+.data-list {
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+  border-top: 2px solid var(--border);
+}
+
+.screen-row {
+  flex: 1;
+  min-height: 26px;
+  padding: 3px 5px;
+  border-bottom: 2px solid var(--border);
+  border-left: 2px solid transparent;
+  color: var(--dim);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.screen-row.selected {
+  border-left-color: var(--accent);
+  background: var(--panel);
+  color: var(--ink);
+}
+
+.cursor {
+  color: var(--accent-2);
+  flex: none;
+}
+
+.detail-title {
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.screen-copy {
+  margin: 0;
+  color: var(--ink);
+  line-height: 1.35;
+  text-wrap: pretty;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.badge {
+  display: inline-block;
+  padding: 1px 5px;
+  border: 2px solid var(--accent);
+  background: var(--panel);
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.badge.steel {
+  border-color: var(--accent-2);
+}
+
+.badge.electric {
+  border-color: var(--electric);
+}
+
+.badge.water {
+  border-color: var(--water);
+}
+
+.micro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 2px solid var(--border);
+  border-left: 2px solid var(--border);
+}
+
+.micro-cell {
+  display: flex;
+  justify-content: space-between;
+  gap: 4px;
+  padding: 3px 4px;
+  border-right: 2px solid var(--border);
+  border-bottom: 2px solid var(--border);
+  font-family: "Departure Mono", ui-monospace, monospace;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.stat-bar {
+  height: 10px;
+  border: 2px solid var(--border);
+  background: var(--panel);
+}
+
+.stat-bar > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+
+.boot {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.boot .wordmark {
+  font-family: "Departure Mono", ui-monospace, monospace;
+  font-size: 24px;
+  letter-spacing: 0.08em;
+}
+
+.identity-mini {
+  display: grid;
+  grid-template-columns: 54px 1fr;
+  gap: 6px;
+  min-width: 0;
+}
+
+.identity-mini img {
+  width: 54px;
+  height: 54px;
+  border: 2px solid var(--border);
+  image-rendering: pixelated;
+}
+
+.dex-number {
+  font-family: "Departure Mono", ui-monospace, monospace;
+  font-size: 24px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums slashed-zero;
+}
+
+.controls {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.control {
+  appearance: none;
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+  touch-action: manipulation;
+}
+
+.control img {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.control .base {
+  z-index: 0;
+}
+
+.control.self-base .base {
+  filter: brightness(0.38) saturate(0.7);
+}
+
+.control .face {
+  z-index: 1;
+  transition: transform 80ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.control:active .face,
+.control.is-pressed .face {
+  transform: translateY(4px);
+}
+
+.control:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.control:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.control-layer {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+.dpad-center {
+  z-index: 7;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 8px;
+  }
+
+  .device-frame {
+    width: min(840px, calc(100vw - 16px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Query flag exists only so the browser verification pass can exercise the same instant path. */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}

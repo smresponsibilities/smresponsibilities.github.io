@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SM'S DEX casing — component prototype</title>
+  <style>
+    :root { color-scheme: dark; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #171717; }
+    body { min-height: 100vh; overflow-x: hidden; color: #f2f2f2; }
+    button { font: inherit; }
+    .app { min-height: 100vh; display: grid; grid-template-rows: 1fr auto; }
+    .stage {
+      min-height: 0;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      perspective: 1800px;
+      padding: clamp(12px, 3vw, 36px);
+      background: radial-gradient(circle at 50% 43%, #2a2a2a 0, #1b1b1b 42%, #111 100%);
+    }
+    .device-wrap {
+      width: min(94vw, calc((100vh - 108px) * 1.379));
+      aspect-ratio: 1666 / 1208;
+      position: relative;
+      transform-style: preserve-3d;
+    }
+    .device {
+      position: absolute;
+      inset: 0;
+      transform-style: preserve-3d;
+      transform-origin: center;
+      transition: transform 650ms cubic-bezier(.4, 0, .2, 1);
+    }
+    .device.is-closed { transform: translateX(18.2%); }
+    .left-leaf {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 54.682%;
+      aspect-ratio: 911.002 / 1211.14;
+      z-index: 1;
+      transform-origin: right center;
+      transition: opacity 120ms linear 275ms, visibility 0s linear 395ms;
+    }
+    .device.is-closed .left-leaf { opacity: 0; visibility: hidden; }
+    .right-leaf {
+      position: absolute;
+      left: 54.472%;
+      top: 8.568%;
+      width: 45.709%;
+      aspect-ratio: 761.5 / 1085.01;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      z-index: 2;
+      transition: transform 650ms cubic-bezier(.4, 0, .2, 1);
+    }
+    .device.is-closed .right-leaf { transform: rotateY(-180deg); }
+    .leaf-face { position: absolute; inset: 0; transform-style: preserve-3d; backface-visibility: hidden; }
+    .leaf-front { transform: rotateY(0deg) translateZ(.1px); pointer-events: auto; }
+    .leaf-back { transform: rotateY(180deg) translateZ(.1px); pointer-events: none; }
+    .device.is-closed .leaf-front { pointer-events: none; }
+    .device.is-closed .leaf-back { pointer-events: auto; }
+    .asset { position: absolute; display: block; width: 100%; height: 100%; pointer-events: none; user-select: none; }
+    .left-base, .right-base, .closed-art { inset: 0; object-fit: fill; }
+    .left-header { left: 7.355%; top: 1.28%; width: 41.164%; height: 15.027%; z-index: 2; }
+
+    .left-panel { position: absolute; z-index: 3; left: 8.068%; top: 23.862%; width: 73.051%; aspect-ratio: 665.5 / 563; }
+    .panel-back { left: 1.953%; top: 0; width: 98.497%; height: 98.401%; }
+    .panel-front { left: 0; top: .888%; width: 99.612%; height: 99.994%; }
+    .screen-landscape { position: absolute; left: 12.096%; top: 13.588%; width: 79.639%; height: 62.878%; overflow: hidden; background: #222; }
+    .screen-landscape img { width: 100%; height: 100%; object-fit: cover; transition: filter 160ms linear, transform 160ms ease; }
+    .device.power-off .screen-landscape img { filter: brightness(.12) grayscale(1); transform: scale(1.01); }
+    .panel-border { left: 12.096%; top: 13.765%; width: 79.639%; height: 62.878%; }
+    .panel-dots { left: 44.403%; top: 5.062%; width: 13.223%; height: 3.552%; }
+    .panel-grille { left: 64.388%; top: 82.682%; width: 24.042%; height: 11.368%; }
+
+    .left-controls { position: absolute; z-index: 3; left: 9.769%; top: 70.718%; width: 71.240%; height: 22.129%; }
+    .right-screen { left: 12.340%; top: 27.004%; width: 71.377%; height: 18.295%; }
+    .keypad { position: absolute; left: 12.278%; top: 48.986%; width: 71.635%; height: 14.977%; display: grid; grid-template-columns: repeat(5, 1fr); grid-template-rows: repeat(2, 1fr); }
+    .right-small { position: absolute; left: 56.881%; top: 65.944%; width: 25.994%; height: 1.889%; display: grid; grid-template-columns: repeat(2, 1fr); }
+    .right-rocker { position: absolute; left: 12.344%; top: 69.953%; width: 30.072%; height: 8.111%; display: grid; grid-template-columns: repeat(2, 1fr); }
+    .right-lower { position: absolute; left: 12.344%; top: 84.515%; width: 71.570%; height: 7.880%; display: grid; grid-template-columns: repeat(2, 1fr); }
+    .right-confirm { position: absolute; left: 75.180%; top: 72.626%; width: 8.404%; aspect-ratio: 1; }
+
+    .pressable {
+      appearance: none;
+      -webkit-appearance: none;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: transparent;
+      cursor: pointer;
+      position: relative;
+      min-width: 0;
+      min-height: 0;
+      outline: none;
+      isolation: isolate;
+    }
+    .press-depth, .press-face { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+    .press-depth { transform: translateY(4px); filter: brightness(.42) saturate(.9); }
+    .press-face { z-index: 1; transition: transform 100ms ease, filter 100ms ease; }
+    .pressable:hover .press-face { filter: brightness(1.08); }
+    .pressable:active .press-face, .pressable.pulse .press-face, .pressable.is-held .press-face { transform: translateY(4px); filter: brightness(.82); }
+    .pressable::after { content: ""; position: absolute; z-index: 3; inset: -2px; border: 2px solid transparent; border-radius: 6px; pointer-events: none; }
+    .pressable:focus-visible::after, .show-targets .pressable::after { border-color: rgba(255,255,255,.92); box-shadow: 0 0 0 2px rgba(0,0,0,.7); }
+    .sprite-img { position: absolute; display: block; max-width: none; max-height: none; pointer-events: none; }
+    .component-name { display: none; position: absolute; z-index: 6; left: 50%; bottom: calc(100% + 5px); translate: -50% 0; padding: 3px 5px; border: 1px solid #fff; border-radius: 3px; background: #111; color: #fff; font: 600 10px/1 ui-monospace, monospace; white-space: nowrap; }
+    .show-targets .component-name { display: block; }
+
+    .panel-button { position: absolute; left: 18.557%; top: 81.972%; width: 9.767%; height: 11.545%; }
+    .panel-button .press-face img, .panel-button .press-depth img { width: 100%; height: 100%; }
+
+    .left-power { position: absolute; left: 0; top: 0; width: 15.717%; height: 38.057%; }
+    .left-red { position: absolute; left: 21.572%; top: 13.432%; width: 17.874%; height: 8.581%; }
+    .left-blue { position: absolute; left: 46.071%; top: 13.432%; width: 17.874%; height: 8.581%; }
+    .left-green { position: absolute; left: 16.795%; top: 52.235%; width: 41.910%; height: 47.202%; }
+    .left-dpad { position: absolute; left: 69.645%; top: 10.260%; width: 30.277%; height: 72.383%; }
+    .left-power .sprite-img { width: 636.276%; height: 262.763%; left: 0; top: 0; }
+    .left-red .sprite-img { width: 559.484%; height: 1165.296%; left: -120.690%; top: -156.522%; }
+    .left-blue .sprite-img { width: 559.484%; height: 1165.296%; left: -257.759%; top: -156.522%; }
+    .left-green .sprite-img { width: 238.604%; height: 211.081%; left: -40.074%; top: -110.672%; }
+    .left-dpad .sprite-img { width: 330.281%; height: 137.123%; left: -230.025%; top: -14.175%; }
+
+    .grid-button { width: 100%; height: 100%; }
+    .grid-button .sprite-img { width: calc(var(--cols) * 100%); height: calc(var(--rows) * 100%); left: calc(var(--col) * -100%); top: calc(var(--row) * -100%); }
+    .confirm-base, .confirm-shine { width: 100%; height: 100%; }
+    .confirm-shine { left: 7.3%; top: 4.6%; width: 85.3%; height: 85.6%; }
+    .closed-art { object-fit: fill; }
+    .back-latch { position: absolute; left: 10%; top: 47%; width: 12%; height: 14%; border-radius: 50%; }
+    .back-latch .press-depth, .back-latch .press-face { background: transparent; }
+
+    .dock {
+      min-height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-top: 1px solid #393939;
+      background: #111;
+      color: #d6d6d6;
+      box-shadow: 0 -8px 30px rgba(0,0,0,.28);
+    }
+    .dock button, .dock summary {
+      border: 1px solid #555;
+      border-radius: 5px;
+      background: #1d1d1d;
+      color: #f3f3f3;
+      padding: 8px 11px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+    .dock button:hover, .dock summary:hover { background: #292929; border-color: #888; }
+    .dock button:active { transform: translateY(2px); }
+    .status { min-width: 235px; font-size: 12px; color: #aaa; white-space: nowrap; }
+    details { position: relative; }
+    details summary { list-style: none; }
+    details summary::-webkit-details-marker { display: none; }
+    .guide { position: absolute; right: 0; bottom: calc(100% + 12px); width: 280px; padding: 12px 14px; border: 1px solid #555; border-radius: 6px; background: #111; color: #d7d7d7; box-shadow: 0 12px 40px #000; font-size: 12px; line-height: 1.5; }
+    .guide ol { margin: 0; padding-left: 18px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    @media (max-width: 720px) {
+      .app { grid-template-rows: 1fr auto; }
+      .stage { padding: 8px; }
+      .device-wrap { width: 110vw; left: -5vw; }
+      .dock { justify-content: flex-start; overflow-x: auto; }
+      .status { min-width: 190px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .device, .right-leaf, .left-leaf { transition-duration: .01ms; }
+      .press-face { transition-duration: .01ms; }
+    }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="stage" aria-label="Interactive Pokédex casing prototype">
+      <div class="device-wrap">
+        <div class="device" id="device">
+          <section class="left-leaf" aria-label="Left casing leaf">
+            <img class="asset left-base" src="@@LEFT_BASE@@" alt="">
+            <img class="asset left-header" src="@@LEFT_HEADER@@" alt="">
+
+            <div class="left-panel">
+              <img class="asset panel-back" src="@@PANEL_BACK@@" alt="">
+              <img class="asset panel-front" src="@@PANEL_FRONT@@" alt="">
+              <div class="screen-landscape"><img src="@@LANDSCAPE@@" alt="Mountain landscape on the Pokédex screen"></div>
+              <img class="asset panel-border" src="@@PANEL_BORDER@@" alt="">
+              <img class="asset panel-dots" src="@@PANEL_DOTS@@" alt="">
+              <button class="pressable panel-button" data-action="screen" aria-label="Screen button">
+                <span class="press-depth"><img class="asset" src="@@PANEL_BUTTON@@" alt=""></span>
+                <span class="press-face"><img class="asset" src="@@PANEL_BUTTON@@" alt=""></span>
+                <span class="component-name">screen button</span>
+              </button>
+              <img class="asset panel-grille" src="@@PANEL_GRILLE@@" alt="">
+            </div>
+
+            <div class="left-controls" aria-label="Left controls">
+              <button class="pressable left-power" data-action="power" aria-label="Power button">
+                <span class="press-depth"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="press-face"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="component-name">power</span>
+              </button>
+              <button class="pressable left-red" data-action="red" aria-label="Red function button">
+                <span class="press-depth"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="press-face"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="component-name">red</span>
+              </button>
+              <button class="pressable left-blue" data-action="blue" aria-label="Blue function button">
+                <span class="press-depth"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="press-face"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="component-name">blue</span>
+              </button>
+              <button class="pressable left-green" data-action="green" aria-label="Green panel button">
+                <span class="press-depth"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="press-face"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="component-name">green panel</span>
+              </button>
+              <button class="pressable left-dpad" data-action="next" aria-label="Directional pad, next item">
+                <span class="press-depth"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="press-face"><img class="sprite-img" src="@@LEFT_CONTROLS@@" alt=""></span>
+                <span class="component-name">D-pad</span>
+              </button>
+            </div>
+          </section>
+
+          <section class="right-leaf" aria-label="Hinged right casing leaf">
+            <div class="leaf-face leaf-front">
+              <img class="asset right-base" src="@@RIGHT_BASE@@" alt="">
+              <img class="asset right-screen" src="@@RIGHT_SCREEN@@" alt="">
+
+              <div class="keypad" id="keypad" aria-label="Ten key pad"></div>
+              <div class="right-small" id="smallPair" aria-label="Small function keys"></div>
+              <div class="right-rocker" id="rockerPair" aria-label="Rocker keys"></div>
+              <div class="right-lower" id="lowerPair" aria-label="Lower function keys"></div>
+
+              <button class="pressable right-confirm" data-action="confirm" aria-label="Yellow confirm button">
+                <span class="press-depth">
+                  <img class="asset confirm-base" src="@@CONFIRM_BASE@@" alt="">
+                  <img class="asset confirm-shine" src="@@CONFIRM_SHINE@@" alt="">
+                </span>
+                <span class="press-face">
+                  <img class="asset confirm-base" src="@@CONFIRM_BASE@@" alt="">
+                  <img class="asset confirm-shine" src="@@CONFIRM_SHINE@@" alt="">
+                </span>
+                <span class="component-name">confirm</span>
+              </button>
+            </div>
+            <div class="leaf-face leaf-back">
+              <img class="asset closed-art" src="@@CLOSED@@" alt="Closed Pokédex casing">
+              <button class="pressable back-latch" data-action="open" aria-label="Open the Pokédex">
+                <span class="press-depth"></span><span class="press-face"></span>
+                <span class="component-name">open latch</span>
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <nav class="dock" aria-label="Prototype controls">
+      <button id="foldButton" type="button">CLOSE</button>
+      <button id="targetsButton" type="button" aria-pressed="false">TARGETS</button>
+      <output class="status" id="status" aria-live="polite">OPEN · POWER ON · READY</output>
+      <details>
+        <summary aria-label="Open test guide">?</summary>
+        <div class="guide">
+          <ol>
+            <li>Hold any device control: face moves down, depth stays.</li>
+            <li>Press CLOSE: right leaf rotates around its hinge.</li>
+            <li>Click yellow latch on closed face to reopen.</li>
+            <li>Keyboard: arrows, Enter, Escape, H.</li>
+          </ol>
+        </div>
+      </details>
+    </nav>
+  </main>
+
+  <script>
+    const ASSETS = {
+      keypad: '@@KEYPAD@@',
+      small: '@@RIGHT_SMALL@@',
+      rocker: '@@RIGHT_ROCKER@@',
+      lower: '@@RIGHT_LOWER@@'
+    };
+    const state = { mode: 'open', power: true, cursor: 0, presses: 0, last: 'READY', targets: false };
+    const device = document.getElementById('device');
+    const foldButton = document.getElementById('foldButton');
+    const targetsButton = document.getElementById('targetsButton');
+    const status = document.getElementById('status');
+
+    function cropButton({ asset, cols, rows, col, row, action, label }) {
+      const button = document.createElement('button');
+      button.className = 'pressable grid-button';
+      button.dataset.action = action;
+      button.setAttribute('aria-label', label);
+      button.style.setProperty('--cols', cols);
+      button.style.setProperty('--rows', rows);
+      button.style.setProperty('--col', col);
+      button.style.setProperty('--row', row);
+      button.innerHTML = `
+        <span class="press-depth"><img class="sprite-img" src="${asset}" alt=""></span>
+        <span class="press-face"><img class="sprite-img" src="${asset}" alt=""></span>
+        <span class="component-name">${label}</span>`;
+      return button;
+    }
+
+    for (let i = 0; i < 10; i++) {
+      document.getElementById('keypad').append(cropButton({
+        asset: ASSETS.keypad, cols: 5, rows: 2, col: i % 5, row: Math.floor(i / 5),
+        action: `key-${i + 1}`, label: `key ${i + 1}`
+      }));
+    }
+    [
+      ['smallPair', ASSETS.small, 'small'],
+      ['rockerPair', ASSETS.rocker, 'rocker'],
+      ['lowerPair', ASSETS.lower, 'lower']
+    ].forEach(([id, asset, name]) => {
+      for (let i = 0; i < 2; i++) document.getElementById(id).append(cropButton({
+        asset, cols: 2, rows: 1, col: i, row: 0, action: `${name}-${i + 1}`, label: `${name} ${i + 1}`
+      }));
+    });
+
+    function render() {
+      const closed = state.mode === 'closed';
+      device.classList.toggle('is-closed', closed);
+      device.classList.toggle('power-off', !state.power);
+      device.classList.toggle('show-targets', state.targets);
+      foldButton.textContent = closed ? 'OPEN' : 'CLOSE';
+      foldButton.setAttribute('aria-expanded', String(!closed));
+      targetsButton.setAttribute('aria-pressed', String(state.targets));
+      document.querySelector('.left-leaf').inert = closed;
+      document.querySelector('.leaf-front').inert = closed;
+      document.querySelector('.leaf-back').inert = !closed;
+      status.value = `${state.mode.toUpperCase()} · POWER ${state.power ? 'ON' : 'OFF'} · ${state.last}`;
+    }
+
+    function pulse(button) {
+      if (!button) return;
+      button.classList.remove('pulse');
+      void button.offsetWidth;
+      button.classList.add('pulse');
+      window.setTimeout(() => button.classList.remove('pulse'), 110);
+    }
+
+    function dispatch(action, source) {
+      if (action === 'open') state.mode = 'open';
+      else if (action === 'fold') state.mode = state.mode === 'open' ? 'closed' : 'open';
+      else if (state.mode === 'closed') return;
+      else if (action === 'power') { state.power = !state.power; state.last = state.power ? 'POWER ON' : 'POWER OFF'; }
+      else if (action === 'next') { state.cursor = (state.cursor + 1) % 10; state.last = `D-PAD → ${state.cursor + 1}`; }
+      else if (action === 'confirm') state.last = `CONFIRM ${state.cursor + 1}`;
+      else if (action === 'screen') state.last = 'SCREEN BUTTON';
+      else { state.last = action.replace('-', ' ').toUpperCase(); if (action.startsWith('key-')) state.cursor = Number(action.slice(4)) - 1; }
+      state.presses += 1;
+      pulse(source);
+      render();
+    }
+
+    document.addEventListener('click', event => {
+      const button = event.target.closest('[data-action]');
+      if (button) dispatch(button.dataset.action, button);
+    });
+    foldButton.addEventListener('click', () => dispatch('fold', foldButton));
+    targetsButton.addEventListener('click', () => { state.targets = !state.targets; render(); });
+    document.addEventListener('keydown', event => {
+      const directButton = event.target.closest('[data-action]');
+      if (directButton && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        dispatch(directButton.dataset.action, directButton);
+        return;
+      }
+      if (event.target.closest('button, a, input, select, textarea, summary, details')) return;
+      const map = { ArrowRight: 'next', ArrowDown: 'next', ArrowLeft: 'next', ArrowUp: 'next', Enter: 'confirm', Escape: 'fold' };
+      if (event.key.toLowerCase() === 'h') { state.targets = !state.targets; render(); return; }
+      if (!map[event.key]) return;
+      event.preventDefault();
+      const action = map[event.key];
+      const target = action === 'confirm' ? document.querySelector('.right-confirm') : action === 'next' ? document.querySelector('.left-dpad') : foldButton;
+      dispatch(action, target);
+    });
+    render();
+  </script>
+</body>
+</html>

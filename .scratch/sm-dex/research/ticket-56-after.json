@@ -1,0 +1,91 @@
+{
+  "rows": [
+    {
+      "gen": "red",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "beads": [],
+      "rounds": 3,
+      "ovals": 0
+    },
+    {
+      "gen": "gold",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "beads": [
+        [
+          "#d2faff",
+          "#36baf3",
+          "#164d89"
+        ],
+        [
+          "#d2faff",
+          "#36baf3",
+          "#164d89"
+        ],
+        [
+          "#d2faff",
+          "#36baf3",
+          "#164d89"
+        ]
+      ],
+      "rounds": 2,
+      "ovals": 2
+    },
+    {
+      "gen": "ruby",
+      "offset": {
+        "x": 0,
+        "y": -5
+      },
+      "beads": [],
+      "rounds": 1,
+      "ovals": 0
+    },
+    {
+      "gen": "diamond",
+      "offset": {
+        "x": 0,
+        "y": 0
+      },
+      "beads": [],
+      "rounds": 3,
+      "ovals": 0,
+      "closedFit": {
+        "mismatches": 0,
+        "pad": {
+          "x": 202,
+          "y": 538.5
+        },
+        "lobe": {
+          "x": 202,
+          "y": 538.5
+        },
+        "aligned": true
+      }
+    },
+    {
+      "gen": "black",
+      "offset": null,
+      "beads": [],
+      "rounds": 1,
+      "ovals": 0
+    },
+    {
+      "gen": "x",
+      "offset": null,
+      "beads": [],
+      "rounds": 0,
+      "ovals": 0,
+      "closedPokeball": true
+    }
+  ],
+  "errors": [],
+  "redScreenshotHash": "50c30844e4e85e3843ec14429cc4e99e36f25fd793d37f3395c731a81eeee10a",
+  "redUnchanged": true,
+  "rubyUnchanged": true
+}

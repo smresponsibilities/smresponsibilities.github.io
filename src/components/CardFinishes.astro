@@ -2,10 +2,6 @@
 import '../styles/card-recipes.css';
 import '../styles/card-finishes.css';
 ---
-<dialog class="card-inspection" aria-label="Card inspection">
-  <button class="card-inspection-close" type="button" autofocus>Close inspection ×</button>
-  <div class="card-inspection-body"></div>
-</dialog>
 <script>
 const selector = '.chapter-card, .project-card, .experience-card, .editorial .card, .search-card, .pinned-index-card, .daily-log-card, .related-card, .pinned-card, .project-feature-card';
 const flowers = ['chrysanthemum','rose','peony','lotus','dahlia','poppy','iris','lily','camellia','cosmos','sunflower','anemone','magnolia','gerbera','zinnia','cornflower','carnation','hibiscus','clematis','passionflower','plumeria'];
@@ -19,13 +15,6 @@ const finishes = [
 ];
 function initCardFinishes() {
   const controller = new AbortController();
-  const dialog = document.querySelector<HTMLDialogElement>('.card-inspection')!;
-  if (dialog.dataset.ready) return;
-  dialog.dataset.ready = 'true';
-  const inspectionBody = dialog.querySelector<HTMLElement>('.card-inspection-body')!;
-  dialog.querySelector('button')!.addEventListener('click', () => dialog.close(), {signal:controller.signal});
-  dialog.addEventListener('click', event => {if(event.target === dialog) dialog.close();}, {signal:controller.signal});
-  dialog.addEventListener('close', () => inspectionBody.replaceChildren(), {signal:controller.signal});
   const visible = new Set<HTMLElement>();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
@@ -104,31 +93,46 @@ function initCardFinishes() {
     card.addEventListener('pointermove', event => move(card,event), {signal:controller.signal});
     card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
     if (card.dataset.cardMode === 'holo') {
-      const button = document.createElement('button');
-      button.type='button';button.className='site-card-inspect';button.textContent='Inspect ↗';
-      button.setAttribute('aria-label', `Inspect ${card.querySelector('h2,h3')?.textContent ?? 'card'}`);
-      const inspect = () => {
-        const copy = card.cloneNode(true) as HTMLElement;
-        copy.querySelectorAll('.site-card-inspect').forEach(node=>node.remove());
-        copy.removeAttribute('id');copy.querySelectorAll('[id]').forEach(node=>node.removeAttribute('id'));
-        copy.querySelectorAll('[aria-controls], [aria-labelledby]').forEach(node=>{node.removeAttribute('aria-controls');node.removeAttribute('aria-labelledby');});
-        copy.querySelectorAll<HTMLButtonElement>('.project-try-native-btn').forEach(button=>{const link=document.createElement('a');link.href='/wordle-simulator/';link.textContent=button.textContent;button.replaceWith(link);});
-        copy.style.setProperty('--rx','0deg');copy.style.setProperty('--ry','0deg');
-        copy.addEventListener('pointermove',event=>move(copy,event));
-        const turn = document.createElement('div');turn.className='inspection-turn';
-        const back = document.createElement('div');back.className='inspection-back';back.setAttribute('aria-hidden','true');back.inert=true;
-        const label=document.createElement('span');label.textContent="SM'S DEX";
-        const seal=document.createElement('div');seal.className='inspection-seal';
-        const mark=document.createElement('img');mark.src='/favicon-sm-complete.svg';mark.alt='';mark.width=112;mark.height=112;seal.append(mark);
-        const signature=document.createElement('span');signature.textContent='DESIGNED & BUILT BY SHIVAM MAHAJAN';
-        back.append(label,seal,signature);turn.append(copy,back);
-        inspectionBody.replaceChildren(turn);dialog.showModal();
+      // Back face
+      const back = document.createElement('div');
+      back.className = 'site-card-back';
+      back.setAttribute('aria-hidden', 'true');
+      back.inert = true;
+      const label = document.createElement('span');
+      label.textContent = "SM'S DEX";
+      const seal = document.createElement('div');
+      seal.className = 'card-back-seal';
+      const mark = document.createElement('img');
+      mark.src = '/favicon-sm-complete.svg';
+      mark.alt = '';
+      mark.width = 90;
+      mark.height = 90;
+      seal.append(mark);
+      const signature = document.createElement('span');
+      signature.textContent = 'DESIGNED & BUILT BY SHIVAM MAHAJAN';
+      back.append(label, seal, signature);
+      card.append(back);
+
+      // Flip hint — fades in on hover, hides when flipped
+      const hint = document.createElement('span');
+      hint.className = 'site-card-flip-hint';
+      hint.setAttribute('aria-hidden', 'true');
+      hint.textContent = 'Click to flip';
+      card.append(hint);
+
+      // Flip state
+      let flipped = false;
+      const flip = () => {
+        flipped = !flipped;
+        card.dataset.flipped = flipped ? 'true' : '';
+        if (!flipped) {
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
+        }
       };
-      button.addEventListener('click',inspect,{signal:controller.signal});
-      card.addEventListener('click',event=>{
-        if(event.target instanceof Element && !event.target.closest('a,button,input,select,textarea,summary') && !getSelection()?.toString()) inspect();
-      },{signal:controller.signal});
-      card.append(button);
+      card.addEventListener('click', event => {
+        if (event.target instanceof Element && !event.target.closest('a,button,input,select,textarea,summary') && !getSelection()?.toString()) flip();
+      }, {signal:controller.signal});
     }
   }
   document.querySelectorAll<HTMLElement>(selector).forEach(enhance);

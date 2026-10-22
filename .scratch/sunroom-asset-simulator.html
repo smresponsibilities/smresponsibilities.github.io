@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Productivity Caller vs Traditional Reminder Apps (TickTick, Todoist, Google Tasks)</title>
+<meta name="description" content="Interactive simulator and comparison: Productivity Caller vs TickTick, Todoist, and Google Tasks. Compare phone call alerts against push notification blindness.">
+<link rel="canonical" href="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/">
+<meta name="author" content="Shivam Mahajan">
+<meta property="og:title" content="Productivity Caller vs Traditional Reminder Apps">
+<meta property="og:description" content="Compare Android phone call reminders vs push notification blindness. Built by Shivam Mahajan.">
+<meta property="og:url" content="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/">
+<style>
+:root {
+  --bg: #e9eddd;
+  --paper: #fcf7e9;
+  --ink: #313b30;
+  --muted: #6d725e;
+  --line: #dfdfca;
+  --green: #526b47;
+  --green-shadow: #354c2d;
+  --sage: #e8edd8;
+  --yellow: #f4d378;
+  --bad: #c84236;
+  --phone-bg: #182017;
+  box-sizing: border-box;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #151814;
+    --paper: #1e241d;
+    --ink: #f0f4ea;
+    --muted: #9aa28f;
+    --line: #2d362a;
+    --green: #6a8c5c;
+    --green-shadow: #22301c;
+    --sage: #2a3528;
+    --yellow: #f4d378;
+    --bad: #e57373;
+    --phone-bg: #0f140e;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #151814;
+  --paper: #1e241d;
+  --ink: #f0f4ea;
+  --muted: #9aa28f;
+  --line: #2d362a;
+  --green: #6a8c5c;
+  --green-shadow: #22301c;
+  --sage: #2a3528;
+  --yellow: #f4d378;
+  --bad: #e57373;
+  --phone-bg: #0f140e;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 15px/1.55 Inter, system-ui, -apple-system, sans-serif;
+}
+
+main { max-width: 980px; margin: 0 auto; padding: 36px 18px 64px; }
+
+h1 {
+  font: normal clamp(34px, 5.5vw, 54px)/1.06 Georgia, serif;
+  letter-spacing: -1.5px;
+  margin: 0 0 14px;
+  color: var(--ink);
+}
+h2 {
+  font: normal 26px/1.2 Georgia, serif;
+  letter-spacing: -0.6px;
+  margin: 44px 0 10px;
+}
+p.lead {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 62ch;
+  margin: 0 0 20px;
+}
+.sub {
+  color: var(--muted);
+  font-size: 14px;
+  margin: 0 0 16px;
+  max-width: 62ch;
+}
+
+a.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--green);
+  color: #fffdf0;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-weight: 600;
+  text-decoration: none;
+  font-size: 14px;
+  box-shadow: 0 3px 0 var(--green-shadow);
+  transition: transform 0.12s;
+}
+a.cta:hover { transform: translateY(-1px); }
+
+.badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 28px; }
+.badges span {
+  background: var(--sage);
+  color: var(--ink);
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  border: 1px solid var(--line);
+}
+.badges span.gold { background: var(--yellow); color: #313b30; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; }
+.chip {
+  border: 1px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  padding: 8px 15px;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Simulator Section */
+.sim {
+  display: grid;
+  grid-template-columns: minmax(0, 310px) minmax(0, 1fr);
+  gap: 28px;
+  align-items: start;
+}
+@media (max-width: 740px) { .sim { grid-template-columns: 1fr; } }
+
+/* Phone Frame */
+.phone {
+  width: 100%;
+  max-width: 310px;
+  aspect-ratio: 9/17.5;
+  margin: 0 auto;
+  border: 8px solid var(--ink);
+  border-radius: 36px;
+  background: var(--phone-bg);
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(49, 59, 48, 0.22);
+}
+.phone .time { text-align: center; padding-top: 26px; font-size: 52px; font-weight: 200; line-height: 1; }
+.phone .date { text-align: center; font-size: 13px; opacity: 0.7; margin-top: 4px; }
+
+/* Push Banner */
+.banner {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  top: -120px;
+  background: rgba(252, 247, 233, 0.96);
+  color: #313b30;
+  border-radius: 16px;
+  padding: 12px 14px;
+  font-size: 13px;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+  transition: top 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.banner.show { top: 120px; }
+.banner .app-ico { width: 34px; height: 34px; border-radius: 9px; background: #e0e5d1; display: grid; place-items: center; font-size: 18px; flex-shrink: 0; }
+.banner b { display: block; font-size: 13px; font-weight: 700; }
+.banner span { font-size: 12px; opacity: 0.8; }
+
+/* Incoming Call View */
+.call {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 25%, #243022 0%, #10160f 100%);
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 16px 16px 28px;
+  z-index: 2;
+}
+.call.show { display: flex; }
+
+.call-top { text-align: center; margin-top: 6px; }
+.call-top small { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--yellow); font-weight: 600; }
+.call-top .cname { font-size: 22px; font-weight: 700; margin-top: 3px; }
+.call-top .csub { font-size: 12px; opacity: 0.7; margin-top: 2px; }
+
+/* Authentic Sunroom Cat Sprite Avatar */
+.cat-avatar {
+  width: 140px;
+  height: 140px;
+  margin: 8px auto 10px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.cat-sprite {
+  width: 100%;
+  height: 100%;
+  background-image: url('assets/cat-states.png'), url('https://shivammahajan.com/productivity-caller-simulator/assets/cat-states.png');
+  background-size: 200% 200%;
+  background-position: 0 0;
+  border-radius: 24px;
+  filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+  transition: transform 0.15s, background-position 0.1s ease;
+  cursor: pointer;
+}
+.cat-sprite.blink { background-position: 100% 0; }
+.cat-sprite.look { background-position: 0 100%; }
+.cat-sprite.ack { background-position: 100% 100%; }
+
+.call-ring-wave {
+  position: absolute;
+  inset: -8px;
+  border-radius: 30px;
+  border: 2px solid var(--yellow);
+  opacity: 0;
+  pointer-events: none;
+}
+.ringing .call-ring-wave { animation: ringPulse 1.8s infinite ease-out; }
+.ringing .call-ring-wave:nth-child(2) { animation-delay: 0.6s; }
+
+@keyframes ringPulse {
+  0% { transform: scale(0.9); opacity: 0.8; }
+  100% { transform: scale(1.4); opacity: 0; }
+}
+
+.ctask-pill {
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  text-align: center;
+  margin: 0 auto 12px;
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Call Buttons */
+.call-actions {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.cwrap { display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; opacity: 0.9; }
+.cb {
+  width: 62px;
+  height: 62px;
+  border-radius: 50%;
+  border: none;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s;
+}
+.cb:hover { transform: scale(1.08); }
+.cb svg { width: 26px; height: 26px; fill: #fff; }
+.cb.red { background: var(--bad); }
+.cb.red svg { transform: rotate(135deg); }
+.cb.green { background: #3fa64a; }
+.ringing .cb.green { animation: ringWiggle 0.8s infinite ease-in-out; }
+.cb.snooze { width: 44px; height: 44px; background: rgba(255,255,255,0.14); border: 1px solid rgba(255,255,255,0.2); }
+.cb.snooze svg { width: 18px; height: 18px; }
+
+@keyframes ringWiggle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(-7deg) scale(1.05); }
+  75% { transform: rotate(7deg) scale(1.05); }
+}
+
+/* Panel & Log */
+.panel {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 4px 18px rgba(49, 59, 48, 0.05);
+}
+.panel .task-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); font-weight: 600; margin: 0 0 4px; }
+.panel .task-title { font-size: 19px; font-weight: 700; margin: 0 0 16px; color: var(--ink); }
+
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0; }
+button.act {
+  font: inherit;
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 10px 18px;
+  border: 1.5px solid var(--line);
+  background: var(--paper);
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+button.act:hover { border-color: var(--ink); }
+button.act.primary { background: var(--green); border-color: var(--green); color: #fffdf0; box-shadow: 0 2px 0 var(--green-shadow); }
+button.act.danger { background: var(--bad); border-color: var(--bad); color: #fff; }
+button.act:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.log { list-style: none; margin: 16px 0 0; padding: 0; font-size: 14px; max-height: 220px; overflow: auto; border-top: 1px solid var(--line); }
+.log li { padding: 7px 0; border-bottom: 1px solid var(--line); display: flex; align-items: baseline; gap: 8px; }
+.log time { font-family: monospace; color: var(--muted); font-size: 12px; }
+
+.verdict {
+  margin-top: 14px;
+  padding: 11px 15px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 14.5px;
+  display: none;
+}
+.verdict.show { display: block; }
+.verdict.good { background: rgba(82, 107, 71, 0.15); color: var(--green); }
+.verdict.bad { background: rgba(200, 66, 54, 0.15); color: var(--bad); }
+.verdict.warn { background: rgba(244, 211, 120, 0.28); color: #8a6a12; }
+
+/* Comparison Table */
+.scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); margin-top: 16px; }
+table { border-collapse: collapse; width: 100%; min-width: 660px; }
+th, td { padding: 13px 15px; text-align: left; border-bottom: 1px solid var(--line); font-size: 14px; }
+th { font-weight: 700; }
+th.pc, td.pc { background: rgba(244, 211, 120, 0.2); }
+tr.hl td, tr.hl th { background: rgba(244, 211, 120, 0.15); }
+
+.v2 { color: var(--green); font-weight: 700; }
+.v1 { color: #8a6a12; font-weight: 600; }
+.v0 { color: var(--bad); font-weight: 500; }
+
+.score-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; margin: 16px 0; }
+.score-card { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+.score-card .n { font-size: 28px; font-weight: 800; line-height: 1; font-family: Georgia, serif; }
+.bar { height: 5px; background: var(--line); border-radius: 3px; margin-top: 7px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--green); width: 0; transition: width 0.3s; }
+
+/* Specs Section */
+.specs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin: 18px 0; }
+.spec-box { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
+.spec-box .val { font-size: 26px; font-weight: 800; font-family: Georgia, serif; color: var(--ink); }
+.spec-box .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+.top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 24px; }
+footer { margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+footer a { color: var(--ink); font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div style="font-weight:700; font-size:16px;">Cat Caller / Productivity Caller</div>
+    <button class="chip" id="theme" type="button">Toggle Theme</button>
+  </div>
+
+  <h1>A Real Phone Call, Not a Notification. Entirely Local.</h1>
+  <p class="lead">Push notifications get swiped away alongside spam. Productivity Caller makes your phone ring with a real incoming call on the native Android call screen, using the OS Telecom framework. 100% offline on your device: no cloud, no account, no AI service.</p>
+
+  <div>
+    <a class="cta" href="https://shivammahajan.com/projects/productivity-caller/" target="_blank" rel="noopener">
+      Read Technical Case Study ↗
+    </a>
+  </div>
+
+  <div class="badges">
+    <span class="gold">Real Android Call</span>
+    <span>100% Local</span>
+    <span>Zero Cloud</span>
+    <span>Offline-First</span>
+    <span>Deterministic NLP</span>
+  </div>
+
+  <h2>Notification Simulator</h2>
+  <p class="sub">Pick an app, fire the reminder, then respond the way you really would on a busy afternoon.</p>
+
+  <div class="chips" id="apps" role="group" aria-label="Choose an app"></div>
+
+  <div class="sim">
+    <!-- Phone Screen -->
+    <div class="phone" id="phone">
+      <div class="time">4:58</div>
+      <div class="date">Wednesday · Oct 14</div>
+
+      <!-- Push Notification Banner -->
+      <div class="banner" id="banner">
+        <div class="app-ico" id="bIcon">🔔</div>
+        <div>
+          <b id="bApp">Todoist</b>
+          <span id="bText">Reminder: Send invoice to client</span>
+        </div>
+      </div>
+
+      <!-- Incoming Call View -->
+      <div class="call" id="call">
+        <div class="call-top">
+          <small id="callSub">Incoming Call</small>
+          <div class="cname">Productivity Caller</div>
+          <div class="csub">Task Reminder · Priority High</div>
+        </div>
+
+        <!-- Authentic Sunroom Cat Sprite Avatar -->
+        <div class="cat-avatar">
+          <div class="call-ring-wave"></div>
+          <div class="call-ring-wave"></div>
+          <span class="cat-sprite" id="catSprite" title="Tap to interact"></span>
+        </div>
+
+        <div class="ctask-pill" id="callTask">Send invoice to client (due 5:00 PM)</div>
+
+        <!-- Call Buttons -->
+        <div class="call-actions">
+          <div class="cwrap">
+            <button type="button" class="cb red" id="btnDec" aria-label="Decline">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </button>
+            <span>Decline</span>
+          </div>
+          <div class="cwrap">
+            <button type="button" class="cb snooze" id="btnSnooze" aria-label="Snooze 10 minutes">
+              <svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm4.2 14.2L11 13V7h1.5v5.2l4.5 2.7-.8 1.3z"/></svg>
+            </button>
+            <span>+10m</span>
+          </div>
+          <div class="cwrap">
+            <button type="button" class="cb green" id="btnAns" aria-label="Answer">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </button>
+            <span>Answer</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Simulator Control Panel -->
+    <div class="panel">
+      <div class="task-label">Active Scenario</div>
+      <div class="task-title">Task: Send invoice to client (Due 5:00 PM)</div>
+      <div class="btns" id="ctrl"></div>
+      <div class="verdict" id="verdict"></div>
+      <ul class="log" id="log"></ul>
+    </div>
+  </div>
+
+  <h2>Feature Comparison Matrix</h2>
+  <p class="sub">Select what matters to your workflow. Matching capabilities highlight and scores update.</p>
+  <div class="chips" id="prefs" role="group" aria-label="Filter features"></div>
+  <div class="score-grid" id="score"></div>
+  <div class="scroll">
+    <table id="tbl"></table>
+  </div>
+
+  <h2>Under the Hood & Technical Metrics</h2>
+  <p class="sub">Author-supplied implementation snapshot. Everything runs locally on device without cloud servers.</p>
+  <div class="specs-grid">
+    <div class="spec-box"><div class="val">25,310</div><div class="lbl">Lines of 100% Kotlin · 76 files</div></div>
+    <div class="spec-box"><div class="val">425+</div><div class="lbl">Unit & integration tests</div></div>
+    <div class="spec-box"><div class="val">80+</div><div class="lbl">NLP datetime forms recognized</div></div>
+    <div class="spec-box"><div class="val">&lt;3 ms</div><div class="lbl">On-device parse latency, zero cloud</div></div>
+  </div>
+
+  <footer>
+    <p>Created by <strong><a href="https://shivammahajan.com/">Shivam Mahajan</a></strong>, Software Engineer.</p>
+    <p>Read the <a href="https://shivammahajan.com/projects/productivity-caller/">Official Case Study</a> or see the <a href="https://shivammahajan.com/projects/productivity-caller-vs-alternatives/">Alternatives Comparison Page</a>.</p>
+  </footer>
+</main>
+
+<script>
+(function(){
+  // =========================================================================
+  // 1. AUTHENTIC SUNROOM MASCOT SPRITE CONTROLLER
+  // =========================================================================
+  var catSprite = document.getElementById('catSprite');
+  var blinkTimer, ackTimer;
+
+  function setMascotState(state) {
+    if (!catSprite) return;
+    catSprite.className = 'cat-sprite ' + (state || '');
+  }
+
+  // Periodic subtle blink (as in Sunroom)
+  function startBlinkLoop() {
+    clearTimeout(blinkTimer);
+    blinkTimer = setTimeout(function() {
+      if (!catSprite.classList.contains('ack') && !catSprite.classList.contains('look')) {
+        setMascotState('blink');
+        setTimeout(function() { setMascotState(''); }, 180);
+      }
+      startBlinkLoop();
+    }, 3800 + Math.random() * 2000);
+  }
+  startBlinkLoop();
+
+  catSprite.onclick = function() {
+    clearTimeout(ackTimer);
+    setMascotState('look');
+    ackTimer = setTimeout(function() { setMascotState(''); }, 1200);
+  };
+
+  // =========================================================================
+  // 2. SIMULATOR LOGIC & APPS
+  // =========================================================================
+  var APPS = [
+    {id:"pc", n:"Productivity Caller", ico:"🐾"},
+    {id:"tt", n:"TickTick", ico:"⏱️"},
+    {id:"td", n:"Todoist", ico:"🔴"},
+    {id:"gt", n:"Google Tasks", ico:"🔵"}
+  ];
+
+  var ROWS = [
+    {k:"alert", l:"Real native Android call (Telecom API), not a notification", v:[2,0,0,0], g:"call"},
+    {k:"hard", l:"Hard to ignore or swipe away (solves notification blindness)", v:[2,0,0,0], g:"call"},
+    {k:"wake", l:"Full-screen lockscreen wake via USE_FULL_SCREEN_INTENT", v:[2,1,0,0], g:"call"},
+    {k:"off", l:"Runs locally: fully offline, no cloud account required", v:[2,1,1,0], g:"priv"},
+    {k:"nlp", l:"Natural-language quick add (80+ datetime forms, tags, priority)", v:[2,2,2,0], g:"fast"},
+    {k:"cost", l:"Subscription pricing", v:[2,1,1,2], g:"priv"},
+    {k:"team", l:"Sharing and multi-user collaboration", v:[0,2,2,1], g:"org"}
+  ];
+
+  var PREFS = [
+    {g:"call", l:"Reminders I can't ignore"},
+    {g:"priv", l:"Privacy & offline-first"},
+    {g:"fast", l:"Fast natural-language capture"},
+    {g:"org", l:"Team collaboration"}
+  ];
+
+  var cur = "pc", timers = [], attempts = 0, t0 = 0, active = {};
+  var $ = function(id) { return document.getElementById(id); };
+
+  function clr() { timers.forEach(clearTimeout); timers = []; }
+  function later(f, ms) { timers.push(setTimeout(f, ms)); }
+
+  function log(m) {
+    var li = document.createElement("li");
+    var t = document.createElement("time");
+    var el = Math.round((Date.now() - t0) / 1000);
+    t.textContent = "+" + el + "s";
+    li.appendChild(t);
+    li.appendChild(document.createTextNode(m));
+    $("log").insertBefore(li, $("log").firstChild);
+  }
+
+  function btn(label, fn, pri, danger) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "act" + (pri ? " primary" : "") + (danger ? " danger" : "");
+    b.textContent = label;
+    b.onclick = fn;
+    return b;
+  }
+
+  function setCtrl(list) {
+    var c = $("ctrl");
+    c.textContent = "";
+    list.forEach(function(x) { c.appendChild(btn(x[0], x[1], x[2], x[3])); });
+  }
+
+  function reset() {
+    clr();
+    attempts = 0;
+    setMascotState('');
+    $("log").textContent = "";
+    $("verdict").className = "verdict";
+    $("verdict").textContent = "";
+    $("banner").classList.remove("show");
+    $("call").classList.remove("show", "ringing");
+    setCtrl([["Fire Reminder", start, true]]);
+  }
+
+  function start() {
+    t0 = Date.now();
+    $("log").textContent = "";
+    $("verdict").className = "verdict";
+    $("verdict").textContent = "";
+    if (cur === "pc") ring(); else push();
+  }
+
+  function push() {
+    setMascotState('');
+    var a = APPS.filter(function(x) { return x.id === cur; })[0];
+    $("bApp").textContent = a.n;
+    $("bIcon").textContent = a.ico;
+    $("banner").classList.add("show");
+    log(a.n + " shows a passive push notification banner.");
+
+    setCtrl([
+      ["Open Task", function() { end("Opened. You saw it because you were actively looking.", "good", true); }, true],
+      ["Swipe Away", function() { end("Dismissed with one swipe. Nothing else happens; task is missed at 5:00 PM.", "bad", true); }, false, true],
+      ["Keep Scrolling", waitPush]
+    ]);
+  }
+
+  function waitPush() {
+    setCtrl([]);
+    log("You keep scrolling your feed...");
+    later(function() {
+      $("banner").classList.remove("show");
+      log("Banner fades into the notification shade alongside 30 other alerts.");
+      later(function() {
+        end("Ignored. Notification blindness strikes again: zero follow-up, task forgotten.", "bad", true);
+      }, 2000);
+    }, 2500);
+  }
+
+  function ring() {
+    attempts++;
+    setMascotState('ack'); // Cat acknowledges holding phone!
+    $("call").classList.add("show", "ringing");
+    $("callSub").textContent = "Incoming Call · Attempt " + attempts + " of 3";
+    log("A real Android call rings on the native call screen via Telecom API. Attempt " + attempts + " of 3.");
+
+    var ans = function() {
+      setMascotState('look');
+      end("Answered on attempt " + attempts + ". You acknowledged the urgent task.", "good", true);
+    };
+    var dec = function() {
+      miss();
+    };
+    var snz = function() {
+      setMascotState('');
+      end("Task snoozed for +10 minutes. Exact alarm rescheduled.", "warn", true);
+    };
+
+    setCtrl([
+      ["Answer", ans, true],
+      ["Snooze (+10m)", snz],
+      ["Decline", dec, false, true]
+    ]);
+
+    $("btnAns").onclick = ans;
+    $("btnDec").onclick = dec;
+    $("btnSnooze").onclick = snz;
+
+    later(function() {
+      log("No response detected after 6 seconds.");
+      miss();
+    }, 6000);
+  }
+
+  function miss() {
+    clr();
+    $("call").classList.remove("show", "ringing");
+    setMascotState('');
+    if (attempts >= 3) {
+      end("Three missed calls logged. Interrupted 3 times until acknowledged.", "warn", true);
+      return;
+    }
+    log("Call missed. Calling again in 2.5s...");
+    setCtrl([]);
+    later(ring, 2500);
+  }
+
+  function end(msg, kind, hide) {
+    clr();
+    if (hide) {
+      $("banner").classList.remove("show");
+      $("call").classList.remove("show", "ringing");
+    }
+    log(msg);
+    var v = $("verdict");
+    v.textContent = msg;
+    v.className = "verdict show " + kind;
+    setCtrl([["Run Again", reset, true]]);
+  }
+
+  function drawApps() {
+    var a = $("apps");
+    a.textContent = "";
+    APPS.forEach(function(x) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = x.ico + " " + x.n;
+      b.setAttribute("aria-pressed", x.id === cur);
+      b.onclick = function() { cur = x.id; drawApps(); reset(); };
+      a.appendChild(b);
+    });
+  }
+
+  function sym(v) {
+    if (v === 2) return '<span class="v2">Yes</span>';
+    if (v === 1) return '<span class="v1">Partial</span>';
+    return '<span class="v0">No</span>';
+  }
+
+  function drawTable() {
+    var h = '<thead><tr><th>Feature</th>' + APPS.map(function(a) {
+      return '<th' + (a.id === "pc" ? ' class="pc"' : '') + '>' + a.n + '</th>';
+    }).join("") + '</tr></thead><tbody>';
+
+    var any = Object.keys(active).some(function(k) { return active[k]; });
+
+    ROWS.forEach(function(r) {
+      var on = active[r.g];
+      h += '<tr class="' + (on ? "hl" : "") + '"><th>' + r.l + '</th>' +
+        r.v.map(function(v, i) {
+          return '<td' + (i === 0 ? ' class="pc"' : '') + '>' + sym(v) + '</td>';
+        }).join("") + '</tr>';
+    });
+
+    $("tbl").innerHTML = h + '</tbody>';
+
+    var rows = ROWS.filter(function(r) { return !any || active[r.g]; });
+    $("score").innerHTML = APPS.map(function(a, i) {
+      var s = 0, m = rows.length * 2;
+      rows.forEach(function(r) { if (r.v[i] > 0) s += r.v[i]; });
+      var p = Math.round(100 * s / m);
+      return '<div class="score-card"><div>' + a.n + '</div><div class="n">' + p + '%</div><div class="bar"><i style="width:' + p + '%"></i></div></div>';
+    }).join("");
+  }
+
+  function drawPrefs() {
+    var p = $("prefs");
+    p.textContent = "";
+    PREFS.forEach(function(x) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "chip";
+      b.textContent = x.l;
+      b.setAttribute("aria-pressed", !!active[x.g]);
+      b.onclick = function() { active[x.g] = !active[x.g]; drawPrefs(); drawTable(); };
+      p.appendChild(b);
+    });
+  }
+
+  $("theme").onclick = function() {
+    var r = document.documentElement;
+    var d = r.getAttribute("data-theme");
+    var dark = d ? d === "dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+    r.setAttribute("data-theme", dark ? "light" : "dark");
+  };
+
+  drawApps();
+  drawPrefs();
+  drawTable();
+  reset();
+})();
+</script>
+</body>
+</html>

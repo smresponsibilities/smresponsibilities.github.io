@@ -1,0 +1,48 @@
+{
+  "revision": "48.0",
+  "date": "2026-09-08",
+  "command": "node .scratch/sm-dex/research/ticket-48-visual-regression.mjs",
+  "checks": [
+    {
+      "name": "RSE lid is narrow and right-offset",
+      "passed": true,
+      "lidCenter": 562.6872253417969,
+      "bodyCenter": 457.27272033691406,
+      "lidWidth": 354.89825439453125,
+      "bodyWidth": 665.4545288085938
+    },
+    {
+      "name": "DP closed exterior uses documented landmarks",
+      "passed": true,
+      "landmarks": ["left circular plate", "silver field", "dark stripe", "three green indicators", "right hinge"]
+    },
+    {
+      "name": "BW stripe stops around centre-control well",
+      "passed": true,
+      "legacyCrossingRemoved": true
+    },
+    {
+      "name": "Rotom rear zigzag assemblies move out",
+      "passed": true,
+      "unrelatedRearFlaps": 0,
+      "leftMidTransform": "matrix(0.993034, -0.117831, 0.117831, 0.993034, -108.271, 0)",
+      "rightMidTransform": "matrix(0.993034, 0.117831, -0.117831, 0.993034, 108.271, 0)"
+    },
+    {
+      "name": "Reduced motion snaps Rotom endpoints",
+      "passed": true,
+      "closed": { "progress": 0, "facing": "rear" },
+      "open": { "progress": 1, "facing": "front" }
+    }
+  ],
+  "browserErrors": [],
+  "exports": { "svgCount": 53, "xmlParseFailures": 0 },
+  "captures": [
+    "../../research/ticket-48-rse-open.png",
+    "../../research/ticket-48-dp-closed.png",
+    "../../research/ticket-48-bw-open.png",
+    "../../research/ticket-48-rotom-stowed.png",
+    "../../research/ticket-48-rotom-panels-exiting-20.png",
+    "../../research/ticket-48-rotom-panels-exiting-35.png"
+  ]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><title>Galar · Sword / Shield</title><desc>Authored flat interface asset. Separate authored front and rear faces guided by the official Galar guide sheet. Camera and circular Rotom face belong on the rear; the screen has a small spike-root notch. Proportions are adapted for portfolio content. Flip is an inspection interaction, not a hinged casing.</desc><defs><mask id="export-sword-shield-sword-shield-body-apertures"><rect width="100%" height="100%" fill="white"/><rect x="313" y="204" width="308" height="433" rx="3" fill="black"/></mask></defs><g id="export-sword-shield-body" mask="url(#export-sword-shield-sword-shield-body-apertures)"><g stroke="#63332e" stroke-width="3" stroke-linejoin="round">
+    <path d="M436 152 454 85 481 106 529 37 507 123 479 118 473 152Z" fill="#f46849"/>
+    <path d="M438 660H501L471 737Z" fill="#f46849"/>
+    <rect x="291" y="152" width="364" height="526" rx="32" fill="#b84a37"/>
+    <rect x="285" y="147" width="364" height="526" rx="32" fill="#f46849"/>
+    <path d="M296 233V181Q296 158 321 158H613M296 600V633Q296 659 322 659" fill="none" stroke="#ffb595"/>
+  </g><rect x="301" y="164" width="332" height="493" rx="23" fill="#17292e" stroke="#813e34" stroke-width="3"/>
+    <path d="M448 162V176Q448 194 468 194Q488 194 488 176V162" fill="#f46849" stroke="#63332e" stroke-width="2"/>
+    <circle cx="461" cy="176" r="2" fill="#63332e"/><circle cx="475" cy="176" r="2" fill="#63332e"/>
+    <path d="M461 183Q468 188 475 183" fill="none" stroke="#63332e" stroke-width="2"/></g></svg>

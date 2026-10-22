@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 940 760" fill="none"><g stroke="#63332e" stroke-width="3" stroke-linejoin="round">
+    <path d="M436 152 454 85 481 106 529 37 507 123 479 118 473 152Z" fill="#f47a55"/>
+    <path d="M438 660H501L471 737Z" fill="#f47a55"/>
+    <rect x="291" y="152" width="364" height="526" rx="32" fill="#b84a37"/>
+    <rect x="285" y="147" width="364" height="526" rx="32" fill="#f47a55"/>
+    <path d="M296 233V181Q296 158 321 158H613M296 600V633Q296 659 322 659" fill="none" stroke="#ffb595"/>
+  </g><g stroke="#64342f" stroke-width="3" stroke-linejoin="round">
+    <g data-part="paldea-cameras">
+      <path d="M334 173C350 173 356 187 362 187C369 187 371 181 382 181C411 181 411 223 382 223C371 223 369 217 362 217C356 217 350 231 334 231C296 231 296 173 334 173Z" fill="#f58c69"/>
+      <circle cx="334" cy="202" r="20" fill="#667c9c"/>
+      <circle cx="334" cy="202" r="15" fill="#648ac0" stroke="none"/>
+      <path d="M321 201Q328 185 345 194L323 210Z" fill="#a1bce2" stroke="none"/>
+      <circle cx="382" cy="202" r="14" fill="#565956"/>
+      <circle cx="382" cy="202" r="9" fill="#858986" stroke="none"/>
+      <path d="M375 201Q380 192 388 198" fill="none" stroke="#bfc3ba" stroke-width="3"/>
+    </g>
+    <circle cx="467" cy="430" r="121" fill="#f47a55" stroke="#8ee2e3" stroke-width="6"/>
+    <circle cx="467" cy="430" r="121" fill="none" stroke="#e6ffff" stroke-width="2"/>
+    <g transform="rotate(-13 383 365)"><ellipse cx="383" cy="365" rx="29" ry="61" fill="#f5fff5"/><ellipse cx="383" cy="365" rx="18" ry="46" fill="#75d1ca"/><path d="M366 376Q383 387 400 376V398Q383 422 366 398Z" fill="#b9e6e0" stroke="none"/></g><g transform="rotate(13 551 365)"><ellipse cx="551" cy="365" rx="29" ry="61" fill="#f5fff5"/><ellipse cx="551" cy="365" rx="18" ry="46" fill="#75d1ca"/><path d="M534 376Q551 387 568 376V398Q551 422 534 398Z" fill="#b9e6e0" stroke="none"/></g>
+    <path d="M434 426 453 432 451 451Q439 449 434 426ZM459 433H476L479 455H456ZM482 432 501 426Q496 446 485 451Z" fill="#fffce9" stroke="none"/>
+  </g></svg>

@@ -1,0 +1,222 @@
+[
+  {
+    "id": "g2-15",
+    "title": "Stadium 2 Pokédex list",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_list.png",
+    "image": "https://archives.bulbagarden.net/media/upload/d/d7/Stadium_2_Pok%C3%A9dex_list.png",
+    "local": "gen2/Stadium 2 Pokédex list.png",
+    "kind": "Stadium 2 game UI",
+    "use": "Johto list, counters and 3D preview.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "44e7dd12f090324b3f15f81901b5551542553f50"
+  },
+  {
+    "id": "g2-16",
+    "title": "Stadium 2 Pokédex captured",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_captured.png",
+    "image": "https://archives.bulbagarden.net/media/upload/0/01/Stadium_2_Pok%C3%A9dex_captured.png",
+    "local": "gen2/Stadium 2 Pokédex captured.png",
+    "kind": "Stadium 2 game UI",
+    "use": "Captured Chikorita detail with Area/Zoom/Cry.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "26295c12b48d18f5cdcfef78e642ede3a198649f"
+  },
+  {
+    "id": "g2-17",
+    "title": "Stadium 2 Pokédex seen",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_seen.png",
+    "image": "https://archives.bulbagarden.net/media/upload/e/e7/Stadium_2_Pok%C3%A9dex_seen.png",
+    "local": "gen2/Stadium 2 Pokédex seen.png",
+    "kind": "Stadium 2 game UI",
+    "use": "Seen-only Cyndaquil state.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "c4746642aa673e458c3eb200c485b4178ba73315"
+  },
+  {
+    "id": "g2-18",
+    "title": "Stadium 2 Pokédex search",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_search.png",
+    "image": "https://archives.bulbagarden.net/media/upload/f/f3/Stadium_2_Pok%C3%A9dex_search.png",
+    "local": "gen2/Stadium 2 Pokédex search.png",
+    "kind": "Stadium 2 game UI",
+    "use": "Two-type search controls.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "a4193f15202eadaa39525988bcbd6e2136a7c8b2"
+  },
+  {
+    "id": "g2-19",
+    "title": "Stadium 2 Pokédex zoom",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_zoom.png",
+    "image": "https://archives.bulbagarden.net/media/upload/9/97/Stadium_2_Pok%C3%A9dex_zoom.png",
+    "local": "gen2/Stadium 2 Pokédex zoom.png",
+    "kind": "Stadium 2 game UI",
+    "use": "3D Chikorita inspection view.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "ae65845c64d6e1d23c23d8e988e917596e0c2fe6"
+  },
+  {
+    "id": "g2-20",
+    "title": "Stadium 2 Pokédex order",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium_2_Pok%C3%A9dex_order.png",
+    "image": "https://archives.bulbagarden.net/media/upload/f/f1/Stadium_2_Pok%C3%A9dex_order.png",
+    "local": "gen2/Stadium 2 Pokédex order.png",
+    "kind": "Stadium 2 game UI",
+    "use": "New/Old/A-to-Z/Unowndex chooser.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "b74e33c366e059a0c674e3da57fea5effb380de1"
+  },
+  {
+    "id": "g2-37",
+    "title": "Stadium 2 Pichu Complete Pokédex.png",
+    "source": "https://archives.bulbagarden.net/wiki/File:Stadium%202%20Pichu%20Complete%20Pok%C3%A9dex.png",
+    "image": "https://archives.bulbagarden.net/media/upload/d/d0/Stadium_2_Pichu_Complete_Pok%C3%A9dex.png",
+    "local": "gen2/Stadium 2 Pichu Complete Pokédex.png",
+    "kind": "Stadium 2 game UI",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Stadium 2 software reference; no physical casing evidence.",
+    "hash": "46654e728d957734de693e1f1abefa9176bf75da"
+  },
+  {
+    "id": "g2-38",
+    "title": "Gold original Pokédex Adventures.png",
+    "source": "https://archives.bulbagarden.net/wiki/File:Gold_original_Pok%C3%A9dex_Adventures.png",
+    "image": "https://archives.bulbagarden.net/media/upload/7/72/Gold_original_Pok%C3%A9dex_Adventures.png",
+    "local": "gen2/Gold original Pokédex Adventures.png",
+    "kind": "Manga hardware view",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Pokémon Adventures/Pocket Monsters manga continuity; monochrome or cropped.",
+    "hash": "28b2a9449ac460bc7c564e8b3f5f02b7df8a432f"
+  },
+  {
+    "id": "g2-39",
+    "title": "Crystal original Pokédex Adventures.png",
+    "source": "https://archives.bulbagarden.net/wiki/File:Crystal_original_Pok%C3%A9dex_Adventures.png",
+    "image": "https://archives.bulbagarden.net/media/upload/3/39/Crystal_original_Pok%C3%A9dex_Adventures.png",
+    "local": "gen2/Crystal original Pokédex Adventures.png",
+    "kind": "Manga hardware view",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Pokémon Adventures/Pocket Monsters manga continuity; monochrome or cropped.",
+    "hash": "a54374a5c3931a7054f30f2aa371a3e1b552be1f"
+  },
+  {
+    "id": "g2-40",
+    "title": "Johto Pokédex PM.png",
+    "source": "https://archives.bulbagarden.net/wiki/File:Johto_Pok%C3%A9dex_PM.png",
+    "image": "https://archives.bulbagarden.net/media/upload/2/2e/Johto_Pok%C3%A9dex_PM.png",
+    "local": "gen2/Johto Pokédex PM.png",
+    "kind": "Manga hardware view",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Pokémon Adventures/Pocket Monsters manga continuity; monochrome or cropped.",
+    "hash": "5feacb0a5bd193626fc8e9041aac41a0f40dfdce"
+  },
+  {
+    "id": "g2-41",
+    "title": "Pokédex Golden Boys.png",
+    "source": "https://archives.bulbagarden.net/wiki/File:Pok%C3%A9dex_Golden_Boys.png",
+    "image": "https://archives.bulbagarden.net/media/upload/1/16/Pok%C3%A9dex_Golden_Boys.png",
+    "local": "gen2/Pokédex Golden Boys.png",
+    "kind": "Manga hardware view",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Pokémon Adventures/Pocket Monsters manga continuity; monochrome or cropped.",
+    "hash": "714aa536e3373c61a56c118406c5a0a09c3bc27a"
+  },
+  {
+    "id": "g2-42",
+    "title": "DeluxePDetail.jpg",
+    "source": "https://archives.bulbagarden.net/wiki/File:DeluxePDetail.jpg",
+    "image": "https://archives.bulbagarden.net/media/upload/9/99/DeluxePDetail.jpg",
+    "local": "gen2/DeluxePDetail.jpg",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "eb4ee2c3ffffea8437206ae08310aabc07dcd325"
+  },
+  {
+    "id": "g2-43",
+    "title": "DeluxePOpen.jpg",
+    "source": "https://archives.bulbagarden.net/wiki/File:DeluxePOpen.jpg",
+    "image": "https://archives.bulbagarden.net/media/upload/c/c5/DeluxePOpen.jpg",
+    "local": "gen2/DeluxePOpen.jpg",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "175525c7c66c3804c0549b84b9ff6d975d38c924"
+  },
+  {
+    "id": "g2-44",
+    "title": "DeluxePButtons.jpg",
+    "source": "https://archives.bulbagarden.net/wiki/File:DeluxePButtons.jpg",
+    "image": "https://archives.bulbagarden.net/media/upload/3/31/DeluxePButtons.jpg",
+    "local": "gen2/DeluxePButtons.jpg",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "46813d6b4952a78e3367da156818ac381ddb0eed"
+  },
+  {
+    "id": "g2-45",
+    "title": "DeluxePFront.jpg",
+    "source": "https://archives.bulbagarden.net/wiki/File:DeluxePFront.jpg",
+    "image": "https://archives.bulbagarden.net/media/upload/4/4e/DeluxePFront.jpg",
+    "local": "gen2/DeluxePFront.jpg",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "d17beb6c7e781f4869cbaa266782de51a2f66e43"
+  },
+  {
+    "id": "g2-46",
+    "title": "DeluxePReverse.jpg",
+    "source": "https://archives.bulbagarden.net/wiki/File:DeluxePReverse.jpg",
+    "image": "https://archives.bulbagarden.net/media/upload/b/b1/DeluxePReverse.jpg",
+    "local": "gen2/DeluxePReverse.jpg",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "81b98e86f4c920ab5572e3ad520300c9c55cbeb9"
+  },
+  {
+    "id": "g2-47",
+    "title": "Pokédex Deluxe Face.png",
+    "source": "https://www.pokepedia.fr/Fichier:Pok%C3%A9dex_Deluxe_Face.png",
+    "image": "https://www.pokepedia.fr/images/f/fc/Pok%C3%A9dex_Deluxe_Face.png",
+    "local": "gen2/Pokédex Deluxe Face.png",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "e7f5cc0355e38a02b3c0eb08c10632b74fd16905"
+  },
+  {
+    "id": "g2-48",
+    "title": "Pokédex Deluxe Face Allumé.png",
+    "source": "https://www.pokepedia.fr/Fichier:Pok%C3%A9dex_Deluxe_Face_Allum%C3%A9.png",
+    "image": "https://www.pokepedia.fr/images/5/54/Pok%C3%A9dex_Deluxe_Face_Allum%C3%A9.png",
+    "local": "gen2/Pokédex Deluxe Face Allumé.png",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "270352a815a41d881d2e3a11f14a39c8fbd88cb0"
+  },
+  {
+    "id": "g2-49",
+    "title": "Pokédex Deluxe Face Ouvert.png",
+    "source": "https://www.pokepedia.fr/Fichier:Pok%C3%A9dex_Deluxe_Face_Ouvert.png",
+    "image": "https://www.pokepedia.fr/images/d/d4/Pok%C3%A9dex_Deluxe_Face_Ouvert.png",
+    "local": "gen2/Pokédex Deluxe Face Ouvert.png",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "8650cd4b0188115727c5c84df7c34a39e5d12866"
+  },
+  {
+    "id": "g2-50",
+    "title": "Pokédex Deluxe allumé.png",
+    "source": "https://www.pokepedia.fr/Fichier:Pok%C3%A9dex_Deluxe_allum%C3%A9.png",
+    "image": "https://www.pokepedia.fr/images/9/9b/Pok%C3%A9dex_Deluxe_allum%C3%A9.png",
+    "local": "gen2/Pokédex Deluxe allumé.png",
+    "kind": "Licensed physical toy",
+    "use": "Distinct Gen II-era Pokédex reference view.",
+    "limit": "Licensed Tiger/Pokédex toy; altered construction, not GSC canon.",
+    "hash": "464e4bd6eb971ff870e156bc7a16cc8eb3506010"
+  }
+]

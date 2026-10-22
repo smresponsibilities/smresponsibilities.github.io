@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SM'S DEX source study | 110 references</title>
+<style>
+  :root { color-scheme: light; font-family: system-ui, sans-serif; background:#f1eee7; color:#222; }
+  * { box-sizing:border-box; }
+  body { max-width:1660px; margin:0 auto; padding:24px; }
+  h1 { margin:5px 0 10px; font-size:clamp(26px,4vw,44px); letter-spacing:-.04em; }
+  h2 { margin:22px 0 6px; font-size:22px; }
+  p { max-width:95ch; line-height:1.5; }
+  a { color:#194c7a; text-underline-offset:3px; }
+  .status { font-size:12px; text-transform:uppercase; letter-spacing:.1em; color:#963e29; }
+  nav { display:flex; flex-wrap:wrap; gap:7px; margin:20px 0; }
+  nav a { padding:8px 12px; border:1px solid #b8b3a8; border-radius:4px; text-decoration:none; color:inherit; }
+  nav a[aria-current] { background:#222; color:white; }
+  a:focus-visible, summary:focus-visible { outline:3px solid #2676b3; outline-offset:3px; }
+  .note { padding:12px 16px; background:#e5e1d6; border-left:3px solid #8f7961; }
+  .grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
+  article { min-width:0; background:#fff; border:1px solid #d8d3c8; border-radius:5px; overflow:hidden; }
+  .preview { display:block; height:190px; padding:10px; background:#fafafa; border-bottom:1px solid #e9e5dc; }
+  .preview img { width:100%; height:100%; object-fit:contain; }
+  .meta { padding:12px; }
+  .id { color:#686359; font-size:11px; font-family:ui-monospace,monospace; }
+  h3 { margin:6px 0; font-size:14px; line-height:1.35; overflow-wrap:anywhere; }
+  .variant { font-size:12px; margin:4px 0 10px; color:#57534d; }
+  .kind { font-size:11px; padding:3px 6px; background:#e9eff3; display:inline-block; border-radius:3px; }
+  .selection { margin:8px 0 0; padding:6px; background:#e4f0da; color:#2e4b21; font-size:12px; }
+  [data-kind="Anime comparison"] .kind { background:#f8e7d6; }
+  [data-kind="Game UI"] img, [data-kind="Game sprite"] img { image-rendering:pixelated; }
+  details { margin-top:10px; font-size:12px; line-height:1.4; }
+  summary { cursor:pointer; }
+  details p { margin:8px 0; }
+  .links { display:flex; gap:12px; margin-top:10px; font-size:12px; }
+  footer { border-top:1px solid #c7c0b4; margin-top:26px; padding-top:16px; font-size:13px; }
+  @media(max-width:1150px) { .grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
+  @media(max-width:650px) { body {padding:16px;} .grid {grid-template-columns:repeat(2,minmax(0,1fr));} .preview {height:160px;} }
+  @media(max-width:380px) { .grid {grid-template-columns:1fr;} }
+</style>
+<header>
+  <div class="status">Reference study · No replacement casing approved</div>
+  <h1>Start with the actual devices.</h1>
+  <p>110 distinct source images: the original ninety, ten per generation, plus twenty additional Kanto references. Device artwork, game screens, concepts, and anime comparisons are labelled. The extra twenty are mostly anime display states, not twenty independent hardware angles.</p>
+  <p class="note">References 1, 5 and 6 are selected for the Kanto direction, not approved replacement assets. <a href="../../prototypes/ticket-34-screen-fit-ripple/">Try the screen-fit and button-ripple study</a>. It tests live screens and separate controls; it is not a finished casing or closing mechanism.</p>
+  <nav aria-label="Generation"></nav>
+</header>
+<main id="catalogue" aria-live="polite"><p>Loading source catalogue…</p></main>
+<footer>
+  <p>Build contract: image casing and matched lid faces, independent pressable caps, fixed wells, inert gaps, and live portfolio screens. Power-off and physical closing remain separate states. Ticket 26 and 31 assets are retired.</p>
+  <a href="REFERENCES.md">Original ninety source notes</a> · <a href="KANTO-20-MORE.md">Twenty more Kanto: findings and limits</a> · <a href="REBUILD-PROMPT.md">Corrected build prompt</a> · <a href="MECHANICAL-CHECKLIST.md">Button and closing checks</a> · <a href="catalogue.json">Original metadata</a> · <a href="kanto-extra-candidates.json">Extra Kanto metadata</a> · <a href="download-verification.json">Original file verification</a> · <a href="kanto-extra-verification.json">Extra file verification</a>
+</footer>
+<script type="module">
+  const roman = ['I','II','III','IV','V','VI','VII','VIII','IX'];
+  const notes = [
+    'RG is the original game-art anchor. The Green/RBY and Stadium images document software. Ash frames are anime comparisons. The tiny overworld sprite is not casing geometry.',
+    'GSC artwork and Johto anime frames must remain separate designs. The alternate list orders, entry, and Unown view provide software references, not extra hardware angles.',
+    'RSE and FRLG have different casings. Ruby/Sapphire, Emerald, and FRLG screens are labelled separately. Do not merge them into one invented Generation III shell.',
+    'DP, Platinum, and the male/female HGSS devices are separate variants. The stacked UI screens do not establish every device edge, lid face, or physical button function.',
+    'BW/B2W2 software screens and the BW artwork are the game sources. Five anime frames provide a separate continuity, not five additional views of verified game hardware.',
+    'XY and ORAS are different hardware families. ORAS has a mechanical concept sheet. Prerelease UI and anime captures are marked; neither silently replaces released game art.',
+    'The Rotom Dex concepts, rendered model, game UI, and magazine page serve different purposes. Let’s Go software is a separate variant. Concept sheet 1 has conflicting SM/USUM archive labels.',
+    'SwSh Rotom Phone, BDSP software, and the Legends: Arceus paper Pokédex are distinct. A book is not a hinged phone. Concept art does not prove final hardware behaviour.',
+    'SV Rotom Phone art, released UI captures, DLC thumbnails, and official prerelease screenshots are separate evidence classes. DLC book thumbnails are not hardware diagrams.'
+  ];
+  const requested = new URL(location.href).searchParams.get('gen') || '1';
+  const selected = ['all','kanto-extra'].includes(requested) ? requested : String(Math.max(1,Math.min(9,Number(requested)||1)));
+  const nav = document.querySelector('nav');
+  for (const value of [...roman.map((_,i)=>String(i+1)), 'kanto-extra', 'all']) {
+    const link = document.createElement('a'); link.href = '?gen='+value;
+    link.textContent = value === 'all' ? 'All 110' : value === 'kanto-extra' ? 'Kanto +20' : 'Gen '+roman[Number(value)-1];
+    if (value === selected) link.setAttribute('aria-current','page');
+    nav.append(link);
+  }
+  function el(tag,text,className) { const node=document.createElement(tag); if(text) node.textContent=text; if(className) node.className=className; return node; }
+  try {
+    const responses = await Promise.all(['catalogue.json','kanto-extra-candidates.json'].map(path=>fetch(path)));
+    if(responses.some(response=>!response.ok)) throw Error('Catalogue unavailable');
+    const [data, extra] = await Promise.all(responses.map(response=>response.json()));
+    const groups = roman.map((label,i)=>({value:String(i+1),title:'Generation '+label+' · 10 references',note:notes[i],items:data.items.filter(item=>item.generation===i+1)}));
+    groups.push({value:'kanto-extra',title:'Kanto · 20 additional references',note:'Original-series animation frames on archival hosts, visually inspected and SHA1-verified. A closed cover is visible in k1-01; k1-05 shows a finger contacting the yellow button. These stills do not prove a continuous closing sequence or the button’s function. Control layouts differ between frames. The closed reference has a triangle; omitting it is a deliberate adaptation.',items:extra.items});
+    const main = document.querySelector('main'); main.replaceChildren();
+    for (const group of groups) {
+      if(selected!=='all' && selected!==group.value) continue;
+      const section=el('section'); section.append(el('h2',group.title),el('p',group.note,'note'));
+      const grid=el('div',null,'grid');
+      for(const item of group.items) {
+        const card=el('article'); card.dataset.kind=item.kind;
+        const preview=el('a',null,'preview'); preview.href=item.local; preview.title='Open native-size image';
+        const img=el('img'); img.src=item.local; img.alt=item.title+' — '+item.variant;
+        preview.append(img); card.append(preview);
+        const meta=el('div',null,'meta');
+        meta.append(el('div',item.id+' · '+item.width+' × '+item.height,'id'),el('h3',item.title),el('p',item.variant,'variant'),el('span',item.kind,'kind'));
+        if(['g1-01','g1-05','g1-06'].includes(item.id)) meta.append(el('p','Selected reference · not an approved asset','selection'));
+        const detail=el('details'); detail.append(el('summary','Evidence and limits'),el('p',item.authority),el('p',item.use),el('p',item.limit)); meta.append(detail);
+        const links=el('div',null,'links'); const source=el('a','Source'); source.href=item.source; const native=el('a','Native image'); native.href=item.local; links.append(source,native);meta.append(links);
+        card.append(meta);grid.append(card);
+      }
+      section.append(grid); main.append(section);
+    }
+  } catch(error) { document.querySelector('main').textContent='Could not load references: '+error.message; }
+</script>
+</html>

@@ -1,0 +1,22 @@
+[
+  {
+    "gen": "red",
+    "travel": 3.99652099609375,
+    "restored": true
+  },
+  {
+    "gen": "gold",
+    "travel": 3.99493408203125,
+    "restored": true
+  },
+  {
+    "gen": "ruby",
+    "travel": 3.99505615234375,
+    "restored": true
+  },
+  {
+    "gen": "diamond",
+    "travel": 3.993896484375,
+    "restored": true
+  }
+]

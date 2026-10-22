@@ -1,0 +1,638 @@
+{
+  "checkedAt": "2026-09-03T11:01:06.072Z",
+  "count": 90,
+  "uniqueHashes": 90,
+  "failures": [],
+  "items": [
+    {
+      "id": "g1-01",
+      "local": "references/g1-01.png",
+      "bytes": 2027611,
+      "sha1": "9f7798abfbd7bce605f2b7acaed6de48655c8d23",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-02",
+      "local": "references/g1-02.png",
+      "bytes": 2747,
+      "sha1": "c13bc1d5376e24f027a1dae52b08bb0ced287243",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-03",
+      "local": "references/g1-03.png",
+      "bytes": 2549,
+      "sha1": "517089e51f3ff33ee9a4cb8cc81d8b5d1a4da137",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-04",
+      "local": "references/g1-04.png",
+      "bytes": 2389,
+      "sha1": "bf7e0061bbc9ab0a1c9d748a0f856575ab38cae8",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-05",
+      "local": "references/g1-05.png",
+      "bytes": 415375,
+      "sha1": "48f6152299eb110cb29197011fc5ca4e158c3020",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-06",
+      "local": "references/g1-06.png",
+      "bytes": 306489,
+      "sha1": "784f485abd2821b225c4b4f4c51e54b3f83cd699",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-07",
+      "local": "references/g1-07.png",
+      "bytes": 174,
+      "sha1": "2f238bf0483ab75cd2784a5f5eac2d719c45b529",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-08",
+      "local": "references/g1-08.png",
+      "bytes": 47566,
+      "sha1": "22daa4a88ad29cc05fcd102b77d931dd6fcce7da",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-09",
+      "local": "references/g1-09.png",
+      "bytes": 56991,
+      "sha1": "bac90666a65b906cf0b9cf5c199635eb02f2e5eb",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g1-10",
+      "local": "references/g1-10.png",
+      "bytes": 69093,
+      "sha1": "88e206d28a57496cdaedfa725bf699faeedb1ae1",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-01",
+      "local": "references/g2-01.png",
+      "bytes": 180121,
+      "sha1": "98c487bf10295e5de10b0aec134d0229b2520dae",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-02",
+      "local": "references/g2-02.png",
+      "bytes": 3072,
+      "sha1": "4beec198c962e0b33ab250074c16bacf4359ba43",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-03",
+      "local": "references/g2-03.png",
+      "bytes": 3390,
+      "sha1": "56d845fc249afe0ce522ffcb9bbd038d7b653d61",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-04",
+      "local": "references/g2-04.png",
+      "bytes": 2554,
+      "sha1": "46015180e5796b61c558199a08feb219d2f894c4",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-05",
+      "local": "references/g2-05.png",
+      "bytes": 3103,
+      "sha1": "27ac66baf6a4ba021c638a33d4254d4cc67ac3af",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-06",
+      "local": "references/g2-06.png",
+      "bytes": 3122,
+      "sha1": "e7158d7523346dc50aee71b68cbfecea5857cfcf",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-07",
+      "local": "references/g2-07.png",
+      "bytes": 2267,
+      "sha1": "2fb92155b7bfd1c75694ec328721fba2025fc0a9",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-08",
+      "local": "references/g2-08.png",
+      "bytes": 217716,
+      "sha1": "c73f87e3490991b2d7b36f7e0794d7cf8d25ea45",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-09",
+      "local": "references/g2-09.png",
+      "bytes": 289957,
+      "sha1": "c935dcfb232ebf59ecda1db5dee569a702fd5403",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g2-10",
+      "local": "references/g2-10.png",
+      "bytes": 392616,
+      "sha1": "172f5a5fa74a24f73fd9de0e972059123c9d3026",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-01",
+      "local": "references/g3-01.png",
+      "bytes": 402777,
+      "sha1": "7a7776f3adecef909393675a8f581e03af6c09c9",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-02",
+      "local": "references/g3-02.png",
+      "bytes": 1802911,
+      "sha1": "c0bc7c587ff2761b5d96934476790ce5250b48b2",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-03",
+      "local": "references/g3-03.png",
+      "bytes": 7516,
+      "sha1": "15d6ce1ea87883f4acd7984d6a2704084e8615a9",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-04",
+      "local": "references/g3-04.png",
+      "bytes": 5458,
+      "sha1": "584dcfa0dadad87fb1ce39437bb4d3df1af096bc",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-05",
+      "local": "references/g3-05.png",
+      "bytes": 7789,
+      "sha1": "ce597d962399ceeba2b4963a0f5c173a4406bcba",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-06",
+      "local": "references/g3-06.png",
+      "bytes": 5210,
+      "sha1": "7d2a1ae7662c426fa6799971b02001af6a2728d3",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-07",
+      "local": "references/g3-07.png",
+      "bytes": 4377,
+      "sha1": "726cd2ac493563d78f88c02ccdcbf3061dd377e2",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-08",
+      "local": "references/g3-08.png",
+      "bytes": 4044,
+      "sha1": "4f1ed7f6514098a0816ea496eb83e942d1d534b1",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-09",
+      "local": "references/g3-09.png",
+      "bytes": 4416,
+      "sha1": "db2cce32bb04e9056cd0b73ef1f587dac7221848",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g3-10",
+      "local": "references/g3-10.png",
+      "bytes": 192404,
+      "sha1": "5dacb60c3bc63bda56e5768f5eb85c197991672e",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-01",
+      "local": "references/g4-01.png",
+      "bytes": 758717,
+      "sha1": "96d87094a290ca729d4f8285f94f78c3f66afab2",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-02",
+      "local": "references/g4-02.png",
+      "bytes": 2071752,
+      "sha1": "3280dc8c853a851f20c5d0b9c5f339f93e3b55eb",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-03",
+      "local": "references/g4-03.png",
+      "bytes": 493297,
+      "sha1": "4a290630b7f28fda993f361114f7e4a41ec0d6ad",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-04",
+      "local": "references/g4-04.png",
+      "bytes": 495843,
+      "sha1": "83c86fe0ff0cda04f50ecc935c7d9e8a557d18fa",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-05",
+      "local": "references/g4-05.png",
+      "bytes": 9696,
+      "sha1": "d6e1c653ac3a5db3938e7d7ff01fcd5b646d7794",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-06",
+      "local": "references/g4-06.png",
+      "bytes": 7520,
+      "sha1": "4886f904d70ae76a246433e85527c28cf53c8989",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-07",
+      "local": "references/g4-07.png",
+      "bytes": 7030,
+      "sha1": "764600f35a76b1439df290b63164cfe05776d613",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-08",
+      "local": "references/g4-08.png",
+      "bytes": 16087,
+      "sha1": "802b4013b491463b04b2da0ef7caee55a590ca6a",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-09",
+      "local": "references/g4-09.png",
+      "bytes": 11882,
+      "sha1": "0df61a138e2163df16f5c63ce99099eabbfc741f",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g4-10",
+      "local": "references/g4-10.png",
+      "bytes": 7797,
+      "sha1": "ec29090d90af36235ff18121bc43124b90f728a8",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-01",
+      "local": "references/g5-01.png",
+      "bytes": 338232,
+      "sha1": "016eccd94a23d02dbde3786d235fa4a5924c2611",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-02",
+      "local": "references/g5-02.png",
+      "bytes": 14286,
+      "sha1": "72474fbaaedc29a677dd1c3b4509401a6c7e2651",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-03",
+      "local": "references/g5-03.png",
+      "bytes": 6815,
+      "sha1": "97344b4932bce13790adb0ea444c0859c14c05a8",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-04",
+      "local": "references/g5-04.png",
+      "bytes": 18531,
+      "sha1": "8dc2fee8e15316c56979dc4307ea39e5dc66ea41",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-05",
+      "local": "references/g5-05.png",
+      "bytes": 6769,
+      "sha1": "3cdffbefaab10705577b86347c96b02c39f18001",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-06",
+      "local": "references/g5-06.png",
+      "bytes": 655876,
+      "sha1": "593afa8b93019a461169d0c3f8ce0cbe8996519e",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-07",
+      "local": "references/g5-07.png",
+      "bytes": 690014,
+      "sha1": "aec3c80a9e772e6f4a9a93056b08ad96ec786fd5",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-08",
+      "local": "references/g5-08.png",
+      "bytes": 380438,
+      "sha1": "88675f6936a6d74e303437898c0365607543c80f",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-09",
+      "local": "references/g5-09.png",
+      "bytes": 509116,
+      "sha1": "c6c6242894496dc1562d61cc8ef6b035a567e946",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g5-10",
+      "local": "references/g5-10.png",
+      "bytes": 939123,
+      "sha1": "51b7f32296bee30a8e23793f1644784d377a8fbe",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-01",
+      "local": "references/g6-01.png",
+      "bytes": 1070925,
+      "sha1": "a76e40aa663479ef7274c9e00274d96a8afe8fea",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-02",
+      "local": "references/g6-02.png",
+      "bytes": 89042,
+      "sha1": "e6a57ab7fc52495e4ecdcf0381e609e62d674614",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-03",
+      "local": "references/g6-03.jpg",
+      "bytes": 369427,
+      "sha1": "a5956149f420e0208ffd59e7071991ae57c2b7fd",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-04",
+      "local": "references/g6-04.png",
+      "bytes": 279839,
+      "sha1": "10ecdb6a2347b24934d513682b404a73e62d5111",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-05",
+      "local": "references/g6-05.png",
+      "bytes": 290197,
+      "sha1": "bb1f0355d29fdf1c20ef9aab8607af92988712e4",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-06",
+      "local": "references/g6-06.png",
+      "bytes": 209824,
+      "sha1": "42c05ee9451d9f76ac888fcaa395ef61a60cea76",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-07",
+      "local": "references/g6-07.png",
+      "bytes": 167274,
+      "sha1": "59bfcd7beb803cbe90e667fef36f4e5ff194a333",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-08",
+      "local": "references/g6-08.png",
+      "bytes": 173083,
+      "sha1": "01cb51e610beba1a9313e79c4741347ae11e3f22",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-09",
+      "local": "references/g6-09.png",
+      "bytes": 808898,
+      "sha1": "44e293630875446ea9686cee44ee766c6095e938",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g6-10",
+      "local": "references/g6-10.png",
+      "bytes": 1041071,
+      "sha1": "43205c03c230503852b43809d0250835cd7d16f5",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-01",
+      "local": "references/g7-01.png",
+      "bytes": 153360,
+      "sha1": "fa7fc1654ac9009f99239f7410f551d41f7e0d39",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-02",
+      "local": "references/g7-02.png",
+      "bytes": 1977649,
+      "sha1": "de21cb0d6410afa12d481df71a5b723d5c7ba362",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-03",
+      "local": "references/g7-03.jpg",
+      "bytes": 992249,
+      "sha1": "68b0c5a77ba31b3a6f0379da15d47b642229cc47",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-04",
+      "local": "references/g7-04.png",
+      "bytes": 127093,
+      "sha1": "7d10d7a7d89c245c2bb9aaf7048df70d4034b2e2",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-05",
+      "local": "references/g7-05.png",
+      "bytes": 101018,
+      "sha1": "99098e38e4f17bab9c3f5a164e307e68d63cfef4",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-06",
+      "local": "references/g7-06.png",
+      "bytes": 27173,
+      "sha1": "16fca5feb5e46a4716272f6ee8fd4b673e8083b9",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-07",
+      "local": "references/g7-07.png",
+      "bytes": 67470,
+      "sha1": "69a9960342f716da77e1435c12c06b40d19097c7",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-08",
+      "local": "references/g7-08.png",
+      "bytes": 927380,
+      "sha1": "cf28a1ce0caee0195579845593954bead4da4f35",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-09",
+      "local": "references/g7-09.png",
+      "bytes": 1086749,
+      "sha1": "f31858b2794907d8899acda45991565ca5f99a30",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g7-10",
+      "local": "references/g7-10.jpg",
+      "bytes": 1032277,
+      "sha1": "ae92bf4ddfd20cd24d506f9f9703d98150263637",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-01",
+      "local": "references/g8-01.png",
+      "bytes": 1844970,
+      "sha1": "9716eade87d7c763567e8a0e456a6b2dc5586f8f",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-02",
+      "local": "references/g8-02.jpg",
+      "bytes": 166699,
+      "sha1": "9351318fdd1bf9b3e2e43dc2e5017ce98faa5c90",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-03",
+      "local": "references/g8-03.jpg",
+      "bytes": 45958,
+      "sha1": "5759ea107d75e6af87ed9cb5499df4b5fc8abc60",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-04",
+      "local": "references/g8-04.png",
+      "bytes": 456011,
+      "sha1": "c453e7f4438db5d8d8da3d2f6befa6dda0b84436",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-05",
+      "local": "references/g8-05.png",
+      "bytes": 289772,
+      "sha1": "d83c97234939c2cec3acfa99c5714f8d3a962757",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-06",
+      "local": "references/g8-06.png",
+      "bytes": 501587,
+      "sha1": "8740c046d70fe52eaa1eacbf71204b27cff29e75",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-07",
+      "local": "references/g8-07.png",
+      "bytes": 659229,
+      "sha1": "a94c9521dcac7696b6ac721df4e7b76fe6b2182e",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-08",
+      "local": "references/g8-08.png",
+      "bytes": 2320354,
+      "sha1": "126f5835a2882e30cf8b0c68dc9cef3450b68cd4",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-09",
+      "local": "references/g8-09.png",
+      "bytes": 702719,
+      "sha1": "39d75f6a5d1ef89c1ba94948726d429c145f1864",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g8-10",
+      "local": "references/g8-10.png",
+      "bytes": 1321816,
+      "sha1": "fa3d6680b1e2ff922d2a27cc1bc877f987f77a4a",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-01",
+      "local": "references/g9-01.png",
+      "bytes": 1150449,
+      "sha1": "70505779f20f1c8aab5934a1d6b001ee04028f8b",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-02",
+      "local": "references/g9-02.png",
+      "bytes": 824835,
+      "sha1": "7e640ce5e112ed9a05eeb9cdafd44245dfadc689",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-03",
+      "local": "references/g9-03.png",
+      "bytes": 477961,
+      "sha1": "17f10ab95f05b458e299549ad3e28e99338ed676",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-04",
+      "local": "references/g9-04.png",
+      "bytes": 50711,
+      "sha1": "4b21e96405c3c1446efe90f2a0fb1d50693d1783",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-05",
+      "local": "references/g9-05.png",
+      "bytes": 47445,
+      "sha1": "f4026561aa9744efb8ece80f69c33121d9a6da7e",
+      "archiveHashMatched": true
+    },
+    {
+      "id": "g9-06",
+      "local": "references/g9-06-neo-kitakami.jpg",
+      "bytes": 103353,
+      "sha1": "1ed5b50e40104cd2db53cc01b92781087bd761a3",
+      "archiveHashMatched": null
+    },
+    {
+      "id": "g9-07",
+      "local": "references/g9-07.jpg",
+      "bytes": 186305,
+      "sha1": "fa3075485b645b7ba3500e0addac7e3b7924cd7a",
+      "archiveHashMatched": null
+    },
+    {
+      "id": "g9-08",
+      "local": "references/g9-08.jpg",
+      "bytes": 101985,
+      "sha1": "a2d4c5b170e9bfe07a960468441d7d23f4443172",
+      "archiveHashMatched": null
+    },
+    {
+      "id": "g9-09",
+      "local": "references/g9-09.jpg",
+      "bytes": 153650,
+      "sha1": "53a0b49059e4a52edafb3897ea13a162dbbc008a",
+      "archiveHashMatched": null
+    },
+    {
+      "id": "g9-10",
+      "local": "references/g9-10.jpg",
+      "bytes": 169034,
+      "sha1": "51f66766afba6025b9744e4126342922895bae4e",
+      "archiveHashMatched": null
+    }
+  ]
+}

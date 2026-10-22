@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+  <meta charset="utf-8">
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <title>Super Mario Timeline</title>
+
+  <link rel="stylesheet" href="https://cpwebassets.codepen.io/assets/fullpage/fullpage-defe0b00ddddc98ad4bc2c428e9d6182cd7742e2624f558656dbfb986d4ba13c.css" />
+  
+
+    <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+
+    <meta name="apple-mobile-web-app-title" content="CodePen">
+
+    <link rel="icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+    <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg" color="#111" />
+
+
+
+
+
+  <title>Super Mario Timeline</title>
+
+  <style>
+    html { font-size: 15px; }
+    html, body { margin: 0; padding: 0; min-height: 100%; }
+    body { height:100%; display: flex; flex-direction: column; }
+    .referer-warning {
+      background: black;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+      padding: 0.75em;
+      color: white;
+      text-align: center;
+      font-family: 'Lato', 'Lucida Grande', 'Lucida Sans Unicode', Tahoma, system-ui, Sans-Serif;
+      line-height: 1.2;
+      font-size: 1rem;
+      position: relative;
+      z-index: 2;
+    }
+    .referer-warning span { font-family: initial; }
+    .referer-warning h1 { font-size: 1.2rem; margin: 0; }
+    .referer-warning a { color: #56bcf9; }
+  </style>
+</head>
+
+<body class="">
+  <div class="referer-warning">
+    <h1><span>⚠️</span> Do not enter passwords or personal information on this page. <span>⚠️</span></h1>
+      This is a code demo posted by a web developer on <a href="https://codepen.io">CodePen</a>.
+    <br />
+    A referer from CodePen is required to render this page view, and your browser is not sending one (<a href="https://blog.codepen.io/2017/10/05/regarding-referer-headers/" target="_blank" rel="noreferrer noopener">more details</a>).</h1>
+  </div>
+
+  <div id="result-iframe-wrap" role="main">
+    <iframe
+      id="result"
+      srcdoc="<!DOCTYPE html>
+<html lang=&quot;en&quot; >
+
+<head>
+  
+  <meta charset=&quot;UTF-8&quot;>
+  
+
+    <link rel=&quot;apple-touch-icon&quot; type=&quot;image/png&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png&quot; />
+
+    <meta name=&quot;apple-mobile-web-app-title&quot; content=&quot;CodePen&quot;>
+
+    <link rel=&quot;icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico&quot; />
+
+    <link rel=&quot;mask-icon&quot; type=&quot;image/x-icon&quot; href=&quot;https://cpwebassets.codepen.io/assets/favicon/logo-pin-b4b4269c16397ad2f0f7a01bcdf513a1994f4c94b8af2f191c09eb0d601762b1.svg&quot; color=&quot;#111&quot; />
+
+
+
+  
+  
+
+  <title>Super Mario Timeline</title>
+
+    <link rel=&quot;canonical&quot; href=&quot;https://codepen.io/jackiezen/pen/eYeEZrx&quot;>
+  
+  <link rel=&quot;stylesheet&quot; href=&quot;https://public.codepenassets.com/css/reset-2.0.min.css&quot;>
+
+  <link rel='stylesheet' href='https://npmcdn.com/flickity@2/dist/flickity.css'>
+  
+<style>
+/* external css: flickity.css */
+@import url(&quot;https://fonts.googleapis.com/css2?family=Catamaran:wght@100;200;300;400;500;600;700;800;900&amp;display=swap&quot;);
+
+* {
+	box-sizing: border-box;
+	padding: 0;
+	margin: 0;
+}
+
+:root {
+	--img-width: 200px;
+	--img-height: 174px;
+	--img-padding: 20px;
+}
+
+/* THIS PLACE IS A MESS DON'T LOOK TOO CLOSELY */
+
+body {
+	font-family: &quot;Catamaran&quot;, sans-serif;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	height: 100%;
+
+	background: repeating-linear-gradient(
+		-45deg,
+		#f6f6f6,
+		#f6f6f6 6px,
+		#f0f0f0 0,
+		#f0f0f0 12px
+	);
+	color: #070707;
+}
+
+.header {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	margin: calc(var(--img-padding) * 4) 0 calc(var(--img-padding) * 2);
+}
+
+h1 {
+	font-size: 54px;
+	font-weight: 800;
+	line-height: 1.2;
+}
+
+p {
+	font-size: 16px;
+	font-weight: 400;
+	margin-bottom: 20px;
+	line-height: 1.5;
+}
+
+.flickity-viewport {
+	overflow: visible;
+}
+
+.timeline {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	margin-bottom: calc(var(--img-padding) * 4);
+}
+
+.timeline:before,
+.timeline:after {
+	display: block;
+	background: url(https://mario.nintendo.com/static/pipe-2x-1a62c181bb0bcd6a84b8b0dd4e31d490.png)
+		no-repeat 0 0;
+	position: absolute;
+	content: &quot;&quot;;
+	background-size: auto 100%;
+	background-position: left center;
+	width: 12%;
+	height: 120%;
+	position: absolute;
+	z-index: 100;
+}
+
+.timeline:before {
+	left: 0;
+	transform-origin: center center;
+	transform: scaleX(-1);
+}
+
+.timeline:after {
+	right: 0;
+}
+
+.timeline .carousel {
+	/*    border: 1px solid red;*/
+	width: 76%;
+	height: calc(var(--img-height) + calc(var(--img-padding) * 8));
+}
+
+.timeline .carousel-cell {
+	background: white;
+	border-radius: 8px;
+	width: calc(var(--img-width) + calc(var(--img-padding) * 2));
+	height: calc(var(--img-height) + calc(var(--img-padding) * 2));
+	margin: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0 0 0 4px transparent, 0 8px 20px 0 rgba(0, 0, 0, 0.2);
+	margin-top: calc(var(--img-padding) * 4);
+}
+
+.timeline .carousel-cell .img-wrapper {
+	/*    padding: 20px;*/
+	background: white;
+	border-radius: 8px;
+
+	position: relative;
+}
+
+.timeline .carousel-cell:before,
+.timeline .carousel-cell:after,
+.timeline .carousel-cell .img-wrapper:before,
+.timeline .carousel-cell .img-wrapper:after {
+	content: &quot;&quot;;
+	border-radius: 50%;
+	background-color: rgba(58, 58, 58, 0.5);
+	box-shadow: inset 0 2px 0 rgb(0 0 0 / 20%);
+	display: block;
+	height: 6px;
+	overflow: hidden;
+	position: absolute;
+	width: 6px;
+	z-index: 100;
+}
+
+.timeline .carousel-cell:before,
+.timeline .carousel-cell:after {
+	bottom: 8px;
+}
+
+.timeline .carousel-cell:before {
+	left: 8px;
+}
+
+.timeline .carousel-cell:after {
+	right: 8px;
+}
+
+.timeline .carousel-cell .img-wrapper:before,
+.timeline .carousel-cell .img-wrapper:after {
+	top: -12px;
+}
+
+.timeline .carousel-cell .img-wrapper:before {
+	left: -12px;
+}
+
+.timeline .carousel-cell .img-wrapper:after {
+	right: -12px;
+}
+
+.timeline .carousel-cell .img-wrapper img {
+	display: block;
+	width: var(--img-width);
+	height: var(--img-height);
+	height: auto;
+	border-radius: 4px;
+	position: relative;
+}
+
+.timeline .carousel-cell .img-wrapper img:before {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: red;
+	z-index: 100;
+}
+
+.timeline .carousel-cell time {
+	font-size: 38px;
+	font-weight: 800;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	line-height: 1;
+	/*    margin-bottom: 10px;*/
+	position: absolute;
+	top: -68px;
+	/*    margin-top: 20px;*/
+}
+
+.timeline .carousel-cell > span {
+	font-size: 26px;
+	font-weight: 800;
+	line-height: 1;
+	text-align: center;
+	position: absolute;
+	bottom: 0;
+	/*
+    padding: 20px;
+    padding-bottom: 0;
+*/
+}
+
+.timeline .carousel-cell time span {
+	font-size: 16px;
+	font-weight: 600;
+}
+
+.timeline .carousel-cell.is-selected {
+	/*    border: 6px solid red;*/
+	box-shadow: 0 0 0 4px red, 0 8px 20px 0 transparent, 0 0 0 4px transparent,
+		0 8px 20px 0 rgba(0, 0, 0, 0.2);
+	position: relative;
+	z-index: 0;
+}
+
+/* ---- previous/next buttons ---- */
+
+.flickity-button:hover {
+	background: red;
+	cursor: pointer;
+}
+
+.flickity-prev-next-button {
+	top: 0;
+	bottom: 0;
+	width: 60px;
+	height: 60px;
+	transform: none;
+	background: red;
+	display: flex;
+	align-items: center;
+	top: 50%;
+	transform: translateY(-50%);
+	transition: all 0.2s ease;
+}
+
+.flickity-prev-next-button.previous {
+	left: -10px;
+	border-radius: 0% 60px 60px 0%;
+	justify-content: flex-end;
+}
+
+.flickity-prev-next-button.next:hover {
+	right: 0;
+}
+
+.flickity-prev-next-button.previous:hover {
+	left: 0;
+}
+
+.flickity-prev-next-button.next {
+	right: -10px;
+	border-radius: 60px 0% 0% 60px;
+	justify-content: flex-start;
+}
+
+/* right to left */
+.flickity-rtl .flickity-prev-next-button.previous {
+	left: auto;
+	right: 0;
+}
+
+.flickity-rtl .flickity-prev-next-button.next {
+	right: auto;
+	left: 0;
+}
+
+.flickity-prev-next-button .flickity-button-icon {
+	position: absolute;
+	left: auto;
+	top: auto;
+	width: 40%;
+	height: 40%;
+	fill: white;
+	margin: 12px;
+}
+
+.flickity-page-dots {
+	display: none;
+}
+
+.timeline-desc {
+	width: 100%;
+	height: auto;
+	position: relative;
+	background: url(https://mario.nintendo.com/static/pattern-logos-characters-bd1f26898b2027c98ce8ba17c084f523.png),
+		linear-gradient(0deg, #b20722, #e70112);
+}
+
+.timeline-desc .carousel {
+	width: 100%;
+}
+
+.timeline-desc .carousel-cell {
+	width: 100%;
+}
+
+.timeline-desc .carousel-cell .card {
+	width: 90%;
+	margin: 40px auto;
+	padding: 0 40px 0;
+	border-radius: 8px;
+	border: 1px solid #f0f0f0;
+	background: white;
+	height: 400px;
+	overflow: scroll;
+	position: relative;
+}
+
+.timeline-desc .carousel-cell .card h3 {
+	font-size: 38px;
+	margin-bottom: calc(var(--img-padding) * 1.5);
+	position: sticky;
+	top: 0;
+	background: white;
+	padding-top: calc(var(--img-padding) * 2);
+	line-height: 1;
+}
+
+.timeline-desc .carousel-cell .card h3:before {
+	position: absolute;
+	content: &quot;&quot;;
+	width: 100%;
+	height: calc(var(--img-padding) * 1.5);
+	/*    border: 1px solid red;*/
+	bottom: calc(calc(var(--img-padding) * 1.5) * -1);
+	background: linear-gradient(
+		to bottom,
+		rgba(255, 255, 255, 1),
+		rgba(255, 255, 255, 0)
+	);
+}
+.timeline-desc .flickity-button {
+	display: none;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  <script src=&quot;https://public.codepenassets.com/js/prefixfree-1.0.7.min.js&quot;></script>
+
+  
+</head>
+
+<body translate=&quot;no&quot;>
+  <div class=&quot;header&quot;>
+	<h1>Super Mario Timeline</h1>
+	<p>Initial launch dates of games in the Super Mario series. </p>
+
+</div>
+
+<div class=&quot;timeline&quot;>
+	<div class=&quot;carousel carousel-main&quot; data-flickity='{}'>
+		<div class=&quot;carousel-cell&quot;>
+			<time datetime=&quot;1985-09&quot;><span>September</span> 1985</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/3c873238d3e45bd07b5cd4309a2b19ea/8bbb0/art.jpg&quot;></div>
+
+		</div>
+
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1988-10&quot;><span>October</span> 1988</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/032eb92880ce69c2171f52e5bf23012e/8bbb0/art.jpg&quot;></div>
+		</div>
+
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1989-04&quot;><span>April</span> 1989</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/c02efa0a077053b1818aa6b3b7b0918a/8bbb0/art.jpg&quot;></div>
+		</div>
+
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1990-02&quot;><span>October</span> 1990</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/439a71db535b4ef1e4b9544caf110364/8b6a7/art.jpg&quot;></div>
+		</div>
+
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1991-08&quot;><span>August</span> 1991</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/d84b6041085b9fd7cde76c271d73d413/8b6a7/art.jpg&quot;></div>
+		</div>
+
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1992-11&quot;><span>November</span> 1992</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/a51a0d71b5cff3be876bce8264f24c76/8b6a7/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;1996-09&quot;><span>September</span> 1996</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/72fe74d5ff8b3a74c378ee19b730e26c/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2002-07&quot;><span>July</span> 2002</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/f26e48d5faaa09bd3f67a87714860d22/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2006-05&quot;><span>May</span> 2006</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/d435d9b014bcc80cfe44f6ffa2d8a127/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2007-05&quot;><span>May</span> 2007</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/52053a0f67ffe18373c77c46c124919e/54214/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2009-11&quot;><span>November</span> 2009</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/edaae21ccb00cd1f0751aa87acf6e8cf/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2010-05&quot;><span>May</span> 2010</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/879b09d3777fe482cbead335b52b476e/54214/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2011-11&quot;><span>November</span> 2011</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/d83ef9d97e5376773f48555145c5be31/54214/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2012-08&quot;><span>August</span> 2012</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/0c82ccf01dc047ab07a68bbb6b9679d0/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2012-11&quot;><span>November</span> 2012</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/e0a81e40f8e512c299adde81004986f6/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2013-11&quot;><span>November</span> 2013</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/9a7d9013ff1294aae846c613aa19d597/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2015-09&quot;><span>September</span> 2015</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/424638c4e8bcdebee6cd2e3d37f7e1bb/54214/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2016-12&quot;><span>December</span> 2016</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/5d31a73d14ce3713641cee615a6a6e04/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2017-10&quot;><span>October</span> 2017</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/d2294717679036651f54f3730f161cd7/54214/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2019-06&quot;><span>June</span> 2019</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/331bf968f381da6d12aaf23d166d7432/8bbb0/art.jpg&quot;></div>
+		</div>
+		<div class=&quot;carousel-cell&quot;><time datetime=&quot;2021-02&quot;><span>February</span> 2021</time>
+			<div class=&quot;img-wrapper&quot;><img src=&quot;https://mario.nintendo.com/static/82ab93ad6f077539869943a7d6099325/8bbb0/art.jpg&quot;></div>
+		</div>
+	</div>
+</div>
+
+<div class=&quot;timeline-desc&quot;>
+	<div class=&quot;carousel carousel-nav&quot; data-flickity='{ &quot;asNavFor&quot;: &quot;.carousel-main&quot;, &quot;contain&quot;: true, &quot;pageDots&quot;: false, &quot;draggable&quot;: false}'>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Brothers</h3>
+				<p>One day the kingdom of the peaceful mushroom people was invaded by the Koopa, a tribe of turtles famous for their black magic. The quiet, peace-loving Mushroom People were turned into mere stones, bricks and even field horsehair plants, and the Mushroom Kingdom fell into ruin.</p>
+				<p>
+
+					The only one who can undo the magic spell on the Mushroom People and return them to their normal selves is the Princess Toadstool, the daughter of the Mushroom King. Unfortunately, she is presently in the hands of Bowser, the King of the Koopa.</p>
+				<p>
+
+					Mario hears about the Mushroom People’s plight and sets out on a quest to free the Mushroom Princess from the evil Koopa and restore the fallen kingdom of the Mushroom People.
+				</p>
+				<p>
+					You are Mario! It’s up to you to save the Mushroom People from the black magic of the Koopa!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Bros. 2</h3>
+				<p>One evening, Mario had a strange dream. He dreamt of a long, long stairway leading up to a door. As soon as the door opened, he was confronted with a world he had never seen before spreading out as far as his eyes could see. When he strained his ears to listen, he heard a faint voice saying, &quot;Welcome to Subcon, the land of dreams. We have been cursed by Wart and we are completely under his evil spell. We have been awaiting your arrival. Please defeat Wart and return Subcon to its natural state. The curse Wart has put on you in the real world will not have any effect upon you here. Remember, Wart hates vegetables. Please help us!&quot;
+				<p>
+					At the same time this was heard, a bolt of lightning flashed before Mario’s eyes. Stunned, Mario lost his footing and tumbled upside down. He awoke with a start to find himself sitting up in his bed. To clear his head, Mario talked to Luigi, Toad and Princess Peach about the strange dream he had. They decided to go to a nearby mountain for a picnic.
+				</p>
+				<p>
+					After arriving at the picnic area and looking at the scenery, they see a small cave nearby. When they enter this cave, to their great surprise, there’s a stairway leading up, up and up. It is exactly like the one Mario saw in his dream. They all walk together up the stairs and at the top, find a door just like the one in Mario’s dream. When Mario and his friends, in fear, open the door, to their surprise, the world that he saw in his dream spreads out before them!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Land</h3>
+				<p>Once upon a time, there was a peaceful world called Sarasaland. In this world there were 4 kingdoms named Birabuto, Muda, Easton and Chai.
+				<p>
+					One day, the skies of Sarasaland were suddenly covered by a huge black cloud. From a crack in this cloud, the unknown space monster Tatanga emerged to try to conquer Sarasaland.</p>
+				<p>
+					Tatanga hypnotized the people of all the kingdoms so that he could control them in any way he liked. In this way he took over Sarasaland. Now, he wants to marry Princess Daisy of Sarasaland and make her his queen.
+				</p>
+				<p>
+					Mario came to know of these events, and he has started on a journey to the Chai Kingdom where Princess Daisy is held captive, in order to restore peace to Sarasaland.
+				</p>
+				<p>
+					Can Mario defeat Tatanga, release people from his interstellar hypnosis, and rescue Princess Daisy? It's all up to you and Mario's skill. Go for it Mario!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Bros. 3</h3>
+				<p>The Mushroom Kingdom has been a peaceful place thanks to the brave deeds of Mario and Luigi. The Mushroom Kingdom forms an entrance to the Mushroom World where all is not well. Bowser has sent his 7 children to make mischief as they please in the normally peaceful Mushroom World.</p>
+				<p>
+					They stole the royal magic wands from each country in the Mushroom World and used them to turn their kings into animals. Mario and Luigi must recover the royal magic wands from Bowser’s 7 kids to return the kings to their true forms. “Goodbye and good luck!” said the Princess and Toad as Mario and Luigi set off on their journey deep into the Mushroom World.</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario World</h3>
+				<p>Having returned peace to Mushroom World, Mario and Luigi decide to take a leisurely vacation with Princess Peach. They set out for Yoshi’s Island in the magical island nation of Dinosaur Land far to the south.
+				<p>
+				<p>
+					But soon after arriving on the island, Princess Peach suddenly disappears. As Mario and Luigi desperately search for her, they discover a strange egg on the outskirts of the island. Then, before their very eyes, an odd little dragon hatches! The dragon calls himself Yoshi and says, &quot;Monstrous turtles recently appeared here in this Dinosaur Land. They have used magic to seal my friends inside eggs. I tried to help them, but the turtles are incredibly strong and cast a spell on me, too… Will you please come with me to rescue my friends?&quot;
+				</p>
+				<p>
+					What can this mean? Apparently, Bowser hasn’t learned his lesson, so it appears that his minions have yet again kidnapped Princess Peach.
+				</p>
+				<p>
+					Mario and Luigi begin another adventure in hopes of rescuing Yoshi’s pals and Princess Peach!
+
+				</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Land: 6 Golden Coins</h3>
+				<p>Danger! Danger!
+				</p>
+				While I was away crusading against the mystery alien Tatanga in Sarasa Land, an evil creep took over my castle and put the people of Mario Land under his control with a magic spell. This intruder goes by the name of Wario. He mimics my appearance, and has tried to steal my castle many times. It seems he has succeeded this time.
+				<p>
+					Wario has scattered the 6 Golden Coins from my castle all over Mario Land. These Golden Coins are guarded by those under Wario's spell. Without these coins, we can't get into the castle to deal with Wario. We must collect the 6 coins, attack Wario in the castle, and save everybody!
+				</p>
+				<p>
+					It’s time to set out on our mission!!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario 64</h3>
+				<p>“Mario, please come to the castle. I've baked a cake for you. Yours truly, Princess Toadstool.”
+				</p>
+				<p>
+					“Wow, an invitation from Peach! I'll head out right away. I hope she can wait for me!”
+				</p>
+				<p>
+					Mario is so excited to receive the invitation from the princess, who lives in the Mushroom Castle that he quickly dresses in his best and leaves right away.
+				</p>
+				<p>
+					“Hmmm, something's not quite right here... It's so quiet...”
+				</p>
+				<p>
+					Shaking off his uneasy premonition, Mario steps into the silent castle, where he is greeted by the gruff words, “No one's home! Now scram! Bwa, ha, ha.”
+				</p>
+				<p>
+					The sound seems to come from everywhere.
+				</p>
+				<p>
+					“Who's there?! I've heard that voice somewhere before...”
+				</p>
+				<p>
+					Mario begins searching all over the castle. Most of the doors are locked, but finding one open, he peeks inside. Hanging on the wall is the largest painting he has ever seen, and from behind the painting comes the strangest sound that he has ever heard...
+				</p>
+				<p>
+					“I think I hear someone calling. What secrets does this painting hold?”
+				</p>
+				<p>
+					Without a second thought, Mario jumps at the painting. As he is drawn into it, another world opens before his very eyes.
+				</p>
+				<p>
+					Once inside the painting, Mario finds himself in the midst of battling Bob-ombs. According to the Bob-omb Buddies, someone...or something...has suddenly attacked the castle and stolen the “Power Stars.” These stars protect the castle. With the stars in his control, the beast plans to take over the Mushroom Castle.
+				</p>
+				<p>
+					To help him accomplish this, he plans to convert the residents of the painting world into monsters as well. If nothing is done, all those monsters will soon begin to overflow from inside the painting.
+				</p>
+				<p>
+					“A plan this maniacal, this cunning...this must be the work of Bowser!”
+				</p>
+				<p>
+					Princess Toadstool and Toad are missing, too. Bowser must have taken them and sealed them inside the painting. Unless Mario recovers the Power Stars immediately, the inhabitants of this world will become Bowser's army.
+				</p>
+				<p>
+					“Well, Bowser's not going to get away with it, not as long as I'm around!”
+				</p>
+				<p>
+					Stolen Power Stars are hidden throughout the painting world. Use your wisdom and strength to recover the Power Stars and restore peace to the Mushroom Castle.
+				</p>
+				<p>
+					“Mario! You are the only one we can count on.”</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Sunshine</h3>
+				<p>Close your eyes and imagine…soothing sunshine accompanied by the sound of waves gently breaking on the shore. High above, seagulls turn lazy circles in a clear blue sky. This is Isle Delfino.
+				</p>
+				<p>
+					Far from the hustle and bustle of the Mushroom Kingdom, this island resort glitters like a gem in the waters of a southern sea.
+				</p>
+				<p>
+					Mario, Peach, and an entourage of Toads have come to Isle Delfino to relax and unwind. At least, that’s their plan…but when they arrive, they find things have gone horribly wrong...
+				</p>
+				<p>
+					According to the island inhabitants, the person responsible for the mess has a round nose, a thick mustache, and a cap…
+				</p>
+				<p>
+					What? But…that sounds like Mario!!
+				</p>
+				<p>
+					The islanders are saying that Mario's mess has polluted the island and caused their energy source, the Shine Sprites, to vanish.
+				</p>
+				<p>
+					Now the falsely accused Mario has promised to clean up the island, but...how?
+				</p>
+				<p>
+					Never fear! FLUDD, the latest invention from Gadd Science, Inc., can help Mario tidy up the island, take on baddies, and lend a nozzle in all kinds of sticky situations.
+				</p>
+				<p>
+					Can Mario clean the island, capture the villain, and clear his good name? It’s time for another Mario adventure to get started!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>New Super Mario Bros.</h3>
+				<p>Emergency News Flash!
+				</p>
+				<p>
+					Princess Peach has been kidnapped! While enjoying a picnic with Mario, the beloved ruler of the Mushroom Kingdom was whisked away by an unknown assailant. How could this happen with Mario around?
+				</p>
+				<p>
+					According to Mario, the walk was going swimmingly when Mario and the princess spotted smoke billowing out of Peach’s Castle. The mustachioed marvel immediately jumped into action and sped off toward the fire. The moment he left her side, the princess vanished!
+				</p>
+				<p>
+					Who’s behind Princess Peach’s disappearance? Who’s behind the attack on Peach’s Castle? Are the two incidents related? Didn’t Bowser Jr. once think Princess Peach might be his mother?
+				</p>
+				<p>
+					Looks like Mario’s going to need all the Mega Mushrooms he can find to get to the bottom of this mess.</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Galaxy</h3>
+				<p>Every hundred years, a huge comet flies by in the skies above the Mushroom Kingdom. One year, that comet filled the entire sky, and from it fell a stream of shooting stars. The Toads scooped up the Star Bits and brought them to the castle, where they were reborn as a great Power Star. It was a happy time in the Mushroom Kingdom. Then one night Mario received a letter...
+				</p>
+				<p>
+					“Dear Mario,
+					I’ll be waiting for you at the castle on the night of the Star Festival. There’s something I’d like to give you.
+					from Peach”
+				</p>
+				<p>
+					With invitation in hand, Mario headed off to the castle just as the Star Festival was getting into full swing. Surrounded by Toads gleefully trying to catch falling Star Bits, Mario was looking forward to the night’s festivities. But then, something happened...</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>New Super Mario Bros. Wii</h3>
+				<p>Today is Princess Peach’s birthday, so her castle is full of presents. Mario and Luigi are there, and they’re celebrating with the Toads and Princess Peach when a huge birthday cake arrives. Who in the world could it be from?
+				</p>
+				<p>
+					Suddenly, Bowser Jr. and minions jump out of the cake. Everyone is shocked and pandemonium ensues. In a flash, the invaders snatch Princess Peach and fly away in a giant Airship.
+				</p>
+				<p>
+					The Toads are in a panic! Mario and Luigi—and Yellow Toad, Blue Toad and Yoshi too!—pursue the Airship in order to rescue Princess Peach.
+				</p>
+				<p>
+					Together, the four head out on an adventurous journey!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Galaxy 2</h3>
+				<p>Shining stardust falls on the Mushroom Kingdom once every hundred years. That time had come again…
+				</p>
+				<p>
+					“Dear Mario,
+					Would you like to share some cake while we watch the shooting stars? Meet me at the castle!<br>
+					Peach”
+				</p>
+				<p>
+					Mario ran through the field with stars falling around him. Suddenly, he noticed a strange light in the grass. As he peered cautiously through the reeds, he saw a small, lost Luma. With the baby Luma tucked safely under his cap, Mario rushed on to the castle. But when he got there, something unexpected was waiting for him…</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario 3D Land</h3>
+				<p>In the Mushroom Kingdom, there stands a mysterious tree. It has a branch in the shape of a tail and is known as the Tail Tree. One night, a fierce storm assails the Mushroom Kingdom. Worried for the Tail Tree, Princess Peach goes to check on it, but when morning arrives, she has yet to return.
+				</p>
+				<p>
+					Accompanied by Toads, Mario rushes to the Tail Tree only to find its leaves are gone. All that remains is the bare Tail Tree and an envelope.
+				</p>
+				<p>
+					Inside the envelope, they find a photograph of Princess Peach in Bowser’s grasp! The Toads are beside themselves. Bowser is up to his dirty deeds again, so Mario rushes off to rescue Princess Peach!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>New Super Mario Bros 2</h3>
+				<p>Mario and Luigi visit Princess Peach’s Castle. As usual, they enjoy chatting with Princess Peach about their adventures. As Princess Peach waves farewell, Mario and Luigi use tail transformations to snag a bunch of Coins from the sky. No sooner do they land for a break than a black shadow approaches overhead. They hear a loud boom as Bowser’s minions appear in an aircraft and slam to the ground right on top of them. In surprise, they stare as Princess Peach appears and calls for help. She’s been kidnapped again! The heroes set out in pursuit and a new adventure begins!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>New Super Mario Bros. U</h3>
+				<p>Bowser’s gang has taken over Princess Peach’s Castle! This time, the goal of the journey is Peach’s occupied castle!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario 3D World</h3>
+				<p>During an evening celebration, Mario and friends find a sparkling Pipe outside Princess Peach’s Castle. Curious, they peek inside…and discover a fairy kingdom! Bowser has captured the Sprixie Princesses, so Mario and friends begin a new adventure!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Maker</h3>
+				<p>Combine parts—Blocks, Goombas, Pipes and more—to create your own Super Mario Bros. courses! Then you can share them online, play courses others have made, and have all sorts of fun. Super Mario Maker for Nintendo 3DS includes lessons from Yamamura explaining course design.</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Run</h3>
+				<p>Bowser has kidnapped Princess Peach, so run, jump and overcome as you race to the rescue! Mario has leapt out of game consoles and into your smartphone. Tap to control him as he runs for Bowser’s Castle!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Odyssey</h3>
+				<p>Explore incredible places far from the Mushroom Kingdom as you join Mario and his new ally Cappy on a massive, globe-trotting 3D adventure. Use amazing new abilities—like the power to capture and control objects, animals, and enemies—to collect Power Moons so you can power up the Odyssey airship and save Princess Peach from Bowser’s wedding plans!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario Maker 2</h3>
+				<p>Dive into the single-player Story Mode and play built-in courses to rebuild Princess Peach’s castle. Make your own courses, alone or together. And with a Nintendo Switch Online membership, share your courses, access a near-endless supply made by others, enjoy online multiplayer, and more!</p>
+			</div>
+		</div>
+		<div class=&quot;carousel-cell&quot;>
+			<div class=&quot;card&quot;>
+				<h3>Super Mario 3D World + Bowser's Fury</h3>
+				<p>In Super Mario 3D World, pounce and climb through dozens of colorful courses! Mario (and his friends) can use a variety of power-ups like the Super Bell, which grants catlike abilities like climbing and scratching. Team up with up to three other players locally* or online** to reach the goal and see who can get a high score.</p>
+				<p>In Bowser’s Fury, Mario arrives on Lake Lapcat and is confronted with a rampaging Bowser! Join forces with Bowser Jr. and venture through an interconnected world made of cat-themed...well, everything. Enemies, flowers, and even birds take on a feline form. Pass a Joy-Con ™️ controller to a friend as they take control of Bowser Jr. in 2-player mode.</p>
+			</div>
+		</div>
+	</div>
+</div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/flickity/2.3.0/flickity.pkgd.min.js'></script>
+  
+  
+</body>
+
+</html>
+"
+      sandbox="allow-downloads allow-forms allow-modals allow-pointer-lock allow-popups allow-popups-to-escape-sandbox allow-presentation allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="accelerometer *; ambient-light-sensor *; camera *; display-capture *; encrypted-media *; geolocation *; gyroscope *; microphone *; midi *; payment *; serial *; vr *; web-share *; xr-spatial-tracking *" allowTransparency="true"
+      allowpaymentrequest="true" allowfullscreen="true" class="result-iframe">
+      </iframe>
+  </div>
+
+</body>
+
+</html>

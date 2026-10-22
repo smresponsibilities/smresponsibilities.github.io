@@ -1,0 +1,1686 @@
+<!doctype html>
+<html lang="en" data-version="heartgold">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SM'S DEX — Physical Control Prototype</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --page: #111214;
+      --page-ink: #e9e8e3;
+      --page-dim: #9a9b9d;
+      --shell: #df4b2f;
+      --shell-edge: #7d1f18;
+      --shell-highlight: #f27850;
+      --hinge: #24272b;
+      --hinge-edge: #070809;
+      --bezel: #202328;
+      --bezel-edge: #050607;
+      --control: #34383e;
+      --control-edge: #090a0b;
+      --control-base: #17191c;
+      --control-mark: #8d9298;
+      --screen: #d8e6dc;
+      --screen-panel: #c5d8cc;
+      --screen-ink: #17251c;
+      --screen-dim: #52655a;
+      --screen-accent: #47795e;
+      --screen-accent-ink: #f1f5f2;
+      --lamp: #7cba48;
+      --focus: #f6ce52;
+      --press: 4px;
+      --hinge-w: clamp(24px, 4.2vw, 42px);
+      --edge: clamp(8px, 1.7vw, 18px);
+      --half-w: calc((100% - var(--hinge-w)) / 2);
+      --font-display: "Courier New", ui-monospace, monospace;
+      --font-body: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+      --dur-press: 80ms;
+      --dur-lid: 560ms;
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    html[data-version="diamond"] {
+      --shell: #c84945;
+      --shell-edge: #6e2525;
+      --shell-highlight: #e5716d;
+      --screen: #d9e5ec;
+      --screen-panel: #c7d7e1;
+      --screen-ink: #17242c;
+      --screen-dim: #526570;
+      --screen-accent: #557f99;
+    }
+
+    html[data-version="heartgold"] {
+      --shell: #df4b2f;
+      --shell-edge: #7d1f18;
+      --shell-highlight: #f27850;
+      --screen-accent: #47795e;
+    }
+
+    html[data-version="black"] {
+      --shell: #393d42;
+      --shell-edge: #101214;
+      --shell-highlight: #62676d;
+      --screen: #e3e4df;
+      --screen-panel: #cfd2cc;
+      --screen-ink: #1f2220;
+      --screen-dim: #5b615d;
+      --screen-accent: #555c62;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 0;
+      background: var(--page);
+    }
+
+    body {
+      min-width: 0;
+      min-height: 100vh;
+      margin: 0;
+      overflow-x: hidden;
+      background: var(--page);
+      color: var(--page-ink);
+      font-family: var(--font-body);
+      -webkit-font-smoothing: antialiased;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    button:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: 3px;
+    }
+
+    .screen:focus-visible {
+      outline: 3px solid var(--focus);
+      outline-offset: -5px;
+    }
+
+    .sr-only {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    .prototype {
+      display: grid;
+      justify-items: center;
+      gap: 12px;
+      width: 100%;
+      min-width: 0;
+      padding: 20px 12px 24px;
+    }
+
+    .prototype-header {
+      width: min(1080px, 100%);
+      text-align: center;
+    }
+
+    .eyebrow,
+    .keyboard-map {
+      margin: 0;
+      color: var(--page-dim);
+      font: 700 12px/1.5 var(--font-display);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .prototype-header h1 {
+      margin: 2px 0 0;
+      font: 700 clamp(24px, 4vw, 40px)/1.2 var(--font-display);
+      letter-spacing: 0.04em;
+    }
+
+    .device-stage {
+      width: min(1080px, calc(100vw - 24px));
+      height: clamp(510px, 62vw, 640px);
+      min-width: 0;
+      perspective: 1500px;
+      perspective-origin: 50% 50%;
+    }
+
+    .device {
+      position: relative;
+      isolation: isolate;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      transform-style: preserve-3d;
+    }
+
+    .stationary-body,
+    .moving-leaf {
+      position: absolute;
+      top: 0;
+      width: var(--half-w);
+      height: 100%;
+      border: 3px solid var(--shell-edge);
+      border-radius: clamp(14px, 2vw, 24px);
+    }
+
+    .stationary-body {
+      left: 0;
+      z-index: 4;
+      overflow: hidden;
+      background: transparent;
+    }
+
+    .moving-leaf {
+      left: calc(var(--half-w) + var(--hinge-w));
+      z-index: 7;
+      border: 0;
+      border-radius: 0;
+      transform-origin: left center;
+      transform-style: preserve-3d;
+      transition: transform var(--dur-lid) var(--ease);
+      will-change: transform;
+    }
+
+    .device.is-closed .moving-leaf {
+      transform: rotateY(-180deg);
+    }
+
+    .leaf-face {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      border: 3px solid var(--shell-edge);
+      border-radius: clamp(14px, 2vw, 24px);
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .leaf-inner {
+      background: transparent;
+    }
+
+    .leaf-outer {
+      background: var(--shell);
+      transform: rotateY(180deg);
+    }
+
+    .shell-piece {
+      position: absolute;
+      z-index: 6;
+      background: var(--shell);
+    }
+
+    .shell-top {
+      inset: 0 0 auto;
+      height: 9%;
+      border-bottom: 2px solid var(--shell-edge);
+    }
+
+    .shell-left {
+      top: 9%;
+      bottom: 39%;
+      left: 0;
+      width: var(--edge);
+      border-right: 2px solid var(--shell-edge);
+    }
+
+    .shell-right {
+      top: 9%;
+      right: 0;
+      bottom: 39%;
+      width: var(--edge);
+      border-left: 2px solid var(--shell-edge);
+    }
+
+    .control-deck {
+      inset: 61% 0 0;
+      border-top: 3px solid var(--shell-edge);
+    }
+
+    .corner-highlight {
+      position: absolute;
+      z-index: 8;
+      top: 9px;
+      left: 13px;
+      width: 34%;
+      height: 4px;
+      border-radius: 4px;
+      background: var(--shell-highlight);
+    }
+
+    .screen-bezel {
+      position: absolute;
+      z-index: 8;
+      top: calc(9% - 2px);
+      left: calc(var(--edge) - 2px);
+      width: calc(100% - (var(--edge) * 2) + 4px);
+      height: calc(52% + 4px);
+      pointer-events: none;
+      border: clamp(7px, 1.2vw, 13px) solid var(--bezel);
+      border-radius: clamp(9px, 1.2vw, 16px);
+      outline: 3px solid var(--bezel-edge);
+      outline-offset: -3px;
+      background: transparent;
+    }
+
+    .stationary-body .shell-top,
+    .stationary-body .shell-left,
+    .stationary-body .shell-right,
+    .stationary-body .control-deck {
+      z-index: 6;
+    }
+
+    .hinge {
+      position: absolute;
+      z-index: 12;
+      top: 1.5%;
+      left: var(--half-w);
+      width: var(--hinge-w);
+      height: 97%;
+      pointer-events: none;
+      border: 3px solid var(--hinge-edge);
+      border-radius: 12px;
+      background: var(--hinge);
+    }
+
+    .hinge::before,
+    .hinge::after {
+      content: "";
+      position: absolute;
+      left: -3px;
+      width: calc(100% + 6px);
+      height: 8%;
+      border: 3px solid var(--shell-edge);
+      background: var(--shell);
+    }
+
+    .hinge::before {
+      top: -3px;
+      border-radius: 11px 11px 5px 5px;
+    }
+
+    .hinge::after {
+      bottom: -3px;
+      border-radius: 5px 5px 11px 11px;
+    }
+
+    .hinge-pin {
+      position: absolute;
+      z-index: 1;
+      top: 52%;
+      left: 50%;
+      width: clamp(10px, 1.5vw, 17px);
+      aspect-ratio: 1;
+      border: 3px solid #050607;
+      border-radius: 50%;
+      background: #4a4e54;
+      transform: translate(-50%, -50%);
+    }
+
+    .hinge-pin::after {
+      content: "";
+      position: absolute;
+      inset: 30%;
+      border-radius: 50%;
+      background: #090a0b;
+    }
+
+    .screen-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      visibility: visible;
+      opacity: 1;
+      pointer-events: none;
+      transition: opacity 120ms linear;
+    }
+
+    .screen-layer[aria-hidden="true"] {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .screen {
+      position: absolute;
+      top: calc(9% + clamp(7px, 1.2vw, 13px));
+      width: calc(var(--half-w) - (var(--edge) * 2) - (clamp(7px, 1.2vw, 13px) * 2) + 4px);
+      height: calc(52% - (clamp(7px, 1.2vw, 13px) * 2));
+      min-width: 0;
+      overflow: hidden;
+      pointer-events: auto;
+      background: var(--screen);
+      color: var(--screen-ink);
+      font: 700 clamp(12px, 1.25vw, 15px)/1.35 var(--font-display);
+    }
+
+    .screen-top {
+      left: calc(var(--edge) + clamp(7px, 1.2vw, 13px) - 2px);
+    }
+
+    .screen-bottom {
+      left: calc(var(--half-w) + var(--hinge-w) + var(--edge) + clamp(7px, 1.2vw, 13px) - 2px);
+    }
+
+    .screen-ui {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      min-width: 0;
+      padding: clamp(8px, 1.5vw, 16px);
+    }
+
+    .screen-header {
+      display: flex;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 22px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid var(--screen-ink);
+      color: var(--screen-dim);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .screen-header strong {
+      overflow: hidden;
+      color: var(--screen-ink);
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .menu-list {
+      display: grid;
+      flex: 1 1 auto;
+      align-content: center;
+      gap: clamp(3px, 0.7vw, 7px);
+      min-height: 0;
+      margin: 0;
+      padding: 8px 0 0;
+      list-style: none;
+    }
+
+    .menu-row {
+      display: grid;
+      grid-template-columns: 18px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 5px;
+      min-width: 0;
+      padding: clamp(5px, 0.7vw, 8px) 6px;
+      border: 2px solid transparent;
+      color: var(--screen-ink);
+    }
+
+    .menu-row[aria-selected="true"] {
+      border-color: var(--screen-ink);
+      background: var(--screen-accent);
+      color: var(--screen-accent-ink);
+    }
+
+    .menu-row[aria-selected="true"] .row-meta {
+      color: inherit;
+    }
+
+    .cursor {
+      text-align: center;
+    }
+
+    .row-label {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .row-meta {
+      color: var(--screen-dim);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .detail-card {
+      display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 0;
+      padding-top: 8px;
+    }
+
+    .detail-card h2 {
+      margin: 0 0 6px;
+      font-size: clamp(15px, 2vw, 24px);
+      line-height: 1.15;
+      text-transform: uppercase;
+    }
+
+    .detail-meta {
+      margin: 0 0 8px;
+      color: var(--screen-dim);
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .detail-copy {
+      margin: 0;
+      font: 600 clamp(12px, 1.25vw, 15px)/1.45 var(--font-body);
+    }
+
+    .detail-extra {
+      margin: 8px 0 0;
+      padding: 8px 0 0 18px;
+      border-top: 2px solid var(--screen-ink);
+      font: 600 12px/1.45 var(--font-body);
+    }
+
+    .boot-ui {
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .boot-mark {
+      width: clamp(42px, 7vw, 70px);
+      aspect-ratio: 1;
+      margin-bottom: 12px;
+      border: 6px solid var(--screen-ink);
+      border-radius: 50%;
+      background: var(--screen-panel);
+    }
+
+    .boot-mark::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 50%;
+      border-bottom: 6px solid var(--screen-ink);
+    }
+
+    .boot-title {
+      margin: 0;
+      font-size: clamp(18px, 3vw, 32px);
+    }
+
+    .boot-status {
+      margin: 9px 0 0;
+      color: var(--screen-dim);
+      font-size: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .version-options {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 5px;
+      margin: auto 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .version-option {
+      display: grid;
+      min-width: 0;
+      min-height: 62px;
+      place-items: center;
+      padding: 5px;
+      border: 2px solid var(--screen-ink);
+      text-align: center;
+    }
+
+    .version-option[aria-selected="true"] {
+      background: var(--screen-accent);
+      color: var(--screen-accent-ink);
+    }
+
+    .version-help {
+      margin: 8px 0 0;
+      color: var(--screen-dim);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .lamp {
+      position: absolute;
+      z-index: 9;
+      right: 8%;
+      top: 65%;
+      width: clamp(10px, 1.5vw, 16px);
+      aspect-ratio: 1;
+      border: 3px solid #27301f;
+      border-radius: 50%;
+      background: var(--lamp);
+    }
+
+    .speaker {
+      position: absolute;
+      z-index: 9;
+      right: 8%;
+      bottom: 8%;
+      display: flex;
+      gap: clamp(4px, 0.6vw, 7px);
+      pointer-events: none;
+    }
+
+    .speaker span {
+      width: clamp(6px, 0.8vw, 9px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: var(--shell-edge);
+    }
+
+    .physical-control {
+      position: absolute;
+      z-index: 20;
+      min-width: 44px;
+      min-height: 44px;
+      padding: 0;
+      touch-action: manipulation;
+      cursor: pointer;
+      user-select: none;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+    }
+
+    .physical-control:disabled {
+      cursor: default;
+    }
+
+    .control-base,
+    .control-face {
+      position: absolute;
+      inset: 0;
+      border: 2px solid var(--control-edge);
+      border-radius: inherit;
+    }
+
+    .control-base {
+      background: var(--control-base);
+      transform: translateY(var(--press));
+    }
+
+    .control-face {
+      background: var(--control);
+      transition: transform var(--dur-press) var(--ease);
+    }
+
+    .physical-control:active .control-face,
+    .physical-control[data-pressed="true"] .control-face {
+      transform: translateY(var(--press));
+    }
+
+    .dpad {
+      position: absolute;
+      z-index: 15;
+      left: 50%;
+      bottom: 4.5%;
+      width: clamp(126px, 16vw, 164px);
+      aspect-ratio: 1;
+      border: 3px solid var(--shell-edge);
+      border-radius: 50%;
+      background: var(--shell-highlight);
+      transform: translateX(-50%);
+    }
+
+    .dpad::after {
+      content: "";
+      position: absolute;
+      inset: 36%;
+      border: 2px solid var(--control-edge);
+      border-radius: 4px;
+      background: var(--control-base);
+    }
+
+    .dpad .physical-control {
+      width: 45%;
+      height: 36%;
+      min-width: 44px;
+      min-height: 44px;
+      border-radius: 8px;
+    }
+
+    .dpad-up {
+      top: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dpad-down {
+      bottom: 4%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .dpad-left {
+      top: 50%;
+      left: 4%;
+      transform: translateY(-50%);
+    }
+
+    .dpad-right {
+      top: 50%;
+      right: 4%;
+      transform: translateY(-50%);
+    }
+
+    .dpad .control-face::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      opacity: 0.65;
+      transform: translate(-50%, -50%);
+    }
+
+    .dpad-up .control-face::after {
+      border-width: 0 6px 8px;
+      border-color: transparent transparent var(--control-mark);
+    }
+
+    .dpad-down .control-face::after {
+      border-width: 8px 6px 0;
+      border-color: var(--control-mark) transparent transparent;
+    }
+
+    .dpad-left .control-face::after {
+      border-width: 6px 8px 6px 0;
+      border-color: transparent var(--control-mark) transparent transparent;
+    }
+
+    .dpad-right .control-face::after {
+      border-width: 6px 0 6px 8px;
+      border-color: transparent transparent transparent var(--control-mark);
+    }
+
+    .ab-cluster {
+      position: absolute;
+      z-index: 15;
+      left: 50%;
+      bottom: 5%;
+      width: clamp(128px, 17vw, 180px);
+      height: clamp(84px, 11vw, 112px);
+      border: 3px solid var(--shell-edge);
+      border-radius: 999px;
+      background: var(--shell-highlight);
+      transform: translateX(-50%) rotate(-12deg);
+    }
+
+    .ab-cluster .physical-control {
+      top: 50%;
+      width: clamp(50px, 6.2vw, 66px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      transform: translateY(-50%);
+    }
+
+    .button-b {
+      left: 7%;
+    }
+
+    .button-a {
+      right: 7%;
+    }
+
+    .button-a .control-face {
+      background: #e8e5de;
+    }
+
+    .system-controls {
+      position: absolute;
+      z-index: 16;
+      top: 66%;
+      left: 50%;
+      display: flex;
+      gap: clamp(4px, 1vw, 10px);
+      transform: translateX(-50%);
+    }
+
+    .system-controls .physical-control {
+      position: relative;
+      width: clamp(52px, 6.2vw, 70px);
+      height: 44px;
+      min-width: 52px;
+      border-radius: 999px;
+    }
+
+    .system-controls .control-base,
+    .system-controls .control-face {
+      inset: 13px 4px;
+    }
+
+    .outer-seam {
+      position: absolute;
+      left: 0;
+      top: 57%;
+      width: 100%;
+      height: 3px;
+      background: var(--shell-edge);
+    }
+
+    .outer-lamp {
+      position: absolute;
+      left: 50%;
+      top: 26%;
+      width: clamp(20px, 3vw, 32px);
+      height: clamp(68px, 9vw, 96px);
+      border: 4px solid var(--control-edge);
+      border-radius: 999px;
+      background: var(--lamp);
+      transform: translateX(-50%);
+    }
+
+    .outer-slot {
+      position: absolute;
+      left: 18%;
+      right: 18%;
+      bottom: 4%;
+      height: 16px;
+      border: 3px solid var(--shell-edge);
+      border-bottom: 0;
+      border-radius: 10px 10px 0 0;
+    }
+
+    .open-control {
+      left: 50%;
+      top: 57%;
+      width: clamp(74px, 10vw, 104px);
+      aspect-ratio: 1;
+      min-width: 74px;
+      min-height: 74px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .open-control .control-base,
+    .open-control .control-face {
+      inset: 8px;
+    }
+
+    .open-control .control-face {
+      background: #e8e5de;
+    }
+
+    .open-control .control-face::after {
+      content: "";
+      position: absolute;
+      inset: 33%;
+      border-right: 4px solid var(--control-mark);
+      border-bottom: 4px solid var(--control-mark);
+      transform: translateY(-2px) rotate(45deg);
+    }
+
+    .device:not(.is-closed) .leaf-outer {
+      pointer-events: none;
+    }
+
+    .device.is-closed .leaf-inner {
+      pointer-events: none;
+    }
+
+    .keyboard-map {
+      max-width: calc(100vw - 24px);
+      overflow-wrap: anywhere;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --hinge-w: 24px;
+        --edge: 7px;
+      }
+
+      .prototype {
+        padding-inline: 8px;
+      }
+
+      .device-stage {
+        width: min(359px, calc(100vw - 16px));
+        height: 510px;
+      }
+
+      .stationary-body,
+      .leaf-face {
+        border-width: 2px;
+        border-radius: 14px;
+      }
+
+      .hinge {
+        border-width: 2px;
+      }
+
+      .screen-bezel {
+        border-width: 6px;
+      }
+
+      .screen {
+        top: calc(9% + 6px);
+        width: calc(var(--half-w) - (var(--edge) * 2) - 12px + 4px);
+        height: calc(52% - 12px);
+      }
+
+      .screen-top {
+        left: calc(var(--edge) + 4px);
+      }
+
+      .screen-bottom {
+        left: calc(var(--half-w) + var(--hinge-w) + var(--edge) + 4px);
+      }
+
+      .screen-ui {
+        padding: 7px;
+      }
+
+      .screen-header {
+        gap: 3px;
+        min-height: 20px;
+        padding-bottom: 4px;
+        letter-spacing: 0.04em;
+      }
+
+      .screen-header span:last-child {
+        display: none;
+      }
+
+      .menu-list {
+        gap: 2px;
+        padding-top: 5px;
+      }
+
+      .menu-row {
+        grid-template-columns: 12px minmax(0, 1fr);
+        gap: 2px;
+        min-height: 34px;
+        padding: 3px 2px;
+      }
+
+      .row-meta {
+        display: none;
+      }
+
+      .detail-card h2 {
+        margin-bottom: 4px;
+        font-size: 15px;
+      }
+
+      .detail-copy,
+      .detail-extra {
+        font-size: 12px;
+        line-height: 1.35;
+      }
+
+      .detail-extra {
+        margin-top: 5px;
+        padding-top: 5px;
+        padding-left: 14px;
+      }
+
+      .version-options {
+        grid-template-columns: 1fr;
+        gap: 3px;
+        margin-block: 6px;
+      }
+
+      .version-option {
+        min-height: 36px;
+      }
+
+      .version-help {
+        display: none;
+      }
+
+      .dpad {
+        width: 126px;
+      }
+
+      .ab-cluster {
+        width: 132px;
+        height: 84px;
+      }
+
+      .ab-cluster .physical-control {
+        width: 50px;
+      }
+
+      .system-controls {
+        top: 63.5%;
+        gap: 1px;
+      }
+
+      .system-controls .physical-control {
+        width: 52px;
+      }
+
+      .speaker,
+      .lamp {
+        display: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .moving-leaf {
+        will-change: auto;
+      }
+    }
+
+    html[data-reduced-motion="true"] *,
+    html[data-reduced-motion="true"] *::before,
+    html[data-reduced-motion="true"] *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+
+    html[data-reduced-motion="true"] .moving-leaf {
+      will-change: auto;
+    }
+  </style>
+</head>
+<body>
+  <main class="prototype">
+    <header class="prototype-header">
+      <p class="eyebrow">Gen IV/V physical control prototype</p>
+      <h1>SM'S DEX</h1>
+    </header>
+
+    <div class="device-stage">
+      <div class="device is-closed" id="device" data-state="closed" data-action-count="0" tabindex="-1">
+        <div class="screen-layer" id="screen-layer" aria-hidden="true" inert hidden>
+          <section class="screen screen-top" aria-label="Top screen: menu and lists" tabindex="-1">
+            <div id="top-screen"></div>
+          </section>
+          <section class="screen screen-bottom" aria-label="Bottom screen: selected detail" tabindex="-1">
+            <div id="bottom-screen"></div>
+          </section>
+        </div>
+
+        <section class="stationary-body" aria-label="Stationary left body">
+          <span class="shell-piece shell-top" aria-hidden="true"></span>
+          <span class="shell-piece shell-left" aria-hidden="true"></span>
+          <span class="shell-piece shell-right" aria-hidden="true"></span>
+          <span class="shell-piece control-deck" aria-hidden="true"></span>
+          <span class="corner-highlight" aria-hidden="true"></span>
+          <span class="screen-bezel" aria-hidden="true"></span>
+          <span class="lamp" aria-hidden="true"></span>
+
+          <div class="dpad" id="dpad" aria-label="Directional pad housing" aria-hidden="true" inert hidden>
+            <button class="physical-control dpad-up" type="button" data-action="UP" aria-label="D-pad Up">
+              <span class="control-base" aria-hidden="true"></span>
+              <span class="control-face" aria-hidden="true"></span>
+              <span class="sr-only">D-pad Up</span>
+            </button>
+            <button class="physical-control dpad-down" type="button" data-action="DOWN" aria-label="D-pad Down">
+              <span class="control-base" aria-hidden="true"></span>
+              <span class="control-face" aria-hidden="true"></span>
+              <span class="sr-only">D-pad Down</span>
+            </button>
+            <button class="physical-control dpad-left" type="button" data-action="LEFT" aria-label="D-pad Left">
+              <span class="control-base" aria-hidden="true"></span>
+              <span class="control-face" aria-hidden="true"></span>
+              <span class="sr-only">D-pad Left</span>
+            </button>
+            <button class="physical-control dpad-right" type="button" data-action="RIGHT" aria-label="D-pad Right">
+              <span class="control-base" aria-hidden="true"></span>
+              <span class="control-face" aria-hidden="true"></span>
+              <span class="sr-only">D-pad Right</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="hinge" aria-hidden="true">
+          <span class="hinge-pin"></span>
+        </div>
+
+        <section class="moving-leaf" id="moving-leaf" aria-label="Moving right leaf">
+          <div class="leaf-face leaf-inner" id="leaf-inner">
+            <span class="shell-piece shell-top" aria-hidden="true"></span>
+            <span class="shell-piece shell-left" aria-hidden="true"></span>
+            <span class="shell-piece shell-right" aria-hidden="true"></span>
+            <span class="shell-piece control-deck" aria-hidden="true"></span>
+            <span class="corner-highlight" aria-hidden="true"></span>
+            <span class="screen-bezel" aria-hidden="true"></span>
+
+            <div id="inner-controls" aria-hidden="true" inert hidden>
+              <div class="system-controls">
+                <button class="physical-control" type="button" data-action="SELECT" aria-label="Select">
+                  <span class="control-base" aria-hidden="true"></span>
+                  <span class="control-face" aria-hidden="true"></span>
+                  <span class="sr-only">Select</span>
+                </button>
+                <button class="physical-control" type="button" data-action="START" aria-label="Start">
+                  <span class="control-base" aria-hidden="true"></span>
+                  <span class="control-face" aria-hidden="true"></span>
+                  <span class="sr-only">Start</span>
+                </button>
+              </div>
+
+              <div class="ab-cluster" aria-hidden="false">
+                <button class="physical-control button-b" type="button" data-action="B" aria-label="B: Back">
+                  <span class="control-base" aria-hidden="true"></span>
+                  <span class="control-face" aria-hidden="true"></span>
+                  <span class="sr-only">B: Back</span>
+                </button>
+                <button class="physical-control button-a" type="button" data-action="A" aria-label="A: Confirm">
+                  <span class="control-base" aria-hidden="true"></span>
+                  <span class="control-face" aria-hidden="true"></span>
+                  <span class="sr-only">A: Confirm</span>
+                </button>
+              </div>
+
+              <div class="speaker" aria-hidden="true">
+                <span></span><span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="leaf-face leaf-outer" id="leaf-outer">
+            <span class="corner-highlight" aria-hidden="true"></span>
+            <span class="outer-lamp" aria-hidden="true"></span>
+            <span class="outer-seam" aria-hidden="true"></span>
+            <span class="outer-slot" aria-hidden="true"></span>
+            <button class="physical-control open-control" id="open-control" type="button"
+                    data-action="OPEN" aria-label="Open SM'S DEX" aria-controls="screen-layer"
+                    aria-expanded="false">
+              <span class="control-base" aria-hidden="true"></span>
+              <span class="control-face" aria-hidden="true"></span>
+              <span class="sr-only">Open SM'S DEX</span>
+            </button>
+          </div>
+        </section>
+
+        <div class="sr-only" id="announcer" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <p class="keyboard-map">Arrows · Enter/A · Escape/B · S/Start · V/Select</p>
+  </main>
+
+  <script>
+    (() => {
+      const PAGE_SIZE = 3;
+      const STATES = Object.freeze({
+        CLOSED: 'closed',
+        BOOT: 'boot',
+        MAIN_MENU: 'main-menu',
+        LIST: 'list',
+        DETAIL: 'detail',
+      });
+
+      const versions = [
+        { id: 'diamond', short: 'D/P', name: 'Diamond / Pearl' },
+        { id: 'heartgold', short: 'HG/SS', name: 'HeartGold / SoulSilver' },
+        { id: 'black', short: 'B/W', name: 'Black / White' },
+      ];
+
+      const sections = [
+        {
+          id: 'profile',
+          label: 'PROFILE',
+          summary: 'Identity and counted stats.',
+          items: [
+            {
+              title: 'SHIVAM MAHAJAN',
+              meta: 'No. 001',
+              copy: 'Software Developer. Humanoid Pokémon. Dragon / Steel. Status: RELEASED.',
+              extra: ['HT 6\'00\" · WT 169.8 lbs', 'OT MORGAN STANLEY · ID 2025'],
+            },
+            {
+              title: 'COUNTED STATS',
+              meta: '6 records',
+              copy: 'Real work metrics replace self-ratings.',
+              extra: ['HP 1,150-day streak', 'DEF 425 test suites', 'SP.ATK 5M events'],
+            },
+          ],
+        },
+        {
+          id: 'moves',
+          label: 'MOVES',
+          summary: 'Projects rendered as moves.',
+          items: [
+            {
+              title: 'PRODUCTIVITY CALLER',
+              meta: 'PP 30/30',
+              copy: 'Replaces push notifications with native Telecom phone calls. +35% task completion.',
+              extra: ['ELECTRIC / STEEL · PHYSICAL', 'POWER 95 · ACCURACY 100', 'Kotlin · Compose · MVVM'],
+            },
+            {
+              title: 'CHAINCODE',
+              meta: 'PP 0/15',
+              copy: 'A decentralised code-to-NFT platform built by a four-person team.',
+              extra: ['DRAGON / PSYCHIC · SPECIAL', '3rd of 200+ teams', 'MERN · Solidity · Gemini API'],
+            },
+            {
+              title: 'QUIZDECK',
+              meta: 'PP 0/10',
+              copy: 'Real-time multiplayer quiz for 500 concurrent users at 31 ms average response.',
+              extra: ['ELECTRIC · SPECIAL', 'React · WebSockets · Node.js', 'Archived · Dec 2024'],
+            },
+            {
+              title: 'TM01 · CIAM WAREHOUSE',
+              meta: 'POWER 100',
+              copy: 'Moved 5M+ Kafka events through four PySpark workflows at 0% row-count tolerance.',
+              extra: ['WATER / STEEL · SPECIAL', 'Snowflake · Kafka · PySpark', 'Served 500k+ users'],
+            },
+          ],
+        },
+        {
+          id: 'encounters',
+          label: 'ENCOUNTERS',
+          summary: 'Experience and origin records.',
+          items: [
+            {
+              title: 'MORGAN STANLEY',
+              meta: 'NEST BALL',
+              copy: 'Technology Apprentice. Met at Lv. 1 through on-campus placement.',
+              extra: ['Aug 2025 – Aug 2026', 'Daily ETL at 3.9× throughput', '135 automated role grants'],
+            },
+            {
+              title: 'CHITKARA UNIVERSITY',
+              meta: 'ORIGIN',
+              copy: 'BE Computer Science & Engineering. Pre-evolution record.',
+              extra: ['2022 – 2026', 'CGPA 9.35 / 10', 'Dean\'s List'],
+            },
+          ],
+        },
+        {
+          id: 'ribbons',
+          label: 'RIBBONS',
+          summary: 'Achievements and awards.',
+          items: [
+            { title: 'ENDURANCE', meta: '2,002 days', copy: 'Co-founded 1001 Days of Code and sustained a 1,150+ day active streak.', extra: ['Long-running practice record'] },
+            { title: 'PROBLEM SOLVER', meta: '2,600+', copy: 'Solved 1,900+ LeetCode and 700+ Codeforces problems.', extra: ['FIGHTING-type discipline'] },
+            { title: 'CORE CONTRIBUTOR', meta: 'MEDIAWIKI', copy: 'Selected from 260+ applicants; merged a contribution into core MediaWiki.', extra: ['Wikimedia Road to Wiki'] },
+            { title: 'TOURNAMENT', meta: '3rd place', copy: 'Placed third among 200+ teams at HackIndia Regionals.', extra: ['CHAINCODE'] },
+            { title: 'DEAN\'S LIST', meta: '9.35/10', copy: 'Dean\'s List across Chitkara University, 2022–2026.', extra: ['Computer Science & Engineering'] },
+          ],
+        },
+        {
+          id: 'dex',
+          label: 'DEX',
+          summary: 'Community roster records.',
+          items: [
+            {
+              title: 'SMRESPONSIBILITIES',
+              meta: 'REGISTERED',
+              copy: 'Humanoid Pokémon. Dragon / Steel. The first registered species.',
+              extra: ['GitHub avatar is the creature sprite', 'Public roster entries remain shareable'],
+            },
+            {
+              title: 'OPEN SLOT',
+              meta: 'UNREGISTERED',
+              copy: 'A future community species can join through a moderated GitHub issue.',
+              extra: ['No image upload', 'Username drives the sprite'],
+            },
+          ],
+        },
+      ];
+
+      const device = document.querySelector('#device');
+      const screenLayer = document.querySelector('#screen-layer');
+      const screens = [...document.querySelectorAll('.screen')];
+      const innerControls = document.querySelector('#inner-controls');
+      const dpad = document.querySelector('#dpad');
+      const leafInner = document.querySelector('#leaf-inner');
+      const leafOuter = document.querySelector('#leaf-outer');
+      const openControl = document.querySelector('#open-control');
+      const topScreen = document.querySelector('#top-screen');
+      const bottomScreen = document.querySelector('#bottom-screen');
+      const announcer = document.querySelector('#announcer');
+      const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const forcedReducedMotion = new URLSearchParams(window.location.search).has('reduced-motion');
+      const reduceMotion = () => forcedReducedMotion || reducedMotionQuery.matches;
+      const actionButtons = [...document.querySelectorAll('[data-action]')];
+
+      let state = STATES.CLOSED;
+      let menuIndex = 0;
+      let itemIndex = 0;
+      let pageIndex = 0;
+      let versionIndex = 1;
+      let versionDraftIndex = 1;
+      let versionBeforeSelect = 1;
+      let versionMode = false;
+      let bootTimer = 0;
+      let screenTimer = 0;
+      let actionCount = 0;
+
+      const escapeHtml = (value) => String(value)
+        .replaceAll('&', '&amp;')
+        .replaceAll('<', '&lt;')
+        .replaceAll('>', '&gt;')
+        .replaceAll('"', '&quot;')
+        .replaceAll("'", '&#039;');
+
+      const currentSection = () => sections[menuIndex];
+      const currentItem = () => currentSection().items[itemIndex];
+      const stateLabel = () => ({
+        [STATES.CLOSED]: 'CLOSED',
+        [STATES.BOOT]: 'BOOT',
+        [STATES.MAIN_MENU]: 'MAIN MENU',
+        [STATES.LIST]: currentSection().label,
+        [STATES.DETAIL]: `${currentSection().label} DETAIL`,
+      })[state];
+
+      function announce(message) {
+        announcer.textContent = '';
+        window.setTimeout(() => { announcer.textContent = message; }, 10);
+      }
+
+      function clearTimers() {
+        window.clearTimeout(bootTimer);
+        window.clearTimeout(screenTimer);
+        bootTimer = 0;
+        screenTimer = 0;
+      }
+
+      function renderBoot(screenName) {
+        return `
+          <div class="screen-ui boot-ui">
+            <span class="boot-mark" aria-hidden="true"></span>
+            <p class="boot-title">SM'S DEX</p>
+            <p class="boot-status">${screenName === 'TOP' ? 'SYSTEM READY' : 'PRESS A'}</p>
+          </div>`;
+      }
+
+      function renderRows(items, selectedIndex, kind) {
+        return `
+          <ol class="menu-list" role="listbox" aria-label="${escapeHtml(kind)}">
+            ${items.map((item, index) => {
+              const selected = index === selectedIndex;
+              return `
+                <li class="menu-row" role="option" aria-selected="${selected}">
+                  <span class="cursor" aria-hidden="true">${selected ? '▶' : ''}</span>
+                  <span class="row-label">${escapeHtml(item.label ?? item.title)}</span>
+                  <span class="row-meta">${escapeHtml(item.meta ?? '')}</span>
+                </li>`;
+            }).join('')}
+          </ol>`;
+      }
+
+      function renderDetail(title, meta, copy, extra = [], expanded = false) {
+        return `
+          <div class="screen-ui">
+            <div class="screen-header"><strong>${escapeHtml(stateLabel())}</strong><span>BOTTOM // DATA</span></div>
+            <article class="detail-card">
+              <h2>${escapeHtml(title)}</h2>
+              <p class="detail-meta">${escapeHtml(meta)}</p>
+              <p class="detail-copy">${escapeHtml(copy)}</p>
+              ${expanded && extra.length ? `<ul class="detail-extra">${extra.map(line => `<li>${escapeHtml(line)}</li>`).join('')}</ul>` : ''}
+            </article>
+          </div>`;
+      }
+
+      function renderVersionSelector() {
+        const selected = versions[versionDraftIndex];
+        topScreen.innerHTML = `
+          <div class="screen-ui">
+            <div class="screen-header"><strong>VERSION</strong><span>TOP // MENU</span></div>
+            <ul class="version-options" role="listbox" aria-label="Version selector">
+              ${versions.map((version, index) => `
+                <li class="version-option" role="option" aria-selected="${index === versionDraftIndex}">
+                  ${escapeHtml(version.short)}
+                </li>`).join('')}
+            </ul>
+            <p class="version-help">◀ ▶ CHOOSE · A CONFIRM · B CANCEL</p>
+          </div>`;
+        bottomScreen.innerHTML = renderDetail(
+          selected.name,
+          'GEN IV/V CASING FAMILY',
+          'Version changes screen palette while physical casing family and content geometry stay shared.',
+          [],
+          false,
+        );
+      }
+
+      function renderMainMenu() {
+        topScreen.innerHTML = `
+          <div class="screen-ui">
+            <div class="screen-header"><strong>MAIN MENU</strong><span>TOP // MENU</span></div>
+            ${renderRows(sections, menuIndex, 'Portfolio menu')}
+          </div>`;
+        const section = currentSection();
+        bottomScreen.innerHTML = renderDetail(section.label, `${section.items.length} RECORDS`, section.summary);
+      }
+
+      function renderList() {
+        const section = currentSection();
+        const pageCount = Math.ceil(section.items.length / PAGE_SIZE);
+        const pageStart = pageIndex * PAGE_SIZE;
+        const pageItems = section.items.slice(pageStart, pageStart + PAGE_SIZE);
+        topScreen.innerHTML = `
+          <div class="screen-ui">
+            <div class="screen-header">
+              <strong>${escapeHtml(section.label)}</strong>
+              <span>PAGE ${pageIndex + 1}/${pageCount}</span>
+            </div>
+            ${renderRows(pageItems, itemIndex - pageStart, `${section.label} list`)}
+          </div>`;
+        const item = currentItem();
+        bottomScreen.innerHTML = renderDetail(item.title, item.meta, item.copy, item.extra, state === STATES.DETAIL);
+      }
+
+      function render() {
+        device.dataset.state = state;
+        device.dataset.menuIndex = String(menuIndex);
+        device.dataset.itemIndex = String(itemIndex);
+        device.dataset.pageIndex = String(pageIndex);
+        device.dataset.versionMode = String(versionMode);
+        device.dataset.version = versions[versionIndex].id;
+
+        if (state === STATES.CLOSED) {
+          topScreen.innerHTML = '';
+          bottomScreen.innerHTML = '';
+          return;
+        }
+
+        if (versionMode) {
+          renderVersionSelector();
+          return;
+        }
+
+        if (state === STATES.BOOT) {
+          topScreen.innerHTML = renderBoot('TOP');
+          bottomScreen.innerHTML = renderBoot('BOTTOM');
+        } else if (state === STATES.MAIN_MENU) {
+          renderMainMenu();
+        } else {
+          renderList();
+        }
+      }
+
+      function setState(nextState, message = stateLabel()) {
+        state = nextState;
+        versionMode = false;
+        render();
+        announce(message || stateLabel());
+      }
+
+      function exposeOpenContent() {
+        screenLayer.hidden = false;
+        screenLayer.removeAttribute('inert');
+        screenLayer.setAttribute('aria-hidden', 'false');
+        screens.forEach(screen => { screen.tabIndex = 0; });
+      }
+
+      function hideOpenContent() {
+        screens.forEach(screen => { screen.tabIndex = -1; });
+        screenLayer.setAttribute('aria-hidden', 'true');
+        screenLayer.setAttribute('inert', '');
+        screenLayer.hidden = true;
+      }
+
+      function openDevice() {
+        if (state !== STATES.CLOSED) return;
+        clearTimers();
+        menuIndex = 0;
+        itemIndex = 0;
+        pageIndex = 0;
+        versionMode = false;
+        state = STATES.BOOT;
+        render();
+
+        device.classList.remove('is-closed');
+        leafOuter.setAttribute('aria-hidden', 'true');
+        leafInner.setAttribute('aria-hidden', 'false');
+        dpad.hidden = false;
+        dpad.removeAttribute('inert');
+        dpad.setAttribute('aria-hidden', 'false');
+        innerControls.hidden = false;
+        innerControls.removeAttribute('inert');
+        innerControls.setAttribute('aria-hidden', 'false');
+        openControl.disabled = true;
+        openControl.setAttribute('aria-expanded', 'true');
+
+        const contentDelay = reduceMotion() ? 0 : 330;
+        const bootDelay = reduceMotion() ? 240 : 1050;
+        screenTimer = window.setTimeout(exposeOpenContent, contentDelay);
+        bootTimer = window.setTimeout(() => {
+          itemIndex = 0;
+          pageIndex = 0;
+          setState(STATES.MAIN_MENU, 'Main menu');
+        }, bootDelay);
+        announce('Opening. Boot screen.');
+      }
+
+      function closeDevice() {
+        clearTimers();
+        versionMode = false;
+        menuIndex = 0;
+        itemIndex = 0;
+        pageIndex = 0;
+        hideOpenContent();
+        dpad.setAttribute('aria-hidden', 'true');
+        dpad.setAttribute('inert', '');
+        dpad.hidden = true;
+        innerControls.setAttribute('aria-hidden', 'true');
+        innerControls.setAttribute('inert', '');
+        innerControls.hidden = true;
+        leafInner.setAttribute('aria-hidden', 'true');
+        leafOuter.setAttribute('aria-hidden', 'false');
+        device.classList.add('is-closed');
+        openControl.setAttribute('aria-expanded', 'false');
+        state = STATES.CLOSED;
+        render();
+
+        const closeDelay = reduceMotion() ? 0 : 570;
+        window.setTimeout(() => {
+          openControl.disabled = false;
+          openControl.focus({ preventScroll: true });
+        }, closeDelay);
+        announce('Closed. Open control available.');
+      }
+
+      function moveVertical(delta) {
+        if (versionMode || state === STATES.BOOT) return;
+        if (state === STATES.MAIN_MENU) {
+          menuIndex = (menuIndex + delta + sections.length) % sections.length;
+          itemIndex = 0;
+          pageIndex = 0;
+          render();
+          announce(`${currentSection().label} selected`);
+          return;
+        }
+
+        const items = currentSection().items;
+        itemIndex = (itemIndex + delta + items.length) % items.length;
+        pageIndex = Math.floor(itemIndex / PAGE_SIZE);
+        render();
+        announce(`${currentItem().title} selected`);
+      }
+
+      function moveHorizontal(delta) {
+        if (versionMode) {
+          versionDraftIndex = (versionDraftIndex + delta + versions.length) % versions.length;
+          render();
+          announce(`${versions[versionDraftIndex].name} selected`);
+          return;
+        }
+
+        if (state !== STATES.LIST && state !== STATES.DETAIL) return;
+        const items = currentSection().items;
+        const pageCount = Math.ceil(items.length / PAGE_SIZE);
+        if (pageCount < 2) {
+          announce('One page');
+          return;
+        }
+
+        pageIndex = (pageIndex + delta + pageCount) % pageCount;
+        itemIndex = Math.min(pageIndex * PAGE_SIZE, items.length - 1);
+        render();
+        announce(`Page ${pageIndex + 1} of ${pageCount}`);
+      }
+
+      function confirm() {
+        clearTimers();
+        if (versionMode) {
+          versionIndex = versionDraftIndex;
+          document.documentElement.dataset.version = versions[versionIndex].id;
+          versionMode = false;
+          render();
+          announce(`${versions[versionIndex].name} applied`);
+          return;
+        }
+
+        if (state === STATES.BOOT) {
+          setState(STATES.MAIN_MENU, 'Main menu');
+        } else if (state === STATES.MAIN_MENU) {
+          itemIndex = 0;
+          pageIndex = 0;
+          setState(STATES.LIST, `${currentSection().label} list`);
+        } else if (state === STATES.LIST) {
+          setState(STATES.DETAIL, `${currentItem().title} detail`);
+        } else if (state === STATES.DETAIL) {
+          announce(`${currentItem().title} detail already open`);
+        }
+      }
+
+      function back() {
+        clearTimers();
+        if (versionMode) {
+          versionDraftIndex = versionBeforeSelect;
+          versionMode = false;
+          render();
+          announce('Version change cancelled');
+        } else if (state === STATES.DETAIL) {
+          setState(STATES.LIST, `${currentSection().label} list`);
+        } else if (state === STATES.LIST) {
+          setState(STATES.MAIN_MENU, 'Main menu');
+        } else if (state === STATES.MAIN_MENU) {
+          setState(STATES.BOOT, 'Boot screen');
+        } else if (state === STATES.BOOT) {
+          closeDevice();
+        }
+      }
+
+      function start() {
+        if (state === STATES.CLOSED) return;
+        clearTimers();
+        menuIndex = 0;
+        itemIndex = 0;
+        pageIndex = 0;
+        setState(STATES.MAIN_MENU, 'Main menu');
+      }
+
+      function select() {
+        if (state === STATES.CLOSED || state === STATES.BOOT) return;
+        versionBeforeSelect = versionIndex;
+        versionDraftIndex = versionIndex;
+        versionMode = !versionMode;
+        render();
+        announce(versionMode ? 'Version selector open' : 'Version selector closed');
+      }
+
+      function flashPressed(action) {
+        const button = actionButtons.find(candidate => candidate.dataset.action === action && !candidate.disabled);
+        if (!button) return;
+        button.dataset.pressed = 'true';
+        window.setTimeout(() => { button.dataset.pressed = 'false'; }, reduceMotion() ? 20 : 100);
+      }
+
+      function activate(action, source = 'pointer') {
+        if (action !== 'OPEN' && state === STATES.CLOSED) return;
+        actionCount += 1;
+        device.dataset.actionCount = String(actionCount);
+        device.dataset.lastAction = action;
+        device.dataset.lastSource = source;
+        if (source === 'keyboard') flashPressed(action);
+
+        switch (action) {
+          case 'OPEN': openDevice(); break;
+          case 'UP': moveVertical(-1); break;
+          case 'DOWN': moveVertical(1); break;
+          case 'LEFT': moveHorizontal(-1); break;
+          case 'RIGHT': moveHorizontal(1); break;
+          case 'A': confirm(); break;
+          case 'B': back(); break;
+          case 'START': start(); break;
+          case 'SELECT': select(); break;
+        }
+      }
+
+      actionButtons.forEach((button) => {
+        button.addEventListener('click', () => activate(button.dataset.action, 'pointer'));
+      });
+
+      document.addEventListener('keydown', (event) => {
+        const focusedButton = event.target.closest?.('button');
+        const key = event.key.toLowerCase();
+        let action = null;
+
+        if (event.key === 'ArrowUp') action = 'UP';
+        else if (event.key === 'ArrowDown') action = 'DOWN';
+        else if (event.key === 'ArrowLeft') action = 'LEFT';
+        else if (event.key === 'ArrowRight') action = 'RIGHT';
+        else if (event.key === 'Escape' || key === 'b') action = 'B';
+        else if (key === 'a') action = 'A';
+        else if (key === 's') action = 'START';
+        else if (key === 'v') action = 'SELECT';
+        else if (event.key === 'Enter' && focusedButton?.dataset.action) action = focusedButton.dataset.action;
+        else if (event.key === 'Enter') action = 'A';
+
+        if (!action) return;
+        event.preventDefault();
+        activate(action, 'keyboard');
+      });
+
+      const handleMotionPreference = () => {
+        document.documentElement.dataset.reducedMotion = String(reduceMotion());
+        device.dataset.reducedMotion = String(reduceMotion());
+      };
+      if (typeof reducedMotionQuery.addEventListener === 'function') {
+        reducedMotionQuery.addEventListener('change', handleMotionPreference);
+      } else if (typeof reducedMotionQuery.addListener === 'function') {
+        reducedMotionQuery.addListener(handleMotionPreference);
+      }
+
+      document.documentElement.dataset.reducedMotion = String(reduceMotion());
+      device.dataset.reducedMotion = String(reduceMotion());
+      leafInner.setAttribute('aria-hidden', 'true');
+      leafOuter.setAttribute('aria-hidden', 'false');
+      render();
+
+      window.__dexPrototype = Object.freeze({
+        getState: () => ({
+          state,
+          menuIndex,
+          itemIndex,
+          pageIndex,
+          versionMode,
+          version: versions[versionIndex].id,
+          actionCount,
+          closed: device.classList.contains('is-closed'),
+          screenHidden: screenLayer.getAttribute('aria-hidden') === 'true',
+          screenInert: screenLayer.inert,
+        }),
+      });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "raw": "D:\\portfolio\\.scratch\\sm-dex\\linkedin-video-v2\\page@860e3dcf4cdbfbb34a29500750bbb0e7.webm",
+  "scenes": [
+    {
+      "label": "Loader",
+      "seconds": 1.054
+    },
+    {
+      "label": "Homepage",
+      "seconds": 5.768
+    },
+    {
+      "label": "Generation I closed",
+      "seconds": 13.501
+    },
+    {
+      "label": "Generation I open",
+      "seconds": 20.239
+    },
+    {
+      "label": "Profile",
+      "seconds": 32.719
+    },
+    {
+      "label": "Profile facts",
+      "seconds": 38.685
+    },
+    {
+      "label": "Moves",
+      "seconds": 50.642
+    },
+    {
+      "label": "Encounters",
+      "seconds": 61.97
+    },
+    {
+      "label": "Ribbons",
+      "seconds": 73.326
+    },
+    {
+      "label": "Dex",
+      "seconds": 84.617
+    },
+    {
+      "label": "Johto · Gold / Silver",
+      "seconds": 99.495
+    },
+    {
+      "label": "Hoenn · Ruby / Sapphire",
+      "seconds": 108.413
+    },
+    {
+      "label": "Sinnoh · Diamond / Pearl",
+      "seconds": 116.736
+    },
+    {
+      "label": "Unova · Black / White",
+      "seconds": 125.318
+    },
+    {
+      "label": "Kalos · X / Y",
+      "seconds": 133.65
+    },
+    {
+      "label": "Alola · Sun / Moon",
+      "seconds": 141.406
+    },
+    {
+      "label": "Galar · Sword / Shield",
+      "seconds": 149.46
+    },
+    {
+      "label": "Paldea · Scarlet / Violet",
+      "seconds": 156.705
+    },
+    {
+      "label": "Power off",
+      "seconds": 163.694
+    },
+    {
+      "label": "Readable profile",
+      "seconds": 188.296
+    },
+    {
+      "label": "About",
+      "seconds": 195.62
+    },
+    {
+      "label": "Experience",
+      "seconds": 202.723
+    },
+    {
+      "label": "Projects",
+      "seconds": 210.436
+    },
+    {
+      "label": "Add Pokémon form",
+      "seconds": 229.917
+    },
+    {
+      "label": "Submission actions",
+      "seconds": 235.528
+    },
+    {
+      "label": "Homepage ending",
+      "seconds": 242.525
+    }
+  ],
+  "seconds": 244.787
+}

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ticket 46 closing depth probe</title>
+<link rel="stylesheet" href="../prototypes/ticket-45-all-generations/style.css?v=46.5">
+<style>
+body{padding:20px}main{max-width:1000px}h1{font-size:24px}#stage{width:min(100%,600px);min-width:0}
+select,input{font:inherit}pre{white-space:pre-wrap;font-size:13px;max-height:90px;overflow:auto}label{display:inline-block;margin:10px}
+</style>
+<main>
+<h1>Closing depth probe</h1>
+<p>Diagnostic only. Uses the current ticket-45 renderer and artwork. Progress 1 is open.</p>
+<label>Device <select id="device"></select></label>
+<label>Progress <select id="progress"><option>0</option><option selected>0.25</option><option>0.5</option><option>0.75</option><option>1</option></select></label>
+<label>Probe variation <select id="variation"><option value="current">Current renderer</option><option value="legacy">Reproduce old X sign</option><option value="stack">Raise z-index only</option></select></label>
+<pre id="result"></pre>
+<section id="stage"><div id="rig"></div></section>
+</main>
+<script type="module">
+import {createDevice} from '../prototypes/ticket-45-all-generations/renderer.js?v=46.5';
+import {kanto} from '../prototypes/ticket-45-all-generations/assets/kanto.js?v=46.5';
+import {devices as classic} from '../prototypes/ticket-45-all-generations/assets/classic.js?v=46.5';
+import {devices as middle} from '../prototypes/ticket-45-all-generations/assets/middle.js?v=46.5';
+import {devices as rotom} from '../prototypes/ticket-45-all-generations/assets/rotom.js?v=46.5';
+const devices=[kanto,...classic,...middle,...rotom];
+const selector=document.querySelector('#device'),progress=document.querySelector('#progress'),variation=document.querySelector('#variation');
+const host=document.querySelector('#rig'),stage=document.querySelector('#stage');
+selector.innerHTML=devices.map(d=>`<option value="${d.id}">${d.generation} ${d.region} ${d.games}</option>`).join('');
+selector.value='gold';
+function render(){
+  const d=devices.find(d=>d.id===selector.value),p=Number(progress.value);
+  const device=createDevice(d,host,()=>{});
+  stage.style.aspectRatio=`${d.width}/${d.height}`;
+  host.style.transform=`scale(${stage.clientWidth/d.width})`;
+  device.pose(p);device.available(p===1,true);
+  const checks=[];
+  for(const [id,{el,inner,definition}] of device.layers){
+    if(!definition.motion?.type.startsWith('hinge'))continue;
+    // Counterfactual probes apply only here, never in the portfolio implementation.
+    if(variation.value!=='current'&&definition.motion.type==='hinge-x')el.style.transform=`rotateX(${180*(1-p)}deg)`;
+    if(variation.value==='stack')el.style.zIndex='999';
+    const bounds=inner.querySelector('svg').getBBox();
+    const center=[bounds.x+bounds.width/2,bounds.y+bounds.height/2];
+    const [ox,oy]=definition.motion.origin;
+    const matrix=new DOMMatrix(getComputedStyle(el).transform);
+    const z=matrix.transformPoint(new DOMPoint(center[0]-ox,center[1]-oy,0)).z;
+    const range=definition.motion.range||[0,1],phase=Math.max(0,Math.min(1,(p-range[0])/(range[1]-range[0])));
+    checks.push({layer:id,progress:p,phase,moving:phase>0&&phase<1,geometryCenter:center,origin:[ox,oy],z:Number(z.toFixed(2)),
+      transform:el.style.transform,verdict:p>0&&p<1?(z>=0?'PASS: front sweep':'FAIL: behind body plane'):'Endpoint only'});
+  }
+  document.querySelector('#result').textContent=JSON.stringify(checks,null,2);
+}
+selector.addEventListener('change',render);progress.addEventListener('change',render);variation.addEventListener('change',render);
+new ResizeObserver(render).observe(stage);render();
+</script>
+</html>
