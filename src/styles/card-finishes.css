@@ -1,7 +1,43 @@
 /* Shared readable finish. Content always paints above recipe and glare layers. */
 .site-card{--pointer-x:50%;--pointer-y:50%;--background-x:50%;--background-y:50%;--pointer-from-center:.35;--pointer-from-top:.5;--pointer-from-left:.5;--card-opacity:.55;--card-radius:12px;position:relative;isolation:isolate;min-width:0;overflow:hidden;border:1px solid color-mix(in srgb,var(--time-accent,var(--accent)) 38%,var(--border))!important;border-radius:12px;background:linear-gradient(135deg,color-mix(in srgb,var(--time-panel,var(--panel)) 65%,var(--time-deep,var(--bg))),var(--time-deep,var(--panel)) 75%)!important;color:var(--ink);box-shadow:inset 0 0 0 5px #08101a40,inset 0 0 0 6px color-mix(in srgb,var(--time-accent,var(--accent)) 15%,transparent),0 10px 22px #0003;transform:perspective(1200px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .3s ease}
-.site-card>:not(.site-card-flowers):not(.site-card-foil):not(.site-card-glare):not(.chapter-flowers):not(.site-card-flip-hint){position:relative;z-index:3}
-.site-card-flowers{position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0;pointer-events:none}.site-card-flowers img{position:absolute;width:125px;height:125px;object-fit:contain;opacity:.35;filter:grayscale(1) brightness(1.5);mix-blend-mode:luminosity}.site-card-flowers .top{top:-36px;right:-30px;transform:rotate(-30deg)}.site-card-flowers .bottom{bottom:-36px;left:-30px;transform:rotate(150deg)}
+.site-card>:not(.site-card-flowers):not(.site-card-foil):not(.site-card-glare):not(.chapter-flowers):not(.site-card-flip-hint):not(.site-card-back){position:relative;z-index:3}
+/* Pixel art corner ornaments — SM's DEX style, no image requests */
+.site-card-flowers{position:absolute;inset:0;overflow:hidden;border-radius:inherit;z-index:0;pointer-events:none}
+/* Each corner: a 1px seed with box-shadow pixels forming an 8-pointed star / pixel ✦ */
+/* p=5px per pixel. Pattern:
+     . X . X .
+     . . X . .
+     X X X X X
+     . . X . .
+     . X . X .
+   Coordinates relative to element (0,0) at centre of cross. */
+.site-card-flowers::before,
+.site-card-flowers::after{
+  content:"";
+  position:absolute;
+  width:5px;height:5px;
+  background:var(--time-accent,var(--accent));
+  image-rendering:pixelated;
+  opacity:.28;
+  /* centre pixel + cross arms + diagonal tips */
+  box-shadow:
+    /* cross arms */
+    0px -5px 0 var(--time-accent,var(--accent)),
+    0px -10px 0 var(--time-accent,var(--accent)),
+    0px  5px 0 var(--time-accent,var(--accent)),
+    0px  10px 0 var(--time-accent,var(--accent)),
+    -5px  0px 0 var(--time-accent,var(--accent)),
+    -10px 0px 0 var(--time-accent,var(--accent)),
+     5px  0px 0 var(--time-accent,var(--accent)),
+     10px 0px 0 var(--time-accent,var(--accent)),
+    /* diagonal tips */
+    -5px -5px 0 var(--time-accent,var(--accent)),
+     5px -5px 0 var(--time-accent,var(--accent)),
+    -5px  5px 0 var(--time-accent,var(--accent)),
+     5px  5px 0 var(--time-accent,var(--accent));
+}
+.site-card-flowers::before{top:18px;right:18px}
+.site-card-flowers::after{bottom:18px;left:18px}
 .site-card .site-card-foil,.site-card .site-card-glare{position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;mask:none!important;-webkit-mask:none!important;backface-visibility:hidden;transform:translateZ(.01px)}
 .site-card .site-card-foil{display:grid;overflow:hidden;opacity:.19!important;background:transparent;mix-blend-mode:color-dodge;filter:brightness(.85) contrast(2.75) saturate(.65);transition:opacity .4s ease}.site-card .site-card-foil::before,.site-card .site-card-foil::after{content:"";grid-area:1/1;inset:0;border-radius:inherit;mask:none!important;-webkit-mask:none!important}.site-card .site-card-glare{z-index:2;opacity:.048!important;background:radial-gradient(ellipse at var(--pointer-x) var(--pointer-y),#fff7,transparent 65%);mix-blend-mode:soft-light;transition:opacity .4s ease}
 .site-card[data-card-mode=holo]:hover .site-card-foil,.site-card[data-card-mode=holo]:focus-within .site-card-foil{opacity:.35!important}.site-card[data-card-mode=holo]:hover .site-card-glare,.site-card[data-card-mode=holo]:focus-within .site-card-glare{opacity:.0875!important}
@@ -19,7 +55,10 @@
 .site-card[data-showcase=true] .site-card-foil{opacity:.52!important;filter:brightness(1.15) contrast(2.25) saturate(1.2)}
 .site-card[data-showcase=true]:hover .site-card-foil,.site-card[data-showcase=true]:focus-within .site-card-foil{opacity:.68!important}
 .site-card[data-showcase=true] .site-card-glare{opacity:.12!important}
-/* Flip hint — subtle cue that fades in on hover */
+/* Holo cards get brighter ornaments */
+.site-card[data-card-mode=holo] .site-card-flowers::before,
+.site-card[data-card-mode=holo] .site-card-flowers::after{opacity:.42}
+@media print{.site-card-flowers{display:none!important}}
 .site-card>.site-card-flip-hint{position:absolute;bottom:12px;right:14px;z-index:5;padding:4px 10px;border:1px solid color-mix(in srgb,var(--time-accent,var(--accent)) 30%,transparent);border-radius:20px;background:color-mix(in srgb,var(--time-deep,var(--bg)) 75%,transparent);color:color-mix(in srgb,var(--ink) 55%,transparent);font:10px/1.6 Arial,sans-serif;letter-spacing:.06em;text-transform:uppercase;pointer-events:none;opacity:0;transition:opacity .4s ease;backdrop-filter:blur(4px)}
 .site-card[data-card-mode=holo]:hover>.site-card-flip-hint{opacity:1}
 .site-card[data-flipped=true]>.site-card-flip-hint{opacity:0!important;transition:none}

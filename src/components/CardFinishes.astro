@@ -69,12 +69,6 @@ function initCardFinishes() {
       const engraving = document.createElement('div');
       engraving.className = 'site-card-flowers';
       engraving.setAttribute('aria-hidden','true');
-      for (const corner of ['top','bottom']) {
-        const img = document.createElement('img');
-        img.src = `/floral/${flowers[hash % flowers.length]}.svg`;
-        img.alt = '';img.loading = 'lazy';img.width = 130;img.height = 130;img.className = corner;
-        engraving.append(img);
-      }
       card.append(engraving);
     }
     for (const className of ['site-card-foil','site-card-glare']) {
