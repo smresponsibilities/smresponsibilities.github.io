@@ -18,6 +18,7 @@ const finishes = [
 function initCardFinishes() {
   const controller = new AbortController();
   const visible = new Set<HTMLElement>();
+  const idleEffects = new Map<HTMLElement, HTMLElement[]>();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const phone = matchMedia('(pointer: coarse)');
   const homepage = location.pathname === '/';
@@ -71,8 +72,12 @@ function initCardFinishes() {
     frame = 0;
     if (reduced.matches || document.hidden || !visible.size) return;
     if (homepage) for (const card of visible) {
-      if (focused === card || card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
+      if (card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
       const phase = now / 6500 * Math.PI * 2 + Number(card.dataset.flowerIndex);
+      for (const layer of idleEffects.get(card) ?? []) {
+        layer.style.transform = `translate3d(${Math.sin(phase)*10}%, ${Math.cos(phase)*8}%, .01px)`;
+      }
+      if (focused === card) continue;
       const strength = phone.matches ? 6 : 2;
       card.style.transform = `perspective(1200px) rotateX(${Math.sin(phase)*strength}deg) rotateY(${Math.cos(phase)*strength}deg)`;
     }
@@ -116,11 +121,16 @@ function initCardFinishes() {
     for (const className of ['site-card-foil','site-card-glare']) {
       const layer = document.createElement('div');layer.className=className;layer.setAttribute('aria-hidden','true');card.append(layer);
     }
+    if (homepage && card.dataset.cardMode === 'holo') {
+      card.dataset.ambient = 'true';
+      idleEffects.set(card, Array.from(card.querySelectorAll<HTMLElement>('.site-card-foil,.site-card-glare')));
+    }
     observer.observe(card);
     const move = (target: HTMLElement, event: PointerEvent) => {
       if (event.pointerType === 'touch' || card.dataset.cardMode === 'static') return;
       card.dataset.pointerActive = 'true';
       card.style.transform = '';
+      for (const layer of idleEffects.get(card) ?? []) layer.style.transform = '';
       const rect=target.getBoundingClientRect();
       const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
       const y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));

@@ -246,3 +246,7 @@ The project card has separate front and back planes with native 3D backface cull
 The focus dialog fills the viewport and contains a separate centered stage with visible overflow. The stage scales the complete card to fit the viewport with room for Close, and owns the translation/scale entrance. The card owns only its turn. Resize recomputes the fit; closing cancels the stage animation.
 
 Idle tilt writes only the card transform on every animation frame. The old 70ms throttle, repeated CSS transform transitions and idle foil/background repaint updates are removed. Pointer input still drives foil effects. Visible idle cards receive a transform compositing hint. Reduced motion also cancels a running entrance.
+
+### Idle shine on touch screens
+
+Homepage holo cards move oversized foil and glare planes alongside the tilt. This uses layer transforms instead of changing gradient positions. Touch screens receive visible idle foil/glare opacity without hover. The light sweep continues in the focused preview after its turn, while reduced motion stops it. Desktop pointer input takes control of the layers during interaction.

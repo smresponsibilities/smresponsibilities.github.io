@@ -114,3 +114,11 @@
 /* Idle transforms update every display frame; do not restart a CSS transition each time. */
 .site-card[data-in-view=true][data-card-mode=holo]{will-change:transform;transition:none}
 .site-card[data-pointer-active=true]{transition:transform .12s ease-out}
+
+/* Move oversized light planes, keeping mobile shine independent of hover. */
+.site-card[data-ambient=true] .site-card-foil,.site-card[data-ambient=true] .site-card-glare{inset:-20%;will-change:transform}
+@media(hover:none){
+.site-card[data-ambient=true]:not([data-showcase=true]) .site-card-foil{opacity:.38!important}
+.site-card[data-ambient=true] .site-card-glare{opacity:.14!important}
+}
+@media(prefers-reduced-motion:reduce){.site-card[data-ambient=true] .site-card-foil,.site-card[data-ambient=true] .site-card-glare{transform:none!important;will-change:auto}}
