@@ -96,16 +96,21 @@
 .printed-project .printed-footer{padding:14px 6px;min-height:44px}
 }
 
-.card-focus-view{width:min(94vw,760px);max-width:none;max-height:94dvh;padding:48px 16px 20px;border:0;background:transparent;color:var(--ink);overflow:auto;overscroll-behavior:contain}
+.card-focus-view{position:fixed;inset:0;width:100%;height:100%;max-width:none;max-height:none;margin:0;padding:0;border:0;background:transparent;color:var(--ink);overflow:visible;backdrop-filter:none}
 .card-focus-view::backdrop{background:#030612d9}
-.card-focus-view>.site-card{width:100%;max-width:none;margin:0;cursor:pointer}
-.card-focus-close{position:absolute;top:0;right:16px;min-width:64px;min-height:44px;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--bg);color:var(--ink);font:12px "Departure Mono",monospace;cursor:pointer}
+.card-focus-stage{position:absolute;left:50%;top:50%;width:min(88vw,720px);transform:translate(-50%,-50%) scale(var(--focus-scale,1));transform-origin:center;will-change:transform}
+.card-focus-stage>.site-card{width:100%;max-width:none;margin:0;cursor:pointer}
+.card-focus-close{position:absolute;top:16px;right:16px;min-width:64px;min-height:44px;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--bg);color:var(--ink);font:12px "Departure Mono",monospace;cursor:pointer}
 .card-focus-close:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .card-focus-view .printed-features,.card-focus-view .printed-meta{display:block}
 .card-focus-view .printed-details>p.printed-summary{display:block;-webkit-line-clamp:unset;overflow:visible}
 .card-focus-view .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
-@media(max-width:620px){.card-focus-view{width:98vw;padding-inline:12px}.card-focus-view .printed-art{height:220px;min-height:220px}}
+@media(max-width:620px){.card-focus-stage{width:88vw}.card-focus-view .printed-art{height:220px;min-height:220px}}
 @media print{.card-focus-view{display:none}}
 
 .site-card-front>.site-card-flowers,.site-card-front>.site-card-foil,.site-card-front>.site-card-glare{position:absolute;inset:0}
 .site-card-front>.printed-header,.site-card-front>.printed-footer{position:relative;z-index:3}
+
+/* Idle transforms update every display frame; do not restart a CSS transition each time. */
+.site-card[data-in-view=true][data-card-mode=holo]{will-change:transform;transition:none}
+.site-card[data-pointer-active=true]{transition:transform .12s ease-out}

@@ -28,11 +28,20 @@ function initCardFinishes() {
   close.type = 'button';
   close.className = 'card-focus-close';
   close.textContent = 'Close';
-  focusView.append(close);
+  const stage = document.createElement('div');
+  stage.className = 'card-focus-stage';
+  focusView.append(close, stage);
   document.body.append(focusView);
   let focused: HTMLElement | null = null;
   let placeholder: HTMLElement | null = null;
+  let entrance: Animation | null = null;
+  const fit = () => {
+    if (!focused) return;
+    stage.style.setProperty('--focus-scale', String(Math.min(1, (innerHeight - 112) / focused.offsetHeight, (innerWidth - 48) / focused.offsetWidth)));
+  };
+  window.addEventListener('resize', fit, {signal:controller.signal});
   const restore = () => {
+    entrance?.cancel();
     if (!focused || !placeholder) return;
     const card = focused;
     placeholder.replaceWith(card);
@@ -49,11 +58,11 @@ function initCardFinishes() {
   }, {signal:controller.signal});
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     const card = entry.target as HTMLElement;
+    card.dataset.inView = String(entry.isIntersecting);
     if (entry.isIntersecting && card.dataset.cardMode === 'holo') visible.add(card); else visible.delete(card);
     schedule();
   }), { threshold:.08 });
   let frame = 0;
-  let previous = 0;
   function schedule() {
     if (frame || reduced.matches || document.hidden || !visible.size) return;
     frame = requestAnimationFrame(tick);
@@ -61,21 +70,11 @@ function initCardFinishes() {
   function tick(now: number) {
     frame = 0;
     if (reduced.matches || document.hidden || !visible.size) return;
-    if (now - previous >= 70) {
-      previous = now;
-      for (const card of visible) {
-        if (card.dataset.cardMode === 'static' || focused === card || card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
-        const phase = now / 6500 * Math.PI * 2 + Number(card.dataset.flowerIndex);
-        card.style.setProperty('--background-x', `${50 + Math.sin(phase)*6}%`);
-        card.style.setProperty('--background-y', `${50 + Math.cos(phase)*6}%`);
-        if (homepage) {
-          const strength = phone.matches ? 6 : 2;
-          card.style.setProperty('--rx', `${Math.sin(phase)*strength}deg`);
-          card.style.setProperty('--ry', `${Math.cos(phase)*strength}deg`);
-          card.style.setProperty('--pointer-x', `${50 + Math.sin(phase)*18}%`);
-          card.style.setProperty('--pointer-y', `${50 + Math.cos(phase)*14}%`);
-        }
-      }
+    if (homepage) for (const card of visible) {
+      if (focused === card || card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
+      const phase = now / 6500 * Math.PI * 2 + Number(card.dataset.flowerIndex);
+      const strength = phone.matches ? 6 : 2;
+      card.style.transform = `perspective(1200px) rotateX(${Math.sin(phase)*strength}deg) rotateY(${Math.cos(phase)*strength}deg)`;
     }
     schedule();
   }
@@ -121,6 +120,7 @@ function initCardFinishes() {
     const move = (target: HTMLElement, event: PointerEvent) => {
       if (event.pointerType === 'touch' || card.dataset.cardMode === 'static') return;
       card.dataset.pointerActive = 'true';
+      card.style.transform = '';
       const rect=target.getBoundingClientRect();
       const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
       const y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
@@ -170,13 +170,16 @@ function initCardFinishes() {
           placeholder.setAttribute('aria-hidden', 'true');
           card.replaceWith(placeholder);
           focused = card;
-          focusView.append(card);
+          stage.append(card);
+          card.style.transform = '';
+          card.style.setProperty('--rx', '0deg');
+          card.style.setProperty('--ry', '0deg');
           focusView.showModal();
+          fit();
           if (!reduced.matches) {
-            const target = card.getBoundingClientRect();
-            focusView.animate([
-              {transform:`translate(${origin.left + origin.width/2 - target.left - target.width/2}px, ${origin.top + origin.height/2 - target.top - target.height/2}px) scale(${origin.width/target.width})`},
-              {transform:'none'},
+            entrance = stage.animate([
+              {transform:`translate(calc(-50% + ${origin.left + origin.width/2 - innerWidth/2}px), calc(-50% + ${origin.top + origin.height/2 - innerHeight/2}px)) scale(${origin.width/card.offsetWidth})`},
+              {transform:getComputedStyle(stage).transform},
             ], {duration:1600, easing:'cubic-bezier(.16,1,.3,1)'});
           }
         }
@@ -204,7 +207,10 @@ function initCardFinishes() {
   })));
   additions.observe(document.body,{childList:true,subtree:true});
   document.addEventListener('visibilitychange',schedule,{signal:controller.signal});
-  reduced.addEventListener('change',schedule,{signal:controller.signal});
+  reduced.addEventListener('change',()=>{
+    if (reduced.matches) { entrance?.cancel(); focused?.classList.remove('is-flipping'); }
+    schedule();
+  },{signal:controller.signal});
   document.addEventListener('astro:before-swap',()=>{if (focusView.open) focusView.close();restore();focusView.remove();cancelAnimationFrame(frame);observer.disconnect();additions.disconnect();controller.abort();},{once:true});
 }
 initCardFinishes();

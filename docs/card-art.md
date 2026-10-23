@@ -240,3 +240,9 @@ On `/`, activating a project card brings the original card into a native modal p
 Visible homepage holo cards gently tilt at rest, on a 6.5-second cycle, with 6-degree amplitude on coarse pointers and 2 degrees on desktop. Idle motion runs without hover, pauses during active pointer interaction and card preview, and stops when offscreen, hidden or reduced motion is requested. The existing single animation loop owns both foil drift and tilt. Reduced motion still opens the preview without movement.
 
 The project card has separate front and back planes with native 3D backface culling, following the structure in [the original Pokémon Cards CSS component](https://github.com/simeydotme/pokemon-cards-css/blob/main/src/lib/components/Card.svelte). A 1.6-second turn settles at the front while the preview moves to the center. Timed visibility swapping has been removed. Front content and decorative layers share one clipped face; the rotating card itself preserves 3D.
+
+### Clipping and frame pacing correction
+
+The focus dialog fills the viewport and contains a separate centered stage with visible overflow. The stage scales the complete card to fit the viewport with room for Close, and owns the translation/scale entrance. The card owns only its turn. Resize recomputes the fit; closing cancels the stage animation.
+
+Idle tilt writes only the card transform on every animation frame. The old 70ms throttle, repeated CSS transform transitions and idle foil/background repaint updates are removed. Pointer input still drives foil effects. Visible idle cards receive a transform compositing hint. Reduced motion also cancels a running entrance.
