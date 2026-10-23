@@ -1,15 +1,15 @@
-# Handoff — 2026-10-22, after flower refinement
+# Handoff — 2026-10-24, after ticket 08
 
 ## State
-Resolved: Flower silhouette refinement, alongside prior card rollout/flip work.
-Frontier: User review.
+Resolved: timeline-refresh 01–08
+Frontier: User review of the ASCII flower lab.
 In flight: None.
 
 ## Last session
-Refined generated flower silhouettes and contained engraving within petal outlines. See `.scratch/timeline-refresh/issues/07-flower-silhouette-refinement.md`. Canonical generator and replication guide updated; scratch lab SVGs synchronized. All 21 SVGs parse and generator output is deterministic. Card layout/effect behavior unchanged. Push authorized.
+See `.scratch/timeline-refresh/issues/08-tap-cards-and-ascii-flower.md` for the card disclosure correction and local flower study. Production flowers remain unchanged. User authorized push.
 
 ## Not yet written down
-None. `docs/card-art.md` records geometry changes.
+None.
 
 ## Next
-Review flower gallery and site ornaments after deployment.
+Review `.scratch/timeline-refresh/flower-lab.html` before replacing production ornaments.

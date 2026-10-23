@@ -226,3 +226,9 @@ Common regressions:
 - [Pentagram, Just Type](https://www.pentagram.com/work/just-type-playing-cards-2/story): typographic identity and geometric restraint.
 - [Ye Olde Studio, High Victorian](https://yeoldestudio.co.uk/HighVictorian.html): detailed linework and coherent ornament.
 - [Theory11, National](https://store.theory11.com/collections/playingcards/products/national-playing-cards): reference for distinct foil and embossed material treatments.
+
+## Current project-card interaction
+
+Project cards start on the logo back with a native “Tap to expand” button. Activation reveals the full front inline, including mobile descriptions, feature rows and all project links. “Close card” or tapping a non-interactive area restores the back. Keyboard focus moves between the two controls. Collapsed content is inert and hidden; without JavaScript the full front remains available. Printing exposes the front. This replaces the earlier inspection dialog and 3D flip behavior, including under reduced motion.
+
+The experimental ASCII chrysanthemum is separate at `.scratch/timeline-refresh/flower-lab.html`. It uses original text geometry inspired by the supplied ASCII Magic Art and ASCII Sharks references, without copying artwork or adding dependencies. Existing production SVG flowers remain unchanged.
