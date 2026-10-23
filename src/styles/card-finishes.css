@@ -44,7 +44,7 @@
 .site-card[data-card-mode=static]:not(.is-flipping){transform:none!important}.site-card[data-card-mode=static] .site-card-foil{opacity:.055!important}.site-card[data-card-mode=static] .site-card-glare{display:none}.site-card.chapter-card::before,.site-card.chapter-card::after{content:none!important;animation:none!important}.site-card.chapter-card .chapter-flowers{z-index:0}.site-card .chapter-copy{z-index:3}.site-card:not(.chapter-card){padding:30px 28px!important}.site-card a{position:relative;z-index:4;text-underline-offset:4px}.site-card:focus-within{outline:2px solid var(--time-accent,var(--focus));outline-offset:3px}
 @media(max-width:620px){.site-card:not(.chapter-card){padding:28px 22px!important}.site-card-flowers img{width:105px;height:105px}}
 @media(prefers-reduced-motion:reduce){.site-card{transform:none!important;transition:none!important}.site-card .site-card-foil,.site-card .site-card-glare{transition:none!important}}
-@media(hover:none){.site-card:not(.is-flipping){transform:none!important}}
+
 @media print{.site-card{background:white!important;color:black;border-color:#aaa!important;box-shadow:none;transform:none!important;break-inside:avoid}.site-card-foil,.site-card-glare,.site-card-flowers{display:none!important}}
 /* Four content treatments: static engraving, neutral interactive engraving, floral holo, untouched utility. */
 .site-card[data-card-mode=static] .site-card-foil,.site-card[data-card-mode=interactive] .site-card-foil{display:none!important}
@@ -60,7 +60,7 @@
 .site-card[data-card-mode=holo] .site-card-flowers::after{opacity:.42}
 @media print{.site-card-flowers{display:none!important}}
 /* Front at rest; one complete turn pauses briefly on the back. */
-.site-card[data-flippable=true]{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='9' y='5' width='15' height='22' rx='2' fill='%230d112b' stroke='%23e3c4a7' stroke-width='2'/%3E%3Cpath d='M5 16a11 11 0 0 1 21-3M26 7v6h-6M27 18A11 11 0 0 1 6 21M6 27v-6h6' fill='none' stroke='%23e3c4a7' stroke-width='2'/%3E%3C/svg%3E") 16 16,pointer}
+.site-card[data-flippable=true]{cursor:zoom-in}
 .site-card[data-flippable=true]:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
 .site-card>.site-card-back{position:absolute;inset:0;z-index:10;visibility:hidden;transform:rotateY(180deg);border-radius:inherit;background:#29252a url('/card-finishes/sm-identity-pattern.svg') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:20px;padding:28px;color:#e3c4a7;pointer-events:none;box-shadow:inset 0 0 0 12px #29252a,inset 0 0 0 13px #d2b49360,inset 0 0 0 17px #29252a,inset 0 0 0 18px #d2b49320}
 .site-card>.site-card-back>span{font:12px/1.7 "Departure Mono",monospace;letter-spacing:.08em;text-align:center}
@@ -98,3 +98,14 @@
 .printed-project .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
 .printed-project .printed-footer{padding:14px 6px;min-height:44px}
 }
+
+.card-focus-view{width:min(94vw,760px);max-width:none;max-height:94dvh;padding:48px 16px 20px;border:0;background:transparent;color:var(--ink);overflow:auto;overscroll-behavior:contain}
+.card-focus-view::backdrop{background:#030612d9}
+.card-focus-view>.site-card{width:100%;max-width:none;margin:0;cursor:zoom-out}
+.card-focus-close{position:absolute;top:0;right:16px;min-width:64px;min-height:44px;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--bg);color:var(--ink);font:12px "Departure Mono",monospace;cursor:pointer}
+.card-focus-close:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
+.card-focus-view .printed-features,.card-focus-view .printed-meta{display:block}
+.card-focus-view .printed-details>p.printed-summary{display:block;-webkit-line-clamp:unset;overflow:visible}
+.card-focus-view .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
+@media(max-width:620px){.card-focus-view{width:98vw;padding-inline:12px}.card-focus-view .printed-art{height:220px;min-height:220px}}
+@media print{.card-focus-view{display:none}}

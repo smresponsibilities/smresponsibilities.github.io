@@ -19,6 +19,34 @@ function initCardFinishes() {
   const controller = new AbortController();
   const visible = new Set<HTMLElement>();
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const phone = matchMedia('(pointer: coarse)');
+  const homepage = location.pathname === '/';
+  const focusView = document.createElement('dialog');
+  focusView.className = 'card-focus-view';
+  focusView.setAttribute('aria-label', 'Project card preview');
+  const close = document.createElement('button');
+  close.type = 'button';
+  close.className = 'card-focus-close';
+  close.textContent = 'Close';
+  focusView.append(close);
+  document.body.append(focusView);
+  let focused: HTMLElement | null = null;
+  let placeholder: HTMLElement | null = null;
+  const restore = () => {
+    if (!focused || !placeholder) return;
+    const card = focused;
+    placeholder.replaceWith(card);
+    card.classList.remove('is-flipping');
+    focused = null;
+    placeholder = null;
+    card.focus({preventScroll:true});
+    schedule();
+  };
+  close.addEventListener('click', () => focusView.close(), {signal:controller.signal});
+  focusView.addEventListener('close', restore, {signal:controller.signal});
+  focusView.addEventListener('click', event => {
+    if (event.target === focusView) focusView.close();
+  }, {signal:controller.signal});
   const observer = new IntersectionObserver(entries => entries.forEach(entry => {
     const card = entry.target as HTMLElement;
     if (entry.isIntersecting && card.dataset.cardMode === 'holo') visible.add(card); else visible.delete(card);
@@ -36,10 +64,17 @@ function initCardFinishes() {
     if (now - previous >= 70) {
       previous = now;
       for (const card of visible) {
-        if (card.dataset.cardMode === 'static' || card.matches(':hover, :focus-within')) continue;
+        if (card.dataset.cardMode === 'static' || focused === card || card.classList.contains('is-flipping') || (!phone.matches && card.matches(':hover, :focus-within'))) continue;
         const phase = now / 18000 * Math.PI * 2 + Number(card.dataset.flowerIndex);
         card.style.setProperty('--background-x', `${50 + Math.sin(phase)*6}%`);
         card.style.setProperty('--background-y', `${50 + Math.cos(phase)*6}%`);
+        if (homepage) {
+          const strength = phone.matches ? 3 : .8;
+          card.style.setProperty('--rx', `${Math.sin(phase)*strength}deg`);
+          card.style.setProperty('--ry', `${Math.cos(phase)*strength}deg`);
+          card.style.setProperty('--pointer-x', `${50 + Math.sin(phase)*18}%`);
+          card.style.setProperty('--pointer-y', `${50 + Math.cos(phase)*14}%`);
+        }
       }
     }
     schedule();
@@ -121,11 +156,28 @@ function initCardFinishes() {
       const title = card.querySelector('h3,h2')?.textContent?.trim() || 'project';
       card.setAttribute('aria-label', `${title}. Press Enter or Space to flip card.`);
       const flip = () => {
-        if (reduced.matches || card.classList.contains('is-flipping')) return;
-        card.classList.add('is-flipping');
+        if (focused === card) { focusView.close(); return; }
+        if (homepage) {
+          const origin = card.getBoundingClientRect();
+          placeholder = document.createElement('div');
+          placeholder.style.height = `${origin.height}px`;
+          placeholder.setAttribute('aria-hidden', 'true');
+          card.replaceWith(placeholder);
+          focused = card;
+          focusView.append(card);
+          focusView.showModal();
+          if (!reduced.matches) {
+            const target = card.getBoundingClientRect();
+            focusView.animate([
+              {transform:`translate(${origin.left + origin.width/2 - target.left - target.width/2}px, ${origin.top + origin.height/2 - target.top - target.height/2}px) scale(${origin.width/target.width})`},
+              {transform:'none'},
+            ], {duration:320, easing:'cubic-bezier(.16,1,.3,1)'});
+          }
+        }
+        if (!reduced.matches) card.classList.add('is-flipping');
       };
       card.addEventListener('animationend', event => {
-        if (event.target === card) card.classList.remove('is-flipping');
+        if (event.target === card && event.animationName === 'card-turn') card.classList.remove('is-flipping');
       }, {signal:controller.signal});
       card.addEventListener('keydown', event => {
         if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
@@ -147,7 +199,7 @@ function initCardFinishes() {
   additions.observe(document.body,{childList:true,subtree:true});
   document.addEventListener('visibilitychange',schedule,{signal:controller.signal});
   reduced.addEventListener('change',schedule,{signal:controller.signal});
-  document.addEventListener('astro:before-swap',()=>{cancelAnimationFrame(frame);observer.disconnect();additions.disconnect();controller.abort();},{once:true});
+  document.addEventListener('astro:before-swap',()=>{if (focusView.open) focusView.close();restore();focusView.remove();cancelAnimationFrame(frame);observer.disconnect();additions.disconnect();controller.abort();},{once:true});
 }
 initCardFinishes();
 document.addEventListener('astro:page-load',()=>{

@@ -232,3 +232,9 @@ Common regressions:
 The front is always the resting face. Clicking or tapping a non-interactive part of a project card performs one full turn, pauses briefly on the logo back, then returns to the front. Enter or Space does the same when the card itself has focus. Links retain their normal actions. A card-and-turn-arrow cursor identifies the interaction on desktop. No Inspect, Expand or Close controls are added. Reduced motion keeps the front still.
 
 On phones the artwork sits above the description inside the same trading-card frame. Existing foil recipes remain in use. The experimental ASCII flower stays local under `.scratch/timeline-refresh/flower-lab.html`; production flowers are unchanged.
+
+### Homepage focus and idle motion
+
+On `/`, activating a project card brings the original card into a native modal preview, dims the page and plays the existing full turn. Clicking the preview card again, Close, the backdrop or Escape restores its original position and focus. All descriptions and links remain available. The native zoom cursor replaces the custom cursor artwork.
+
+Visible homepage holo cards gently tilt at rest, with 3-degree amplitude on coarse pointers and 0.8 degrees on desktop. Idle motion pauses during pointer/keyboard interaction and card preview, and stops when offscreen, hidden or reduced motion is requested. The existing single animation loop owns both foil drift and tilt. Reduced motion still opens the preview without movement.
