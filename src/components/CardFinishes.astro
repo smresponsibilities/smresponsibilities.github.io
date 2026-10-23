@@ -64,12 +64,12 @@ function initCardFinishes() {
     if (now - previous >= 70) {
       previous = now;
       for (const card of visible) {
-        if (card.dataset.cardMode === 'static' || focused === card || card.classList.contains('is-flipping') || (!phone.matches && card.matches(':hover, :focus-within'))) continue;
-        const phase = now / 18000 * Math.PI * 2 + Number(card.dataset.flowerIndex);
+        if (card.dataset.cardMode === 'static' || focused === card || card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
+        const phase = now / 6500 * Math.PI * 2 + Number(card.dataset.flowerIndex);
         card.style.setProperty('--background-x', `${50 + Math.sin(phase)*6}%`);
         card.style.setProperty('--background-y', `${50 + Math.cos(phase)*6}%`);
         if (homepage) {
-          const strength = phone.matches ? 3 : .8;
+          const strength = phone.matches ? 6 : 2;
           card.style.setProperty('--rx', `${Math.sin(phase)*strength}deg`);
           card.style.setProperty('--ry', `${Math.cos(phase)*strength}deg`);
           card.style.setProperty('--pointer-x', `${50 + Math.sin(phase)*18}%`);
@@ -120,6 +120,7 @@ function initCardFinishes() {
     observer.observe(card);
     const move = (target: HTMLElement, event: PointerEvent) => {
       if (event.pointerType === 'touch' || card.dataset.cardMode === 'static') return;
+      card.dataset.pointerActive = 'true';
       const rect=target.getBoundingClientRect();
       const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
       const y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
@@ -128,11 +129,16 @@ function initCardFinishes() {
       if (!reduced.matches) {target.style.setProperty('--rx',`${(.5-y)*3}deg`);target.style.setProperty('--ry',`${(x-.5)*4}deg`);}
     };
     card.addEventListener('pointermove', event => move(card,event), {signal:controller.signal});
-    card.addEventListener('pointerleave',()=>{card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
+    card.addEventListener('pointerleave',()=>{delete card.dataset.pointerActive;card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
 
     // Only project cards get a back face + flip behaviour
     if (card.matches(flipSelector)) {
-      // Inject back face
+      const front = document.createElement('div');
+      front.className = 'site-card-front';
+      front.append(...Array.from(card.childNodes));
+      card.append(front);
+
+      // Front and back are separate planes, matching the upstream card structure.
       const back = document.createElement('div');
       back.className = 'site-card-back';
       back.setAttribute('aria-hidden', 'true');
@@ -171,7 +177,7 @@ function initCardFinishes() {
             focusView.animate([
               {transform:`translate(${origin.left + origin.width/2 - target.left - target.width/2}px, ${origin.top + origin.height/2 - target.top - target.height/2}px) scale(${origin.width/target.width})`},
               {transform:'none'},
-            ], {duration:320, easing:'cubic-bezier(.16,1,.3,1)'});
+            ], {duration:1600, easing:'cubic-bezier(.16,1,.3,1)'});
           }
         }
         if (!reduced.matches) card.classList.add('is-flipping');

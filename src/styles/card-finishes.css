@@ -60,17 +60,14 @@
 .site-card[data-card-mode=holo] .site-card-flowers::after{opacity:.42}
 @media print{.site-card-flowers{display:none!important}}
 /* Front at rest; one complete turn pauses briefly on the back. */
-.site-card[data-flippable=true]{cursor:zoom-in}
+.site-card[data-flippable=true]{cursor:pointer;overflow:visible;isolation:auto;transform-style:preserve-3d}
+.site-card>.site-card-front{position:relative;min-width:0;border-radius:inherit;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:translateZ(1px)}
 .site-card[data-flippable=true]:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
-.site-card>.site-card-back{position:absolute;inset:0;z-index:10;visibility:hidden;transform:rotateY(180deg);border-radius:inherit;background:#29252a url('/card-finishes/sm-identity-pattern.svg') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:20px;padding:28px;color:#e3c4a7;pointer-events:none;box-shadow:inset 0 0 0 12px #29252a,inset 0 0 0 13px #d2b49360,inset 0 0 0 17px #29252a,inset 0 0 0 18px #d2b49320}
+.site-card>.site-card-back{position:absolute;inset:0;z-index:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;transform:rotateY(180deg) translateZ(1px);border-radius:inherit;background:#29252a url('/card-finishes/sm-identity-pattern.svg') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:20px;padding:28px;color:#e3c4a7;pointer-events:none;box-shadow:inset 0 0 0 12px #29252a,inset 0 0 0 13px #d2b49360,inset 0 0 0 17px #29252a,inset 0 0 0 18px #d2b49320}
 .site-card>.site-card-back>span{font:12px/1.7 "Departure Mono",monospace;letter-spacing:.08em;text-align:center}
 .card-back-seal{width:120px;height:120px;display:grid;place-items:center;border:1px solid #d6b29980;border-radius:12px;background:#242329}
-.site-card.is-flipping{animation:card-turn 1.4s ease-in-out!important}
-.site-card.is-flipping>:not(.site-card-back){animation:card-front 1.4s steps(1,end)}
-.site-card.is-flipping>.site-card-back{animation:card-back 1.4s steps(1,end)}
-@keyframes card-turn{0%{transform:perspective(1200px) rotateY(0deg)}40%,60%{transform:perspective(1200px) rotateY(180deg)}100%{transform:perspective(1200px) rotateY(360deg)}}
-@keyframes card-front{0%,76%{visibility:visible}24%{visibility:hidden}}
-@keyframes card-back{0%,76%{visibility:hidden}24%{visibility:visible}}
+.site-card.is-flipping{animation:card-turn 1.6s cubic-bezier(.22,.68,.3,1)!important}
+@keyframes card-turn{0%{transform:perspective(1200px) rotateY(0deg)}80%{transform:perspective(1200px) rotateY(365deg)}92%{transform:perspective(1200px) rotateY(359deg)}100%{transform:perspective(1200px) rotateY(360deg)}}
 @media(prefers-reduced-motion:reduce){.site-card.is-flipping,.site-card.is-flipping>*{animation:none!important}}
 @media print{.site-card>.site-card-back{display:none}}
 @media(max-width:620px){
@@ -101,7 +98,7 @@
 
 .card-focus-view{width:min(94vw,760px);max-width:none;max-height:94dvh;padding:48px 16px 20px;border:0;background:transparent;color:var(--ink);overflow:auto;overscroll-behavior:contain}
 .card-focus-view::backdrop{background:#030612d9}
-.card-focus-view>.site-card{width:100%;max-width:none;margin:0;cursor:zoom-out}
+.card-focus-view>.site-card{width:100%;max-width:none;margin:0;cursor:pointer}
 .card-focus-close{position:absolute;top:0;right:16px;min-width:64px;min-height:44px;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--bg);color:var(--ink);font:12px "Departure Mono",monospace;cursor:pointer}
 .card-focus-close:focus-visible{outline:2px solid var(--focus);outline-offset:3px}
 .card-focus-view .printed-features,.card-focus-view .printed-meta{display:block}
@@ -109,3 +106,6 @@
 .card-focus-view .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
 @media(max-width:620px){.card-focus-view{width:98vw;padding-inline:12px}.card-focus-view .printed-art{height:220px;min-height:220px}}
 @media print{.card-focus-view{display:none}}
+
+.site-card-front>.site-card-flowers,.site-card-front>.site-card-foil,.site-card-front>.site-card-glare{position:absolute;inset:0}
+.site-card-front>.printed-header,.site-card-front>.printed-footer{position:relative;z-index:3}
