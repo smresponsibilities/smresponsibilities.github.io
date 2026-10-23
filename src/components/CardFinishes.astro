@@ -98,10 +98,10 @@ function initCardFinishes() {
     // Only project cards get a back face + flip behaviour
     if (card.matches(flipSelector)) {
       // Inject back face
-      const back = document.createElement('button');
-      back.type = 'button';
+      const back = document.createElement('div');
       back.className = 'site-card-back';
-      back.setAttribute('aria-expanded', 'false');
+      back.setAttribute('aria-hidden', 'true');
+      back.inert = true;
       const label = document.createElement('span');
       label.textContent = "SM'S DEX";
       const seal = document.createElement('div');
@@ -111,39 +111,30 @@ function initCardFinishes() {
       mark.alt = '';mark.width = 90;mark.height = 90;
       seal.append(mark);
       const signature = document.createElement('span');
-      signature.textContent = 'Tap to expand';
+      signature.textContent = 'DESIGNED & BUILT BY SHIVAM MAHAJAN';
       back.append(label, seal, signature);
       card.append(back);
 
-      // Flip hint
-      const hint = document.createElement('button');
-      hint.type = 'button';
-      hint.className = 'site-card-flip-hint';
-      hint.textContent = 'Close card';
-      card.append(hint);
-
-      // Mark as flippable for CSS cursor
       card.dataset.flippable = 'true';
-
-      const front = Array.from(card.children).filter((child): child is HTMLElement => child instanceof HTMLElement && child !== back && child !== hint);
+      card.tabIndex = 0;
+      card.setAttribute('role', 'group');
       const title = card.querySelector('h3,h2')?.textContent?.trim() || 'project';
-      back.setAttribute('aria-label', `Expand ${title}`);
-      hint.setAttribute('aria-label', `Close ${title}`);
-      const expand = (expanded: boolean) => {
-        card.dataset.expanded = String(expanded);
-        back.hidden = expanded;
-        hint.hidden = !expanded;
-        back.setAttribute('aria-expanded', String(expanded));
-        for (const child of front) child.inert = !expanded;
+      card.setAttribute('aria-label', `${title}. Press Enter or Space to flip card.`);
+      const flip = () => {
+        if (reduced.matches || card.classList.contains('is-flipping')) return;
+        card.classList.add('is-flipping');
       };
-      expand(false);
-      back.addEventListener('click', () => { expand(true); hint.focus({preventScroll:true}); }, {signal:controller.signal});
-      hint.addEventListener('click', () => { expand(false); back.focus({preventScroll:true}); }, {signal:controller.signal});
-      card.addEventListener('click', event => {
-        if (event.target instanceof Element && !event.target.closest('a,button,input,select,textarea,summary') && !getSelection()?.toString()) {
-          expand(false);
-          back.focus({preventScroll:true});
+      card.addEventListener('animationend', event => {
+        if (event.target === card) card.classList.remove('is-flipping');
+      }, {signal:controller.signal});
+      card.addEventListener('keydown', event => {
+        if (event.target === card && (event.key === 'Enter' || event.key === ' ')) {
+          event.preventDefault();
+          flip();
         }
+      }, {signal:controller.signal});
+      card.addEventListener('click', event => {
+        if (event.target instanceof Element && !event.target.closest('a,button,input,select,textarea,summary') && !getSelection()?.toString()) flip();
       }, {signal:controller.signal});
     }
   }

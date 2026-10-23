@@ -41,10 +41,10 @@
 .site-card .site-card-foil,.site-card .site-card-glare{position:absolute;inset:0;z-index:1;pointer-events:none;border-radius:inherit;mask:none!important;-webkit-mask:none!important;backface-visibility:hidden;transform:translateZ(.01px)}
 .site-card .site-card-foil{display:grid;overflow:hidden;opacity:.19!important;background:transparent;mix-blend-mode:color-dodge;filter:brightness(.85) contrast(2.75) saturate(.65);transition:opacity .4s ease}.site-card .site-card-foil::before,.site-card .site-card-foil::after{content:"";grid-area:1/1;inset:0;border-radius:inherit;mask:none!important;-webkit-mask:none!important}.site-card .site-card-glare{z-index:2;opacity:.048!important;background:radial-gradient(ellipse at var(--pointer-x) var(--pointer-y),#fff7,transparent 65%);mix-blend-mode:soft-light;transition:opacity .4s ease}
 .site-card[data-card-mode=holo]:hover .site-card-foil,.site-card[data-card-mode=holo]:focus-within .site-card-foil{opacity:.35!important}.site-card[data-card-mode=holo]:hover .site-card-glare,.site-card[data-card-mode=holo]:focus-within .site-card-glare{opacity:.0875!important}
-.site-card[data-card-mode=static]{transform:none!important}.site-card[data-card-mode=static] .site-card-foil{opacity:.055!important}.site-card[data-card-mode=static] .site-card-glare{display:none}.site-card.chapter-card::before,.site-card.chapter-card::after{content:none!important;animation:none!important}.site-card.chapter-card .chapter-flowers{z-index:0}.site-card .chapter-copy{z-index:3}.site-card:not(.chapter-card){padding:30px 28px!important}.site-card a{position:relative;z-index:4;text-underline-offset:4px}.site-card:focus-within{outline:2px solid var(--time-accent,var(--focus));outline-offset:3px}
+.site-card[data-card-mode=static]:not(.is-flipping){transform:none!important}.site-card[data-card-mode=static] .site-card-foil{opacity:.055!important}.site-card[data-card-mode=static] .site-card-glare{display:none}.site-card.chapter-card::before,.site-card.chapter-card::after{content:none!important;animation:none!important}.site-card.chapter-card .chapter-flowers{z-index:0}.site-card .chapter-copy{z-index:3}.site-card:not(.chapter-card){padding:30px 28px!important}.site-card a{position:relative;z-index:4;text-underline-offset:4px}.site-card:focus-within{outline:2px solid var(--time-accent,var(--focus));outline-offset:3px}
 @media(max-width:620px){.site-card:not(.chapter-card){padding:28px 22px!important}.site-card-flowers img{width:105px;height:105px}}
 @media(prefers-reduced-motion:reduce){.site-card{transform:none!important;transition:none!important}.site-card .site-card-foil,.site-card .site-card-glare{transition:none!important}}
-@media(hover:none){.site-card{transform:none!important}}
+@media(hover:none){.site-card:not(.is-flipping){transform:none!important}}
 @media print{.site-card{background:white!important;color:black;border-color:#aaa!important;box-shadow:none;transform:none!important;break-inside:avoid}.site-card-foil,.site-card-glare,.site-card-flowers{display:none!important}}
 /* Four content treatments: static engraving, neutral interactive engraving, floral holo, untouched utility. */
 .site-card[data-card-mode=static] .site-card-foil,.site-card[data-card-mode=interactive] .site-card-foil{display:none!important}
@@ -59,21 +59,20 @@
 .site-card[data-card-mode=holo] .site-card-flowers::before,
 .site-card[data-card-mode=holo] .site-card-flowers::after{opacity:.42}
 @media print{.site-card-flowers{display:none!important}}
-/* Native buttons keep the back and full front usable with touch and keyboards. */
-.site-card[data-flippable=true]{cursor:pointer}
-.site-card[data-expanded=false]{height:300px!important;min-height:0!important;transform:none!important}
-.site-card[data-expanded=false]>:not(.site-card-back){visibility:hidden}
-.site-card>.site-card-back{position:absolute;inset:0;z-index:10;width:100%;border:0;border-radius:inherit;background:#29252a url('/card-finishes/sm-identity-pattern.svg') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:20px;padding:28px;color:#e3c4a7;cursor:pointer;box-shadow:inset 0 0 0 12px #29252a,inset 0 0 0 13px #d2b49360,inset 0 0 0 17px #29252a,inset 0 0 0 18px #d2b49320}
+/* Front at rest; one complete turn pauses briefly on the back. */
+.site-card[data-flippable=true]{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Crect x='9' y='5' width='15' height='22' rx='2' fill='%230d112b' stroke='%23e3c4a7' stroke-width='2'/%3E%3Cpath d='M5 16a11 11 0 0 1 21-3M26 7v6h-6M27 18A11 11 0 0 1 6 21M6 27v-6h6' fill='none' stroke='%23e3c4a7' stroke-width='2'/%3E%3C/svg%3E") 16 16,pointer}
+.site-card[data-flippable=true]:focus-visible{outline:2px solid var(--focus);outline-offset:4px}
+.site-card>.site-card-back{position:absolute;inset:0;z-index:10;visibility:hidden;transform:rotateY(180deg);border-radius:inherit;background:#29252a url('/card-finishes/sm-identity-pattern.svg') center/cover;display:flex;flex-direction:column;align-items:center;justify-content:space-between;gap:20px;padding:28px;color:#e3c4a7;pointer-events:none;box-shadow:inset 0 0 0 12px #29252a,inset 0 0 0 13px #d2b49360,inset 0 0 0 17px #29252a,inset 0 0 0 18px #d2b49320}
 .site-card>.site-card-back>span{font:12px/1.7 "Departure Mono",monospace;letter-spacing:.08em;text-align:center}
 .card-back-seal{width:120px;height:120px;display:grid;place-items:center;border:1px solid #d6b29980;border-radius:12px;background:#242329}
-.site-card>.site-card-flip-hint{display:block;position:relative;z-index:5;margin:12px 0 0 auto;padding:10px 14px;min-height:44px;border:1px solid currentColor;border-radius:4px;background:var(--time-deep,var(--bg));color:var(--ink);font:12px/1.6 "Departure Mono",monospace;cursor:pointer}
-.site-card>.site-card-back[hidden],.site-card>.site-card-flip-hint[hidden]{display:none}
-.site-card button:focus-visible{outline:2px solid var(--focus);outline-offset:-5px}
-.site-card[data-expanded=true] .printed-features,.site-card[data-expanded=true] .printed-meta{display:block}
-.site-card[data-expanded=true] .printed-details>p.printed-summary{display:block;-webkit-line-clamp:unset;overflow:visible}
-.site-card[data-expanded=true] .printed-details>p:last-child:not(.printed-summary){font-size:inherit!important}
-.site-card[data-expanded=true] .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
-@media print{.site-card[data-expanded=false]{height:auto!important}.site-card[data-expanded=false]>:not(.site-card-back){visibility:visible}.site-card>.site-card-back,.site-card>.site-card-flip-hint{display:none}}
+.site-card.is-flipping{animation:card-turn 1.4s ease-in-out!important}
+.site-card.is-flipping>:not(.site-card-back){animation:card-front 1.4s steps(1,end)}
+.site-card.is-flipping>.site-card-back{animation:card-back 1.4s steps(1,end)}
+@keyframes card-turn{0%{transform:perspective(1200px) rotateY(0deg)}40%,60%{transform:perspective(1200px) rotateY(180deg)}100%{transform:perspective(1200px) rotateY(360deg)}}
+@keyframes card-front{0%,76%{visibility:visible}24%{visibility:hidden}}
+@keyframes card-back{0%,76%{visibility:hidden}24%{visibility:visible}}
+@media(prefers-reduced-motion:reduce){.site-card.is-flipping,.site-card.is-flipping>*{animation:none!important}}
+@media print{.site-card>.site-card-back{display:none}}
 @media(max-width:620px){
 .printed-project .printed-features{display:none}
 .printed-project .printed-meta{display:none}
@@ -86,3 +85,16 @@
 }
 .printed-project .printed-details>p:last-child a{margin-right:6px}
 @media(max-width:620px){.printed-project .printed-body{min-height:190px}.printed-project .printed-art{padding-top:20px;padding-bottom:26px}.printed-project .printed-phone{height:155px}.printed-project .printed-phone-screen{height:125px}.printed-project .printed-call-icon{margin-top:12px}.printed-project .printed-answer{margin-top:12px}.printed-project .printed-details>p.printed-summary{-webkit-line-clamp:2}.printed-project .printed-details>p:last-child:not(.printed-summary){font-size:0!important}.printed-project .printed-details>p:last-child a{display:inline-block;line-height:1.5!important}.printed-project .printed-paper{padding-top:14px;padding-bottom:14px}}
+
+/* Phone cards keep the familiar artwork-above-description trading-card shape. */
+@media(max-width:620px){
+.printed-project.site-card{width:100%;max-width:390px;margin-inline:auto}
+.printed-project .printed-body{grid-template-columns:minmax(0,1fr);min-height:0}
+.printed-project .printed-art{height:190px;min-height:190px;padding:12px 20px}
+.printed-project .printed-phone{transform:rotate(-8deg);height:155px;width:92px}
+.printed-project .printed-console{max-width:230px;padding:12px;gap:8px}
+.printed-project .printed-paper{padding:18px}
+.printed-project .printed-details>p:last-child:not(.printed-summary){font-size:12px!important}
+.printed-project .printed-details>p:last-child a:nth-of-type(n+3){display:inline-block}
+.printed-project .printed-footer{padding:14px 6px;min-height:44px}
+}
