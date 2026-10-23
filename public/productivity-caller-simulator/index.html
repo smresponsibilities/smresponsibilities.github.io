@@ -793,6 +793,8 @@ footer {
 }
 footer a { color: var(--green); text-decoration: none; font-weight: 600; }
 footer a:hover { text-decoration: underline; }
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+html[data-paused] *,html[data-paused] *::before,html[data-paused] *::after{animation-play-state:paused!important}
 </style>
 </head>
 <body>
@@ -1051,7 +1053,11 @@ footer a:hover { text-decoration: underline; }
     {g:"org", l:"Deep organization"}
   ];
 
-  var cur = "pc", timers = [], attempts = 0, t0 = 0, active = {}, catTaps = 0, speechTimer, poseTimer;
+  var cur = "pc", timers = [], attempts = 0, t0 = 0, active = {}, catTaps = 0, speechTimer, poseTimer, blinkTimer;
+  document.addEventListener('visibilitychange', function() {
+    document.documentElement.toggleAttribute('data-paused', document.hidden);
+  });
+  document.documentElement.toggleAttribute('data-paused', document.hidden);
   var $ = function(id) { return document.getElementById(id); };
 
   /* Robust Asset URL Fallback for Remote / Standalone Pages */
@@ -1099,6 +1105,7 @@ footer a:hover { text-decoration: underline; }
   }
 
   function reset() {
+    clearInterval(blinkTimer);
     clr();
     attempts = 0;
     $("log").textContent = "";
@@ -1208,7 +1215,9 @@ footer a:hover { text-decoration: underline; }
     ]);
 
     // Natural blinks periodically
-    setInterval(function() {
+    clearInterval(blinkTimer);
+    blinkTimer = setInterval(function() {
+      if (document.hidden || matchMedia('(prefers-reduced-motion:reduce)').matches) return;
       if (!$("afterCallScreen").classList.contains("show")) return;
       var sprite = $("catSprite");
       if (sprite && !sprite.classList.contains("ack") && !sprite.classList.contains("look")) {

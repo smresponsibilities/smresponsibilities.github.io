@@ -117,6 +117,8 @@
 
 /* Move oversized light planes, keeping mobile shine independent of hover. */
 .site-card[data-ambient=true] .site-card-foil,.site-card[data-ambient=true] .site-card-glare{inset:-20%;will-change:transform}
+.site-card[data-in-view=false] .site-card-foil,.site-card[data-in-view=false] .site-card-glare{will-change:auto}
+html[data-motion-paused] *,html[data-motion-paused] *::before,html[data-motion-paused] *::after{animation-play-state:paused!important}
 @media(hover:none){
 .site-card[data-ambient=true]:not([data-showcase=true]) .site-card-foil{opacity:.38!important}
 .site-card[data-ambient=true] .site-card-glare{opacity:.14!important}

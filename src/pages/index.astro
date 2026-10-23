@@ -4,6 +4,7 @@ import PokemonCarouselTimeline from '../components/PokemonCarouselTimeline.astro
 import Base from '../layouts/Base.astro';
 import FormDropdown from '../components/FormDropdown.astro';
 import roster from '../data/roster.json';
+import '../../public/generation-device/style.css';
 
 const types = ['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
 const loaderFacts = [
@@ -104,13 +105,11 @@ const projects = [
 
 <Base title="Shivam Mahajan — Software Developer" description={description} structuredData={structuredData} accentTypes={['dragon', 'steel']}>
   <Fragment slot="head">
-    <link rel="preload" href="/generation-device/style.css?v=83.0" as="style" onload="this.onload=null;this.rel='stylesheet'" />
-    <noscript><link rel="stylesheet" href="/generation-device/style.css?v=83.0" /></noscript>
-    <link rel="modulepreload" href="/generation-device/app.js?v=91.0" />
+    <link rel="modulepreload" href="/generation-device/app.js?v=92.0" />
     <link rel="modulepreload" href="/generation-device/assets/kanto.js?v=55.0" />
     <link rel="modulepreload" href="/generation-device/content.js?v=89.0" />
     <link rel="modulepreload" href="/generation-device/renderer.js?v=64.0" />
-    <link rel="modulepreload" href="/generation-device/effects.js?v=58.0" />
+    <link rel="modulepreload" href="/generation-device/effects.js?v=59.0" />
     <style is:inline>
       .snake-loader{position:relative;width:232px;height:232px;margin:auto}
       .snake-loader img{position:absolute;inset:50% auto auto 50%;width:138px;height:138px;transform:translate(-50%,-50%);image-rendering:pixelated;display:block;max-width:none}
@@ -400,7 +399,7 @@ const projects = [
             </div>
           </div>
           <div class="wordle-dialog-frame-wrapper">
-            <iframe id="wordle-dialog-frame" src="/wordle-simulator/?embed=true" title="Interactive Pure C Wordle Simulator" class="wordle-frame" loading="lazy"></iframe>
+            <iframe id="wordle-dialog-frame" data-src="/wordle-simulator/?embed=true" title="Interactive Pure C Wordle Simulator" class="wordle-frame"></iframe>
           </div>
         </dialog>
       </div>
@@ -550,7 +549,7 @@ const projects = [
       }
     }
   </script>
-  <script is:inline type="module">import('/generation-device/app.js?v=91.0');</script>
+  <script is:inline type="module">import('/generation-device/app.js?v=92.0');</script>
   <script>
     const loader=document.querySelector('#page-loader');
     const factOwner=document.querySelector('#loader-fact-owner');
@@ -743,6 +742,9 @@ const projects = [
           e.preventDefault();
           const savedScrollY = window.scrollY;
           wordleDialog.showModal();
+          if (wordleFrame instanceof HTMLIFrameElement && !wordleFrame.hasAttribute('src')) {
+            wordleFrame.src = wordleFrame.dataset.src!;
+          }
           window.scrollTo({ top: savedScrollY, behavior: 'instant' });
           setTimeout(focusIframe, 80);
           setTimeout(focusIframe, 250);

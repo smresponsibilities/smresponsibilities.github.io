@@ -126,20 +126,32 @@ function initCardFinishes() {
       idleEffects.set(card, Array.from(card.querySelectorAll<HTMLElement>('.site-card-foil,.site-card-glare')));
     }
     observer.observe(card);
+    let pointerFrame = 0;
+    let pointerEvent: PointerEvent | null = null;
+    const cancelPointer = () => { cancelAnimationFrame(pointerFrame); pointerFrame = 0; pointerEvent = null; };
+    controller.signal.addEventListener('abort', cancelPointer, {once:true});
     const move = (target: HTMLElement, event: PointerEvent) => {
-      if (event.pointerType === 'touch' || card.dataset.cardMode === 'static') return;
+      if (event.pointerType === 'touch' || card.dataset.cardMode === 'static' || document.hidden) return;
+      const rect=target.getBoundingClientRect();
+      if (!rect.width || !rect.height) return;
       card.dataset.pointerActive = 'true';
       card.style.transform = '';
       for (const layer of idleEffects.get(card) ?? []) layer.style.transform = '';
-      const rect=target.getBoundingClientRect();
       const x=Math.max(0,Math.min(1,(event.clientX-rect.left)/rect.width));
       const y=Math.max(0,Math.min(1,(event.clientY-rect.top)/rect.height));
       target.style.setProperty('--pointer-x',`${x*100}%`);target.style.setProperty('--pointer-y',`${y*100}%`);
       target.style.setProperty('--background-x',`${37+x*26}%`);target.style.setProperty('--background-y',`${33+y*34}%`);
       if (!reduced.matches) {target.style.setProperty('--rx',`${(.5-y)*3}deg`);target.style.setProperty('--ry',`${(x-.5)*4}deg`);}
     };
-    card.addEventListener('pointermove', event => move(card,event), {signal:controller.signal});
-    card.addEventListener('pointerleave',()=>{delete card.dataset.pointerActive;card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
+    card.addEventListener('pointermove', event => {
+      pointerEvent = event;
+      if (!pointerFrame) pointerFrame = requestAnimationFrame(() => {
+        pointerFrame = 0;
+        if (pointerEvent) move(card,pointerEvent);
+        pointerEvent = null;
+      });
+    }, {signal:controller.signal});
+    card.addEventListener('pointerleave',()=>{cancelPointer();delete card.dataset.pointerActive;card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
 
     // Only project cards get a back face + flip behaviour
     if (card.matches(flipSelector)) {
@@ -216,7 +228,12 @@ function initCardFinishes() {
     node.querySelectorAll<HTMLElement>(selector).forEach(enhance);
   })));
   additions.observe(document.body,{childList:true,subtree:true});
-  document.addEventListener('visibilitychange',schedule,{signal:controller.signal});
+  const visibility = () => {
+    document.documentElement.toggleAttribute('data-motion-paused', document.hidden);
+    schedule();
+  };
+  visibility();
+  document.addEventListener('visibilitychange',visibility,{signal:controller.signal});
   reduced.addEventListener('change',()=>{
     if (reduced.matches) { entrance?.cancel(); focused?.classList.remove('is-flipping'); }
     schedule();

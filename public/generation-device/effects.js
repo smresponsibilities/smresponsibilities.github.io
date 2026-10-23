@@ -1,4 +1,4 @@
-import {svg} from './renderer.js?v=47.1';
+import {svg} from './renderer.js?v=64.0';
 
 // Device-specific presentation. Portfolio state and hardware actions stay in app.js.
 export function createEffects(device,host,controls,onChange){
@@ -10,11 +10,26 @@ export function createEffects(device,host,controls,onChange){
   const rotom=device.id==='sun-moon',noun=rotom?'Rotom':'phone';
   let lastProgress=null,rearLock=false;
   const cleanups=[];
+  let inView=false,lookFrame=0,point=null;
+  const active=()=>inView&&!document.hidden&&open&&power&&!reduced&&!paused&&!back&&!turning;
+  function resetLook(){
+    cancelAnimationFrame(lookFrame);lookFrame=0;point=null;
+    host.style.setProperty('--look-x','0px');host.style.setProperty('--look-y','0px');host.style.setProperty('--arm-look','0deg');
+  }
+  function visibility(){
+    host.toggleAttribute('data-paused',!inView||document.hidden);
+    if(!active())resetLook();
+  }
+  const observer=new IntersectionObserver(entries=>{inView=entries[0].isIntersecting;visibility();});
+  observer.observe(stage);
+  cleanups.push(()=>{observer.disconnect();resetLook();host.removeAttribute('data-paused');});
   const reactions=[];
   const smooth=value=>{const t=Math.max(0,Math.min(1,value));return t*t*(3-2*t);};
   const message=document.createElement('span');message.className='effect-status';
   message.id='effect-status';message.setAttribute('role','status');
   const listen=(el,event,fn)=>{el.addEventListener(event,fn);cleanups.push(()=>el.removeEventListener(event,fn));};
+  listen(document,'visibilitychange',visibility);
+  visibility();
   function button(id,label,fn){const b=document.createElement('button');b.id=id;b.textContent=label;b.type='button';b.dataset.tooltip=`${label} device effect`;listen(b,'click',fn);controls.append(b);return b;}
   function stopReaction(){
     clearTimeout(timer);host.classList.remove('reacting');delete host.dataset.emotion;
@@ -76,12 +91,19 @@ export function createEffects(device,host,controls,onChange){
     pause=button('pause-motion','Pause motion',()=>{paused=!paused;if(paused)stopReaction();sync();});
     message.textContent='Unlock to wake Rotom.';
     listen(stage,'pointermove',e=>{
-      if(!open||!power||reduced||paused||back||turning)return;
-      const r=stage.getBoundingClientRect(),x=Math.max(-1,Math.min(1,(e.clientX-r.left)/r.width*2-1)),y=Math.max(-1,Math.min(1,(e.clientY-r.top)/r.height*2-1));
-      host.style.setProperty('--look-x',`${x*7}px`);host.style.setProperty('--look-y',`${y*5}px`);
-      host.style.setProperty('--arm-look',`${x*4}deg`);
+      if(!active())return;
+      point={x:e.clientX,y:e.clientY};
+      if(lookFrame)return;
+      lookFrame=requestAnimationFrame(()=>{
+        lookFrame=0;if(!active()||!point)return;
+        const r=stage.getBoundingClientRect();
+        if(!r.width||!r.height)return;
+        const x=Math.max(-1,Math.min(1,(point.x-r.left)/r.width*2-1)),y=Math.max(-1,Math.min(1,(point.y-r.top)/r.height*2-1));
+        host.style.setProperty('--look-x',`${x*7}px`);host.style.setProperty('--look-y',`${y*5}px`);
+        host.style.setProperty('--arm-look',`${x*4}deg`);
+      });
     });
-    listen(stage,'pointerleave',()=>{host.style.setProperty('--look-x','0px');host.style.setProperty('--look-y','0px');host.style.setProperty('--arm-look','0deg');});
+    listen(stage,'pointerleave',resetLook);
   }
   if(primary)controls.append(message);
   controls.hidden=!primary;
@@ -89,7 +111,7 @@ export function createEffects(device,host,controls,onChange){
     host.classList.toggle('effects-reduced',reduced);
     host.classList.toggle('rotom-awake',rotom&&open&&power&&!paused&&!reduced&&!back&&!turning);
     for(const reaction of reactions)reaction.disabled=!open||!power||back||turning||paused;
-    if(paused||reduced||!power){host.style.setProperty('--look-x','0px');host.style.setProperty('--look-y','0px');host.style.setProperty('--arm-look','0deg');}
+    if(!active())resetLook();
     if(primary&&!device.rear)primary.disabled=!open||!power;
     if(primary&&device.rear){primary.hidden=!open;primary.disabled=turning;}
     if(pause){pause.disabled=!open||!power||reduced||back||turning;pause.textContent=paused?'Resume motion':'Pause motion';pause.setAttribute('aria-pressed',String(paused||reduced));}

@@ -4,7 +4,7 @@ import {devices as middle} from './assets/middle.js?v=58.0';
 import {devices as rotom} from './assets/rotom.js?v=58.0';
 import {sections,initial,reduce} from './content.js?v=89.0';
 import {createDevice,exportAsset} from './renderer.js?v=64.0';
-import {createEffects} from './effects.js?v=58.0';
+import {createEffects} from './effects.js?v=59.0';
 
 const $=id=>document.getElementById(id);
 const catalog=[kanto,...classic,...middle,...rotom].filter(device=>device.generation!=='IV-r');
@@ -16,6 +16,7 @@ let state=initial(),progress=params.get('open')==='0'?0:1,settled=progress,rende
 let effects=null;
 let rosterSnapshot='';
 let slideTravel=0;
+let dragFrame=0,dragProgress=0;
 const media=matchMedia('(prefers-reduced-motion:reduce)');
 $('reduce-motion').checked=media.matches;
 const reduced=()=>$('reduce-motion').checked||media.matches;
@@ -110,18 +111,17 @@ function settle(target,animate=true){
   function tick(now){const t=Math.min(1,(now-start)/(rotomTurn?1050:320)),eased=rotomTurn?t*t*(3-2*t):1-(1-t)**3;position(from+(target-from)*eased);if(t<1)frame=requestAnimationFrame(tick);else{frame=0;settled=target;position(target);}}
   frame=requestAnimationFrame(tick);syncAvailability();
 }
-function cancelDrag(){if(!drag)return;const start=drag.start;drag=null;document.body.classList.remove('dragging');settle(start);}
+function cancelDrag(){cancelAnimationFrame(dragFrame);dragFrame=0;if(!drag)return;const start=drag.start;drag=null;document.body.classList.remove('dragging');settle(start);}
 function beginDrag(e){
   if(e.button!==0||drag)return;
   cancelAnimationFrame(frame);frame=0;renderer.cancel();
-  drag={id:e.pointerId,x:e.clientX,start:settled,progress,element:e.currentTarget,moved:false};
+  drag={id:e.pointerId,x:e.clientX,start:settled,progress,travel:Math.max(140,$('slide-track').clientWidth-56),element:e.currentTarget,moved:false};
   e.currentTarget.setPointerCapture(e.pointerId);document.body.classList.add('dragging');syncAvailability();
 }
 for(const el of [$('slide-handle'),$('cover-drag')]){
   el.addEventListener('pointerdown',beginDrag);
-  let dragFrame=0;
-  el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const delta=e.clientX-drag.x;drag.moved ||= Math.abs(delta)>4;cancelAnimationFrame(dragFrame);dragFrame=requestAnimationFrame(()=>{if(drag)position(drag.progress+delta/Math.max(140,$('slide-track').clientWidth-56));});});
-  el.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.id)return;const moved=drag.moved,start=drag.start;drag=null;document.body.classList.remove('dragging');settle(moved?(progress>=.55?1:0):start);});
+  el.addEventListener('pointermove',e=>{if(!drag||e.pointerId!==drag.id)return;const delta=e.clientX-drag.x;drag.moved ||= Math.abs(delta)>4;dragProgress=drag.progress+delta/drag.travel;if(!dragFrame)dragFrame=requestAnimationFrame(()=>{dragFrame=0;if(drag)position(dragProgress);});});
+  el.addEventListener('pointerup',e=>{if(!drag||e.pointerId!==drag.id)return;cancelAnimationFrame(dragFrame);dragFrame=0;const delta=e.clientX-drag.x,moved=drag.moved||Math.abs(delta)>4,start=drag.start,end=drag.progress+delta/drag.travel;drag=null;document.body.classList.remove('dragging');settle(moved?(end>=.55?1:0):start);});
   el.addEventListener('pointercancel',cancelDrag);el.addEventListener('lostpointercapture',cancelDrag);
 }
 $('slide-handle').addEventListener('click',e=>{if(e.detail===0)settle(settled?0:1);});
@@ -132,7 +132,7 @@ $('reader-toggle').addEventListener('click',()=>{readerWanted=!readerWanted;sync
 $('reader-content').addEventListener('click',handleContent);
 $('reader-controls').innerHTML=Object.entries(actionLabels).map(([action,label])=>`<button data-action="${action}" data-tooltip="${label} portfolio selection">${label}</button>`).join('');
 $('reader-controls').addEventListener('click',handleContent);
-$('assets-toggle').addEventListener('click',()=>{const show=$('asset-panel').hidden;$('asset-panel').hidden=!show;$('assets-toggle').setAttribute('aria-expanded',String(show));if(show)$('asset-panel').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'start'});});
+$('assets-toggle').addEventListener('click',()=>{const show=$('asset-panel').hidden;if(show)mountAssets();$('asset-panel').hidden=!show;$('assets-toggle').setAttribute('aria-expanded',String(show));if(show)$('asset-panel').scrollIntoView({behavior:reduced()?'instant':'smooth',block:'start'});});
 $('reduce-motion').addEventListener('change',()=>{cancelDrag();settle(settled,false);});
 media.addEventListener('change',()=>{cancelDrag();settle(settled,false);});
 window.addEventListener('blur',()=>{cancelDrag();renderer.cancel();});
@@ -162,6 +162,7 @@ function resize(entries){
   });
 }
 async function refreshRoster(){
+  if(document.hidden)return;
   try{
     const response=await fetch(`/generation-device/roster.json?v=${Date.now()}`,{cache:'no-store'});
     if(!response.ok)throw new Error(`Roster request failed: ${response.status}`);
@@ -178,6 +179,7 @@ async function refreshRoster(){
 new ResizeObserver(resize).observe($('stage'));
 function select(next){
   const changing=device.id!==next.id;
+  cancelAnimationFrame(dragFrame);dragFrame=0;
   cancelAnimationFrame(frame);frame=0;drag=null;document.body.classList.remove('dragging');
   effects?.dispose();
   // A newly selected rear-first device starts with its casing, ready to slide open.
@@ -238,7 +240,10 @@ $('generations').addEventListener('keydown', e => {
     buttons[targetIdx].click();
   }
 });
-$('asset-grid').innerHTML=catalog.map(d=>`<button class="asset-card" data-gen="${d.id}" aria-pressed="${d.id===device.id}">${exportAsset(d).replace('<svg ','<svg aria-hidden="true" ')}<strong>${d.generation} · ${esc(d.region)}</strong><small>${esc(d.games)}</small></button>`).join('');
+function mountAssets(){
+  if($('asset-grid').childElementCount)return;
+  $('asset-grid').innerHTML=catalog.map(d=>`<button class="asset-card" data-gen="${d.id}" aria-pressed="${d.id===device.id}">${exportAsset(d).replace('<svg ','<svg aria-hidden="true" ')}<strong>${d.generation} · ${esc(d.region)}</strong><small>${esc(d.games)}</small></button>`).join('');
+}
 $('asset-grid').addEventListener('click',e=>{const id=e.target.closest('[data-gen]')?.dataset.gen;if(id){hideTooltip();select(catalog.find(d=>d.id===id));$('stage').scrollIntoView({behavior:'instant',block:'center'});}});
 $('download').addEventListener('click',()=>{const blob=new Blob([exportAsset(device)],{type:'image/svg+xml'}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=`${device.id}-open.svg`;link.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 select(device);
