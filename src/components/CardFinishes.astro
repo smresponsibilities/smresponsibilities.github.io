@@ -73,7 +73,7 @@ function initCardFinishes() {
     if (reduced.matches || document.hidden || !visible.size) return;
     if (homepage) for (const card of visible) {
       if (card.classList.contains('is-flipping') || card.dataset.pointerActive === 'true') continue;
-      const phase = now / 6500 * Math.PI * 2 + Number(card.dataset.flowerIndex);
+      const phase = now / 18000 * Math.PI * 2 + Number(card.dataset.flowerIndex);
       for (const layer of idleEffects.get(card) ?? []) {
         layer.style.transform = `translate3d(${Math.sin(phase)*10}%, ${Math.cos(phase)*8}%, .01px)`;
       }

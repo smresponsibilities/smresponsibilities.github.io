@@ -237,7 +237,7 @@ On phones the artwork sits above the description inside the same trading-card fr
 
 On `/`, activating a project card brings the original card into a native modal preview, dims the page and plays the existing full turn. Clicking the preview card again, Close, the backdrop or Escape restores its original position and focus. All descriptions and links remain available. A plain pointer cursor replaces the custom cursor artwork and zoom icon.
 
-Visible homepage holo cards gently tilt at rest, on a 6.5-second cycle, with 6-degree amplitude on coarse pointers and 2 degrees on desktop. Idle motion runs without hover, pauses during active pointer interaction and card preview, and stops when offscreen, hidden or reduced motion is requested. The existing single animation loop owns both foil drift and tilt. Reduced motion still opens the preview without movement.
+Visible homepage holo cards gently tilt at rest, on a 18-second cycle, with 6-degree amplitude on coarse pointers and 2 degrees on desktop. Idle motion runs without hover, pauses during active pointer interaction and card preview, and stops when offscreen, hidden or reduced motion is requested. The existing single animation loop owns both foil drift and tilt. Reduced motion still opens the preview without movement.
 
 The project card has separate front and back planes with native 3D backface culling, following the structure in [the original Pokémon Cards CSS component](https://github.com/simeydotme/pokemon-cards-css/blob/main/src/lib/components/Card.svelte). A 1.6-second turn settles at the front while the preview moves to the center. Timed visibility swapping has been removed. Front content and decorative layers share one clipped face; the rotating card itself preserves 3D.
 
@@ -250,3 +250,5 @@ Idle tilt writes only the card transform on every animation frame. The old 70ms 
 ### Idle shine on touch screens
 
 Homepage holo cards move oversized foil and glare planes alongside the tilt. This uses layer transforms instead of changing gradient positions. Touch screens receive visible idle foil/glare opacity without hover. The light sweep continues in the focused preview after its turn, while reduced motion stops it. Desktop pointer input takes control of the layers during interaction.
+
+Idle timing follows the continuous idle finish in `.scratch/pokemon-card-lab.html`: one cycle every 18,000ms. The upstream component's faster showcase is a separate four-second demonstration, not the continuous idle cadence. Frame-synced rendering remains independent of cycle duration.
