@@ -16,6 +16,8 @@ const finishes = [
   { key:'rainbow', rarity:'rare rainbow', subtypes:'vmax' },
 ];
 function initCardFinishes() {
+  if (document.documentElement.hasAttribute('data-card-finishes-ready')) return;
+  document.documentElement.setAttribute('data-card-finishes-ready','');
   const controller = new AbortController();
   const visible = new Set<HTMLElement>();
   const idleEffects = new Map<HTMLElement, HTMLElement[]>();
@@ -155,10 +157,8 @@ function initCardFinishes() {
 
     // Only project cards get a back face + flip behaviour
     if (card.matches(flipSelector)) {
-      const front = document.createElement('div');
-      front.className = 'site-card-front';
-      front.append(...Array.from(card.childNodes));
-      card.append(front);
+      const front = prepareFront(card);
+      front.append(...Array.from(card.querySelectorAll(':scope > .site-card-flowers, :scope > .site-card-foil, :scope > .site-card-glare')));
 
       // Front and back are separate planes, matching the upstream card structure.
       const back = document.createElement('div');
@@ -221,11 +221,37 @@ function initCardFinishes() {
       }, {signal:controller.signal});
     }
   }
-  document.querySelectorAll<HTMLElement>(selector).forEach(enhance);
+  function prepareFront(card: HTMLElement) {
+    let front = card.querySelector<HTMLElement>(':scope > .site-card-front');
+    if (!front) {
+      front = document.createElement('div');
+      front.className = 'site-card-front';
+      front.append(...Array.from(card.childNodes));
+      card.append(front);
+    }
+    return front;
+  }
+  const mounts = new IntersectionObserver(entries => {
+    for (const entry of entries) if (entry.isIntersecting) {
+      mounts.unobserve(entry.target);
+      enhance(entry.target as HTMLElement);
+    }
+  }, {rootMargin:'300px 0px'});
+  const queue = (card: HTMLElement) => {
+    if (card.dataset.cardReady) return;
+    // Keep content parents stable when a focused card gains its decorative layers.
+    if (card.matches(flipSelector)) prepareFront(card);
+    mounts.observe(card);
+  };
+  document.querySelectorAll<HTMLElement>(selector).forEach(queue);
+  document.addEventListener('focusin', event => {
+    const card = event.target instanceof Element ? event.target.closest<HTMLElement>(selector) : null;
+    if (card) { mounts.unobserve(card); enhance(card); }
+  }, {signal:controller.signal});
   const additions = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
     if (!(node instanceof HTMLElement)) return;
-    if (node.matches(selector)) enhance(node);
-    node.querySelectorAll<HTMLElement>(selector).forEach(enhance);
+    if (node.matches(selector)) queue(node);
+    node.querySelectorAll<HTMLElement>(selector).forEach(queue);
   })));
   additions.observe(document.body,{childList:true,subtree:true});
   const visibility = () => {
@@ -238,10 +264,10 @@ function initCardFinishes() {
     if (reduced.matches) { entrance?.cancel(); focused?.classList.remove('is-flipping'); }
     schedule();
   },{signal:controller.signal});
-  document.addEventListener('astro:before-swap',()=>{if (focusView.open) focusView.close();restore();focusView.remove();cancelAnimationFrame(frame);observer.disconnect();additions.disconnect();controller.abort();},{once:true});
+  document.addEventListener('astro:before-swap',()=>{if (focusView.open) focusView.close();restore();focusView.remove();cancelAnimationFrame(frame);observer.disconnect();mounts.disconnect();additions.disconnect();controller.abort();document.documentElement.removeAttribute('data-card-finishes-ready');},{once:true});
 }
 initCardFinishes();
 document.addEventListener('astro:page-load',()=>{
-  if (!document.querySelector('[data-card-ready]')) initCardFinishes();
+  initCardFinishes();
 });
 </script>

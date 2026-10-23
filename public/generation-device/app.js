@@ -16,6 +16,7 @@ let state=initial(),progress=params.get('open')==='0'?0:1,settled=progress,rende
 let effects=null;
 let rosterSnapshot='';
 let slideTravel=0;
+function measureSlideTravel(){const track=$('slide-track'),handle=$('slide-handle');slideTravel=Math.max(0,track.clientWidth-handle.offsetWidth-handle.offsetLeft*2);}
 let dragFrame=0,dragProgress=0;
 const media=matchMedia('(prefers-reduced-motion:reduce)');
 $('reduce-motion').checked=media.matches;
@@ -61,7 +62,7 @@ function renderContent(sync=true){
   const active=document.activeElement,owner=active.closest('.glass,#reader-content');
   const previous=owner?{owner,action:active.dataset.action,row:active.dataset.row}:null;
   for(const glass of renderer.glasses){glass.innerHTML=screenHTML(glass.dataset.screen==='side');}
-  requestAnimationFrame(()=>{for(const glass of renderer.glasses){const row=glass.querySelector('.screen-row[aria-current=true]');if(row)glass.querySelector('.screen-content').scrollTop=Math.max(0,row.offsetTop-90);}});
+  if((state.mode==='menu'?state.section:state.item)>0)requestAnimationFrame(()=>{for(const glass of renderer.glasses){const row=glass.querySelector('.screen-row[aria-current=true]');if(row)glass.querySelector('.screen-content').scrollTop=Math.max(0,row.offsetTop-90);}});
   for(const label of $('rig').querySelectorAll('[data-readout=section]'))label.textContent=sections[state.section].name;
   for(const label of $('rig').querySelectorAll('[data-readout]'))label.style.visibility=state.power?'visible':'hidden';
   $('reader-content').innerHTML=screenHTML(false,true);
@@ -99,7 +100,6 @@ function position(value){
   renderer.pose(reduced()&&drag?settled:progress);
   effects?.pose(reduced()&&drag?settled:progress);
   const handle=$('slide-handle');
-  if(!slideTravel){const track=$('slide-track');slideTravel=Math.max(0,track.clientWidth-handle.offsetWidth-(handle.offsetLeft*2));}
   handle.style.transform=`translateX(${progress*slideTravel}px) rotate(${progress*720}deg)`;
   syncAvailability();status();
 }
@@ -150,6 +150,7 @@ function resize(entries){
     const width=entries?.[0]?.contentRect?.width ?? $('stage').clientWidth;
     if(width===lastStageWidth)return;
     lastStageWidth=width;
+    measureSlideTravel();
     const mobile=matchMedia('(max-width:700px)').matches,mobileFrame=mobile?mobileFrames[device.id]:null;
     const scale=width/(mobileFrame?.w||device.width);
     const offsetX=mobileFrame?-mobileFrame.x*scale:0,offsetY=mobileFrame?-mobileFrame.y*scale:0;
@@ -157,7 +158,6 @@ function resize(entries){
     $('stage').style.aspectRatio=mobileFrame?'auto':`${device.width}/${device.height}`;
     $('rig').style.transform=`translate(${offsetX}px,${offsetY}px) scale(${scale})`;
     $('rig').style.setProperty('--press-travel',`${4/scale}px`);
-    slideTravel=0;
     position(progress);
   });
 }
@@ -178,6 +178,7 @@ async function refreshRoster(){
 }
 new ResizeObserver(resize).observe($('stage'));
 function select(next){
+  measureSlideTravel();
   const changing=device.id!==next.id;
   cancelAnimationFrame(dragFrame);dragFrame=0;
   cancelAnimationFrame(frame);frame=0;drag=null;document.body.classList.remove('dragging');
@@ -200,7 +201,6 @@ function select(next){
     if (existingButtons.length === catalog.length) {
       existingButtons.forEach(b => {
         const isCurrent = b.dataset.gen === device.id;
-        b.setAttribute('aria-pressed', String(isCurrent));
         b.setAttribute('aria-checked', String(isCurrent));
         b.tabIndex = isCurrent ? 0 : -1;
         b.classList.toggle('is-active', isCurrent);
@@ -208,7 +208,7 @@ function select(next){
     } else {
       genNav.innerHTML = `<div class="segmented-thumb" id="segmented-thumb" aria-hidden="true"></div>` + catalog.map(d => {
         const isCurrent = d.id === device.id;
-        return `<button data-gen="${d.id}" role="radio" aria-checked="${isCurrent}" tabindex="${isCurrent ? 0 : -1}" class="segmented-item ${isCurrent ? 'is-active' : ''}" aria-label="${esc(d.region)} · ${esc(d.games)}" aria-pressed="${isCurrent}" data-tooltip="Show Generation ${d.generation}: ${esc(d.region)} device"><span class="segmented-label">${d.generation}</span></button>`;
+        return `<button data-gen="${d.id}" role="radio" aria-checked="${isCurrent}" tabindex="${isCurrent ? 0 : -1}" class="segmented-item ${isCurrent ? 'is-active' : ''}" aria-label="${esc(d.region)} · ${esc(d.games)}" data-tooltip="Show Generation ${d.generation}: ${esc(d.region)} device"><span class="segmented-label">${d.generation}</span></button>`;
       }).join('');
     }
   }

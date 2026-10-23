@@ -12,6 +12,10 @@ test('device effects remain available without eager gallery or simulator work', 
     page.on('request', request => requests.push(request.url()));
     await page.goto(process.env.TEST_URL || 'http://127.0.0.1:4321/');
     await page.waitForSelector('.dex-ready', { state: 'attached' });
+    assert.equal(await page.locator('.project-card[data-card-ready]').count(), 0, 'offscreen cards must not decorate during startup');
+    assert.equal(requests.some(url => url.includes('/card-finishes/')),false,'offscreen foil textures must not load during startup');
+    assert.equal(await page.locator('#generations').evaluate(el=>el.tagName),'DIV');
+    assert.equal(await page.locator('#generations [aria-pressed]').count(),0);
     assert.equal(await page.locator('#asset-grid > *').count(), 0);
     assert.equal(requests.some(url => url.includes('/wordle-simulator/')), false);
     assert.equal(new Set(requests.filter(url => url.includes('/generation-device/renderer.js'))).size, 1);
@@ -79,6 +83,16 @@ test('device effects remain available without eager gallery or simulator work', 
     assert.equal(await page.locator('#rig').getAttribute('data-device'), 'scarlet-violet');
     const stage = await page.locator('#stage').boundingBox();
     assert.ok(stage.width <= 390);
+    assert.equal(await page.locator('.project-card[data-card-ready]').count(),0);
+    const card = page.locator('.project-card').first();
+    await card.scrollIntoViewIfNeeded();
+    await page.waitForFunction(()=>document.querySelector('.project-card')?.getAttribute('data-card-ready')==='true');
+    assert.equal(await card.locator('.site-card-foil').count(),1);
+    await card.focus();
+    await page.keyboard.press('Enter');
+    assert.equal(await page.locator('.card-focus-view').evaluate(el=>el.open),true);
+    await page.keyboard.press('Escape');
+    assert.equal(await page.locator('.card-focus-view').evaluate(el=>el.open),false);
     await page.goto(new URL('/productivity-caller-simulator/',process.env.TEST_URL || 'http://127.0.0.1:4321/').href);
     await page.evaluate(() => {
       window.blinkIntervals = new Set();
