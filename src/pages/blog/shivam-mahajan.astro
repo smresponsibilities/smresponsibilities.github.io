@@ -1,4 +1,5 @@
 ---
+import { getDailyStreak } from '../../lib/streak';
 import EditorialShell from '../../components/EditorialShell.astro';
 
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
@@ -52,22 +53,26 @@ const structuredData = {
 ---
 <EditorialShell 
   title="Shivam Mahajan - Software Engineer and Developer" 
-  description="Explore software engineer Shivam Mahajan's developer portfolio, 2,002 Days of Code daily engineering journal, backend systems, and featured projects." 
+  description="Meet Shivam Mahajan, a software developer working with Python and Kotlin. Find his official portfolio, professional profiles and ongoing coding journal."
   heading="Shivam Mahajan"
   eyebrow="Profile / Overview"
   intro="Software engineer building distributed backend systems, algorithmic tooling, and interactive web experiences."
   structuredData={structuredData}>
   
-  <p><strong>Shivam Mahajan</strong> is a software engineer dedicated to building high-quality, scalable web applications and exploring the frontiers of agentic AI. With a strong foundation in modern web technologies and a relentless drive for continuous learning, Shivam has committed to the 2,002 Days of Code challenge, documenting daily progress and technical deep dives.</p>
-  
-  <h2>Professional Journey</h2>
-  <p>Throughout his career, Shivam Mahajan has focused on crafting intuitive user experiences and robust backend architectures. His work spans from interactive 3D visualizations using Three.js to complex, AI-driven automation pipelines.</p>
+  <p><strong>Shivam Mahajan</strong> is a software developer working with Python, Kotlin, data pipelines and web applications. This profile connects his public accounts, engineering work and ongoing learning journal.</p>
 
-  <h2>Projects and Portfolio</h2>
-  <p>Explore the various projects developed by Shivam Mahajan, including the SM-Dex, a unique interactive developer portfolio, and the comprehensive 2,002 Days of Code timeline, showcasing a consistent commitment to software development.</p>
+  <h2>Find the right starting point</h2>
+  <p>The <a href="/">official portfolio</a> presents the interactive SM'S DEX experience. The <a href="/resume/">resume</a> lists experience, education and current coding metrics. For implementation details and source repositories, read the <a href="/blog/shivam-mahajan-software-developer/">engineering work guide</a>.</p>
+
+  <h2>An ongoing coding challenge</h2>
+  <p>Shivam is working toward a 2,002-day coding challenge. The current challenge day is {getDailyStreak().toLocaleString()}; 2,002 is the target, not the number of completed days. The <a href="/blog/">Days of Code journal</a> contains published notes and project updates.</p>
+
+  <h2>Public profiles</h2>
+  <p>Code is published as <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">smresponsibilities on GitHub</a>. Professional updates appear on <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a> and project summaries on <a href="https://peerlist.io/shivammahajan" target="_blank" rel="noopener noreferrer">Peerlist</a>.</p>
 
   <h2>Connect & Explore</h2>
   <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 1rem;">
+    <a href="/">Official Home Dex →</a>
     <a href="/resume/">View Full Resume →</a>
     <a href="/blog/">Days of Code Journal →</a>
     <a href="/blog/timeline/">Interactive Timeline →</a>

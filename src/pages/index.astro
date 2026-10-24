@@ -3,9 +3,11 @@ import ProjectCard from '../components/ProjectCard.astro';
 import PokemonCarouselTimeline from '../components/PokemonCarouselTimeline.astro';
 import Base from '../layouts/Base.astro';
 import FormDropdown from '../components/FormDropdown.astro';
+import { readFileSync } from "node:fs";
 import roster from '../data/roster.json';
 import '../../public/generation-device/style.css';
 
+const loaderPython = `data:image/png;base64,${readFileSync('public/logos/pixel-python.png').toString('base64')}`;
 const types = ['Normal','Fire','Water','Electric','Grass','Ice','Fighting','Poison','Ground','Flying','Psychic','Bug','Rock','Ghost','Dragon','Dark','Steel','Fairy'];
 const loaderFacts = [
   { github: 'smresponsibilities', fact: 'Shipped 425+ test suites.', source: 'fallback' },
@@ -111,15 +113,17 @@ const projects = [
     <link rel="modulepreload" href="/generation-device/renderer.js?v=64.0" />
     <link rel="modulepreload" href="/generation-device/effects.js?v=59.0" />
     <style is:inline>
+      html:has(#page-loader:not(.loader-done)){overflow:hidden}
       .snake-loader{position:relative;width:232px;height:232px;margin:auto}
       .snake-loader img{position:absolute;inset:50% auto auto 50%;width:138px;height:138px;transform:translate(-50%,-50%);image-rendering:pixelated;display:block;max-width:none}
       @media(max-height:560px){.snake-loader{width:132px;height:132px}.snake-loader img{width:92px;height:92px}}
 
   #journal-section{grid-template-columns:minmax(0,1fr)}#journal-heading{font:500 clamp(28px,4vw,42px)/1.1 Arial,sans-serif;letter-spacing:-.03em}.journal-section .section-index{display:none}.journal-content{min-width:0;width:100%}.journal-content>.lead{max-width:65ch;font-family:Arial,sans-serif;font-size:17px;line-height:1.7}.journal-content>.eyebrow{display:none}
 </style>
+    <noscript><style>#page-loader{display:none}html{overflow:auto!important}</style></noscript>
   </Fragment>
   <div class="loader" id="page-loader" role="status" aria-live="polite" data-facts={JSON.stringify(loaderFacts)}>
-    <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src="/logos/pixel-python.png" width="138" height="138" alt="" /></div>
+    <div class="snake-loader" aria-hidden="true"><span class="loader-orbit"></span><img src={loaderPython} width="138" height="138" alt="" /></div>
     <p>Loading SM'S DEX…</p>
     <p class="loader-mobile-note">Best viewed on wider screens.</p>
     <p class="loader-static-fact">FACT: SM likes paneer and is unemployed right now.</p>

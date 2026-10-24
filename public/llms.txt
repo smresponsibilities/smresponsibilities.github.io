@@ -1,6 +1,6 @@
 # Shivam Mahajan — SM'S DEX
 
-> SM'S DEX is Shivam Mahajan's interactive software developer portfolio and knowledge engine. It presents his engineering work, 2,002 Days of Code streak (1,500+ LeetCode solutions), and hosts a reviewed public developer roster.
+> SM'S DEX is Shivam Mahajan's interactive software developer portfolio and knowledge engine. It presents his engineering work and progress toward a 2,002-day coding challenge, and hosts a reviewed public developer roster. Current challenge-day and platform-specific problem counts are published on the resume page.
 
 For the complete concatenated markdown knowledge base, see [llms-full.txt](https://shivammahajan.com/llms-full.txt).
 

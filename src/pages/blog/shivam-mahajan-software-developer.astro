@@ -9,13 +9,13 @@ const structuredData = {
       '@type': 'BlogPosting',
       '@id': `${currentUrl}#article`,
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
-      headline: 'Shivam Mahajan, software developer',
-      description: 'Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals.',
+      headline: 'Shivam Mahajan: backend and data engineering work',
+      description: 'Explore Shivam Mahajan’s backend and data engineering work through Python pipelines, ClickHouse ingestion and linked source repositories.',
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: currentUrl,
       datePublished: '2026-10-05T00:00:00Z',
-      dateModified: '2026-10-05T00:00:00Z'
+      dateModified: '2026-10-24T00:00:00Z'
     },
     {
       '@type': 'BreadcrumbList',
@@ -29,9 +29,9 @@ const structuredData = {
   ]
 };
 ---
-<EditorialShell title="Shivam Mahajan | Software Developer Profile" description="Shivam Mahajan builds backend systems, data pipelines, and frontend applications. See his technology focus and professional goals." eyebrow="Profile" heading="Shivam Mahajan, software developer" intro="Shivam is a software engineer building distributed backend systems, data pipelines, and responsive frontend applications." structuredData={structuredData}>
-  <a slot="actions" href="/resume/">View resume</a><a slot="actions" href="/projects/">See projects</a>
-  <section><h2>Technology focus</h2><p>Shivam builds production systems with Python, Kotlin, Kafka, PySpark, Snowflake, and React. He tackles scalability challenges and zero-tolerance data tasks.</p></section>
-  <section><h2>Professional scope</h2><p>He builds reliable backend infrastructure, creates verifiable blockchain implementations with Solidity, and develops user interfaces. See the <a href="/resume/">resume</a> for professional experience and the <a href="/projects/">projects page</a> for selected implementations.</p></section>
-  <section><h2>Where to start</h2><p>The <a href="/blog/">Days of Code journal</a> shows a habit of deliberate practice. <a href="/projects/productivity-caller/">Productivity Caller</a> is an example of a practical, shipped solution. His <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub profile</a> hosts open code.</p></section>
+<EditorialShell title="Shivam Mahajan | Backend and Data Engineering Work" description="Explore Shivam Mahajan's backend and data engineering work through Python pipelines, ClickHouse ingestion and linked source repositories." eyebrow="Engineering work" heading="Backend and data engineering work" intro="A guide to Shivam Mahajan's engineering projects, implementation decisions and source code." structuredData={structuredData}>
+  <a slot="actions" href="/">Official Portfolio</a><a slot="actions" href="/resume/">View resume</a><a slot="actions" href="/projects/">See projects</a>
+  <section><h2>Data ingestion and validation</h2><p>Shivam's Morgan Stanley apprenticeship involved Kafka, PySpark and Snowflake pipelines handling 5 million daily events with zero row-count loss tolerance. The <a href="/resume/">resume</a> documents that role. The <a href="https://github.com/smresponsibilities/Ingestion-Tool" target="_blank" rel="noopener noreferrer">ClickHouse ingestion repository</a> contains a separate project moving data between CSV files and an analytical database.</p></section>
+  <section><h2>Application behavior and interfaces</h2><p><a href="/projects/productivity-caller/">Productivity Caller</a> uses native Android phone-call reminders. <a href="/projects/flight-sun-tracker/">Flight Sun Tracker</a> applies solar-position calculations to flight routes. These case studies link to the implementations and distinguish product behavior from the underlying engineering choices.</p></section>
+  <section><h2>Inspect the implementation</h2><p>The <a href="/projects/">project catalog</a> links to source code and demos. The <a href="/blog/">coding journal</a> records individual problems and experiments. For a short introduction and public profile links, use <a href="/blog/shivam-mahajan/">Shivam's biography</a>; for the interactive portfolio, open the <a href="/">homepage</a>.</p></section>
 </EditorialShell>

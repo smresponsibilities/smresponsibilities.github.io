@@ -34,7 +34,7 @@
 Shivam Mahajan is a Software Developer specializing in distributed data pipelines, backend APIs, algorithmic engineering, and mobile applications. Key verified achievements include:
 - **5 Million+ Daily Events Processed**: Engineered Kafka, PySpark, and Snowflake data ingestion pipelines at Morgan Stanley with strict zero row-count tolerance.
 - **2,600+ Solved Algorithmic Problems**: Spans LeetCode, Codeforces, and competitive programming with deep proficiency in dynamic programming, graph theory, trees, and bit manipulation.
-- **1,246+ Consecutive Daily Engineering Logs**: Maintained continuous daily streak in the "2,002 Days of Code" challenge, published daily to LinkedIn and indexed on shivammahajan.com.
+- **Days of Code challenge**: Working toward 2,002 days of coding practice. Published journal entries document progress; the [resume](https://shivammahajan.com/resume/) reports the current challenge day and separately lists LeetCode and Codeforces counts. The target is not a claim of 2,002 completed days.
 - **425+ Passing Test Suites**: Dedicated to rigorous automated test coverage, strict types, schema verification, and Core Web Vitals optimization.
 - **3rd Place out of 200+ Teams**: Won national recognition at HackIndia 2024 for Chaincode (Web3 AI code validation engine).
 
@@ -110,8 +110,8 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
 
 6. **Flight Sun Tracker**
    - *Category*: Aviation Solar Geometry Calculator
-   - *Tech Stack*: TypeScript, HTML5 Canvas, Solar Elevation Math
-   - *Overview*: Visualizes commercial aircraft flight paths on a spherical canvas and computes sun angle relative to seat assignment so travelers can avoid direct sun glare.
+   - *Tech Stack*: TypeScript, Next.js, SunCalc, selectable globe visualizations
+   - *Overview*: Estimates sunlight on either side of an aircraft along a great-circle route sampled at five-minute intervals. Results depend on route, departure time and duration; they are not guarantees about cabin conditions.
    - *Case Study*: https://shivammahajan.com/projects/flight-sun-tracker/
    - *Repository*: https://github.com/smresponsibilities/flight-sun-tracker
 
@@ -156,11 +156,11 @@ Shivam Mahajan is a Software Developer specializing in distributed data pipeline
 
 ## 7. 2,002 Days of Code Challenge
 
-Shivam is documenting a continuous 2,002-day software engineering and algorithmic journey:
+Shivam is documenting progress toward a 2,002-day software engineering and algorithmic challenge. The target is not a claim of 2,002 completed days:
 - **Searchable Index**: https://shivammahajan.com/blog/
 - **Interactive Timeline**: https://shivammahajan.com/blog/timeline/
 - **Milestones**: https://shivammahajan.com/blog/milestones/
-- **LeetCode Solutions Indexed**: 1,534+ individual problems linked across 1,246+ days with algorithmic walkthroughs, complexity analysis, and Python DSA solutions.
+- **Published Notes**: Daily entries reference algorithm problems and engineering work. Detail varies by entry; not every log includes a complete solution or complexity analysis. Current challenge-day and platform-specific solved counts are published at https://shivammahajan.com/resume/.
 
 ---
 

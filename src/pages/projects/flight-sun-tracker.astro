@@ -10,9 +10,9 @@ const structuredData = {
       name: 'Flight Sun Tracker',
       operatingSystem: 'Web Browser',
       applicationCategory: 'TravelApplication',
-      programmingLanguage: ['TypeScript', 'HTML5 Canvas', 'Aviation Mathematics'],
+      programmingLanguage: ['TypeScript'],
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
-      description: 'Interactive web application computing solar elevation and seat shade along aircraft flight paths using aviation mathematics and HTML5 Canvas.',
+      description: 'A flight sunlight estimator using TypeScript, SunCalc and great-circle routes to compare the left and right sides of an aircraft.',
       offers: {
         '@type': 'Offer',
         price: '0',
@@ -24,14 +24,14 @@ const structuredData = {
       '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#article',
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: "Flight Sun Tracker: Computing Aircraft Seat Shade with Solar Math",
-      description: "Technical case study of Flight Sun Tracker: calculating real-time solar elevation and flight trajectory shading in TypeScript and HTML5 Canvas.",
+      description: "Technical case study of Flight Sun Tracker: estimating route sunlight with TypeScript, SunCalc and great-circle interpolation.",
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: 'https://shivammahajan.com/projects/flight-sun-tracker/',
       about: [
         { '@type': 'Thing', name: 'Aviation Mathematics' },
         { '@type': 'Thing', name: 'TypeScript' },
-        { '@type': 'Thing', name: 'HTML5 Canvas' },
+        { '@type': 'Thing', name: 'SunCalc' },
         { '@type': 'Thing', name: 'Solar Positioning' }
       ]
     },
@@ -49,10 +49,10 @@ const structuredData = {
 ---
 <EditorialShell 
   title="Flight Sun Tracker | Aircraft Solar Position Tool | Shivam Mahajan" 
-  description="Explore Flight Sun Tracker by Shivam Mahajan: a TypeScript canvas tool calculating solar angles along flight paths to optimize window seat sun and shade." 
+  description="Use Flight Sun Tracker to estimate which side of a plane gets sunlight. See a verified JFK–LHR example, route setup steps and model limitations."
   eyebrow="Move 006 / Aviation Math" 
   heading="Flight Sun Tracker" 
-  intro="An interactive TypeScript and Canvas visualization tool computing solar elevation relative to aircraft passenger seating, helping travelers choose direct sunlight or cool shade."
+  intro="Estimate which side of a plane faces the sun using the route, departure date, time and flight duration. Compare shade and scenic sunlight preferences."
   structuredData={structuredData}
 >
   <a slot="actions" href="https://flight-sun-tracker-shivam-mahajans-projects.vercel.app" target="_blank" rel="noopener noreferrer">Launch Live App ↗</a>
@@ -78,7 +78,7 @@ const structuredData = {
 
   <!-- Direct Answer Executive Summary -->
   <div class="direct-answer">
-    <p><strong>Executive Summary:</strong> Flight Sun Tracker is an open-source TypeScript and HTML5 Canvas application that calculates the sun's azimuth and altitude relative to an aircraft's heading along great-circle routes. It solves the traveler dilemma of window seat glare versus shade by delivering instant seat-specific solar exposure breakdowns.</p>
+    <p><strong>Executive Summary:</strong> Flight Sun Tracker estimates sunlight on the left and right sides of an aircraft along a great-circle route. Enter airports, departure time and duration, then choose shade or scenic sunlight. Results are model estimates, not guarantees about a specific seat.</p>
   </div>
 
   <!-- Hard Quantitative Statistics -->
@@ -89,68 +89,58 @@ const structuredData = {
     </div>
     <div class="metric-pill">
       <span class="metric-label">Renderer</span>
-      <span class="metric-value">HTML5 Canvas</span>
+      <span class="metric-value">Selectable globe views</span>
     </div>
     <div class="metric-pill">
       <span class="metric-label">Calculations</span>
-      <span class="metric-value">Sub-Solar Math</span>
+      <span class="metric-value">SunCalc</span>
     </div>
     <div class="metric-pill">
-      <span class="metric-label">Dependencies</span>
-      <span class="metric-value">0 External APIs</span>
+      <span class="metric-label">Route sampling</span>
+      <span class="metric-value">5 minutes</span>
     </div>
   </div>
 
   <section>
-    <h2>Problem: Window Seat Sun Glare vs Scenic Shade</h2>
-    <p>Selecting a window seat on a long-haul commercial flight is typically guesswork. On morning eastbound flights, passengers on the right side face blinding solar glare and overheating cabins, while the left side stays comfortably shaded. On transatlantic or transpacific routes, seasonal variations in solar declination can flip sunlight exposure mid-flight.</p>
-    <p>Flight Sun Tracker eliminates guesswork by modeling solar positions deterministically across the entire route duration, calculating exact sun angles relative to the airplane's longitudinal axis.</p>
-  </section>
-
-  <section>
-    <h2>Technical Architecture & Solar Calculations</h2>
-    <p>The core engine computes astronomical and geodesic coordinates entirely client-side without relying on rate-limited third-party solar APIs:</p>
+    <h2>How to check sunlight on a flight</h2>
     <ol>
-      <li><strong>Great-Circle Route Interpolation:</strong> Computes waypoints between origin and destination airport pairs using spherical trigonometry (Haversine and spherical law of cosines) to calculate the aircraft's instantaneous true heading.</li>
-      <li><strong>Sub-Solar Point Modeling:</strong> Calculates solar declination and the Greenwich Hour Angle (GHA) for each flight segment timestamp using Jean Meeus astronomical algorithms.</li>
-      <li><strong>Relative Azimuth Transformation:</strong> Projects the sun's coordinates into the aircraft's local coordinate frame, determining whether sunlight strikes port (left / A-seats) or starboard (right / F-K seats).</li>
+      <li>Open the live app and select <strong>Configure route</strong>.</li>
+      <li>Select the departure and arrival airports, departure date and time, and estimated air duration.</li>
+      <li>Compute the route, then choose <strong>Avoid sun glare</strong> or <strong>Scenic sun &amp; golden hour</strong>.</li>
+      <li>Compare the recommended side, solar events and timeline. Confirm the time zone used for the departure input before comparing against a ticket.</li>
     </ol>
+    <figure>
+      <img src="/projects/flight-sun-tracker/app-preview.png" alt="Flight Sun Tracker showing JFK to London, the seat-side verdict, route globe and cabin sunlight display" width="1280" height="1000" loading="lazy" decoding="async" style="display:block;width:100%;height:auto;border-radius:8px" />
+      <figcaption>Live interface captured on 24 October 2026. This preview uses the app's displayed route; the fixed API example below uses a separate, explicit UTC departure.</figcaption>
+    </figure>
   </section>
 
   <section>
-    <h2>Key Architectural Decisions</h2>
-    <div class="table-container">
-      <table class="comparison-table">
-        <thead>
-          <tr>
-            <th scope="col">Design Vector</th>
-            <th scope="col">Flight Sun Tracker Choice</th>
-            <th scope="col">Alternative Considered</th>
-            <th scope="col">Technical Rationale</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Visualization</th>
-            <td>HTML5 Canvas 2D</td>
-            <td>Heavy 3D WebGL (Three.js)</td>
-            <td>Zero bundle bloat, instant rendering on mobile browsers, 60 FPS animation.</td>
-          </tr>
-          <tr>
-            <th scope="row">Calculation Engine</th>
-            <td>Local TypeScript Math</td>
-            <td>External REST Ephemeris APIs</td>
-            <td>Zero network latency, offline capability, 100% deterministic results.</td>
-          </tr>
-          <tr>
-            <th scope="row">Seat Mapping</th>
-            <td>Relative Angle Vectors</td>
-            <td>Binary Left/Right Classification</td>
-            <td>Allows calculating exact cabin glare duration, sunrise/sunset golden hours, and twilight.</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+    <h2>Worked example: JFK to London Heathrow</h2>
+    <p>A request to the live recommendation endpoint was checked on 24 October 2026 using these inputs:</p>
+    <table class="comparison-table">
+      <thead><tr><th scope="col">Input</th><th scope="col">Value</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Route</th><td>JFK to LHR</td></tr>
+        <tr><th scope="row">Departure</th><td>25 October 2026, 10:00 UTC</td></tr>
+        <tr><th scope="row">Duration</th><td>420 minutes, or 7 hours</td></tr>
+        <tr><th scope="row">Preference</th><td>Shade</td></tr>
+        <tr><th scope="row">Returned recommendation</th><td>Left side</td></tr>
+      </tbody>
+    </table>
+    <p>The response placed sunrise near 11:00 UTC and sunset near 16:50 UTC, with the sun on the right at both sampled events. These are model results for this route and time, not measured cabin observations. Changing the date, time or duration can change the recommendation.</p>
+  </section>
+
+  <section>
+    <h2>Calculation method and limits</h2>
+    <p>The <a href="https://github.com/smresponsibilities/flight-sun-tracker/blob/main/src/lib/flightCalculator.ts" target="_blank" rel="noopener noreferrer">TypeScript calculator</a> interpolates a great-circle route at five-minute intervals, gets solar positions from SunCalc and compares solar azimuth with the aircraft's heading. The Next.js application offers multiple globe views; it is not a zero-dependency canvas-only application.</p>
+    <ul>
+      <li>A great-circle path is an approximation. Actual routing, delays, altitude and aircraft turns can differ.</li>
+      <li>Weather, window geometry, wing obstruction and cabin shades are not guarantees provided by the model.</li>
+      <li>Five-minute sampling limits event-time precision. Confidence labels are app heuristics, not independently calibrated probabilities.</li>
+      <li>There is no universal sunny side for eastbound or westbound travel. Route, latitude, season and departure time matter.</li>
+      <li>The live endpoint accepts a limited date range. The dated example records a verified result; it is not a permanently valid booking input.</li>
+    </ul>
   </section>
 
   <section>
@@ -158,7 +148,7 @@ const structuredData = {
     <p>The code is fully open-source and maintained on GitHub. Explore the repository and implementation details:</p>
     <ul>
       <li><strong>Live Interactive Application:</strong> <a href="https://flight-sun-tracker-shivam-mahajans-projects.vercel.app" target="_blank" rel="noopener noreferrer">flight-sun-tracker-shivam-mahajans-projects.vercel.app ↗</a></li>
-      <li><strong>GitHub Repository:</strong> <a href="https://github.com/smresponsibilities/flight-sun-tracker" target="_blank" rel="noopener noreferrer">github.com/smresponsibilities/flight-sun-tracker ↗</a></li>
+      <li><strong>GitHub Repository:</strong> <a href="https://github.com/smresponsibilities/flight-sun-tracker" target="_blank" rel="noopener noreferrer">Flight Sun Tracker source on GitHub ↗</a></li>
       <li><strong>Author Portfolio:</strong> <a href="/">Return to Shivam Mahajan's Portfolio</a></li>
       <li><strong>Full Projects Catalog:</strong> <a href="/projects/">Explore All Software Projects</a></li>
     </ul>

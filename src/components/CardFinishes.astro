@@ -155,8 +155,8 @@ function initCardFinishes() {
     }, {signal:controller.signal});
     card.addEventListener('pointerleave',()=>{cancelPointer();delete card.dataset.pointerActive;card.style.setProperty('--rx','0deg');card.style.setProperty('--ry','0deg');card.style.setProperty('--pointer-x','50%');card.style.setProperty('--pointer-y','50%');}, {signal:controller.signal});
 
-    // Only project cards get a back face + flip behaviour
-    if (card.matches(flipSelector)) {
+    // Loading backs are shared; only project cards get activation behavior.
+    if (card.matches(`${flipSelector}, .chapter-card`)) {
       const front = prepareFront(card);
       front.append(...Array.from(card.querySelectorAll(':scope > .site-card-flowers, :scope > .site-card-foil, :scope > .site-card-glare')));
 
@@ -165,25 +165,30 @@ function initCardFinishes() {
       back.className = 'site-card-back';
       back.setAttribute('aria-hidden', 'true');
       back.inert = true;
-      const label = document.createElement('span');
-      label.textContent = "SM'S DEX";
+      const label = document.createElement('div');
+      label.className = 'card-back-top';
+      label.innerHTML = 'SHIVAM MAHAJAN<span>INDEPENDENT DEVELOPER</span>';
       const seal = document.createElement('div');
       seal.className = 'card-back-seal';
       const mark = document.createElement('img');
-      mark.src = '/favicon-sm-complete.svg';
-      mark.alt = '';mark.width = 90;mark.height = 90;
+      mark.src = '/card-finishes/sm-mark.svg';
+      mark.alt = '';mark.width = 112;mark.height = 112;
       seal.append(mark);
-      const signature = document.createElement('span');
-      signature.textContent = 'DESIGNED & BUILT BY SHIVAM MAHAJAN';
+      const signature = document.createElement('div');
+      signature.className = 'card-back-bottom';
+      signature.innerHTML = 'Ideas into<br><i>working things.</i><span>SELECTED WORK · 2026</span>';
       back.append(label, seal, signature);
       card.append(back);
 
+    }
+    if (card.matches(flipSelector)) {
       card.dataset.flippable = 'true';
       card.tabIndex = 0;
       card.setAttribute('role', 'group');
       const title = card.querySelector('h3,h2')?.textContent?.trim() || 'project';
       card.setAttribute('aria-label', `${title}. Press Enter or Space to flip card.`);
       const flip = () => {
+        if (card.classList.contains('is-loading')) return;
         if (focused === card) { focusView.close(); return; }
         if (homepage) {
           const origin = card.getBoundingClientRect();
@@ -231,22 +236,43 @@ function initCardFinishes() {
     }
     return front;
   }
+  const loadCard = async (card: HTMLElement) => {
+    if (card.dataset.cardAssets !== "pending") return;
+    card.dataset.cardAssets = "loading";
+    const urls = new Set<string>();
+    card.querySelectorAll<HTMLElement>(".site-card-foil,.site-card-back").forEach(element => {
+      for (const match of getComputedStyle(element).backgroundImage.matchAll(/url\(["']?([^"')]+)["']?\)/g)) urls.add(match[1]);
+    });
+    const images = Array.from(card.querySelectorAll<HTMLImageElement>("img"));
+    images.forEach(image => { image.loading = "eager"; });
+    await Promise.allSettled([
+      ...images.map(image => image.decode()),
+      ...Array.from(urls, async url => { const image = new Image(); image.src = url; await image.decode(); }),
+    ]);
+    if (controller.signal.aborted) return;
+    card.dataset.cardAssets = "ready";
+    card.classList.remove("is-loading");
+    card.removeAttribute("aria-busy");
+  };
   const mounts = new IntersectionObserver(entries => {
     for (const entry of entries) if (entry.isIntersecting) {
       mounts.unobserve(entry.target);
-      enhance(entry.target as HTMLElement);
+      void loadCard(entry.target as HTMLElement);
     }
-  }, {rootMargin:'300px 0px'});
+  }, {rootMargin:"300px 0px"});
   const queue = (card: HTMLElement) => {
     if (card.dataset.cardReady) return;
-    // Keep content parents stable when a focused card gains its decorative layers.
-    if (card.matches(flipSelector)) prepareFront(card);
+    if (!card.matches(`${flipSelector}, .chapter-card`)) { enhance(card); return; }
+    card.classList.add("is-loading");
+    card.dataset.cardAssets = "pending";
+    card.setAttribute("aria-busy", "true");
+    enhance(card);
     mounts.observe(card);
   };
   document.querySelectorAll<HTMLElement>(selector).forEach(queue);
   document.addEventListener('focusin', event => {
     const card = event.target instanceof Element ? event.target.closest<HTMLElement>(selector) : null;
-    if (card) { mounts.unobserve(card); enhance(card); }
+    if (card) { mounts.unobserve(card); void loadCard(card); }
   }, {signal:controller.signal});
   const additions = new MutationObserver(records => records.forEach(record => record.addedNodes.forEach(node => {
     if (!(node instanceof HTMLElement)) return;
