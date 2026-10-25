@@ -5,7 +5,7 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178c6?style=flat&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Web Audio API](https://img.shields.io/badge/Audio-Web_Audio_API_(0KB)-00b4d8?style=flat)](https://developer.mozilla.org/en-US/docs/Web/API/Web_Audio_API)
 [![Tests Passing](https://img.shields.io/badge/Ahrefs_SEO_Tests-17%2F17_Passing-success?style=flat)](https://shivammahajan.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 An open-source, nostalgic Pokédex-themed developer portfolio for **[Shivam Mahajan](https://shivammahajan.com/)**. Built with zero default client-side JavaScript overhead, native Web Audio chiptune synthesis, and a community developer roster automated via GitHub Actions CI.
 
@@ -74,3 +74,17 @@ Software Developer & Systems Builder
 * LinkedIn: [linkedin.com/in/mahajanshivam](https://www.linkedin.com/in/mahajanshivam/)
 * Peerlist: [peerlist.io/shivammahajan](https://peerlist.io/shivammahajan)
 * Dev.to: [dev.to/shivammahajan](https://dev.to/shivammahajan)
+
+---
+
+## Credits & Attribution
+
+* **[Pokémon Cards CSS](https://github.com/simeydotme/pokemon-cards-css):** Holographic foil finishes, card surface recipes, textures, and 3D tilt interaction patterns adapted from [simeydotme/pokemon-cards-css](https://github.com/simeydotme/pokemon-cards-css) by [Simon Goellner](https://github.com/simeydotme) under the [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0).
+
+---
+
+## License
+
+This project is licensed under the [GNU General Public License v3.0](LICENSE) (GPL-3.0) — see the [LICENSE](LICENSE) file for the full text.
+
+Portions adapted from [pokemon-cards-css](https://github.com/simeydotme/pokemon-cards-css) © 2022 Simon Goellner (GPL-3.0).
