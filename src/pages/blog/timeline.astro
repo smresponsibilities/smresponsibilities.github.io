@@ -5,6 +5,16 @@ import PokemonTimeline from "../../components/PokemonTimeline.astro";
 const allPosts = await import("../../data/linkedin-posts.json");
 const posts = allPosts.default;
 
+const initialCount = 50;
+const initialPosts = posts.slice(0, initialCount);
+const remainingPosts = posts.slice(initialCount).map(post => ({
+  day: post.day,
+  date: post.date,
+  month: post.date && post.date.length >= 7 ? post.date.slice(0, 7) : '',
+  snippet: post.content ? post.content.replace(/#[\w]+/g, '').replace(/\s+/g, ' ').slice(0, 150) + '...' : '',
+  easterEgg: post.easterEgg || null
+}));
+
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 const structuredData = {
   '@context': 'https://schema.org',
@@ -82,12 +92,12 @@ const structuredData = {
           placeholder="Filter timeline by LeetCode question (e.g. 'Two Sum', '1541') or day..."
           aria-label="Filter timeline by LeetCode question or day"
         />
-        <span id="timeline-filter-count" class="timeline-filter-count">Showing all {posts.length} days</span>
+        <span id="timeline-filter-count" class="timeline-filter-count">Showing {initialPosts.length} of {posts.length} days</span>
       </div>
 
       <div class="timeline-scroll">
-        <div class="timeline">
-          {posts.map(post => (
+        <div class="timeline" id="timeline-list">
+          {initialPosts.map(post => (
             <div class={`timeline-item ${post.easterEgg ? "has-egg" : ""}`} id={`day-${post.day}`}>
               <div class="timeline-marker"></div>
               <details class="timeline-content">
@@ -109,7 +119,15 @@ const structuredData = {
             </div>
           ))}
         </div>
+        {remainingPosts.length > 0 && (
+          <div id="timeline-load-more" style="text-align: center; padding: 1.5rem 0;">
+            <button type="button" id="btn-load-all-posts" class="load-more-btn">
+              Load all {posts.length} days ({remainingPosts.length} more)
+            </button>
+          </div>
+        )}
       </div>
+      <script id="timeline-remaining-data" type="application/json" set:html={JSON.stringify(remainingPosts)}></script>
     </div>
   </main>
   <footer class="site-footer">Pokémon © Nintendo / Creatures / GAME FREAK · Tested by my friends.</footer>
@@ -285,15 +303,124 @@ const structuredData = {
     color: var(--dim, #666);
   }
 
+  .load-more-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #050811;
+    background: #F7D02C;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(247, 208, 44, 0.35);
+    transition: all 0.16s ease;
+    font-family: inherit;
+  }
+  .load-more-btn:hover {
+    background: #ffd75e;
+  }
+
   .timeline-header h1{font:500 clamp(30px,5vw,48px)/1.1 Arial,sans-serif;letter-spacing:-.035em;max-width:24ch}.timeline-header>p{font:16px/1.7 Arial,sans-serif;max-width:65ch;color:#becfd8}.timeline-scroll{background:#0d1723;border-color:#dff6ff26;color:#e1e9ed}.timeline-content{color:#e1e9ed}.timeline-date{color:#b1c5d0}.timeline-marker{background:#ffd75e;border-color:#0d1723}.timeline::before{background:#5c7180}.mode-btn{font:600 13px Arial,sans-serif}.timeline-filter-count{color:#b1c5d0}
 </style>
 
 <script>
+  let isHydrated = false;
+
+  function hydrateRemaining() {
+    if (isHydrated) return;
+    isHydrated = true;
+
+    const dataEl = document.getElementById('timeline-remaining-data');
+    const container = document.getElementById('timeline-list');
+    const loadMoreContainer = document.getElementById('timeline-load-more');
+    if (!dataEl || !container) return;
+
+    try {
+      const items = JSON.parse(dataEl.textContent || '[]');
+      const fragment = document.createDocumentFragment();
+
+      for (const post of items) {
+        const itemEl = document.createElement('div');
+        itemEl.className = `timeline-item ${post.easterEgg ? 'has-egg' : ''}`;
+        itemEl.id = `day-${post.day}`;
+
+        const marker = document.createElement('div');
+        marker.className = 'timeline-marker';
+        itemEl.appendChild(marker);
+
+        const details = document.createElement('details');
+        details.className = 'timeline-content';
+
+        const summary = document.createElement('summary');
+        const dateSpan = document.createElement('span');
+        dateSpan.className = 'timeline-date';
+        if (post.month) {
+          const monthLink = document.createElement('a');
+          monthLink.href = `/blog/month/${post.month}/`;
+          monthLink.textContent = post.date;
+          dateSpan.appendChild(monthLink);
+        } else {
+          dateSpan.textContent = post.date || '';
+        }
+        summary.appendChild(dateSpan);
+
+        const h3 = document.createElement('h3');
+        h3.textContent = `Day ${post.day}`;
+        summary.appendChild(h3);
+
+        if (post.easterEgg) {
+          const eggBadge = document.createElement('span');
+          eggBadge.className = 'egg-badge';
+          eggBadge.textContent = '?? Glitch';
+          summary.appendChild(eggBadge);
+        }
+        details.appendChild(summary);
+
+        const expanded = document.createElement('div');
+        expanded.className = 'expanded';
+
+        const pText = document.createElement('p');
+        pText.className = 'post-text';
+        pText.textContent = post.snippet;
+        expanded.appendChild(pText);
+
+        const readMore = document.createElement('a');
+        readMore.className = 'read-more';
+        readMore.href = `/blog/day-${post.day}/`;
+        readMore.textContent = 'Read full page →';
+        expanded.appendChild(readMore);
+
+        if (post.easterEgg) {
+          const eggP = document.createElement('p');
+          eggP.className = 'egg';
+          eggP.textContent = `?? ${post.easterEgg}`;
+          expanded.appendChild(eggP);
+        }
+
+        details.appendChild(expanded);
+        itemEl.appendChild(details);
+        fragment.appendChild(itemEl);
+      }
+
+      container.appendChild(fragment);
+      if (loadMoreContainer) loadMoreContainer.style.display = 'none';
+
+      const count = document.getElementById('timeline-filter-count');
+      const allItems = container.querySelectorAll('.timeline-item');
+      if (count) count.textContent = `Showing all ${allItems.length} days`;
+    } catch (e) {
+      console.error('Failed to parse timeline remaining data', e);
+    }
+  }
+
   function initTimelineTabs() {
     const btnCenturies = document.getElementById('btn-view-centuries');
     const btnDaily = document.getElementById('btn-view-daily');
     const panelCenturies = document.getElementById('view-panel-centuries');
     const panelDaily = document.getElementById('view-panel-daily');
+    const btnLoadAll = document.getElementById('btn-load-all-posts');
+
+    btnLoadAll?.addEventListener('click', () => hydrateRemaining());
 
     function switchView(mode: 'centuries' | 'daily') {
       if (mode === 'centuries') {
@@ -310,24 +437,34 @@ const structuredData = {
         btnCenturies?.setAttribute('aria-selected', 'false');
         if (panelDaily) panelDaily.hidden = false;
         if (panelCenturies) panelCenturies.hidden = true;
+        hydrateRemaining();
       }
     }
 
     btnCenturies?.addEventListener('click', () => switchView('centuries'));
     btnDaily?.addEventListener('click', () => switchView('daily'));
 
-    // If direct link to specific day (e.g. #day-500), switch to daily view
+    // If direct link to specific day (e.g. #day-500), switch to daily view and hydrate
     if (window.location.hash && window.location.hash.startsWith('#day-')) {
+      hydrateRemaining();
       switchView('daily');
+      const target = document.querySelector(window.location.hash);
+      target?.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
   function initTimelineSearch() {
     const search = document.getElementById('timeline-search');
     const count = document.getElementById('timeline-filter-count');
-    const items = document.querySelectorAll('.timeline-item');
-    if (search instanceof HTMLInputElement && items.length) {
+
+    if (search instanceof HTMLInputElement) {
+      search.addEventListener('focus', () => {
+        hydrateRemaining();
+      });
+
       search.addEventListener('input', (e) => {
+        hydrateRemaining();
+        const items = document.querySelectorAll('.timeline-item');
         const q = (e.target as HTMLInputElement).value.trim().toLowerCase();
         let visible = 0;
         items.forEach(item => {
@@ -353,6 +490,7 @@ const structuredData = {
     initTimelineSearch();
   }
   document.addEventListener('astro:page-load', () => {
+    isHydrated = false;
     initTimelineTabs();
     initTimelineSearch();
   });

@@ -8,7 +8,7 @@
   <title>Casing Fidelity Check | SM'S DEX</title>
 </head>
 <body>
-  <h1 style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">Casing Fidelity Check</h1>
+  <h1 class="sr-only">Casing Fidelity Check</h1>
 <style>
   :root {
     /* Measured off the reference device. These are the reference's own palette --
@@ -24,6 +24,7 @@
     --hairline: 0.8px solid #000;
   }
 
+  .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   body {
     margin: 0;
     min-height: 100vh;

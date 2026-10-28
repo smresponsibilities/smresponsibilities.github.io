@@ -213,9 +213,7 @@ const structuredData = {
           <a href={`/blog/day-${post.day}/`} 
              class={`heat-box ${post.easterEgg ? "has-glitch" : ""}`} 
              title={`Day ${post.day}: ${post.date} ${post.easterEgg ? "(Glitch)" : ""}`}
-             aria-label={`Day ${post.day}: ${post.date}`}>
-            <span class="sr-only">Day {post.day}</span>
-          </a>
+             aria-label={`Day ${post.day}: ${post.date}`}></a>
         ))}
       </div>
     </div>

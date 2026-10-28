@@ -2,15 +2,12 @@
 import EditorialShell from '../components/EditorialShell.astro';
 import DaysTimeline from '../components/DaysTimeline.astro';
 const variants = [
-  [1, 'Spine', 12], [2, 'Heatmap river', undefined], [3, 'Chapters', undefined],
+  [1, 'Spine', 12], [2, 'Heatmap river', 25], [3, 'Chapters', 20],
   [4, 'Horizontal scroller', 40], [5, 'Terminal log', 25], [6, 'Index cards', 12],
-  [7, 'Editorial ledger', 25], [8, 'Dot strip', undefined], [9, 'By year', undefined], [10, 'Milestones only', undefined],
+  [7, 'Editorial ledger', 25], [8, 'Dot strip', 30], [9, 'By year', 20], [10, 'Milestones only', undefined],
 ] as const;
 ---
-<EditorialShell title="Timeline previews | Shivam Mahajan" description="Internal design previews and experimental timeline variants for Shivam Mahajan's 2,002 Days of Code challenge." eyebrow="Preview" heading="Timeline previews" intro="Ten designs. Tell me the number you want.">
-  <Fragment slot="head">
-    <meta name="robots" content="noindex, nofollow" />
-  </Fragment>
+<EditorialShell title="Timeline previews | Shivam Mahajan" description="Internal design previews and experimental timeline variants for Shivam Mahajan's 2,002 Days of Code challenge." eyebrow="Preview" heading="Timeline previews" intro="Ten designs. Tell me the number you want." noindex={true}>
   {variants.map(([n, name, limit]) => (
     <section style="margin:2.5rem 0">
       <h2>{n}. {name}</h2>
