@@ -16,7 +16,8 @@ const structuredData = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD'
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/OnlineOnly'
       }
     },
     {
@@ -33,6 +34,36 @@ const structuredData = {
         { '@type': 'Thing', name: 'Smart Contracts' },
         { '@type': 'Thing', name: 'Gemini AI' },
         { '@type': 'Thing', name: 'Web3' }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/projects/chaincode/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How does Chaincode detect AI-generated code?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Chaincode uses Google Gemini AI to analyze abstract syntax tree semantics, algorithmic complexity, and structure beyond cosmetic variable renaming, achieving over 95% classification precision.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How are developer certificates minted and verified on-chain?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'When code passes originality and correctness thresholds, the backend generates an EIP-712 signed voucher. The developer then mints an ERC-721 NFT directly to their Web3 wallet with IPFS metadata.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What blockchain does Chaincode deploy to?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Chaincode operates on EVM-compatible blockchains (such as Ethereum Sepolia testnet) using gas-optimized Solidity smart contracts consuming under 65,000 gas units per certificate.'
+          }
+        }
       ]
     },
     {
@@ -140,6 +171,52 @@ const structuredData = {
     </section>
 
     <section>
+      <h2>Chaincode vs Traditional Code Checkers</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Traditional Checkers (Moss / Levenshtein)</th>
+            <th scope="col">Chaincode AI + EVM Architecture</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">AI Detection</th>
+            <td>Token-based matching; easily bypassed by variable renaming</td>
+            <td>Gemini AI semantic AST analysis; 95%+ classification accuracy</td>
+          </tr>
+          <tr>
+            <th scope="row">Credential Security</th>
+            <td>PDF certificates or web badges susceptible to forgery</td>
+            <td>Immutable ERC-721 NFT minted on-chain with IPFS metadata</td>
+          </tr>
+          <tr>
+            <th scope="row">Gas Efficiency</th>
+            <td>N/A (off-chain or expensive on-chain storage)</td>
+            <td>EIP-712 vouchers and bitmask flags reducing mint cost &lt; 65k gas</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How does Chaincode detect AI-generated code?</h3>
+        <p>Chaincode uses Google Gemini AI to analyze abstract syntax tree semantics, algorithmic complexity, and structure beyond cosmetic variable renaming, achieving over 95% classification precision.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How are developer certificates minted and verified on-chain?</h3>
+        <p>When code passes originality and correctness thresholds, the backend generates an EIP-712 signed voucher. The developer then mints an ERC-721 NFT directly to their Web3 wallet with IPFS metadata.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What blockchain does Chaincode deploy to?</h3>
+        <p>Chaincode operates on EVM-compatible blockchains (such as Ethereum Sepolia testnet) using gas-optimized Solidity smart contracts consuming under 65,000 gas units per certificate.</p>
+      </div>
+    </section>
+
+    <section>
       <h2>Verification &amp; Links</h2>
       <p>
         Chaincode was recognized with 3rd place overall at the HackIndia Hackathon out of more than 200 competing engineering teams across India.
@@ -153,3 +230,31 @@ const structuredData = {
     </section>
   </article>
 </EditorialShell>
+
+<style>
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .comparison-table th, .comparison-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .comparison-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
+  }
+</style>

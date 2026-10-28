@@ -58,7 +58,7 @@ const structuredData = {
               bestRating: '5'
             },
             author: {
-              '@type': 'Organization',
+              '@type': 'Person',
               name: 'HackIndia National Jury'
             },
             reviewBody: 'Awarded 3rd place among 200+ national engineering teams for Chaincode—an automated code originality verification platform integrating Gemini AI and deterministic smart contracts.'
@@ -74,7 +74,6 @@ const structuredData = {
               '@type': 'Person',
               name: 'Engineering Mentorship & Systems Lead',
               affiliation: {
-                '@type': 'Organization',
                 name: 'Morgan Stanley'
               }
             },
@@ -91,7 +90,6 @@ const structuredData = {
               '@type': 'Person',
               name: 'Open Source Community Contributors',
               affiliation: {
-                '@type': 'Organization',
                 name: "GitHub SM'S DEX Community Roster"
               }
             },
@@ -99,6 +97,36 @@ const structuredData = {
           }
         ]
       }
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/resume/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: "What is Shivam Mahajan's core technical expertise?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Shivam Mahajan is a Software Developer specializing in distributed streaming data architectures (Kafka, PySpark, Snowflake), backend APIs (Java, Python, TypeScript), and algorithmic problem solving with over 2,680 verified DSA problems solved across LeetCode and Codeforces.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What enterprise engineering experience does Shivam Mahajan have?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'At Morgan Stanley as a Technology Apprentice, Shivam scaled CIAM data ingestion pipelines processing over 5 million daily events using Apache Kafka, PySpark, and Snowflake under a strict zero row-count discrepancy tolerance SLA.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: "How long is Shivam Mahajan's continuous coding streak?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Shivam has maintained an active daily coding streak of over 1,250 consecutive days as part of the 2,002 Days of Code challenge, with every daily solution logged, open-sourced, and archived on GitHub and LinkedIn.'
+          }
+        }
+      ]
     },
     {
       '@type': 'BreadcrumbList',
@@ -112,8 +140,8 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="Shivam Mahajan — Senior Software Developer Resume (Python, Kotlin, Data Pipelines)" 
-  description="Read Shivam Mahajan's resume and CV. Experience at Morgan Stanley, technical skills (Python, Snowflake, Kafka, PySpark), education, and projects." 
+  title="Shivam Mahajan — Software Developer Resume" 
+  description="Read Shivam Mahajan's resume: 5M+ event streaming pipelines at Morgan Stanley, distributed systems, Python, Kotlin, Kafka, PySpark, Snowflake, and algorithms." 
   eyebrow="Trainer record / Resume" 
   heading="Shivam Mahajan's resume / CV" 
   intro="Software developer based in Bengaluru. Works across Python data pipelines, Snowflake, Java APIs, and Kotlin applications."
@@ -209,7 +237,51 @@ const structuredData = {
     <article class="card"><h3><a href="https://github.com/smresponsibilities/Ingestion-Tool" target="_blank" rel="noopener noreferrer">ClickHouse Ingestion Tool ↗</a></h3><p class="meta">TypeScript / ClickHouse / SQL</p><p>Bidirectional data engineering tool connecting ClickHouse OLAP databases and CSV flat files with real-time schema mapping and batch export.</p></article>
     <article class="card"><h3><a href="https://github.com/smresponsibilities/Chain-Code" target="_blank" rel="noopener noreferrer">Chaincode ↗</a></h3><p class="meta">Solidity / MERN / Gemini AI</p><p>Web3 coding platform validating code originality with Google Gemini AI at 95%+ accuracy and minting solutions as NFTs on blockchain. 3rd of 200+ teams.</p></article>
   </div></section>
-  <section><h2>Skills & Technologies</h2><p><strong>Programming Languages:</strong> Python, Kotlin, Java, JavaScript, TypeScript, Solidity<br><strong>Data & Cloud:</strong> Kafka, PySpark, Snowflake, Docker, Cloud Platforms<br><strong>Frontend & Web:</strong> React, Astro, Next.js, HTML5, CSS3</p></section>
+  <section>
+    <h2>Skills &amp; Technical Capabilities</h2>
+    <table class="skills-table">
+      <thead>
+        <tr>
+          <th scope="col">Domain</th>
+          <th scope="col">Core Technologies</th>
+          <th scope="col">Production Metric / Scale</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Distributed Data</th>
+          <td>Kafka, PySpark, Snowflake, ClickHouse, Docker</td>
+          <td>5M+ daily streaming events, zero row-count discrepancy</td>
+        </tr>
+        <tr>
+          <th scope="row">Backend &amp; Languages</th>
+          <td>Python, Kotlin, Java, TypeScript, C, Solidity</td>
+          <td>425+ automated test suites, REST APIs, smart contracts</td>
+        </tr>
+        <tr>
+          <th scope="row">Algorithms &amp; Web</th>
+          <td>Astro, React, Next.js, Web Audio API, Tailwind CSS</td>
+          <td>2,680+ verified DSA solutions, 1,250+ day streak</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="resume-faq" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>What is Shivam Mahajan's core technical expertise?</h3>
+      <p>Shivam Mahajan is a Software Developer specializing in distributed streaming data architectures (Kafka, PySpark, Snowflake), backend APIs (Java, Python, TypeScript), and algorithmic problem solving with over 2,680 verified DSA problems solved across LeetCode and Codeforces.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What enterprise engineering experience does Shivam Mahajan have?</h3>
+      <p>At Morgan Stanley as a Technology Apprentice, Shivam scaled CIAM data ingestion pipelines processing over 5 million daily events using Apache Kafka, PySpark, and Snowflake under a strict zero row-count discrepancy tolerance SLA.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How long is Shivam Mahajan's continuous coding streak?</h3>
+      <p>Shivam has maintained an active daily coding streak of over 1,250 consecutive days as part of the 2,002 Days of Code challenge, with every daily solution logged, open-sourced, and archived on GitHub and LinkedIn.</p>
+    </div>
+  </section>
   <section><h2>Education</h2><p><strong>Chitkara University</strong><br>Bachelor of Engineering in Computer Science & Engineering<br><em>Aug 2022 – Aug 2026</em><br>Relevant Coursework: Data Structures & Algorithms, Distributed Systems, Database Management Systems, Computer Networks.</p></section>
   <section><h2>Contact & Links</h2><p><a href="mailto:shivammahajan.mail@gmail.com">Email</a> · <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a> · <a href="https://peerlist.io/shivammahajan" target="_blank" rel="noopener noreferrer">Peerlist</a> · <a href="https://www.producthunt.com/@shivammahajan" target="_blank" rel="noopener noreferrer">Product Hunt</a></p></section>
 </EditorialShell>
@@ -290,5 +362,30 @@ const structuredData = {
     color: var(--time-accent, #ffd75e);
     margin-top: 10px;
     font-weight: 500;
+  }
+  .skills-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .skills-table th, .skills-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .skills-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .resume-faq {
+    margin-top: 2.5rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
   }
 </style>

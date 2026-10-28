@@ -30,7 +30,7 @@ const structuredData = {
 };
 ---
 
-<Base title="Days of Code Timeline | Shivam Mahajan" description="Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones." structuredData={structuredData}>
+<Base title="Days of Code Timeline | Shivam Mahajan" description="Explore the complete interactive timeline of Shivam Mahajan's 2,002 Days of Code challenge, tracking daily engineering progress, LeetCode, and milestones." image="/peony-gold-1200x630.png" imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony" structuredData={structuredData}>
   <main class="timeline-container">
     <header class="timeline-header">
       <h1>Days of Code. One chapter at a time.</h1>
@@ -101,7 +101,7 @@ const structuredData = {
                   {post.easterEgg && <span class="egg-badge">?? Glitch</span>}
                 </summary>
                 <div class="expanded">
-                  <p class="post-text">{post.content.slice(0, 150)}...</p>
+                  <p class="post-text">{post.content.replace(/#[\w]+/g, '').replace(/\s+/g, ' ').slice(0, 150)}...</p>
                   <a href={`/blog/day-${post.day}/`} class="read-more">Read full page →</a>
                   {post.easterEgg && <p class="egg">?? {post.easterEgg}</p>}
                 </div>

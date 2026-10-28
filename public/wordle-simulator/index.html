@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Terminal Wordle in Pure C: Interactive Simulator and Call Pipeline</title>
 <meta name="description" content="Explore Shivam Mahajan's pure C Terminal Wordle project: interactive browser simulator, live C function call tree, duplicate letter tracker, and hash lookup.">
+<meta name="robots" content="index, follow">
 <link rel="canonical" href="https://shivammahajan.com/wordle-simulator/">
 <meta name="author" content="Shivam Mahajan">
 <meta property="og:site_name" content="Shivam Mahajan Portfolio">
@@ -643,7 +644,7 @@ p.lead {
 
 .inspect-modal.open { display: block; }
 
-.inspect-modal h4 {
+.inspect-modal h3, .inspect-modal h4 {
   margin: 0 0 8px;
   color: var(--green);
   font-size: 14.5px;
@@ -1080,7 +1081,7 @@ body.is-embedded .workspace {
 
         <!-- Detail Drawer / Modal for Clicked/Hovered Node -->
         <div class="inspect-modal" id="inspect-modal">
-          <h4 id="inspect-fn-title">Function Details</h4>
+          <h3 id="inspect-fn-title">Function Details</h3>
           <div class="meta-row">
             <span>Module: <strong id="inspect-module">-</strong></span>
             <span>Header: <strong id="inspect-header">-</strong></span>
@@ -1422,7 +1423,7 @@ gcc -O3 wordle.c src/randomindex.c src/wordcheck.c src/hash.c src/color.c \
   async function initWasm() {
     try {
       const res = await fetch('/wordle-simulator/wordle.wasm');
-      if (!res.ok) throw new Error('Failed to fetch wordle.wasm');
+      if (!res.ok) { return; }
       const bytes = await res.arrayBuffer();
       const { instance } = await WebAssembly.instantiate(bytes, {});
       wasmInstance = instance;

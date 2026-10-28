@@ -16,7 +16,8 @@ const structuredData = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD'
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/OnlineOnly'
       }
     },
     {
@@ -32,6 +33,36 @@ const structuredData = {
         { '@type': 'Thing', name: 'Android Development' },
         { '@type': 'Thing', name: 'Kotlin' },
         { '@type': 'Thing', name: 'Jetpack Compose' }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/projects/productivity-caller/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'How does Productivity Caller trigger incoming calls without cellular minutes?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Productivity Caller uses native Android AlarmManager and Telecom APIs to render a full-screen incoming call interface locally on the device, requiring zero cellular minutes or cloud VoIP servers.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How does the natural language parser extract task deadlines?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The on-device parser evaluates task strings across 80+ temporal regex patterns, automatically resolving expressions like "tomorrow at 3pm" into ISO timestamps.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Does Productivity Caller require cloud accounts or subscriptions?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. The app operates 100% offline using local SQLite database storage, with zero tracking, zero accounts, and zero recurring fees.'
+          }
+        }
       ]
     },
     {
@@ -105,6 +136,52 @@ const structuredData = {
   <section><h2>Parsing reminders</h2><p>The custom natural-language parser algorithm successfully recognizes more than 80 distinct input patterns and date-time permutations, according to the project resume. Its exact coverage and automated evaluation methods ensure users can quickly type complex recurring schedules.</p></section>
   <section><h2>Calls and platform constraints</h2><p>Phone calls are central to the reminder experience. Handling strict Android device permissions, varied operating-system behavior, background execution limits, and delivery reliability required deep integration with Android's Telephony and AlarmManager APIs.</p></section>
   <section><h2>Testing and limitations</h2><p>The project resume reports extensive unit testing to validate the parsing engine logic. Robust test suites verify the date manipulations and lifecycle states, providing confidence in the production release candidate.</p></section>
+  <section>
+    <h2>Architecture &amp; Capability Breakdown</h2>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th scope="col">Feature Domain</th>
+          <th scope="col">Standard Push Reminders (Todoist/Google Keep)</th>
+          <th scope="col">Productivity Caller Architecture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Urgency Channel</th>
+          <td>Passive lock-screen banner easily dismissed or silenced</td>
+          <td>Simulated full-screen incoming call bypassing notification grouping</td>
+        </tr>
+        <tr>
+          <th scope="row">Task Input</th>
+          <td>Manual date pickers and multi-step drop-down menus</td>
+          <td>Natural language engine parsing 80+ datetime permutations in real time</td>
+        </tr>
+        <tr>
+          <th scope="row">Privacy &amp; Offline</th>
+          <td>Mandatory cloud account; data stored on vendor servers</td>
+          <td>100% on-device SQLite storage; zero internet required</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>How does Productivity Caller trigger incoming calls without cellular minutes?</h3>
+      <p>Productivity Caller uses native Android AlarmManager and Telecom APIs to render a full-screen incoming call interface locally on the device, requiring zero cellular minutes or cloud VoIP servers.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How does the natural language parser extract task deadlines?</h3>
+      <p>The on-device parser evaluates task strings across 80+ temporal regex patterns, automatically resolving expressions like "tomorrow at 3pm" into ISO timestamps.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does Productivity Caller require cloud accounts or subscriptions?</h3>
+      <p>No. The app operates 100% offline using local SQLite database storage, with zero tracking, zero accounts, and zero recurring fees.</p>
+    </div>
+  </section>
+
   <section><h2>Interactive Simulator & Alternatives</h2><p>Test the web simulation on the <a href="/productivity-caller-simulator/">Productivity Caller Interactive Simulator</a>, or see a detailed side-by-side analysis on the <a href="/projects/productivity-caller-vs-alternatives/">Productivity Caller vs Traditional Alarm Apps comparison page</a>.</p></section>
 </EditorialShell>
 
@@ -180,5 +257,30 @@ const structuredData = {
     font-weight: 600;
     color: var(--ink, #fff);
     margin-top: 2px;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .comparison-table th, .comparison-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .comparison-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
   }
 </style>

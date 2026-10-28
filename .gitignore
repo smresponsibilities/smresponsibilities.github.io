@@ -10,3 +10,6 @@ Thumbs.db
 .scratch/tmp/
 .scratch/vendor/
 .scratch/
+.rea-seo/
+__pycache__/
+*.pyc

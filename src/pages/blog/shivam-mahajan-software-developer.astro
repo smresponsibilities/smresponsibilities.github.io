@@ -11,6 +11,7 @@ const structuredData = {
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: 'Shivam Mahajan: backend and data engineering work',
       description: 'Explore Shivam Mahajan’s backend and data engineering work through Python pipelines, ClickHouse ingestion and linked source repositories.',
+      image: 'https://shivammahajan.com/peony-gold-1200x630.png',
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: currentUrl,
@@ -29,7 +30,7 @@ const structuredData = {
   ]
 };
 ---
-<EditorialShell title="Shivam Mahajan | Backend and Data Engineering Work" description="Explore Shivam Mahajan's backend and data engineering work through Python pipelines, ClickHouse ingestion and linked source repositories." eyebrow="Engineering work" heading="Backend and data engineering work" intro="A guide to Shivam Mahajan's engineering projects, implementation decisions and source code." structuredData={structuredData}>
+<EditorialShell title="Shivam Mahajan | Backend and Data Engineering Work" description="Explore Shivam Mahajan's backend and data engineering work through Python pipelines, ClickHouse ingestion and linked source repositories." eyebrow="Engineering work" heading="Backend and data engineering work" intro="A guide to Shivam Mahajan's engineering projects, implementation decisions and source code." image="/peony-gold-1200x630.png" imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony" structuredData={structuredData}>
   <a slot="actions" href="/">Official Portfolio</a><a slot="actions" href="/resume/">View resume</a><a slot="actions" href="/projects/">See projects</a>
   <section><h2>Data ingestion and validation</h2><p>Shivam's Morgan Stanley apprenticeship involved Kafka, PySpark and Snowflake pipelines handling 5 million daily events with zero row-count loss tolerance. The <a href="/resume/">resume</a> documents that role. The <a href="https://github.com/smresponsibilities/Ingestion-Tool" target="_blank" rel="noopener noreferrer">ClickHouse ingestion repository</a> contains a separate project moving data between CSV files and an analytical database.</p></section>
   <section><h2>Application behavior and interfaces</h2><p><a href="/projects/productivity-caller/">Productivity Caller</a> uses native Android phone-call reminders. <a href="/projects/flight-sun-tracker/">Flight Sun Tracker</a> applies solar-position calculations to flight routes. These case studies link to the implementations and distinguish product behavior from the underlying engineering choices.</p></section>

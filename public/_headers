@@ -1,0 +1,16 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:; font-src 'self' data: https:; connect-src 'self' https:; media-src 'self' https:; frame-ancestors 'self';
+
+/*.wasm
+  Content-Type: application/wasm
+
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+
+/llms-full.txt
+  Content-Type: text/markdown; charset=utf-8

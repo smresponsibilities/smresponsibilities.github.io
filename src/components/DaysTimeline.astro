@@ -41,7 +41,9 @@ const href = (d: number) => `/blog/day-${d}/`;
   {(variant === 2 || variant === 8) && (
     <div class="cells">
       {items.map((i) => (
-        <a href={href(i.day)} title={`Day ${i.day}: ${i.date}`} class:list={['cell', { ms: i.ms, egg: i.egg }]}></a>
+        <a href={href(i.day)} title={`Day ${i.day}: ${i.date}`} aria-label={`Day ${i.day}: ${i.date}`} class:list={['cell', { ms: i.ms, egg: i.egg }]}>
+          <span class="sr-only">Day {i.day}</span>
+        </a>
       ))}
     </div>
   )}
@@ -107,6 +109,17 @@ const href = (d: number) => `/blog/day-${d}/`;
   .node::before { content: ""; position: absolute; left: -1.75rem; top: .4rem; width: 14px; height: 14px; border-radius: 50%; border: 3px solid var(--a); background: var(--panel, #111); }
   .node.ms::before { background: var(--a); transform: scale(1.35); }
   .node.egg::before { border-color: #f59e0b; }
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
   .node a { display: block; padding: .5rem .75rem; border: 1px solid transparent; }
   .node a:hover, .node a:focus-visible { border-color: var(--a); }
   .node small, .node b, .node span { display: block; }

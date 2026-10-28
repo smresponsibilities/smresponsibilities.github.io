@@ -16,7 +16,8 @@ const structuredData = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD'
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/OnlineOnly'
       }
     },
     {
@@ -33,6 +34,36 @@ const structuredData = {
         { '@type': 'Thing', name: 'Web Fetch API' },
         { '@type': 'Thing', name: 'REST API' },
         { '@type': 'Thing', name: 'Developer Tools' }
+      ]
+    },
+    {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/projects/postie/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Why use Postie instead of desktop API clients like Postman?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Postie requires zero installation, creates zero cloud accounts, and transmits zero telemetry. It runs in seconds directly in the browser with 100% client-side privacy.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Does Postie send request data or tokens to any server?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'No. All HTTP requests execute directly from your browser via native Web Fetch API, and request collections persist locally in your browser LocalStorage.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How does Postie handle CORS preflight errors?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Postie provides actionable diagnostics when browser CORS policies block cross-origin requests, guiding engineers on Access-Control-Allow-Origin headers and localhost configurations.'
+          }
+        }
       ]
     },
     {
@@ -56,7 +87,7 @@ const structuredData = {
   intro="A lightweight, zero-dependency browser HTTP workbench built with pure modern JavaScript (ES6+), HTML5, and CSS3. Provides instant request execution, header inspections, response body formatting, and offline LocalStorage collections with zero server telemetry."
   structuredData={structuredData}
 >
-  <a slot="actions" href="https://shivammahajan.com/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Tool ↗</a>
+  <a slot="actions" href="https://smresponsibilities.github.io/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Tool ↗</a>
   <a slot="actions" href="https://github.com/smresponsibilities/Postie" target="_blank" rel="noopener noreferrer">View GitHub Repo ↗</a>
   <a slot="actions" href="/projects/">Back to Projects</a>
   <a slot="actions" href="/resume/">View Resume</a>
@@ -134,12 +165,58 @@ const structuredData = {
     </section>
 
     <section>
+      <h2>Postie vs Heavy Desktop Clients</h2>
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Traditional Desktop Clients (Postman / Insomnia)</th>
+            <th scope="col">Postie Zero-Dependency Workbench</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Installation &amp; Disk</th>
+            <td>500MB+ Electron binary installation and frequent updater dialogs</td>
+            <td>0MB installation; loads instantly (&lt; 50ms) in any modern browser tab</td>
+          </tr>
+          <tr>
+            <th scope="row">Data Privacy</th>
+            <td>Mandatory cloud account sign-ins; cloud syncing of request bodies</td>
+            <td>100% offline-first; tokens and payloads stay in local browser storage</td>
+          </tr>
+          <tr>
+            <th scope="row">Dependencies</th>
+            <td>Heavy node_modules footprint and runtime framework bloat</td>
+            <td>Zero npm packages; vanilla ES6+ JavaScript, HTML5, and CSS3</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="faq-section" aria-labelledby="faq-heading">
+      <h2 id="faq-heading">Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Why use Postie instead of desktop API clients like Postman?</h3>
+        <p>Postie requires zero installation, creates zero cloud accounts, and transmits zero telemetry. It runs in seconds directly in the browser with 100% client-side privacy.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does Postie send request data or tokens to any server?</h3>
+        <p>No. All HTTP requests execute directly from your browser via native Web Fetch API, and request collections persist locally in your browser LocalStorage.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How does Postie handle CORS preflight errors?</h3>
+        <p>Postie provides actionable diagnostics when browser CORS policies block cross-origin requests, guiding engineers on Access-Control-Allow-Origin headers and localhost configurations.</p>
+      </div>
+    </section>
+
+    <section>
       <h2>Live Verification &amp; Code Links</h2>
       <p>
         Postie is continuously hosted on GitHub Pages and runs entirely client-side:
       </p>
       <ul>
-        <li><a href="https://shivammahajan.com/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Postie Tool ↗</a></li>
+        <li><a href="https://smresponsibilities.github.io/Postie/" target="_blank" rel="noopener noreferrer">Launch Live Postie Tool ↗</a></li>
         <li><a href="https://github.com/smresponsibilities/Postie" target="_blank" rel="noopener noreferrer">Inspect GitHub Source Code ↗</a></li>
         <li><a href="/projects/">Back to Projects Hub →</a></li>
         <li><a href="/resume/">View Developer Resume &amp; Experience →</a></li>
@@ -147,3 +224,31 @@ const structuredData = {
     </section>
   </article>
 </EditorialShell>
+
+<style>
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .comparison-table th, .comparison-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .comparison-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
+  }
+</style>

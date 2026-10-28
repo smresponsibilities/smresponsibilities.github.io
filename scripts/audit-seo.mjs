@@ -55,8 +55,8 @@ const longDesc = [];
 const missingDesc = [];
 
 for (const [route, { file, html }] of pagesByRoute.entries()) {
-  // Ignore raw prototype files
-  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/productivity-caller-simulator')) {
+  // Ignore raw prototype files and redirect stubs
+  if (html.includes('noindex') || route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/productivity-caller-simulator') || route.includes('/ticket-35-flat-threejs')) {
     continue;
   }
 
@@ -165,8 +165,8 @@ if (!missingDesc.length && !shortDesc.length && !longDesc.length) {
 
 console.log('\n--- 2. Internal Link / Orphan Audit ---');
 const publicOrphans = [];
-for (const [route] of pagesByRoute.entries()) {
-  if (route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines') || route.includes('/productivity-caller-simulator') || route.includes('/404')) {
+for (const [route, { html }] of pagesByRoute.entries()) {
+  if (html.includes('noindex') || route.includes('/casing-proto') || route.includes('/generation-device') || route.includes('/timelines') || route.includes('/productivity-caller-simulator') || route.includes('/404')) {
     continue;
   }
   if (!visited.has(route)) {

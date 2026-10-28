@@ -15,6 +15,7 @@ interface Props {
   // entry (e.g. the roster grid); the site-wide fallback in tokens.css
   // applies instead.
   accentTypes?: readonly string[];
+  noindex?: boolean;
 }
 
 const {
@@ -25,6 +26,7 @@ const {
   imageAlt = "SM'S DEX portfolio",
   structuredData,
   accentTypes,
+  noindex,
 } = Astro.props;
 const site = Astro.site ?? new URL(Astro.url.origin);
 const canonical = new URL(canonicalPath ?? Astro.url.pathname, site).href;
@@ -32,6 +34,74 @@ const socialImage = new URL(image, site).href;
 const accentStyle = accentTypes?.length
   ? `--accent: var(--t-${accentTypes[0]}); --accent-2: var(--t-${accentTypes[1] ?? accentTypes[0]});`
   : undefined;
+
+const websiteNode = {
+  '@type': 'WebSite',
+  '@id': 'https://shivammahajan.com/#website',
+  url: 'https://shivammahajan.com/',
+  name: "SM'S DEX",
+  description: 'Shivam Mahajan — Software Developer Portfolio and 2,002 Days of Code Journal',
+  inLanguage: 'en-IN',
+};
+
+const personNode = {
+  '@type': 'Person',
+  '@id': 'https://shivammahajan.com/#shivam-mahajan',
+  name: 'Shivam Mahajan',
+  alternateName: ['smresponsibilities', 'mahajanshivam', 'shivammahajan', 'SM', 'शिवम महाजन'],
+  url: 'https://shivammahajan.com/',
+  image: 'https://shivammahajan.com/peony-gold-1200x630.png',
+  jobTitle: 'Software Developer',
+  worksFor: {
+    name: 'Morgan Stanley',
+    sameAs: 'https://www.wikidata.org/wiki/Q219585',
+  },
+  sameAs: [
+    'https://www.wikidata.org/wiki/Q141734464',
+    'https://orcid.org/0009-0009-4574-3338',
+    'https://me.developers.google.com/u/107207277969180626613',
+    'https://github.com/smresponsibilities',
+    'https://www.linkedin.com/in/mahajanshivam/',
+    'https://dev.to/shivammahajan',
+    'https://www.crunchbase.com/person/shivam-mahajan-38ae',
+    'https://peerlist.io/shivammahajan',
+  ],
+  knowsAbout: [
+    'Python',
+    'Kotlin',
+    'Apache Kafka',
+    'PySpark',
+    'Snowflake',
+    'Distributed Systems',
+    'Astro',
+    'Next.js',
+    'Deterministic Architecture',
+  ],
+};
+
+let normalizedStructuredData = structuredData;
+if (structuredData && typeof structuredData === 'object' && Array.isArray(structuredData['@graph'])) {
+  const graph = [...structuredData['@graph']];
+  const hasWebsite = graph.some((node) => node && node['@id'] === 'https://shivammahajan.com/#website');
+  if (!hasWebsite) {
+    graph.unshift(websiteNode);
+  }
+  const hasPerson = graph.some((node) => node && node['@id'] === 'https://shivammahajan.com/#shivam-mahajan');
+  if (!hasPerson) {
+    graph.push(personNode);
+  }
+  normalizedStructuredData = { ...structuredData, '@graph': graph };
+} else if (structuredData && typeof structuredData === 'object') {
+  normalizedStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [websiteNode, structuredData, personNode],
+  };
+} else {
+  normalizedStructuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [websiteNode, personNode],
+  };
+}
 ---
 
 <!doctype html>
@@ -87,9 +157,10 @@ const accentStyle = accentTypes?.length
     </script>
     <title>{title}</title>
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
     <meta name="keywords" content="Shivam Mahajan, resume, cv, software developer, data engineer, Python, Morgan Stanley" />
     <meta name="author" content="Shivam Mahajan" />
-    <link rel="canonical" href={canonical} />
+    {!noindex && <link rel="canonical" href={canonical} />}
     <link rel="alternate" type="application/rss+xml" title="Shivam Mahajan — Days of Code RSS" href="/blog/rss.xml" />
     {Astro.url.pathname === '/' && <link rel="alternate" type="text/markdown" href="/index.html.md" title="Markdown version" />}
     <meta property="og:type" content={Astro.url.pathname === '/' ? 'profile' : 'website'} />
@@ -97,7 +168,7 @@ const accentStyle = accentTypes?.length
     <meta property="og:locale" content="en_IN" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={socialImage} />
     <meta property="og:image:alt" content={imageAlt} />
     <meta name="twitter:card" content="summary_large_image" />
@@ -116,11 +187,11 @@ const accentStyle = accentTypes?.length
     <script is:inline>
       {const hour=new Date().getHours(),time=hour>=5&&hour<8?'dawn':hour>=8&&hour<17?'day':hour>=17&&hour<20?'sunset':'night';document.documentElement.dataset.time=time;const link=document.createElement('link');link.rel='preload';link.as='image';link.href=`/backgrounds/pixel-${time}.webp`;link.fetchPriority='high';document.head.appendChild(link);}
     </script>
-    {structuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(structuredData)} />}
+    {normalizedStructuredData && <script is:inline type="application/ld+json" set:html={JSON.stringify(normalizedStructuredData)} />}
     <slot name="head" />
   </head>
   <body>
-    <noscript><div><img src="https://mc.yandex.ru/watch/112521507" class="metrika-pixel" width="1" height="1" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/112521507" class="metrika-pixel" width="1" height="1" alt="" role="presentation" /></div></noscript>
     <slot />
     <CollapsibleBanners />
     <CardFinishes />

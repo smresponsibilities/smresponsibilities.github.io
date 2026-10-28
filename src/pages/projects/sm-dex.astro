@@ -32,6 +32,36 @@ const structuredData = {
       ]
     },
     {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/projects/sm-dex/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: "How does SM'S DEX achieve zero audio asset storage?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "SM'S DEX uses the native Web Audio API to synthesize 8-bit chiptune sound effects in memory using custom oscillator nodes and white noise burst filters, requiring zero stored MP3/WAV files."
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How does the community roster onboarding work without a database?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Visitors submit structured GitHub Issue forms. An automated GitHub Actions CI workflow validates parameters against strict JSON Schema definitions, generates a PR, and deploys upon merge with zero backend database infrastructure.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Why was Astro selected for this portfolio?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Astro compiles pages into static HTML by default with zero client-side JavaScript overhead, providing near-instant page loads and high accessibility while enabling selective interactive islands.'
+          }
+        }
+      ]
+    },
+    {
       '@type': 'BreadcrumbList',
       '@id': 'https://shivammahajan.com/projects/sm-dex/#breadcrumb',
       itemListElement: [
@@ -151,17 +181,52 @@ const structuredData = {
 
   <section>
     <h2>Comparison: SM'S DEX vs Typical Developer Clones</h2>
-    <div class="grid">
-      <article class="card">
-        <h3>Standard PokeAPI Clone</h3>
-        <p class="meta">Generic Tutorial Pattern</p>
-        <p>Heavy client-side React/Vue bundle. Static PokeAPI mirror. Unstyled mobile layouts. Audio absent or loud uncompressed MP3s. No automated testing or community contribution.</p>
-      </article>
-      <article class="card">
-        <h3>SM'S DEX Architecture</h3>
-        <p class="meta">Engineered Production System</p>
-        <p>Zero-JS default Astro architecture. Automated GitHub CI/CD roster pipeline. Synthesized Web Audio engine. 425+ automated test suites. Strict accessibility and reduced-motion standards.</p>
-      </article>
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th scope="col">Dimension</th>
+          <th scope="col">Standard PokeAPI Clone</th>
+          <th scope="col">SM'S DEX Architecture</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope="row">Runtime Architecture</th>
+          <td>Heavy client-side SPA (React/Vue bundle &gt; 300KB)</td>
+          <td>Zero-JS static Astro HTML islands (0KB client JS default)</td>
+        </tr>
+        <tr>
+          <th scope="row">Audio System</th>
+          <td>Uncompressed MP3/WAV files (&gt; 2MB) or silent</td>
+          <td>Zero-storage Web Audio synthesis (0KB asset footprint)</td>
+        </tr>
+        <tr>
+          <th scope="row">Community Onboarding</th>
+          <td>Closed or requires external SQL/Firebase backend</td>
+          <td>Automated GitHub Actions CI pipeline + JSON Schema validation</td>
+        </tr>
+        <tr>
+          <th scope="row">Testing &amp; Accessibility</th>
+          <td>No automated tests, broken keyboard navigation</td>
+          <td>425+ passing tests, strict WCAG 2.1 AA and reduced motion</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="faq-section" aria-labelledby="faq-heading">
+    <h2 id="faq-heading">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>How does SM'S DEX achieve zero audio asset storage?</h3>
+      <p>SM'S DEX uses the browser's native Web Audio API to synthesize 8-bit chiptune sound effects in memory using custom oscillator nodes and white noise burst filters, requiring zero stored MP3/WAV files.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How does the community roster onboarding work without a database?</h3>
+      <p>Visitors submit structured GitHub Issue forms. An automated GitHub Actions CI workflow validates parameters against strict JSON Schema definitions, generates a PR, and deploys upon merge with zero backend database infrastructure.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Why was Astro selected for this portfolio?</h3>
+      <p>Astro compiles pages into static HTML by default with zero client-side JavaScript overhead, providing near-instant page loads and high accessibility while enabling selective interactive islands.</p>
     </div>
   </section>
 
@@ -244,6 +309,31 @@ const structuredData = {
     font-weight: 600;
     color: var(--ink, #fff);
     margin-top: 2px;
+  }
+  .comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .comparison-table th, .comparison-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .comparison-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .faq-section {
+    margin-top: 2rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
   }
 </style>
 

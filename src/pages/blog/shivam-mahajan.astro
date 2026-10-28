@@ -11,7 +11,7 @@ const structuredData = {
       '@id': `${currentUrl}#profile`,
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       url: currentUrl,
-      name: 'Shivam Mahajan — Software Engineer and Developer',
+      name: 'Shivam Mahajan — Software Developer Profile',
       mainEntity: { '@id': 'https://shivammahajan.com/#shivam-mahajan' }
     },
     {
@@ -19,6 +19,7 @@ const structuredData = {
       '@id': 'https://shivammahajan.com/#shivam-mahajan',
       name: 'Shivam Mahajan',
       url: 'https://shivammahajan.com/',
+      image: 'https://shivammahajan.com/peony-gold-1200x630.png',
       jobTitle: 'Software Developer',
       sameAs: [
         'https://www.wikidata.org/wiki/Q141734464',
@@ -40,6 +41,36 @@ const structuredData = {
       ]
     },
     {
+      '@type': 'FAQPage',
+      '@id': `${currentUrl}#faq`,
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Who is Shivam Mahajan?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Shivam Mahajan is a Software Developer focused on distributed data engineering, backend APIs, and native mobile development. He is known for building high-scale streaming pipelines at Morgan Stanley and maintaining an active 1,250+ consecutive day coding challenge.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'What technologies does Shivam Mahajan specialize in?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Shivam specializes in Python, Kotlin, Apache Kafka, PySpark, Snowflake, Docker, Java, and modern web frameworks including Astro and React.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: "What is Shivam Mahajan's 2,002 Days of Code challenge?",
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: "The 2,002 Days of Code challenge is Shivam's multi-year daily engineering practice, logging over 1,250 continuous days of software development, 2,680+ solved DSA problems, and open-source contributions."
+          }
+        }
+      ]
+    },
+    {
       '@type': 'BreadcrumbList',
       '@id': `${currentUrl}#breadcrumb`,
       itemListElement: [
@@ -52,13 +83,29 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="Shivam Mahajan - Software Engineer and Developer" 
-  description="Meet Shivam Mahajan, a software developer working with Python and Kotlin. Find his official portfolio, professional profiles and ongoing coding journal."
+  title="Shivam Mahajan — Software Developer Profile" 
+  description="Meet Shivam Mahajan, a software developer working with Python, Kotlin, Kafka, and Snowflake. Official portfolio, professional profiles, and coding journal."
   heading="Shivam Mahajan"
   eyebrow="Profile / Overview"
-  intro="Software engineer building distributed backend systems, algorithmic tooling, and interactive web experiences."
+  intro="Software developer building distributed backend systems, algorithmic tooling, and interactive web experiences."
+  image="/peony-gold-1200x630.png"
+  imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony"
   structuredData={structuredData}>
   
+  <div class="profile-hero-card">
+    <img src="/peony-avatar.webp" alt="Shivam Mahajan - Antique Gold Peony LinkedIn Profile Photo" class="profile-hero-avatar" width="88" height="88" loading="eager" decoding="async" />
+    <div class="profile-hero-body">
+      <span class="profile-hero-badge">Verified Engineer Profile</span>
+      <h2 class="profile-hero-title">Shivam Mahajan</h2>
+      <p class="profile-hero-tagline">Software Developer · Morgan Stanley · Distributed Systems, Stream Processing &amp; Low-Level Engines</p>
+      <div class="profile-hero-actions">
+        <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer" class="profile-btn primary">LinkedIn Profile ↗</a>
+        <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer" class="profile-btn secondary">smresponsibilities on GitHub ↗</a>
+        <a href="/resume/" class="profile-btn secondary">Resume &amp; Experience →</a>
+      </div>
+    </div>
+  </div>
+
   <p><strong>Shivam Mahajan</strong> is a software developer working with Python, Kotlin, data pipelines and web applications. This profile connects his public accounts, engineering work and ongoing learning journal.</p>
 
   <h2>Find the right starting point</h2>
@@ -66,6 +113,54 @@ const structuredData = {
 
   <h2>An ongoing coding challenge</h2>
   <p>Shivam is working toward a 2,002-day coding challenge. The current challenge day is {getDailyStreak().toLocaleString()}; 2,002 is the target, not the number of completed days. The <a href="/blog/">Days of Code journal</a> contains published notes and project updates.</p>
+
+  <h2>Quick Reference &amp; Profile Summary</h2>
+  <table class="profile-table">
+    <thead>
+      <tr>
+        <th scope="col">Dimension</th>
+        <th scope="col">Focus &amp; Production Scale</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">Professional Role</th>
+        <td>Software Developer (Distributed Systems &amp; Data Engineering)</td>
+      </tr>
+      <tr>
+        <th scope="row">Primary Tech Stack</th>
+        <td>Python, Kotlin, Kafka, PySpark, Snowflake, ClickHouse, Docker</td>
+      </tr>
+      <tr>
+        <th scope="row">Production Scale</th>
+        <td>5M+ daily streaming events, zero row-count discrepancy tolerance</td>
+      </tr>
+      <tr>
+        <th scope="row">Algorithmic Problem Solving</th>
+        <td>2,680+ verified problems solved across LeetCode &amp; Codeforces</td>
+      </tr>
+      <tr>
+        <th scope="row">Daily Streak</th>
+        <td>1,250+ consecutive days active ({getDailyStreak().toLocaleString()} current day)</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section class="profile-faq" aria-labelledby="profile-faq-heading">
+    <h2 id="profile-faq-heading">Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>Who is Shivam Mahajan?</h3>
+      <p>Shivam Mahajan is a Software Developer focused on distributed data engineering, backend APIs, and native mobile development. He is known for building high-scale streaming pipelines at Morgan Stanley and maintaining an active 1,250+ consecutive day coding challenge.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What technologies does Shivam Mahajan specialize in?</h3>
+      <p>Shivam specializes in Python, Kotlin, Apache Kafka, PySpark, Snowflake, Docker, Java, and modern web frameworks including Astro and React.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What is Shivam Mahajan's 2,002 Days of Code challenge?</h3>
+      <p>The 2,002 Days of Code challenge is Shivam's multi-year daily engineering practice, logging over 1,250 continuous days of software development, 2,680+ solved DSA problems, and open-source contributions.</p>
+    </div>
+  </section>
 
   <h2>Public profiles</h2>
   <p>Code is published as <a href="https://github.com/smresponsibilities" target="_blank" rel="noopener noreferrer">smresponsibilities on GitHub</a>. Professional updates appear on <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer">LinkedIn</a> and project summaries on <a href="https://peerlist.io/shivammahajan" target="_blank" rel="noopener noreferrer">Peerlist</a>.</p>
@@ -79,3 +174,123 @@ const structuredData = {
     <a href="/projects/">Project Portfolio →</a>
   </div>
 </EditorialShell>
+
+<style>
+  .profile-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    font-size: 14px;
+  }
+  .profile-table th, .profile-table td {
+    border: 1px solid var(--border, #333);
+    padding: 10px 14px;
+    text-align: left;
+  }
+  .profile-table th {
+    background: var(--panel, #161b22);
+    color: var(--time-accent, #ffd75e);
+  }
+  .profile-faq {
+    margin-top: 2rem;
+  }
+  .faq-item {
+    margin-bottom: 1.5rem;
+  }
+  .faq-item h3 {
+    margin-bottom: 0.5rem;
+    color: var(--ink, #fff);
+  }
+  .profile-hero-card {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    padding: 24px;
+    background: var(--panel, #161b22);
+    border: 1px solid var(--border, #333);
+    border-left: 4px solid var(--time-accent, #ffd75e);
+    border-radius: 8px;
+    margin: 24px 0 28px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  }
+  .profile-hero-avatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--time-accent, #ffd75e);
+    box-shadow: 0 0 16px rgba(255, 215, 94, 0.3);
+    flex-shrink: 0;
+  }
+  .profile-hero-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .profile-hero-badge {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--time-accent, #ffd75e);
+    display: inline-block;
+    margin-bottom: 6px;
+    font-family: var(--font-display, "Departure Mono", monospace);
+  }
+  .profile-hero-title {
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: #fff;
+    font-family: var(--font-display, "Departure Mono", monospace);
+  }
+  .profile-hero-tagline {
+    font-size: 13px;
+    color: var(--dim, #959ba8);
+    margin: 0 0 14px 0;
+    line-height: 1.4;
+  }
+  .profile-hero-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .profile-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  .profile-btn.primary {
+    background: var(--time-accent, #ffd75e);
+    color: #0b0d12;
+    border: 1px solid var(--time-accent, #ffd75e);
+  }
+  .profile-btn.primary:hover {
+    background: #ffe388;
+    color: #0b0d12;
+    box-shadow: 0 0 10px rgba(255, 215, 94, 0.4);
+  }
+  .profile-btn.secondary {
+    background: transparent;
+    color: var(--time-accent, #ffd75e);
+    border: 1px solid var(--border, #333);
+  }
+  .profile-btn.secondary:hover {
+    background: rgba(255, 215, 94, 0.1);
+    border-color: var(--time-accent, #ffd75e);
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    .profile-hero-card {
+      flex-direction: column;
+      text-align: center;
+      gap: 16px;
+    }
+    .profile-hero-actions {
+      justify-content: center;
+    }
+  }
+</style>

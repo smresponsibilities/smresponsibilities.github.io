@@ -42,6 +42,13 @@ const structuredData = {
     }
   ]
 };
+const cleanSnippet = (content: string) =>
+  String(content || '')
+    .replace(/#[\w]+/g, '')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .slice(0, 100);
 ---
 
 <EditorialShell 
@@ -50,6 +57,8 @@ const structuredData = {
   eyebrow="Field notes / Monthly Archive" 
   heading={name} 
   intro={`${list.length} days logged during ${name}.`}
+  image="/peony-gold-1200x630.png"
+  imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony"
   structuredData={structuredData}
 >
   <nav class="breadcrumb-nav" aria-label="Breadcrumbs">
@@ -64,8 +73,8 @@ const structuredData = {
       {list.map((post) => (
         <article class="card">
           <span class="eyebrow">{post.date} / Day {post.day}</span>
-          <h3><a href={`/blog/day-${post.day}/`}>Day {post.day} ↗</a></h3>
-          <p>{post.content.substring(0, 80)}...</p>
+          <h2 class="card-title"><a href={`/blog/day-${post.day}/`}>Day {post.day} ↗</a></h2>
+          <p>{cleanSnippet(post.content)}...</p>
         </article>
       ))}
     </div>
@@ -91,6 +100,17 @@ const structuredData = {
 </EditorialShell>
 
 <style>
+  .card-title {
+    font-size: 1.25rem;
+    margin: 0.25rem 0 0.5rem;
+  }
+  .card-title a {
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .card-title a:hover {
+    color: var(--accent);
+  }
   .breadcrumb-nav a {
     color: var(--accent);
     text-decoration: none;

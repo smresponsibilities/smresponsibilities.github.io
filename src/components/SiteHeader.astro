@@ -94,6 +94,15 @@ const { showBio = true } = Astro.props;
             </a>
           </li>
           <li>
+            <a href="/timelines/" class={`drawer-link ${currentPath === '/timelines/' || currentPath === '/timelines' ? 'is-current' : ''}`}>
+              <span class="drawer-bullet">▶</span>
+              <div class="drawer-item-text">
+                <strong>Algorithmic Timeline</strong>
+                <small>Chronological time-series index of algorithmic milestones</small>
+              </div>
+            </a>
+          </li>
+          <li>
             <a href="/blog/timeline/" class={`drawer-link ${currentPath.startsWith('/blog/timeline') ? 'is-current' : ''}`}>
               <span class="drawer-bullet">▶</span>
               <div class="drawer-item-text">

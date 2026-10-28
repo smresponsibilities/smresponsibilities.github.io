@@ -16,7 +16,8 @@ const structuredData = {
       offers: {
         '@type': 'Offer',
         price: '0',
-        priceCurrency: 'USD'
+        priceCurrency: 'USD',
+        availability: 'https://schema.org/OnlineOnly'
       }
     },
     {
@@ -36,6 +37,36 @@ const structuredData = {
       ]
     },
     {
+      '@type': 'FAQPage',
+      '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#faq',
+      mainEntity: [
+        {
+          '@type': 'Question',
+          name: 'Which side of an airplane gets more sun on eastbound flights?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'On typical daytime eastbound flights in the Northern Hemisphere (such as New York to London), the right (starboard) side faces south toward the sun and receives direct sunlight and glare, while the left (port) side stays shaded.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'How does Flight Sun Tracker calculate aircraft solar position?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'The TypeScript engine interpolates great-circle geodesic waypoints at five-minute intervals, computes local timestamps, and evaluates solar azimuth and elevation via SunCalc to determine the relative angle between the sun and the fuselage.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Does Flight Sun Tracker work without internet during a flight?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. Flight Sun Tracker runs client-side calculations in the browser. Once the route is computed, solar trajectory calculations and 3D globe visualizations operate offline without requiring continuous in-flight Wi-Fi.'
+          }
+        }
+      ]
+    },
+    {
       '@type': 'BreadcrumbList',
       '@id': 'https://shivammahajan.com/projects/flight-sun-tracker/#breadcrumb',
       itemListElement: [
@@ -48,8 +79,8 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="Flight Sun Tracker | Aircraft Solar Position Tool | Shivam Mahajan" 
-  description="Use Flight Sun Tracker to estimate which side of a plane gets sunlight. See a verified JFK–LHR example, route setup steps and model limitations."
+  title="Flight Sun Tracker: Seat Solar Angle and Shade Tool | Shivam Mahajan" 
+  description="Flight Sun Tracker estimates sunlight and seat shade along great-circle flight routes using SunCalc aviation solar math. Avoid glare or view the golden hour."
   eyebrow="Move 006 / Aviation Math" 
   heading="Flight Sun Tracker" 
   intro="Estimate which side of a plane faces the sun using the route, departure date, time and flight duration. Compare shade and scenic sunlight preferences."
@@ -78,7 +109,7 @@ const structuredData = {
 
   <!-- Direct Answer Executive Summary -->
   <div class="direct-answer">
-    <p><strong>Executive Summary:</strong> Flight Sun Tracker estimates sunlight on the left and right sides of an aircraft along a great-circle route. Enter airports, departure time and duration, then choose shade or scenic sunlight. Results are model estimates, not guarantees about a specific seat.</p>
+    <p><strong>Executive Summary:</strong> Flight Sun Tracker is an aviation solar positioning tool calculating left and right cabin sunlight along great-circle routes. Enter departure time and duration to find seat shade or scenic golden hour views before boarding.</p>
   </div>
 
   <!-- Hard Quantitative Statistics -->
@@ -103,6 +134,7 @@ const structuredData = {
 
   <section>
     <h2>How to check sunlight on a flight</h2>
+    <p>To check sunlight on a commercial flight, enter the departure and arrival airport IATA codes, flight date, and departure time. The flight sun tracker calculates the great-circle geodesic trajectory and solar azimuth angles to determine whether the left (port) or right (starboard) side receives direct sunlight, glare, or golden hour views throughout the journey.</p>
     <ol>
       <li>Open the live app and select <strong>Configure route</strong>.</li>
       <li>Select the departure and arrival airports, departure date and time, and estimated air duration.</li>
@@ -143,8 +175,24 @@ const structuredData = {
     </ul>
   </section>
 
+  <section class="flight-faq" aria-labelledby="flight-faq-heading">
+    <h2 id="flight-faq-heading">Flight Sunlight Frequently Asked Questions</h2>
+    <div class="faq-item">
+      <h3>Which side of an airplane gets more sun on eastbound flights?</h3>
+      <p>On typical daytime eastbound flights in the Northern Hemisphere (such as New York to London), the right (starboard) side faces south toward the sun and receives direct sunlight and glare, while the left (port) side stays shaded.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How does Flight Sun Tracker calculate aircraft solar position?</h3>
+      <p>The TypeScript engine interpolates great-circle geodesic waypoints at five-minute intervals, computes local timestamps, and evaluates solar azimuth and elevation via SunCalc to determine the relative angle between the sun and the fuselage.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Does Flight Sun Tracker work without internet during a flight?</h3>
+      <p>Yes. Flight Sun Tracker runs client-side calculations in the browser. Once the route is computed, solar trajectory calculations and 3D globe visualizations operate offline without requiring continuous in-flight Wi-Fi.</p>
+    </div>
+  </section>
+
   <section>
-    <h2>Source Code & Verification</h2>
+    <h2>Source Code &amp; Verification</h2>
     <p>The code is fully open-source and maintained on GitHub. Explore the repository and implementation details:</p>
     <ul>
       <li><strong>Live Interactive Application:</strong> <a href="https://flight-sun-tracker-shivam-mahajans-projects.vercel.app" target="_blank" rel="noopener noreferrer">flight-sun-tracker-shivam-mahajans-projects.vercel.app ↗</a></li>

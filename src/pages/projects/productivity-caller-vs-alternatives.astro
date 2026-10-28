@@ -14,7 +14,12 @@ const structuredData = {
       description: 'Side-by-side technical comparison between Productivity Caller and traditional push-notification reminder apps and alarm clocks.',
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       about: [
-        { '@type': 'SoftwareApplication', name: 'Productivity Caller' },
+        {
+          '@type': 'SoftwareApplication',
+          name: 'Productivity Caller',
+          applicationCategory: 'ProductivityApplication',
+          operatingSystem: 'Android'
+        },
         { '@type': 'Thing', name: 'Productivity Tools' },
         { '@type': 'Thing', name: 'Task Management' }
       ]

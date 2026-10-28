@@ -11,6 +11,7 @@ const structuredData = {
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: "How the SM'S DEX roster works",
       description: "Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio.",
+      image: 'https://shivammahajan.com/peony-gold-1200x630.png',
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       url: currentUrl,
@@ -29,7 +30,7 @@ const structuredData = {
   ]
 };
 ---
-<EditorialShell title="How the SM'S DEX Public Roster Works" description="Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio." eyebrow="Build notes / SM'S DEX" heading="How the SM'S DEX roster works" intro="Visitors submit a character through the site's form. A GitHub issue starts validation, then a pull request gives Shivam a review step before publication." structuredData={structuredData}>
+<EditorialShell title="How the SM'S DEX Public Roster Works" description="Learn how a GitHub issue becomes an automated, verified, and reviewed developer roster entry in SM'S DEX, Shivam Mahajan's Pokédex-themed portfolio." eyebrow="Build notes / SM'S DEX" heading="How the SM'S DEX roster works" intro="Visitors submit a character through the site's form. A GitHub issue starts validation, then a pull request gives Shivam a review step before publication." image="/peony-gold-1200x630.png" imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony" structuredData={structuredData}>
   <a slot="actions" href="/projects/sm-dex/">Explore SM'S DEX</a><a slot="actions" href="https://github.com/smresponsibilities/smresponsibilities.github.io">View repository ↗</a>
   <section><h2>From form to issue</h2><p>The Add Pokémon form collects a GitHub username, species, types, status, and short dex entry. Submitting opens a prefilled issue in the site's GitHub repository. The issue is the public record of what a visitor entered. This ensures transparency and gives every submission a visible paper trail.</p></section>
   <section><h2>Validation and review</h2><p>A GitHub Actions workflow runs when a qualifying issue opens, changes, or receives a label. It parses the issue, runs the submission validator, writes a roster entry, and opens or updates a pull request. Validation errors are posted back to the issue directly via the bot. Shivam securely reviews the generated JSON artifacts before merging the pull request.</p></section>

@@ -11,13 +11,16 @@ interface Props {
   eyebrow: string; 
   heading: string; 
   intro: string;
+  image?: string;
+  imageAlt?: string;
   structuredData?: Record<string, unknown>;
   readingProgress?: boolean;
   scrollSpy?: boolean;
   words?: number;
+  noindex?: boolean;
 }
 
-const { title, description, eyebrow, heading, intro, structuredData, readingProgress, scrollSpy, words } = Astro.props;
+const { title, description, eyebrow, heading, intro, image, imageAlt, structuredData, readingProgress, scrollSpy, words, noindex } = Astro.props;
 
 // Only enable on individual long-form reading articles, NEVER on directory/index/archive/month pages
 const pathname = Astro.url.pathname.replace(/\/$/, '');
@@ -26,7 +29,7 @@ const isArticlePath = /^\/blog\/(day-\d+|how-the-sm-dex-roster-works|shivam-maha
 const showReadingProgress = readingProgress ?? isArticlePath;
 const showScrollSpy = scrollSpy ?? isArticlePath;
 ---
-<Base title={title} description={description} structuredData={structuredData} accentTypes={['dragon','steel']}>
+<Base title={title} description={description} image={image} imageAlt={imageAlt} structuredData={structuredData} accentTypes={['dragon','steel']} noindex={noindex}>
   {showReadingProgress && <ReadingProgress words={words} target="main" />}
   <SiteHeader currentPath={Astro.url.pathname} />
   <div class="editorial">

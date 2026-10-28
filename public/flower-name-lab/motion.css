@@ -1,0 +1,50 @@
+/* Titli's opening holds the composition while the butterfly moves between flowers. */
+.art{--surface:#e6e5df;--lettering:#171719;--blue:#25247c;background:var(--surface);color:var(--lettering);padding:16px}
+.art[data-palette="midnight"]{--surface:#080911;--lettering:#efeee8}
+.art[data-palette="scarlet"]{--surface:#e60013;--lettering:#110c16;--blue:#171329}
+.art[data-palette="butter"]{--surface:#f6eaa4;--lettering:#142b20;--blue:#286947}
+.art[data-palette="orchid"]{--surface:#13101f;--lettering:#f4ecf0;--blue:#338d78}
+.art[data-palette="scarlet"] .bloom [fill]:not(circle):not([fill="none"]){fill:#f7e9d3}
+.art[data-palette="orchid"] .bloom [fill]:not(circle):not([fill="none"]){fill:#d52ee3}
+.petal-line{stroke:var(--surface)}
+.stem{animation:vine-bend 1.6s steps(1,end) infinite}
+.bloom{animation:flower-turn 1.6s steps(1,end) infinite;animation-delay:calc(var(--delay) * -1)}
+.bloom .petal-line{transform-box:fill-box;transform-origin:center;animation:petal-turn 1.6s steps(1,end) infinite}
+.rose-shell{animation:rose-open 4.8s ease-in-out infinite;animation-delay:calc(var(--delay) * -4)}
+.rose-inner{transform-origin:0 0;animation:rose-heart 4.8s ease-in-out infinite;animation-delay:calc(var(--delay) * -4)}
+.petal-unfurl{transform-origin:0 0;animation:unfurl 4.8s ease-in-out infinite;animation-delay:calc(var(--delay) * -4 + var(--petal-delay))}
+.variant .rose-shell,.variant .rose-inner,.variant .petal-unfurl{animation:none}
+.sprig{animation:foliage 3.2s ease-in-out infinite alternate}
+.leaf{transform-box:fill-box;transform-origin:80% 40%;animation:leaf-turn 1.6s steps(1,end) infinite}
+.botanical>g:nth-child(2) .sprig{animation-delay:-1.6s}
+.botanical>g:nth-child(2) .stem,.botanical>g:nth-child(2) .leaf{animation-delay:-.8s}
+.name.lettering-enter{animation:lettering 1.8s steps(22,end) both}
+.butterfly-flight{offset-path:path('M207 103 C206 101 208 100 207 103 C235 42 312 47 341 102 C378 166 379 268 330 331 C328 333 332 333 330 331 C273 311 125 224 145 137 C150 95 180 80 207 103');offset-rotate:0deg;animation:visit 6.4s linear infinite;fill:var(--blue);stroke:none}
+.butterfly{transform:scale(.62);animation:butterfly-bank 6.4s linear infinite}
+.wing{transform-origin:0 0;animation:flutter .12s ease-in-out infinite alternate}
+.wing-right{animation-delay:-.04s}
+.wing-mark{fill:none;stroke:var(--surface);stroke-width:1;stroke-linecap:round}
+.butterfly-body{fill:none;stroke:var(--blue);stroke-width:2;stroke-linecap:round}
+.variant .butterfly-flight,.variant .butterfly,.variant .wing,.variant .leaf,.variant .petal-line{animation:none}
+@keyframes visit{0%,15%{offset-distance:0%}21%{offset-distance:15%}28%{offset-distance:28%}43%,60%{offset-distance:52%}68%{offset-distance:65%}80%{offset-distance:85%}90%,100%{offset-distance:100%}}
+@keyframes flutter{from{transform:scaleX(.2) rotate(-8deg)}to{transform:scaleX(1) rotate(8deg)}}
+@keyframes foliage{from{rotate:-2deg}to{rotate:2deg}}
+@keyframes flower-turn{0%,100%{transform:rotate(-5deg) scale(1.025,.96)}25%{transform:rotate(2deg) scale(.97,1.035)}50%{transform:rotate(6deg) scale(1.035,.98)}75%{transform:rotate(-1deg) scale(.985,1.02)}}
+@keyframes petal-turn{0%,100%{transform:rotate(-3deg) scale(.98,1.02)}50%{transform:rotate(3deg) scale(1.02,.98)}}
+/* Closed and open rose contours share commands so petals unfold instead of popping. */
+@keyframes rose-open{
+0%,8%,100%{d:path('M-8 16C-18 5-17-11-9-14C-6-24 5-23 9-14C19-14 19 1 10 8C14 19 7 25 1 22C-7 28-14 23-8 16Z')}
+42%,72%{d:path('M-33 7C-45-9-30-28-17-25C-11-40 12-34 17-25C37-29 44-8 33 4C40 24 17 36 4 29C-14 41-36 27-33 7Z')}
+}
+@keyframes rose-heart{0%,8%,100%{transform:translateY(5px) scale(.27,.52);opacity:.6}42%,72%{transform:translateY(0) scale(1);opacity:1}}
+@keyframes unfurl{0%,8%,100%{transform:scale(.18,.4) rotate(-20deg)}42%,72%{transform:scale(1) rotate(0deg)}}
+@keyframes leaf-turn{0%,100%{rotate:-3deg;scale:1 .97}25%{rotate:2deg;scale:.98 1.03}50%{rotate:4deg;scale:1.02 .98}75%{rotate:-1deg;scale:1 1.02}}
+@keyframes butterfly-bank{0%,15%,90%,100%{transform:scale(.62) rotate(-12deg)}28%{transform:scale(.62) rotate(44deg)}43%,60%{transform:scale(.62) rotate(165deg)}68%{transform:scale(.62) rotate(220deg)}80%{transform:scale(.62) rotate(325deg)}}
+@keyframes vine-bend{
+0%,100%{d:path('M-37 213C-20 154 30 109 0 0M-20 165C-82 129-113 155-146 115C-165 91-146 79-138 93M-9 119C35 106 65 79 58 46C52 25 32 41 44 48M0 71C-27 51-42 42-57 45')}
+25%{d:path('M-37 213C-26 151 24 108 0 0M-20 165C-78 125-115 151-144 112C-162 87-142 76-136 91M-9 119C38 109 69 81 61 46C54 23 34 39 46 47M0 71C-29 55-43 46-57 45')}
+50%{d:path('M-37 213C-14 157 35 110 0 0M-20 165C-86 134-110 159-149 118C-169 95-150 82-140 95M-9 119C32 103 61 76 55 46C50 28 30 43 42 49M0 71C-25 47-40 38-57 45')}
+75%{d:path('M-37 213C-23 152 27 108 0 0M-20 165C-80 127-114 153-145 114C-163 89-144 78-137 92M-9 119C37 108 67 80 60 46C53 24 33 40 45 47M0 71C-28 53-43 44-57 45')}
+}
+@keyframes lettering{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+@media(prefers-reduced-motion:reduce){.name.lettering-enter,.sprig,.stem,.bloom,.petal-line,.rose-shell,.rose-inner,.petal-unfurl,.leaf,.butterfly-flight,.butterfly,.wing{animation:none!important}.butterfly-flight{offset-distance:0%}}

@@ -142,6 +142,7 @@ const structuredData = {
       isPartOf: { '@id': 'https://shivammahajan.com/#website' },
       headline: problemTitle ? `${problemTitle} (Day ${post.day})` : `Day ${post.day} of 2002 Days of Code`,
       description: pageDesc,
+      image: 'https://shivammahajan.com/peony-gold-1200x630.png',
       inLanguage: 'en-IN',
       author: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
       publisher: { '@id': 'https://shivammahajan.com/#shivam-mahajan' },
@@ -178,7 +179,23 @@ const structuredData = {
         { '@type': 'ListItem', position: 3, name: 'Timeline', item: 'https://shivammahajan.com/blog/timeline/' },
         { '@type': 'ListItem', position: 4, name: `Day ${post.day}`, item: currentUrl }
       ]
-    }
+    },
+    ...(problemTitle ? [
+      {
+        '@type': 'FAQPage',
+        '@id': `${currentUrl}#faq`,
+        mainEntity: [
+          {
+            '@type': 'Question',
+            name: `How to solve ${problemTitle}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: directAnswer,
+            },
+          },
+        ],
+      },
+    ] : [])
   ]
 };
 
@@ -191,6 +208,8 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
   eyebrow={`2002 Days of Code / ${post.date}`} 
   heading={pageHeading} 
   intro={`Shivam's engineering update for day ${post.day} of the 2,002 Days of Code challenge.`}
+  image="/peony-gold-1200x630.png"
+  imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony"
   structuredData={structuredData}
   words={articleWords}
 >
@@ -207,7 +226,8 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
 
   <!-- Author Byline linked to profile (Tactic #60) -->
   <div class="byline-bar">
-    <span>By <a href="/resume/">Shivam Mahajan</a> (Software Developer)</span>
+    <img src="/peony-avatar.webp" alt="Shivam Mahajan" class="byline-avatar" width="32" height="32" loading="eager" decoding="async" />
+    <span>By <a href="/blog/shivam-mahajan/">Shivam Mahajan</a> (Software Developer)</span>
     <span>·</span>
     <time datetime={post.date}>{post.date}</time>
     <span>·</span>
@@ -248,6 +268,39 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
       </p>
     )}
   </section>
+
+  {problemTitle && (
+    <section class="problem-faq-section" aria-labelledby="problem-breakdown-heading">
+      <h2 id="problem-breakdown-heading">How to solve {problemTitle}?</h2>
+      <p>{directAnswer}</p>
+      <table class="problem-complexity-table">
+        <thead>
+          <tr>
+            <th scope="col">Dimension</th>
+            <th scope="col">Specification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Target Problem</th>
+            <td>{problemTitle}</td>
+          </tr>
+          <tr>
+            <th scope="row">Algorithmic Family</th>
+            <td>{currentTopic || post.topic || 'Algorithms'}</td>
+          </tr>
+          <tr>
+            <th scope="row">Streak Context</th>
+            <td>Day {post.day} of 2,002 Days of Code</td>
+          </tr>
+          <tr>
+            <th scope="row">Author</th>
+            <td>Shivam Mahajan (Software Developer)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  )}
 
   {post.milestone && (
     <section>
@@ -408,6 +461,24 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
     </div>
   </section>
 
+  <!-- Author Profile Card with LinkedIn Profile Photo -->
+  <section class="author-profile-section" aria-labelledby="author-card-heading">
+    <div class="author-profile-card">
+      <img src="/peony-avatar.webp" alt="Shivam Mahajan - Antique Gold Peony LinkedIn Profile Photo" class="author-card-avatar" width="76" height="76" loading="lazy" decoding="async" />
+      <div class="author-card-body">
+        <span class="eyebrow author-eyebrow">Author &amp; Engineer</span>
+        <h2 id="author-card-heading" class="author-card-name">Shivam Mahajan</h2>
+        <p class="author-card-title">Software Developer · Morgan Stanley · Distributed Systems &amp; Low-Level Engines</p>
+        <p class="author-card-bio">Author of the 2,002 Days of Code continuous engineering streak. Building high-throughput Kafka/Snowflake streaming systems, low-level WebAssembly engines, and algorithmic tooling.</p>
+        <div class="author-card-links">
+          <a href="https://www.linkedin.com/in/mahajanshivam/" target="_blank" rel="noopener noreferrer" class="author-link-btn primary">Connect on LinkedIn ↗</a>
+          <a href="/blog/shivam-mahajan/" class="author-link-btn secondary">Full Profile →</a>
+          <a href="/resume/" class="author-link-btn secondary">Resume &amp; Experience →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Navigation Archive Links -->
   <section>
     <h2 id="timeline-archives">Days of Code Timeline &amp; Archives</h2>
@@ -441,6 +512,115 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
   .breadcrumb-nav a:hover {
     color: #fff;
     text-decoration: underline;
+  }
+  .byline-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1.5px solid var(--time-accent, #ffd75e);
+    box-shadow: 0 0 8px rgba(255, 215, 94, 0.25);
+    flex-shrink: 0;
+  }
+  .author-profile-section {
+    margin: 40px 0 32px;
+  }
+  .author-profile-card {
+    display: flex;
+    gap: 22px;
+    align-items: flex-start;
+    padding: 24px;
+    background: var(--panel, #161b22);
+    border: 1px solid var(--border, #333);
+    border-left: 4px solid var(--time-accent, #ffd75e);
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35);
+  }
+  .author-card-avatar {
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--time-accent, #ffd75e);
+    box-shadow: 0 0 16px rgba(255, 215, 94, 0.3);
+    flex-shrink: 0;
+  }
+  .author-card-body {
+    flex: 1;
+    min-width: 0;
+  }
+  .author-eyebrow {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--time-accent, #ffd75e);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .author-card-name {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 4px 0;
+    color: #fff;
+    font-family: var(--font-display, "Departure Mono", monospace);
+  }
+  .author-card-title {
+    font-size: 13px;
+    color: var(--dim, #959ba8);
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+  }
+  .author-card-bio {
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 16px 0;
+    color: var(--text, #c9d1d9);
+  }
+  .author-card-links {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .author-link-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+  .author-link-btn.primary {
+    background: var(--time-accent, #ffd75e);
+    color: #0b0d12;
+    border: 1px solid var(--time-accent, #ffd75e);
+  }
+  .author-link-btn.primary:hover {
+    background: #ffe388;
+    color: #0b0d12;
+    box-shadow: 0 0 10px rgba(255, 215, 94, 0.4);
+  }
+  .author-link-btn.secondary {
+    background: transparent;
+    color: var(--time-accent, #ffd75e);
+    border: 1px solid var(--border, #333);
+  }
+  .author-link-btn.secondary:hover {
+    background: rgba(255, 215, 94, 0.1);
+    border-color: var(--time-accent, #ffd75e);
+    color: #fff;
+  }
+  @media (max-width: 600px) {
+    .author-profile-card {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 16px;
+    }
+    .author-card-links {
+      justify-content: center;
+    }
   }
   .byline-bar {
     display: flex;
@@ -829,5 +1009,40 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
     background: var(--accent, #ffd75e);
     color: #0b0e12;
   }
+  .problem-faq-section {
+    margin-top: 1.5rem;
+    padding: 1.25rem 1.5rem;
+    background: #161b22;
+    border-radius: 4px;
+    border: 1px solid var(--border, #343840);
+  }
+  .problem-faq-section h2 {
+    font-size: 1.25rem;
+    color: var(--time-accent, #ffd75e);
+    margin-bottom: 0.5rem;
+  }
+  .problem-faq-section p {
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--ink, #e8eddf);
+    margin-bottom: 1rem;
+  }
+  .problem-complexity-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: #0d1117;
+  }
+  .problem-complexity-table th, .problem-complexity-table td {
+    border: 1px solid var(--border, #343840);
+    padding: 8px 12px;
+    text-align: left;
+  }
+  .problem-complexity-table th {
+    background: #1f242d;
+    color: var(--time-accent, #ffd75e);
+  }
+  .problem-complexity-table td {
+    color: var(--ink, #e8eddf);
+  }
 </style>
-

@@ -84,17 +84,19 @@ const structuredData = {
 };
 const chapterIndex = Math.floor((minDay - 1) / 100);
 const chapterGroups = [...allGroups].sort((a,b)=>parseInt(a)-parseInt(b));
-const excerpt = (content: string) => String(content || '').replace(/https?:\/\/\S+/g,'').replace(/#[\w]+/g,'').replace(/["“”]+/g,'').replace(/\s+/g,' ').replace(/^of\s+/i,'').trim().slice(0,200);
+let synCounter = 0;
+const synonyms = ['challenge', 'exercise', 'task', 'solution'];
+const excerpt = (content: string) => String(content || '').replace(/https?:\/\/\S+/g,'').replace(/#[\w]+/g,'').replace(/solved leetcode\s*(\d+)/gi, 'Solved #$1').replace(/leetcode/gi, () => synonyms[(synCounter++) % synonyms.length]).replace(/["“”]+/g,'').replace(/\s+/g,' ').replace(/^of\s+/i,'').trim().slice(0,200);
 ---
 
-<EditorialShell title={pageTitle} description={pageDescription} eyebrow={`Century Archive · ${eraInfo.era}`} heading={`Days ${group}`} intro={`${totalDays} daily logs from ${startDate} to ${endDate}. Explore the chapter, find a day, or continue to a full entry.`} structuredData={structuredData}>
+<EditorialShell title={pageTitle} description={pageDescription} eyebrow={`Century Archive · ${eraInfo.era}`} heading={`Days ${group}`} intro={`${totalDays} daily logs from ${startDate} to ${endDate}. Explore the chapter, find a day, or continue to a full entry.`} image="/peony-gold-1200x630.png" imageAlt="Shivam Mahajan LinkedIn profile photo - antique gold peony" structuredData={structuredData}>
   <nav class="breadcrumb-nav" aria-label="Breadcrumbs"><a href="/">Home</a><span>/</span><a href="/blog/">Blog</a><span>/</span><a href="/blog/archive/">Archive</a><span>/</span><span>Days {group}</span></nav>
   <PokemonCarouselTimeline layout="grid" compact chapterIndex={chapterIndex} />
   <section class="daily-archive" id="daily-logs" aria-labelledby="daily-heading" data-daily-archive>
     <div class="daily-heading"><h2 id="daily-heading">Inside this chapter</h2><label>Chapter <select id="archive-chapter" aria-label="Switch chapter">{chapterGroups.map(item=><option value={`/blog/archive/${item}/`} selected={item===group}>Days {item}</option>)}</select></label></div>
     <div class="daily-tools"><label class="daily-search-label">Find a day or topic<input id="archive-search" type="search" placeholder="Day number, algorithm, topic…" /></label><label>Order<select id="archive-order"><option value="latest">Latest first</option><option value="oldest">Oldest first</option></select></label><form id="archive-jump"><label>Jump to day<input id="archive-day" type="number" min={minDay} max={maxDay} placeholder={String(minDay)} required /></label><button type="submit">Go →</button></form></div>
     <p class="daily-count" role="status" id="archive-count">{totalDays} logs</p>
-    <div class="daily-grid" id="archive-days">{[...sortedPosts].reverse().map((post,index)=><article class="daily-log-card" id={`day-sec-${post.day}${sortedPosts.filter(item=>item.day===post.day).length>1?`-${index}`:''}`} data-day={post.day} data-search={`${post.day} ${post.date} ${post.content} ${post.milestone||''}`.toLowerCase()}><p class="daily-date">{post.date}</p><h3><a href={`/blog/day-${post.day}/`}>Day {post.day} <span aria-hidden="true">↗</span></a></h3>{post.milestone && <p class="daily-milestone">{post.milestone}</p>}<p class="daily-excerpt">{excerpt(post.content)}</p><a class="daily-read" href={`/blog/day-${post.day}/`}>Read full entry →</a></article>)}</div>
+    <div class="daily-grid" id="archive-days">{[...sortedPosts].reverse().map((post,index)=><article class="daily-log-card" id={`day-sec-${post.day}${sortedPosts.filter(item=>item.day===post.day).length>1?`-${index}`:''}`} data-day={post.day} data-search={`${post.day} ${post.date} ${post.content} ${post.milestone||''}`.toLowerCase()}><p class="daily-date">{post.date}</p><h3><a href={`/blog/day-${post.day}/`}>Day {post.day} <span aria-hidden="true">↗</span></a></h3>{post.milestone && <p class="daily-milestone">{post.milestone}</p>}<p class="daily-excerpt">{excerpt(post.content)}</p><a class="daily-read" href={`/blog/day-${post.day}/`}>Day {post.day} log →</a></article>)}</div>
     <p id="archive-empty" hidden>No logs match. Try a day number or another topic.</p>
   </section>
   <nav class="chapter-links" aria-label="Other archive chapters">{chapterGroups.map(item=><a href={`/blog/archive/${item}/`} aria-current={item===group?'page':undefined}>Days {item}</a>)}</nav>
