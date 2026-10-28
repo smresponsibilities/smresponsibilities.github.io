@@ -17,13 +17,25 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install beautifulsoup4 requests
+      - name: Check post import regressions
+        run: |
+          python scripts/test_process_issue.py
+          python scripts/test_auto_fetch_bing.py
+      - uses: actions/setup-node@v5
+        with: { node-version: '22' }
+      - run: node scripts/test-discover-linkedin-posts.mjs
       - uses: withastro/action@v4
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

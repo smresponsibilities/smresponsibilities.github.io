@@ -6,5 +6,7 @@ const redirect = Buffer.from(url).toString('base64url');
 assert.deepEqual(bingLinks(`<a href="https://www.bing.com/ck/a?u=a1${redirect}&amp;ntb=1">post</a>`), [url]);
 const markup = '<meta property="og:description" content="#day1132 of #2002daysofcode\nLeetcode: 223. Rectangle Area\nShivam Mahajan">';
 assert.equal(post(markup, url, 1132)?.title, '223. Rectangle Area');
+assert.equal(post(markup, url, 1132)?.content, '#day1132 of #2002daysofcode\nLeetcode: 223. Rectangle Area\nShivam Mahajan');
+assert.match(post(markup, url, 1132)?.date, /^\d{4}-\d{2}-\d{2}$/);
 assert.equal(post(markup, url, 1133), null);
 console.log('LinkedIn discovery parser OK');

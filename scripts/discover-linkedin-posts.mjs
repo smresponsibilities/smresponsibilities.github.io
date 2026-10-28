@@ -50,7 +50,8 @@ function post(markup, url, day) {
   const id = url.match(/-activity-(\d+)/)?.[1];
   if (!id) return null;
   const title = text.match(/Leetcode:\s*([^\r\n]+)/i)?.[1]?.trim() || `Day ${day} of 2002 Days of Code`;
-  return { day, title, url, activityId: id, text };
+  const date = new Date(anchorDate + (day - anchorDay) * 86400000).toISOString().slice(0, 10);
+  return { day, date, title, url, activityId: id, text, content: text };
 }
 
 async function main() {
@@ -75,12 +76,12 @@ async function main() {
             foundDay = true;
             console.log(`FOUND day ${day}: ${url}`);
             try {
-              const num = execSync(`gh issue list --state open --label daily-post --search '"Day ${day}" in:title' --json number -q '.[0].number'`, { encoding: 'utf8' }).trim();
+              const num = execSync(`gh issue list --state open --label daily-post --search '"Day ${day}" in:title' --json number,title -q '.[] | select(.title == "Day ${day}") | .number'`, { encoding: 'utf8' }).trim();
               if (num) {
                 execSync(`gh issue close ${num} --comment 'Auto-closed: Day ${day} discovered on LinkedIn and ingested.'`);
                 console.log(`Auto-closed issue #${num} for day ${day}`);
               }
-            } catch { /* ignore if gh cli not available */ }
+            } catch (error) { console.warn(`Could not close issue for day ${day}: ${error.message}`); }
             break;
           }
         } catch (error) { console.warn(`Post failed, day ${day}: ${error.message}`); }

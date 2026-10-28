@@ -5,9 +5,12 @@ on:
     - cron: '30 18 * * *'
 permissions:
   issues: write
+concurrency:
+  group: daily-issue
 jobs:
   create_issue:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -15,8 +18,9 @@ jobs:
         run: |
           TODAY=$(TZ=Asia/Kolkata date +%F)
           DAY=$(( 1238 + ( $(date -u -d "$TODAY" +%s) - $(date -u -d 2026-10-01 +%s) ) / 86400 ))
-          gh label create daily-post --color 0e8a16 2>/dev/null || true
-          gh label create needs-manual --color d93f0b 2>/dev/null || true
-          if gh issue list --state all --label daily-post --search "\"Day $DAY\" in:title" --json title -q '.[].title' | grep -qx "Day $DAY"; then exit 0; fi
+          gh label create daily-post --color 0e8a16 --force
+          gh label create needs-manual --color d93f0b --force
+          TITLES=$(gh issue list --state all --label daily-post --search "\"Day $DAY\" in:title" --json title -q '.[].title')
+          if grep -qx "Day $DAY" <<< "$TITLES"; then exit 0; fi
           printf 'Date: %s\n\nPaste the LinkedIn post URL here, or add a block starting with MANUAL: followed by the post text, or write GLITCH if this day was skipped. Then close this issue.\n' "$TODAY" > body.md
           gh issue create --label daily-post --title "Day $DAY" --body-file body.md

@@ -8,23 +8,32 @@ on:
 permissions:
   contents: write
   actions: write
+  issues: write
+
+concurrency:
+  group: posts-json
+  queue: max
 
 jobs:
   scrape_bing:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with: { ref: main }
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12'
 
       - name: Install dependencies
         run: |
-          pip install scrapling requests beautifulsoup4
+          pip install beautifulsoup4
 
       - name: Run Bing Fetcher
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/auto_fetch_bing.py
 
       - name: Commit and Push

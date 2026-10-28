@@ -11,15 +11,17 @@ permissions:
   actions: write
 
 concurrency:
-  group: dsa-stats-sync
-  cancel-in-progress: true
+  group: posts-json
+  queue: max
 
 jobs:
   sync-metrics:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+        with: { ref: main }
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
 

@@ -5,18 +5,13 @@ import base64
 import urllib.parse
 import urllib.request
 import subprocess
+from bs4 import BeautifulSoup
 from datetime import date, timedelta, datetime
 
 def fetch_html(url):
-    # Try scrapling first if available, otherwise urllib
-    try:
-        from scrapling import StealthyFetcher
-        page = StealthyFetcher.fetch(url)
-        return page.body if isinstance(page.body, str) else page.body.decode('utf-8', errors='replace')
-    except Exception as e:
-        req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
-        with urllib.request.urlopen(req, timeout=15) as res:
-            return res.read().decode('utf-8', errors='replace')
+    req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'})
+    with urllib.request.urlopen(req, timeout=15) as res:
+        return res.read().decode('utf-8', errors='replace')
 
 def extract_linkedin_urls(html):
     urls = []
@@ -27,7 +22,7 @@ def extract_linkedin_urls(html):
         try:
             target = base64.b64decode(raw_b64).decode('utf-8', errors='ignore')
             parsed = urllib.parse.urlparse(target)
-            if 'linkedin.com' in parsed.netloc and ('/posts/' in parsed.path or '/feed/update/' in parsed.path):
+            if parsed.hostname in ('linkedin.com', 'www.linkedin.com') and ('/posts/' in parsed.path or '/feed/update/' in parsed.path):
                 urls.append(f"{parsed.scheme}://{parsed.netloc}{parsed.path}")
         except Exception:
             pass
@@ -38,7 +33,8 @@ def extract_linkedin_urls(html):
         if raw.startswith('//'):
             raw = 'https:' + raw
         parsed = urllib.parse.urlparse(raw)
-        urls.append(f"{parsed.scheme}://{parsed.netloc}{parsed.path}")
+        if parsed.hostname in ('linkedin.com', 'www.linkedin.com'):
+            urls.append(f"{parsed.scheme}://{parsed.netloc}{parsed.path}")
 
     return list(dict.fromkeys(urls))
 
@@ -47,10 +43,9 @@ def fetch_post_content(url):
     try:
         with urllib.request.urlopen(req, timeout=15) as res:
             html = res.read().decode('utf-8', errors='replace')
-        og = re.search(r'<meta property="og:description"\s+content="([^"]+)"', html)
-        if og:
-            content = og.group(1).replace('&quot;', '"').replace('&amp;', '&').replace('&#39;', "'")
-            return content.strip()
+        og = BeautifulSoup(html, 'html.parser').find('meta', property='og:description')
+        if og and og.get('content'):
+            return og['content'].strip()
     except Exception as e:
         print(f"Failed to fetch og:description from {url}: {e}")
     return None
@@ -61,17 +56,15 @@ def main():
         posts = json.load(f)
 
     existing_days = {p['day'] for p in posts}
-    latest_day = max(existing_days)
 
     anchor_day = 1238
     anchor_date = date(2026, 10, 1)
     current_day = anchor_day + (date.today() - anchor_date).days
 
-    target_days = [d for d in range(latest_day + 1, current_day + 1)]
-    if not target_days:
-        target_days = [latest_day + 1]
+    target_days = [d for d in range(max(1, current_day - 60), current_day + 1) if d not in existing_days]
 
     added = 0
+    failed_searches = 0
     for day in target_days:
         if day in existing_days:
             continue
@@ -84,6 +77,7 @@ def main():
             html = fetch_html(search_url)
         except Exception as e:
             print(f"Bing search request failed for Day {day}: {e}")
+            failed_searches += 1
             continue
 
         links = extract_linkedin_urls(html)
@@ -92,12 +86,17 @@ def main():
             continue
 
         for post_url in links:
+            post_path = urllib.parse.urlparse(post_url).path
+            if post_path.startswith('/posts/') and not post_path.startswith('/posts/mahajanshivam_'):
+                continue
             content = fetch_post_content(post_url)
             if not content:
                 continue
+            if post_path.startswith('/feed/update/') and not re.search(r'\bShivam Mahajan\b', content, re.IGNORECASE):
+                continue
 
             day_tag = f"#day{day}"
-            if day_tag.lower() not in content.lower():
+            if not re.search(rf'(?:^|\s){day_tag}\b', content, re.IGNORECASE):
                 continue
 
             post_date = (anchor_date + timedelta(days=day - anchor_day)).isoformat()
@@ -112,14 +111,17 @@ def main():
             added += 1
             print(f"Successfully scraped Day {day}: {post_url}")
             try:
-                res = subprocess.run(['gh', 'issue', 'list', '--state', 'open', '--label', 'daily-post', '--search', f'"Day {day}" in:title', '--json', 'number', '-q', '.[0].number'], capture_output=True, text=True)
+                res = subprocess.run(['gh', 'issue', 'list', '--state', 'open', '--label', 'daily-post', '--search', f'"Day {day}" in:title', '--json', 'number,title', '-q', f'.[] | select(.title == "Day {day}") | .number'], capture_output=True, text=True, check=True)
                 num = res.stdout.strip()
                 if num:
-                    subprocess.run(['gh', 'issue', 'close', num, '--comment', f'Auto-closed: Day {day} discovered on LinkedIn and ingested.'])
+                    subprocess.run(['gh', 'issue', 'close', num, '--comment', f'Auto-closed: Day {day} discovered on LinkedIn and ingested.'], check=True)
                     print(f"Auto-closed issue #{num} for Day {day}")
             except Exception as e:
                 print(f"Could not auto-close issue for Day {day}: {e}")
             break
+
+    if target_days and failed_searches == len(target_days):
+        raise RuntimeError('All Bing requests failed; post data unchanged.')
 
     if added > 0:
         posts.sort(key=lambda x: x['day'])
@@ -128,6 +130,11 @@ def main():
         print(f"Added {added} new posts to {json_path}")
     else:
         print("No new posts discovered.")
+        if target_days:
+            print("::warning::No posts imported. Bing may not have indexed the posts; add a LinkedIn URL or MANUAL: block to the daily issue and close it.")
+    if os.environ.get('GITHUB_STEP_SUMMARY'):
+        with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
+            summary.write(f'Bing import: {len(target_days)} missing days checked, {added} posts added, {failed_searches} search requests failed.\n')
 
 if __name__ == '__main__':
     main()

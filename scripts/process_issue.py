@@ -26,7 +26,7 @@ d = (date(2026, 10, 1) + timedelta(days=day - 1238)).isoformat()
 
 # 1. Parse GLITCH / SKIPPED / EASTER_EGG / COMMENT
 easter_egg = None
-if re.search(r'\b(?:GLITCH|SKIPPED|EASTER_EGG)\b', body, re.IGNORECASE):
+if re.search(r'^\s*(?:GLITCH|SKIPPED|EASTER_EGG)(?:\s*:\s*[^\r\n]*)?\s*$', body, re.IGNORECASE | re.MULTILINE):
     glitch_m = re.search(r'(?:GLITCH|SKIPPED|EASTER_EGG|COMMENT):\s*([^\r\n]+(?:\n[^\r\n]+)*)', body, re.IGNORECASE)
     raw_glitch = glitch_m.group(1).strip() if glitch_m else ""
     # Strip any next keyword sections
@@ -75,7 +75,8 @@ if not content and not easter_egg:
     say('No LinkedIn URL, no MANUAL: text, and no GLITCH declaration in the issue body. Edit the body and close again.', True)
 
 path = 'src/data/linkedin-posts.json'
-posts = json.load(open(path, encoding='utf-8'))
+with open(path, encoding='utf-8') as file:
+    posts = json.load(file)
 rec = next((p for p in posts if p.get('day') == day), None)
 if rec is None:
     rec = {'day': day}
@@ -86,11 +87,14 @@ if url:
     rec['url'] = url
 if easter_egg:
     rec['easterEgg'] = easter_egg
+else:
+    rec.pop('easterEgg', None)
 if milestone:
     rec['milestone'] = milestone
 
 posts.sort(key=lambda p: p['day'])
-json.dump(posts, open(path, 'w', encoding='utf-8'), indent=2, ensure_ascii=False)
+with open(path, 'w', encoding='utf-8') as file:
+    json.dump(posts, file, indent=2, ensure_ascii=False)
 
 # Build summary comment
 tags = []
