@@ -63,7 +63,23 @@ const structuredData = {
             '@type': 'Answer',
             text: 'Yes. Flight Sun Tracker runs client-side calculations in the browser. Once the route is computed, solar trajectory calculations and 3D globe visualizations operate offline without requiring continuous in-flight Wi-Fi.'
           }
-        }
+        },
+        {
+          '@type': 'Question',
+          name: 'How do I choose the shady side of the airplane?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'To avoid direct sunlight and cabin glare, choose seats on the side opposite the sun. For morning eastbound flights in the Northern Hemisphere, pick left-side (port) seats; for afternoon flights, choose right-side (starboard) seats.'
+          }
+        },
+        {
+          '@type': 'Question',
+          name: 'Can Flight Sun Tracker determine sunrise and sunset times mid-flight?',
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: 'Yes. By computing great-circle waypoints and querying SunCalc for solar elevation along the trajectory, Flight Sun Tracker pinpoints exact timestamps and locations for in-flight sunrise, golden hour, and sunset.'
+          }
+        },
       ]
     },
     {
@@ -79,8 +95,8 @@ const structuredData = {
 };
 ---
 <EditorialShell 
-  title="Flight Sun Tracker: Seat Solar Angle and Shade Tool | Shivam Mahajan" 
-  description="Flight Sun Tracker estimates sunlight and seat shade along great-circle flight routes using SunCalc aviation solar math. Avoid glare or view the golden hour."
+  title="Flight Sun Tracker — Aircraft Seat Sun & Shade Calculator"
+  description="Calculate sun position, glare and seat shade along any flight route. Interactive great-circle aviation solar calculator built by Shivam Mahajan."
   eyebrow="Move 006 / Aviation Math" 
   heading="Flight Sun Tracker" 
   intro="Estimate which side of a plane faces the sun using the route, departure date, time and flight duration. Compare shade and scenic sunlight preferences."
@@ -188,6 +204,14 @@ const structuredData = {
     <div class="faq-item">
       <h3>Does Flight Sun Tracker work without internet during a flight?</h3>
       <p>Yes. Flight Sun Tracker runs client-side calculations in the browser. Once the route is computed, solar trajectory calculations and 3D globe visualizations operate offline without requiring continuous in-flight Wi-Fi.</p>
+    </div>
+    <div class="faq-item">
+      <h3>How do I choose the shady side of the airplane?</h3>
+      <p>To avoid direct sunlight and cabin glare, choose seats on the side opposite the sun. For morning eastbound flights in the Northern Hemisphere, pick left-side (port) seats; for afternoon flights, choose right-side (starboard) seats.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can Flight Sun Tracker determine sunrise and sunset times mid-flight?</h3>
+      <p>Yes. By computing great-circle waypoints and querying SunCalc for solar elevation along the trajectory, Flight Sun Tracker pinpoints exact timestamps and locations for in-flight sunrise, golden hour, and sunset.</p>
     </div>
   </section>
 

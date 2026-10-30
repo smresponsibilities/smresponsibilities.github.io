@@ -6,6 +6,14 @@ import allPosts from '../../data/linkedin-posts.json';
 const posts = [...allPosts].sort((a, b) => b.day - a.day);
 const latest = posts[0];
 
+const initialHeatmapCount = 100;
+const heatmapPosts = posts.slice(0, initialHeatmapCount);
+const remainingHeatmapPosts = posts.slice(initialHeatmapCount).map(p => ({
+  day: p.day,
+  date: p.date,
+  easterEgg: p.easterEgg || null
+}));
+
 const groups = [];
 for (const p of posts) {
   const lower = Math.floor((p.day - 1) / 100) * 100 + 1;
@@ -203,20 +211,28 @@ const structuredData = {
 
   <section aria-labelledby="recent-days"><h2 id="recent-days">Recent days</h2><DaysTimeline variant={1} limit={10} /><p><a href="/blog/timeline/">Full timeline</a></p></section>
 
-      <section id="archive-section">
-    <h2>Complete History (Zoomed Out)</h2>
-    <p>Every single day of the streak.</p>
+  <section id="archive-section">
+    <h2>Streak History Heatmap</h2>
+    <p>Recent 100 days of the streak. <a href="/blog/timeline/">View full 1,250+ day streak on the Timeline →</a></p>
     
     <div class="heatmap-container">
-      <div class="heatmap">
-        {posts.map(post => (
+      <div class="heatmap" id="blog-heatmap">
+        {heatmapPosts.map(post => (
           <a href={`/blog/day-${post.day}/`} 
              class={`heat-box ${post.easterEgg ? "has-glitch" : ""}`} 
              title={`Day ${post.day}: ${post.date} ${post.easterEgg ? "(Glitch)" : ""}`}
              aria-label={`Day ${post.day}: ${post.date}`}></a>
         ))}
       </div>
+      {remainingHeatmapPosts.length > 0 && (
+        <div id="heatmap-load-more" style="margin-top: 1rem;">
+          <button type="button" id="btn-load-all-heatmap" class="filter-pill" style="cursor: pointer; padding: 6px 14px; font-size: 13px; font-family: inherit;">
+            Show all {posts.length} days ({remainingHeatmapPosts.length} older)
+          </button>
+        </div>
+      )}
     </div>
+    <script id="heatmap-remaining-data" type="application/json" set:html={JSON.stringify(remainingHeatmapPosts)}></script>
   </section>
 
   <section class="century-archives">
@@ -900,6 +916,30 @@ const structuredData = {
         pills[targetIndex].click();
       }
     });
+  });
+
+  const btnLoadHeatmap = document.getElementById('btn-load-all-heatmap');
+  btnLoadHeatmap?.addEventListener('click', () => {
+    const dataEl = document.getElementById('heatmap-remaining-data');
+    const container = document.getElementById('blog-heatmap');
+    const loadMoreContainer = document.getElementById('heatmap-load-more');
+    if (!dataEl || !container) return;
+    try {
+      const items = JSON.parse(dataEl.textContent || '[]');
+      const fragment = document.createDocumentFragment();
+      for (const item of items) {
+        const a = document.createElement('a');
+        a.href = `/blog/day-${item.day}/`;
+        a.className = `heat-box ${item.easterEgg ? 'has-glitch' : ''}`;
+        a.title = `Day ${item.day}: ${item.date} ${item.easterEgg ? '(Glitch)' : ''}`;
+        a.setAttribute('aria-label', `Day ${item.day}: ${item.date}`);
+        fragment.appendChild(a);
+      }
+      container.appendChild(fragment);
+      if (loadMoreContainer) loadMoreContainer.style.display = 'none';
+    } catch (e) {
+      console.error('Failed to load remaining heatmap items', e);
+    }
   });
 
   renderTags();
