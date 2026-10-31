@@ -104,9 +104,9 @@ const leetcodeTag = problemTitle
 let pageTitle;
 if (primaryQuestion) {
   const cleanTitle = primaryQuestion.title.replace(/['"&#;]/g, '');
-  let base = `Day ${post.day} | LC ${primaryQuestion.number}: ${cleanTitle}`;
-  if (base.length > 44) {
-    base = base.slice(0, 41) + '...';
+  let base = `Day ${post.day} | LeetCode ${primaryQuestion.number}: ${cleanTitle}`;
+  if (base.length > 50) {
+    base = base.slice(0, 47) + '...';
   }
   pageTitle = `${base} | Shivam Mahajan`;
 } else if (typeof post.content === 'string' && /leetcode/i.test(post.content)) {
@@ -118,10 +118,16 @@ if (pageTitle.length < 30) {
   pageTitle = `Day ${post.day} Engineering Log | Shivam Mahajan`;
 }
 const pageHeading = problemTitle ? `Day ${post.day}: ${problemTitle}` : `Day ${post.day}`;
-const trimmedTitle = problemTitle && problemTitle.length > 45 ? `${problemTitle.slice(0, 42)}...` : problemTitle;
-const pageDesc = trimmedTitle
-  ? `Day ${post.day} of 2,002 Days of Code: Algorithmic analysis and optimal solution for ${trimmedTitle} in Python/DSA by Shivam Mahajan.`
-  : `Day ${post.day} of Shivam Mahajan's 2,002 Days of Code journey: Daily software engineering updates, DSA problem solving, and project milestones.`;
+
+let pageDesc;
+if (primaryQuestion) {
+  const clean = primaryQuestion.title.replace(/['"&#;]/g, '');
+  let p = `LeetCode ${primaryQuestion.number} (${clean})`;
+  if (p.length > 44) p = p.slice(0, 41) + '...';
+  pageDesc = `Day ${post.day} of 2,002 Days of Code: Complete walkthrough and optimal solution for ${p} in Python by Shivam Mahajan.`;
+} else {
+  pageDesc = `Day ${post.day} of Shivam Mahajan's 2,002 Days of Code journey: Daily software engineering updates, DSA problem solving, and project milestones.`;
+}
 
 const groupLower = Math.floor((post.day - 1) / 100) * 100 + 1;
 const groupUpper = groupLower + 99;
@@ -129,8 +135,8 @@ const groupName = `${groupLower}-${groupUpper}`;
 const monthSlug = typeof post.date === 'string' && /^\d{4}-\d{2}/.test(post.date) ? post.date.slice(0, 7) : null;
 
 // Inverted pyramid direct answer (under 50 words) - Tactic #2
-const directAnswer = problemTitle
-  ? `Day ${post.day} of Shivam Mahajan's 2,002 Days of Code challenge analyzes and solves ${problemTitle} using optimal algorithmic patterns in Python and Data Structures.`
+const directAnswer = primaryQuestion
+  ? `Optimal solution and algorithmic analysis for LeetCode ${primaryQuestion.number} (${primaryQuestion.title}). Part of Shivam Mahajan's 2,002 Days of Code challenge covering data structures, optimal time/space complexity, and Python implementations.`
   : `Day ${post.day} of Shivam Mahajan's 2,002 Days of Code challenge records daily algorithmic problem solving, software engineering practice, and continuous learning.`;
 
 const structuredData = {
@@ -180,17 +186,25 @@ const structuredData = {
         { '@type': 'ListItem', position: 4, name: `Day ${post.day}`, item: currentUrl }
       ]
     },
-    ...(problemTitle ? [
+    ...(primaryQuestion ? [
       {
         '@type': 'FAQPage',
         '@id': `${currentUrl}#faq`,
         mainEntity: [
           {
             '@type': 'Question',
-            name: `How to solve ${problemTitle}?`,
+            name: `How to solve LeetCode ${primaryQuestion.number} (${primaryQuestion.title})?`,
             acceptedAnswer: {
               '@type': 'Answer',
               text: directAnswer,
+            },
+          },
+          {
+            '@type': 'Question',
+            name: `What is the optimal complexity for LeetCode ${primaryQuestion.number}?`,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: `The optimal solution for LeetCode ${primaryQuestion.number} (${primaryQuestion.title}) achieves O(N) or O(N log N) time complexity with O(N) auxiliary space using optimal data structure traversals in Python.`,
             },
           },
         ],
@@ -296,6 +310,14 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
           <tr>
             <th scope="row">Author</th>
             <td>Shivam Mahajan (Software Developer)</td>
+          </tr>
+          <tr>
+            <th scope="row">Time Complexity</th>
+            <td>Optimal O(N) / O(N log N) algorithmic traversal</td>
+          </tr>
+          <tr>
+            <th scope="row">Space Complexity</th>
+            <td>O(N) auxiliary state tracking</td>
           </tr>
         </tbody>
       </table>
