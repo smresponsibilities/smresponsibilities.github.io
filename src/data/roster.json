@@ -157,5 +157,21 @@
     "fact": "Always with u for eating icecream",
     "shiny": true,
     "issue": 46
+  },
+  {
+    "dexNo": 11,
+    "github": "Aastha-Bhatia",
+    "name": "Aastha-Bhatia",
+    "species": "Pikachu",
+    "types": [
+      "fairy",
+      "fire"
+    ],
+    "status": "RELEASED",
+    "company": null,
+    "entry": "This cute yellow Pokémon stores electricity in its red cheeks. It loves to take long naps and look for tasty snacks.",
+    "fact": "—",
+    "shiny": false,
+    "issue": 104
   }
 ]
