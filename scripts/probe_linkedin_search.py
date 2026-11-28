@@ -22,6 +22,9 @@ QUERIES = (
     ('author-day1293', 'site:linkedin.com/posts/mahajanshivam_ "#day1293"'),
     ('no-site-day1293', '+#day1293 "2002 days of code"'),
     ('wide-day1293', 'day1293 2002daysofcode linkedin'),
+    ('plain-day1293', 'site:linkedin.com/posts/mahajanshivam_ day1293'),
+    ('title-day1293', '"day1293" "Smallest Unique Subarray" LinkedIn'),
+    ('profile-only', 'mahajanshivam site:linkedin.com/posts/'),
 )
 
 
