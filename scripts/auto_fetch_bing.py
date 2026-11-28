@@ -65,6 +65,8 @@ def main():
 
     added = 0
     failed_searches = 0
+    candidate_links = 0
+    rejected_links = 0
     for day in target_days:
         if day in existing_days:
             continue
@@ -81,22 +83,31 @@ def main():
             continue
 
         links = extract_linkedin_urls(html)
+        candidate_links += len(links)
+        page_title = BeautifulSoup(html, 'html.parser').title
+        title_text = page_title.get_text(' ', strip=True)[:100] if page_title else '(no title)'
+        print(f"Bing Day {day}: {len(links)} LinkedIn candidates; HTML title: {title_text}")
         if not links:
-            print(f"No Bing results found for Day {day}.")
+            print(f"No usable LinkedIn result URLs found for Day {day}.")
             continue
 
+        rejects = {"wrong_profile": 0, "no_description": 0, "wrong_author": 0, "missing_day": 0}
         for post_url in links:
             post_path = urllib.parse.urlparse(post_url).path
             if post_path.startswith('/posts/') and not post_path.startswith('/posts/mahajanshivam_'):
+                rejects["wrong_profile"] += 1
                 continue
             content = fetch_post_content(post_url)
             if not content:
+                rejects["no_description"] += 1
                 continue
             if post_path.startswith('/feed/update/') and not re.search(r'\bShivam Mahajan\b', content, re.IGNORECASE):
+                rejects["wrong_author"] += 1
                 continue
 
             day_tag = f"#day{day}"
             if not re.search(rf'(?:^|\s){day_tag}\b', content, re.IGNORECASE):
+                rejects["missing_day"] += 1
                 continue
 
             post_date = (anchor_date + timedelta(days=day - anchor_day)).isoformat()
@@ -119,6 +130,9 @@ def main():
             except Exception as e:
                 print(f"Could not auto-close issue for Day {day}: {e}")
             break
+        if day not in existing_days:
+            rejected_links += sum(rejects.values())
+            print(f"Unverified Day {day}; candidate rejection reasons: {rejects}")
 
     if target_days and failed_searches == len(target_days):
         raise RuntimeError('All Bing requests failed; post data unchanged.')
@@ -134,7 +148,7 @@ def main():
             print("::warning::No posts imported. Bing may not have indexed the posts; add a LinkedIn URL or MANUAL: block to the daily issue and close it.")
     if os.environ.get('GITHUB_STEP_SUMMARY'):
         with open(os.environ['GITHUB_STEP_SUMMARY'], 'a', encoding='utf-8') as summary:
-            summary.write(f'Bing import: {len(target_days)} missing days checked, {added} posts added, {failed_searches} search requests failed.\n')
+            summary.write(f'Bing import: {len(target_days)} missing days checked, {added} posts added, {failed_searches} search requests failed, {candidate_links} candidate links, {rejected_links} rejected candidates.\n')
 
 if __name__ == '__main__':
     main()
