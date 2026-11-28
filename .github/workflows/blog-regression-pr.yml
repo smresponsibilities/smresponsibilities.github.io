@@ -31,6 +31,8 @@ jobs:
         run: |
           python scripts/test_process_issue.py
           python scripts/test_auto_fetch_bing.py
+      - name: Probe live Bing results without importing posts
+        run: python -u scripts/probe_linkedin_search.py
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
