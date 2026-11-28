@@ -1,0 +1,43 @@
+name: LinkedIn and blog regression checks
+
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/blog-regression-pr.yml'
+      - '.github/workflows/bing-cron.yml'
+      - '.github/workflows/linkedin-discovery.yml'
+      - 'src/data/linkedin-posts.json'
+      - 'src/pages/blog/**'
+      - 'src/utils/linkedin.mjs'
+      - 'scripts/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install beautifulsoup4 requests
+      - name: Python post-ingestion regressions
+        run: |
+          python scripts/test_process_issue.py
+          python scripts/test_auto_fetch_bing.py
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Node discovery and source integrity regressions
+        run: |
+          node scripts/test-discover-linkedin-posts.mjs
+          node scripts/test-linkedin-integrity.mjs
+      - name: Astro build and generated-page integrity audit
+        run: npm run build
