@@ -2,6 +2,7 @@
 import EditorialShell from '../../components/EditorialShell.astro';
 import DaysTimeline from '../../components/DaysTimeline.astro';
 import allPosts from '../../data/linkedin-posts.json';
+import { linkedInEmbedUrl } from '../../utils/linkedin.mjs';
 
 const posts = [...allPosts].sort((a, b) => b.day - a.day);
 const latest = posts[0];
@@ -27,8 +28,8 @@ for (const p of posts) {
   g.posts.push(p);
 }
 
-const postUrl = latest.url;
-const embedUrl = latest.url.replace('%3A', ':').replace('linkedin.com/feed/update', 'linkedin.com/embed/feed/update');
+const postUrl = typeof latest.url === 'string' && /^https:\/\//i.test(latest.url) ? latest.url : null;
+const embedUrl = linkedInEmbedUrl(postUrl);
 
 const pinnedDays = [1228, 1000, 500, 100, 1];
 const pinnedMilestones = pinnedDays.map(d => {
@@ -113,8 +114,21 @@ const structuredData = {
   structuredData={structuredData}
 >
   
-  <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day {latest.day}</span><h2 id="featured-post">LinkedIn post from {latest.date}</h2><p>Read the original post or choose an embedded view.</p>
-    <div class="actions"><a href={postUrl} target="_blank" rel="noopener noreferrer">Read original post ↗</a><button type="button" class="embed-button" data-view="compact" aria-controls="post-embed">Show compact embed</button><button type="button" class="embed-button" data-view="full" aria-controls="post-embed">Show full embed</button></div>
+  <section aria-labelledby="featured-post"><span class="eyebrow">Selected update / Day {latest.day}</span><h2 id="featured-post">LinkedIn post from {latest.date}</h2><p>Read the original post{embedUrl ? ' or choose an embedded view.' : '.'}</p>
+    <div class="actions">
+      {postUrl ? (
+        <a href={postUrl} target="_blank" rel="noopener noreferrer">Read original post ↗</a>
+      ) : (
+        <a href={`/blog/day-${latest.day}/`}>Read archived entry →</a>
+      )}
+      {embedUrl && (
+        <>
+          <button type="button" class="embed-button" data-view="compact" aria-controls="post-embed">Show compact embed</button>
+          <button type="button" class="embed-button" data-view="full" aria-controls="post-embed">Show full embed</button>
+        </>
+      )}
+    </div>
+    {!embedUrl && <p>The embedded view is unavailable for this post; use the archive or original link instead.</p>}
     <div id="post-embed" class="post-embed" aria-live="polite"></div>
   </section>
 
