@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - '.github/workflows/blog-regression-pr.yml'
+      - '.github/workflows/deploy.yml'
       - '.github/workflows/bing-cron.yml'
       - '.github/workflows/linkedin-discovery.yml'
       - 'src/data/linkedin-posts.json'
