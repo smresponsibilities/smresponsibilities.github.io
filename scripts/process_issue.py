@@ -77,8 +77,27 @@ if not content and not easter_egg:
 path = 'src/data/linkedin-posts.json'
 with open(path, encoding='utf-8') as file:
     posts = json.load(file)
-rec = next((p for p in posts if p.get('day') == day), None)
-if rec is None:
+day_matches = [p for p in posts if p.get('day') == day]
+url_match = next((p for p in posts if url and p.get('url') == url), None)
+
+# Never rewrite a different day's original post or silently replace one of
+# several legitimate entries sharing a day number.
+if url_match is not None and url_match.get('day') != day:
+    say(f'This LinkedIn URL already belongs to Day {url_match["day"]}; review before changing it.', True)
+if url_match is not None:
+    rec = url_match
+elif url:
+    # A different URL identifies a separate publication even on the same day.
+    # Keep all original entries rather than replacing the first matching day.
+    rec = next((p for p in day_matches if not p.get('url')), None)
+    if rec is None:
+        rec = {'day': day}
+        posts.append(rec)
+elif len(day_matches) > 1:
+    say(f'Day {day} has {len(day_matches)} posts. Add the exact LinkedIn URL to select an entry; no data was changed.', True)
+elif day_matches:
+    rec = day_matches[0]
+else:
     rec = {'day': day}
     posts.append(rec)
 
