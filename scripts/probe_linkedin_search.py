@@ -20,6 +20,8 @@ QUERIES = (
     ('quoted-day1291', '+#day1291 "2002 days of code" site:linkedin.com/posts/'),
     ('quoted-day1293', '+#day1293 "2002 days of code" site:linkedin.com/posts/'),
     ('author-day1293', 'site:linkedin.com/posts/mahajanshivam_ "#day1293"'),
+    ('no-site-day1293', '+#day1293 "2002 days of code"'),
+    ('wide-day1293', 'day1293 2002daysofcode linkedin'),
 )
 
 
@@ -54,7 +56,8 @@ def describe(label: str, query: str, rss: bool = False) -> None:
             ]
             print(
                 f'{label}: RSS_XML root={root.tag} items={len(items)} '
-                f'linkedin_links={len(rss_links)} sample={rss_links[:2]}',
+                f'linkedin_links={len(rss_links)} '
+                f'samples={[(item.findtext("title", "")[:80], item.findtext("link", "")[:180]) for item in items[:4]]}',
                 flush=True,
             )
         except ET.ParseError:
@@ -62,12 +65,16 @@ def describe(label: str, query: str, rss: bool = False) -> None:
         return
 
     match = re.search(r'(?i)(captcha|unusual traffic|verify you are human|enable javascript|access denied)', body)
+    organic_examples = [
+        (anchor.get_text(' ', strip=True)[:75], (anchor.get('href') or '')[:180])
+        for anchor in soup.select('li.b_algo h2 a')[:4]
+    ]
     print(
         f'{label}: bytes={len(body)} title={title!r} '
         f'organic_cards={len(soup.select("li.b_algo"))} '
         f'decoded_linkedin_urls={len(links)} author_links={len(our_links)} '
         f'challenge_hint={match.group(0) if match else "none"} '
-        f'author_url_samples={our_links[:2]}',
+        f'author_url_samples={our_links[:2]} organic_samples={organic_examples}',
         flush=True,
     )
 
