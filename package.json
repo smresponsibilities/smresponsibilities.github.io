@@ -11,7 +11,7 @@
     "update-stats": "node scripts/fetch-dsa-stats.mjs",
     "dev": "astro dev",
     "build": "astro build",
-    "postbuild": "node scripts/audit-seo.mjs && node --test tests/ahrefs-audit.test.mjs",
+    "postbuild": "node scripts/audit-seo.mjs && node --test tests/ahrefs-audit.test.mjs && node scripts/test-blog-output.mjs",
     "audit:seo": "node scripts/audit-seo.mjs",
     "indexnow": "node scripts/submit-indexnow.mjs",
     "test": "node --test tests/ahrefs-audit.test.mjs",
