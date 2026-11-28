@@ -22,6 +22,12 @@ export async function getStaticPaths() {
     topic: getTopic(String(p.content || ''))
   }));
 
+  // A day is a URL, not an identity: retain the last archived entry at the
+  // existing /blog/day-N/ permalink, and show any other same-day posts there.
+  const canonicalByDay = new Map<number, typeof postsWithTopics[0]>();
+  for (const entry of postsWithTopics) canonicalByDay.set(entry.day, entry);
+  const uniquePosts = [...canonicalByDay.values()].sort((a, b) => a.day - b.day);
+
   const postsByTopic = new Map<string, typeof postsWithTopics>();
   for (const p of postsWithTopics) {
     if (!postsByTopic.has(p.topic)) postsByTopic.set(p.topic, []);
@@ -39,9 +45,10 @@ export async function getStaticPaths() {
       milestone: p.milestone || `Day ${p.day} Milestone`
     }));
 
-  return postsWithTopics.map((post, idx) => {
-    const prevPost = idx > 0 ? { day: allPosts[idx - 1].day, date: allPosts[idx - 1].date } : null;
-    const nextPost = idx < allPosts.length - 1 ? { day: allPosts[idx + 1].day, date: allPosts[idx + 1].date } : null;
+  return uniquePosts.map((post, idx) => {
+    const prevPost = idx > 0 ? { day: uniquePosts[idx - 1].day, date: uniquePosts[idx - 1].date } : null;
+    const nextPost = idx < uniquePosts.length - 1 ? { day: uniquePosts[idx + 1].day, date: uniquePosts[idx + 1].date } : null;
+    const otherPosts = postsWithTopics.filter(entry => entry.day === post.day && entry !== post);
 
     const sameTopic = postsByTopic.get(post.topic) || [];
     const postTopicIdx = sameTopic.findIndex(p => p.day === post.day);
@@ -81,6 +88,7 @@ export async function getStaticPaths() {
       params: { day: `day-${post.day}` },
       props: {
         post,
+        otherPosts,
         prevPost,
         nextPost,
         relatedPosts: formattedRelated,
@@ -91,7 +99,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { post, prevPost, nextPost, relatedPosts, pinnedMilestones, currentTopic } = Astro.props;
+const { post, otherPosts, prevPost, nextPost, relatedPosts, pinnedMilestones, currentTopic } = Astro.props;
 const currentUrl = new URL(Astro.url.pathname, Astro.site ?? 'https://shivammahajan.com').href;
 
 // Extract LeetCode problem if present in post content
@@ -227,7 +235,7 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
   structuredData={structuredData}
   words={articleWords}
 >
-  <a slot="actions" href={post.url} target="_blank" rel="noopener noreferrer">Read LinkedIn post ↗</a>
+  {post.url && <a slot="actions" href={post.url} target="_blank" rel="noopener noreferrer">Read LinkedIn post ↗</a>}
   <a slot="actions" href="/blog/timeline/">View Timeline ↗</a>
 
   <!-- Top-of-page Breadcrumbs (Tactic #88 & Tactic #98) -->
@@ -282,6 +290,22 @@ const articleWords = (typeof post.content === 'string' ? post.content.trim().spl
       </p>
     )}
   </section>
+
+  {otherPosts.length > 0 && (
+    <section aria-labelledby="same-day-heading">
+      <h2 id="same-day-heading">Other posts from Day {post.day}</h2>
+      <p>This day has {otherPosts.length + 1} distinct archived entries. Each is preserved below.</p>
+      {otherPosts.map(other => (
+        <article class="same-day-entry">
+          <time datetime={other.date}>{other.date}</time>
+          <p>{other.content}</p>
+          {other.url && (
+            <p><a href={other.url} target="_blank" rel="noopener noreferrer">Read this post on LinkedIn ↗</a></p>
+          )}
+        </article>
+      ))}
+    </section>
+  )}
 
   {problemTitle && (
     <section class="problem-faq-section" aria-labelledby="problem-breakdown-heading">
