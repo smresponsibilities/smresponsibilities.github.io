@@ -8,7 +8,7 @@ How the automated daily issues, Bing discovery, and manual post ingestion work.
 
 - **Schedule**: Daily at `18:30 UTC` (`00:00 IST` midnight).
 - **Behavior**:
-  1. Calculates day number based on anchor date (`Day 1237` on `2026-10-01`).
+  1. Calculates the day number using the current automation anchor (`Day 1238` on `2026-10-01`). Historical numbering contains corrections, so do not recompute dates for existing records.
   2. Checks if an issue for that day already exists.
   3. If not, auto-creates an issue with:
      - Title: `Day <N>` (e.g., `Day 1245`)
@@ -79,5 +79,16 @@ Closing the issue triggers the ingestion pipeline:
 
 ## 5. Background Discovery & Auto-Closing
 
-- **`bing-cron.yml`**: Runs daily at `12:00 UTC`. Uses `scripts/auto_fetch_bing.py` with `scrapling` to scan Bing for unindexed posts between latest day and current day. Decodes Bing `/ck/a?!...&u=a1<base64>` redirects. When a post is found, it automatically closes the corresponding open issue with an auto-closed note!
-- **`linkedin-discovery.yml`**: Runs daily at `03:17 UTC`. Uses `scripts/discover-linkedin-posts.mjs` to backfill missing posts in a 30–60 day discovery window.
+- **`bing-cron.yml`**: Runs daily at `12:00 UTC`. Uses `scripts/auto_fetch_bing.py` with `urllib` and Beautiful Soup to search for missing day numbers within the most recent 60 days. It logs how many result links were decoded and why candidates were rejected. Decodes Bing `/ck/a?!...&u=a1<base64>` redirects. When a post is found, it automatically closes the corresponding open issue with an auto-closed note!
+- **`linkedin-discovery.yml`**: Runs daily at `03:17 UTC`. Uses `scripts/discover-linkedin-posts.mjs` to search for missing posts in the preceding 60 days, including the current calculated day. It accepts only post permalinks from the expected author and content containing the matching day and challenge hashtag. The importer preserves all existing entries, even when multiple posts share a day number.
+
+---
+
+## 6. Data integrity and review checklist
+
+- **No search hit does not imply no post.** Both background discovery jobs log candidates and leave missing days unresolved when they cannot verify a source.
+- **No unauthorized rewrite of historical posts.** Duplicate day numbers are valid. The issue processor matches an existing source URL first, adds a distinct new URL without overwriting a different post, and rejects ambiguous manual edits.
+- **Stable permalinks.** `/blog/day-N/` remains the canonical day URL. When multiple posts share a day, the page displays all original entries and LinkedIn source links instead of generating duplicate static paths.
+- **URL-less updates are valid.** `MANUAL:` and `GLITCH:` records can render without inventing an original LinkedIn URL. The blog only offers an embed when the URL can be verified as an embeddable LinkedIn permalink.
+- **Not a full LinkedIn backup.** The discovery workflows only ingest verifiable Days-of-Code posts found through Bing. They do not synchronize arbitrary posts, private posts, comments, edits, impressions or media attachments.
+- **Before merging any ingestion changes:** run `python scripts/test_process_issue.py`, `python scripts/test_auto_fetch_bing.py`, `node scripts/test-discover-linkedin-posts.mjs`, `node scripts/test-linkedin-integrity.mjs`, and `npm run build`. The build runs `scripts/test-blog-output.mjs` to catch duplicate pages and broken links. Pull requests run these checks without deploying GitHub Pages.
