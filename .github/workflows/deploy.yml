@@ -29,7 +29,10 @@ jobs:
           python scripts/test_auto_fetch_bing.py
       - uses: actions/setup-node@v5
         with: { node-version: '22' }
-      - run: node scripts/test-discover-linkedin-posts.mjs
+      - name: Check LinkedIn discovery and integrity regressions
+        run: |
+          node scripts/test-discover-linkedin-posts.mjs
+          node scripts/test-linkedin-integrity.mjs
       - uses: withastro/action@v4
 
   deploy:
